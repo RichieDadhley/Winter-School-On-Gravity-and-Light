@@ -1,0 +1,318 @@
+\chapter{Cosmology: The Early Epoch}
+
+Cosmology is the study of the spacetime of the entire universe. As we have seen, Einstein's equations are highly non-linear and so are hard to solve.\footnote{Indeed no one has been able to write down a \textit{general} solution.} Nevertheless, they do allow us to ask the scientific question of biggest possible scope: "How did the universe evolve?"
+
+Now it seems like an incredibly bold task to try and solve Einstein's equations for the entire universe, when we have just said they are already very difficult to solve on much smaller scales with restrictive conditions. In fact, solving Einstein's equations for the entire universe can be thought of as the `most difficult' problem because our energy-momentum tensor must include \textit{all} the matter in the universe! 
+
+In order to solve the problem we are going to insert some ideas and then use these recklessly, by which we mean that it is not a priori clear whether this is a valid procedure. We will continue to comment on this as we go along. 
+
+\br 
+    As mentioned in \Cref{rem:SigChange}, we shall now use the signature to $(-,+,+,+)$ so that when we restrict ourselves to the spatial part of the universe (which we will do next) we don't have to carry minus signs around. 
+\er
+
+\section{Assumption of Spatial Homogeneity \& Isotropy at Large Scale}
+
+The idea is to assume that if we were to `zoom out' far enough and look at the universe on the large scale, the small scale `untidiness' would disappear and we would obtain a homogeneous (same at all places) and isotropic (same in all directions) picture. 
+
+\br 
+    Note we have said \textit{spatial} homogeneity and isotropy. It would be a bit much to assume that the universe is also homogeneous and isotropic in time. However, relativity is based around the idea that space and time are essentially indistinguishable (in the sense that they are two parts of the same thing) and so we need to clarify what we mean by spatial and temporal. We shall return to this. 
+\er 
+
+These assumptions allow us to make a symmetric ansatz for the metric of the universe spacetime, and in doing so we massively simplify Einstein's equations. It is important to note however that doing this is very reckless. We are not guaranteed that making such an ansatz a priori will give us the same solution we would obtain from first solving the problem and \textit{then} imposing the ansatz. However, this is the method used in mainstream cosmology and so we will adopt it here. 
+
+\br 
+    Note just because an idea is adopted by mainstream research, it need not be true. This is just a remark to highlight the point that when doing research it is not always a bad idea to disagree with mainstream ideas (provided you have evidence to support your claims). 
+\er 
+
+Recalling the discussion at the end of lecture 11, we can formulate the above symmetry assumptions more precisely. We say that our spacetime admits 6 spatial\footnote{That is $g(K,K)>0$ in our updated signature.} Killing vector fields, which we denote $J_1,J_2,J_3, P_1,P_2$ and $P_3$. The $J_a$s correspond to the rotational symmetries (i.e. the isotropy condition) and the $P_a$s correspond to the translation symmetries (i.e. the homogeneity condition). They satisfy the following relations 
+\bse 
+    [J_a,J_b] = \sum_{c=1}^3 \epsilon_{abc}J_c, \qquad [P_a,P_b] = 0, \qand [J_a,P_b] = \sum_{c=1}^3\epsilon_{abc}J_c.
+\ese 
+
+\br 
+    Note this is a condition on the whole spacetime, not just on some kind of spatial slice (whatever that would mean). It is only by providing these 6 Killing vector fields that we can work out what we meant by `spatial' homogeneity and isotropy above. That is we look at the `planes' spanned by these 6 Killing vector fields and identify them as spatial planes and the vector fields orthogonal to them as the temporal flow. 
+    
+    It is important to be careful with taking this idea too far. We know that moving observes have `tilted time-axis' relative to each other, and so we could be lead to think that their spatial planes, and therefore the Killing vectors, also tilt. Clearly this is unphysical (a symmetry of a metric is independent of an observer noticing it) and so cannot be the case. 
+\er 
+
+Fortunately, for 6 ($\R$-linearly independent) Killing vector fields there is a short cut\footnote{Relative to having to introduce a coordinate chart and work it out from that.} to understand how a metric with such symmetries looks like. 
+
+\bl 
+    On a $d$-dimensional manifold the maximal number of $\R$-linearly independent Killing vector fields is $d(d+1)/2$, which is equal to the number of independent component functions of a metric in $d$-dimensions.
+\el 
+
+\bq 
+    (By example)\footnote{A complete proof is not too much different and can be found in Weinberg's \textit{Gravitation and Cosmology: Principles and Applications of the General Theory of Relativity}, in Part 4, Chapter 13, Section 1.} Recall the Killing vector condition can be expressed as 
+    \bse 
+        g\big(\nabla_XK,Y\big) + g\big(X,\nabla_YK\big) = 0.
+    \ese 
+    If we pick a chart where we simply have $X = \p_a$ and $Y = \p_b$ (that is they point along one of the basis directions each) then this condition becomes\footnote{Try showing this as an additional exercise.} 
+    \bse 
+        K_{b;a} + K_{a;b} = 0.
+    \ese 
+    Now recall that the definition of the Riemann tensor (in the absence of Torsion) can be written as 
+    \bse 
+        {\Riem^d}_{cab}K_d = \nabla_b\nabla_aK_c - \nabla_a\nabla_bK_c =: K_{c;a;b} - K_{c;b;a}.
+    \ese 
+    Putting this into the Bianchi identity 
+    \bse 
+        {\Riem^d}_{[abc]} = 0 
+    \ese 
+    gives us 
+    \bse 
+        (K_{a;b}-K_{b;a})_{;c} + (K_{b;c}-K_{c;b})_{;a} + (K_{c;a}-K_{a;c})_{;b} = 0,
+    \ese 
+    which using the charted Killing condition gives us 
+    \bse 
+        K_{a;b;c} = K_{c;b;a} - K_{c;a;b} = - {R^d}_{cab}K_d.
+    \ese
+    Now comes the `by example' part. Consider a $d$-dimensional flat space, then the Riemann tensor components all vanish and we can pick a chart such that the $\Gamma$s vanish, and so the covariant derivative simply becomes the partial derivative. We therefore have
+    \bse 
+        K_{a,b,c} = 0, \qquad \iff \qquad K_a = \beta_{ab}x^b + \a_a,
+    \ese
+    for constants $\beta_{ab}$ and $\a_a$. 
+    
+    We now just need to impose the linearly independent condition. Antisymmetry tells us that $\beta_{ab}=-\beta_{ba}$ and so there are $d(d-1)/2$ independent $\beta_{ab}$ components and clearly there are $d$ independent $\a_a$ components. Adding these together gives 
+    \bse 
+        \frac{d(d-1)}{2} + d = \frac{d(d+1)}{2}. 
+    \ese 
+\eq 
+
+A space with the maximal number of Killing vector fields is called a maximal space and the metric is said to be maximally symmetric.
+
+From the above lemma (and the fact that $3(3+1)/2=6$) we see that the spacial metric induced from the spacetime metric on the spatial slices spanned by the Killing vector fields is the metric of a maximally symmetric 3-space.
+
+\bd[Sectional Curvature] 
+    Given a Riemannian manifold $(\cM,\cO,\cA,g)$ and two linearly independent tangent vectors to the same point $X,Y\in T_p\cM$, we can define the \textbf{sectional curvature} as 
+    \bse 
+        \kappa(X,Y) := \frac{g\Big(\Riem(\cdot,Y,X,Y), X\Big)}{g(X,X)g(Y,Y)-\big[g(X,Y)\big]^2},
+    \ese 
+    where $\Riem(\cdot,Y,X,Y) = \nabla_X\nabla_YY-\nabla_Y\nabla_XY \in T_p\cM$.
+\ed 
+
+The sectional curvature can be seen geometrically as the product of the curvatures at a point. For example, both the curvature directions a sphere `go inwards' and so they have the same sign and therefore $\kappa>0$. Alternatively, the throat of a wormhole has $\kappa<0$. 
+
+\br 
+    Note that the sectional curvature actually only depends on the 2-plane $\sig_p \ss T_p\cM$ spanned by $X$ and $Y$. For a $d>2$ dimensional spaces, the different 2-planes tell us about the product of the different curvatures.
+\er 
+
+\bd[Constant (Sectional) Curvature]
+    A space is said to have \textbf{constant (sectional) curvature} if $\kappa$ takes the same value at every point on $\cM$ and every 2-plane. 
+\ed 
+
+\bp 
+    Riemannian manifolds with constant curvature can be of one of three geometries:
+    \benr
+        \item flat $\kappa=0$, 
+        \item spherical $\kappa>0$, or 
+        \item hyperbolic $\kappa<0$.
+    \een 
+    Such spaces are called \textbf{space forms}.
+\ep 
+
+For a spacetime with constant curvature we have
+\bse 
+    \Riem_{\a\beta\rho\del} = \kappa \big( \gamma_{\a\rho}\gamma_{\beta\del} - \gamma_{\a\del}\gamma_{\beta\rho}\big),
+\ese 
+where $\gamma_{\a\beta}$ is the spatial metric which can be written in a certain chart as 
+\bse 
+    \gamma_{\a\beta}(r,\theta,\varphi) = \begin{pmatrix}
+    \frac{1}{1-kr^2} & 0 & 0 \\
+    0 & r^2 & 0 \\
+    0 & 0 & r^2\sin^2\theta
+    \end{pmatrix}_{\a\beta}. 
+\ese 
+The spacetime metric then has the form 
+\bse 
+    g_{ab}(t,r,\theta,\varphi) = \begin{pmatrix} 
+    -1 & 0 & 0 & 0 \\
+    0 & \frac{a^2(t)}{1-kr^2} & 0 & 0 \\
+    0 & 0 & a^2(t)r^2 & 0 \\
+    0 & 0 & 0 & a^2(t)r^2\sin^2\theta
+    \end{pmatrix}_{ab},
+\ese
+where $a:\R\to\R$ is called the \textbf{scale factor}, which is all the freedom left after the symmetry reduction. Geometrically, $a(t)$ tells us how the different spatial slices are related. That is if we had a spherical spacial space and $a(t)=t$ then the spatial spaces would be a set of spheres of increasing radius.
+
+\bl 
+    We can redefine $a(t)$ such that our condition for the geometries of constant curvature becomes $\kappa=0,\pm 1$. 
+\el 
+
+\br 
+    Note that, provided $a(t)$ is not constant, the time vector field (i.e. the one orthogonal to all the Killing vector fields) is not Killing. That is, in our chart
+    \bse 
+        \cL_{\frac{\p}{\p t}}g \neq 0.
+    \ese
+    This is the statement that the universe need not be stationary. 
+\er 
+
+\section{Einstein Equations}
+
+\subsection{Ricci Tensor}
+
+Let's find the $\Gamma$s for our spacetime metric above. We have 
+\bse 
+    \begin{split}
+        {\Gamma^t}_{\a\beta} & = \frac{1}{2}g^{t\sig} \big(g_{\a\sig,\beta} + g_{\beta\sig,\a} - g_{\a\beta,\sig}\big) \\
+        & = -\frac{1}{2} \p_t\big\la a^2(t) \gamma_{\a\beta}(r,\theta,\varphi)\big\ra \\
+        & = a\dot{a} \gamma_{\a\beta},
+    \end{split}
+\ese 
+where we have used the fact that $g_{ab}$ is diagonal so only we must take $\sig=t$. Similarly we have 
+\bse 
+    {\Gamma^{\a}}_{t\beta} = \frac{\dot{a}}{a}\del^{\a}_{\beta}.
+\ese 
+We also have that the all spatial $\Gamma$s (i.e. the ones of the form ${\Gamma^{\a}}_{\beta\rho}$) only depend on the 3-metric $\gamma$. 
+
+\bbox 
+    Show that all the unrelated (i.e. cannot be obtained via symmetry of indices) $\Gamma$s to the above all vanish. 
+    
+    \textit{This is a rather tedious one, but it's worth doing for practice.}
+\ebox  
+
+We can use these above results to show that the components of the Ricci tensor are 
+\bse 
+    \Ric_{tt} = -3 \frac{\ddot{a}}{a}, \qand \Ric_{\a\beta} = \big(a\ddot{a} + 2\dot{a}^2 + 2\kappa\big)\gamma_{\a\beta}.
+\ese
+
+\bbox 
+    Show the above Ricci tensor results. 
+\ebox  
+
+\subsection{Matter}
+
+So far we have only used the symmetry conditions to talk about the geometry, and not the actual matter distribution itself. We can now use our symmetry conditions for exactly this, and in doing so obtain the right-hand side of the Einstein equations. That is, we want to find out what kind of matter distributions are allowed such that the symmetry conditions are obeyed.
+
+The trick is to again `zoom out' and only look at the matter at a very large scale. We model the matter in the universe via the following energy-momentum tensor
+\bse 
+    T^{ab} = (\rho+p)u^au^b + p g^{ab},
+\ese 
+where $u^a = (1,0,0,0)^a$ in our coordinates. Such a model is known as a \textbf{perfect fluid} of \textbf{density} $\rho$ and \textbf{pressure} $p$.
+
+Pictorially this is seen as the idea of the worldlines of large scale structures (e.g. galactic clusters) flowing along some temporal direction, given by $u$. 
+
+\begin{center}
+    \btik[scale=0.8]
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.85 with {\arrow{>}}}, postaction={decorate}] (4,-4) -- (4,2);
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.85 with {\arrow{>}}}, postaction={decorate}] (3,-4) .. controls (3.3,-1) .. (3,2);
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.85 with {\arrow{>}}}, postaction={decorate}] (2,-4) .. controls (2.5,-1) .. (2,2);
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.85 with {\arrow{>}}}, postaction={decorate}] (5,-4) .. controls (4.7,-1) .. (5,2);
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.85 with {\arrow{>}}}, postaction={decorate}] (6,-4) .. controls (5.5,-1) .. (6,2);
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5, yshift=-1.5cm, xshift=0.5cm, fill = gray!40, opacity = 0.8] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5, yshift=-1.5cm, xshift=0.5cm] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \begin{scope}
+            \clip (1,-0.5) -- (7.5,-1.8) -- (7.5,1) -- (1,1) -- (1,-0.5);
+            \draw[ultra thick, blue] (4,-4) -- (4,2);
+            \draw[ultra thick, blue] (3,-4) .. controls (3.3,-1) .. (3,2);
+            \draw[ultra thick, blue] (2,-4) .. controls (2.5,-1) .. (2,2);
+            \draw[ultra thick, blue] (5,-4) .. controls (4.7,-1) .. (5,2);
+            \draw[ultra thick, blue] (6,-4) .. controls (5.5,-1) .. (6,2);
+        \end{scope}
+        \draw[blue, fill=blue] (4,-1.1) circle [radius=0.06cm];
+        \draw[blue, fill=blue] (3.23,-0.9) circle [radius=0.06cm];
+        \draw[blue, fill=blue] (2.37,-0.75) circle [radius=0.06cm];
+        \draw[blue, fill=blue] (4.77,-1.2) circle [radius=0.06cm];
+        \draw[blue, fill=blue] (5.63,-1.375) circle [radius=0.06cm];
+        \node at (6.3,2) {\Large{\textcolor{blue}{$u$}}};
+    \etik  
+\end{center}
+
+\br 
+    Note that the pressure and density can be functions of $t$, but they cannot be functions of $(r,\theta,\varphi)$. This is the statement that they can vary through time, but if we want homogeneity and isotropy, they cannot vary through space. 
+\er 
+
+\bter
+    The vector field $u$ is often called the \textbf{cosmic time}, as it represents how the cosmos flows through time. 
+\eter  
+
+\subsection{Reduction of Einstein Equations}
+
+Recall that we can write the Einstein equations as 
+\bse 
+    \Ric_{ab} = 8\pi G_N \bigg( T_{ab} -\frac{1}{2}Tg_{ab}\bigg).
+\ese 
+Inserting our ansatz for $g_{ab}$ and $T_{ab}$ we can show
+\bse 
+    \begin{split}
+        \ddot{a} & = - \frac{4\pi G_N}{3} (\rho + 3p) a \qquad \qquad  \text{(Acceleration Equation)} \\
+        \bigg(\frac{\dot{a}}{a}\bigg)^2 & = \frac{8\pi G_N}{3}\rho - \frac{\kappa}{a^2} \qquad \qquad \qquad  \text{(Friedmann Equation)}
+    \end{split}
+\ese 
+
+\bd[Hubble Function]
+    We define the \textbf{Hubble function}\footnote{It is often called the Hubble constant, but it need not be a constant and so we call it the Hubble function.} to be 
+    \bse 
+        H := \frac{\dot{a}}{a}.
+    \ese 
+\ed 
+
+
+\bbox 
+    Derive the Acceleration and Friedmann equations, and show that if we include a cosmological constant that the right-hand side of both equations gets a $+ \frac{\Lambda}{3}$. 
+    
+    \textit{Hint: For the second part, recall that including the cosmological constant into the Einstein-Hilbert action we get a contribution of $\Lambda$ to  Einstein's equations. That is we have} 
+    \bse 
+        \Ric_{ab} -\frac{1}{2}Rg_{ab} +\Lambda g_{ab} = 8\pi G_N T_{ab}
+    \ese
+    \textit{Start from here and do the contraction to obtain an expression for $\Ric_{ab} = ...$ and then use the above results.}
+\ebox  
+
+\section{Models of Perfect Fluid Matter}
+
+The upshot so far is that for our universe (with the symmetric assumptions) we have two equations for three unknowns, namely $\rho, p$ and $a$. This is obviously a problem.
+
+What do we do? Well if we could someone obtain another equation relating at least two of these unknowns we would stand a better chance. The two that seem most physical to relate are the density and pressure, and so we want to ask the question "can we obtain a relation between $\rho$ and $p$ from more detailed knowledge of what the nature of our perfect fluid is?" 
+
+\bd[Equation of State]
+    A relation between the momentum and density $p = \cP(\rho)$ is called an \textbf{equation of state} for the perfect fluid.
+\ed 
+
+One often looks for a linear relationship, i.e. $p = \omega \cdot \rho$ for some constant $\omega\in\R$. 
+
+So what could the fluid be? For now we shall just consider a Universe with only one type of matter in it (next lecture we shall consider multiple kinds). The four main types are:
+
+\benr 
+    \item A fluid made up of photons.\footnote{We use the word `photon' here in a rather loose sense. We are discussing classical physics and so photons should not be spoken of.} This must obviously satisfy Maxwell theory, which tells us that the energy-momentum tensor must be trace free
+    \bse 
+        T^{ab}g_{ab} = 0.
+    \ese 
+    We therefore have the condition that\footnote{If you have done the previous exercise, this result should be easy to see.}
+    \bse 
+        p = \frac{1}{3}\rho,
+    \ese 
+    which tells us that $\omega=1/3$ for the \textit{radiation} fluid. This also turns out to be a good approximation for ultra-relativistic massive particles.
+    \item Another type of fluid is so-called \textit{dust}. It simply represents a collection of particles which do not interact, and therefore cannot exert a pressure. We conclude, then that $\omega=0$ for dust. 
+    \item The case of $\omega=-1$ corresponds to the equation of motion for the \textit{cosmological constant}. It corresponds to fluid that has everywhere negative pressure. 
+    \item The case for $\omega=-1/3$ captures the spatial curvature in an equation of state. 
+\een 
+
+\br 
+    For (iii) and (iv) above, what we mean is that we can mimic the behaviour of these quantities by introducing matter into the universe with the respective values of $\omega$. 
+\er 
+
+\section{Solutions}
+
+Given the acceleration equation, the Friedmann equation and an equation of state for a given matter type, we can solve the system. In the tutorials we will show that the following hold. For $\kappa=0=\Lambda$:
+\benr 
+    \item $H^2 \sim \rho \sim a^{-n(\omega)}$, where $n(\omega) = 3(1+\omega)$
+    \item concretely, 
+    \bse 
+        a(t) = a_0 \cdot \begin{cases}
+        t^{2/n(\omega)} & \text{if } \omega\neq -1, \\
+        e^{Ht} & \text{if } \omega=-1.
+        \end{cases}
+    \ese 
+\een
+
+\br 
+    Note the $\omega=-1$ case for $a(t)$ tells us that $H$ must be constant here, as $H = \dot{a}/a = \dot{H}t + H$, and so $\dot{H}=0$.
+\er 
+
+The $\omega\neq-1$ condition gives us a very important result: 
+\bse 
+    \rho(t) \sim t^{-2}
+\ese 
+for \textit{all} matter types with $\omega\neq-1$. This is an important result because we see as $t\to 0$, $\rho$ diverges. That is the density tends to infinity at the start of cosmic time.
+
+Now this might just seem like an artefact of our coordinate choice, but we know that the density appears in Einstein's equations and so if $\rho$ diverges, the Ricci curvature must also diverge. But the Ricci curvature is a tensor and so if it diverges in one chart it must diverge in all charts, and so we get an infinite curvature of our spacetime at this point. Clearly we can't have this physically and so we must remove this point from our spacetime. Another way to see this last point is that at $t=0$, $a=0$ and so the spacetime metric becomes non-inevitable. We clearly cannot have this and so we must exclude this point. So in other words there is no meaning to the question "what happened before $t=0$?"
+
+Putting all this together we see that what we have just described is the big bang! This is another reason why $t$ is called the cosmic time, it tells us the age of the cosmos. This result clearly depends explicitly on all of the assumptions we have made so far, namely the perfect symmetry of our universe and the fact that our equations of state are linear. One would be very justified in asking "does this behaviour disappear if we do not make such conditions?" Indeed this is what Hawking, Penrose and others sought to study. 

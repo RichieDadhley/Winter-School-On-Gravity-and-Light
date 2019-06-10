@@ -1,0 +1,195 @@
+\chapter{Perturbation Theory II}
+
+It is a fact that any small, but otherwise arbitrary, transformation of coordinates is given by choice of vector field $\xi$, whose component functions w.r.t. the original chart, $\xi^m_{(x)}$, are small. Then the change incurred by the metric components under such a small, but otherwise arbitrary, transformation is given by\footnote{The $\Delta_{\xi}$ here is not the Laplacian, but simply denotes the change under $\xi$.} 
+\bse 
+    \Delta_{\xi}g_{ab} = \big(\cL_{\xi}g\big)_{ab},
+\ese 
+where $\cL$ is the Lie derivative. In other words, if the $\del g_{ab}$ takes this form it is a `fake' perturbation, as described at the end of last lecture. But of course we write 
+\bse 
+    g_{ab} + \del g_{ab},
+\ese 
+and so we must study how $\del g_{ab}$ itself changes if we choose a small, arbitrary $\xi$. If it is a fake perturbation then we know the change in the metric components is of the above form, but $\del g_{ab}$ is the change in the metric, and so taking a further change $\xi$ will simply give us 
+\bse 
+    \big(\Delta_{\xi} \del g\big)_{ab} = \big(\cL_{\xi}g\big)_{ab},
+\ese 
+where we note that there is no $\del$ on the right-hand side. The aim is to find which components are fake and then work out which, if any, combinations of components cancel on the right-hand side giving us a real perturbation. 
+
+\section{Calculate $\Delta_{\xi}a$, $\Delta_{\xi}c$,  $\Delta_{\xi}b_{\a}$ \& $\Delta_{\xi}e_{\a\beta}$}
+
+Even though we did the decomposition in the last lecture to the capital letters ($A,B_{\a}$, etc.), it is actually cleverer to work out the change of the lower case letters first.
+
+Our chart is $(U,x)$ where $g = dx^0\otimes dx^0 - \gamma_{\a\beta}dx^{\a}\otimes dx^{\beta}$. We can decompose the vector field $\xi$ in this chart as
+\bse 
+    \xi = T\p_0 +L^{\beta}\p_{\beta},
+\ese 
+where $T$ and $L^{\mu}$ are scalar fields that can depend on all the chart coordinates, including $x^0$. We then calculate the change of $\del g_{ab}$ incurred by $\xi$ by considering $T$ and $L^{\mu}$. We have 
+\bse 
+    \begin{split}
+        \big(\Delta_{\xi}\del g\big)_{ab} & = \big(\cL_{\xi}g\big)_{ab} \\
+        & = \xi^mg_{ab,m} + {\xi^m}_{,a}g_{mb} + {\xi^m}_{,b}g_{am} \\
+        & = Tg_{ab,0} + L^{\mu}g_{ab,\mu} + T_{,a}g_{0b} + {L^{\mu}}_{,a}g_{\mu b} + T_{,b}g_{a0} + {L^{\mu}}_{,b}g_{a\mu}.
+    \end{split}
+\ese 
+We now consider each of the components separately. Using a dot to indicate a derivative w.r.t. $x^0$, we have:
+\bse
+    \big(\Delta_{\xi}\del g\big)_{00} = 0 + 0 + \dot{T} + 0 + \dot{T} + 0 = 2\dot{T},
+\ese 
+where we have used the fact that $g_{00}=1$ and $g_{0\a}=0$. 
+
+Next we have 
+\bse 
+    \big(\Delta_{\xi} \del\big)_{0\beta} = 0 + 0 + 0 - \dot{L}^{\mu} \gamma_{\mu\beta} + T_{,\beta} + 0 = -\dot{L}^{\mu}\gamma_{\mu\beta} + T_{,\beta},
+\ese 
+where we have used $g_{0\beta}=0$, $g_{00}=1$ and $g_{\a\beta} = -\gamma_{\a\beta}$. We can then use the fact that $\gamma_{\a\beta}$ is independent of $x^0$ to give us 
+\bse 
+    \big(\Delta_{\xi} \del\big)_{0\beta} = T_{,\beta} - \big(L^{\mu}\gamma_{\mu\beta}\big)_{,0} = D_{\beta}T - \dot{L}_{\beta},
+\ese
+where $D_{\beta}$ is the Levi-Civita covariant derivative using $\gamma$.
+
+Finally we have 
+\bse 
+    \big(\Delta_{\xi}\del g\big)_{\a\beta} = 0 - L^{\mu} \gamma_{\a\beta,\mu} + 0 - {L^{\mu}}_{,\a}\gamma_{\mu\beta} + 0 - {L^{\mu}}_{,\beta} \gamma_{\a\mu}. 
+\ese
+We then use 
+\bse 
+    {L^{\mu}}_{,\a}\gamma_{\mu\beta} = \big(L^{\mu}\gamma_{\mu\beta}\big)_{\a} - L^{\mu} \gamma_{\mu\beta,\a}
+\ese 
+to give 
+\bse 
+    \big(\Delta_{\xi}\del g\big)_{\a\beta} = -2\bigg[ L_{(\a,\beta)} -\frac{1}{2}L^{\mu}\big( \gamma_{\mu\beta,\a} + \gamma_{\mu\a,\beta} - \gamma_{\a\beta,\mu}\big) \bigg] = -2 D_{(\a}L_{\beta)},
+\ese 
+where again $D_{\a}$ is the Levi-Civita covariant derivative using $\gamma$.
+
+Using the expression for $\del g$ in terms of $a,b_{\a},c$ and $e_{\a\beta}$ from last lecture, we conclude that 
+\bse 
+    \begin{split}
+        \Delta_{\xi}(2a) & = 2\dot{T}  \\
+        \Delta_{\xi}(-b_{\a}) & = D_{\a}T - \dot{L}_{\a}\\
+        \Delta_{\xi} \big(-2c\gamma_{\a\beta} -e_{\a\beta}\big) & = -2D_{(\a}L_{\beta)}.
+    \end{split}
+\ese 
+The first two expressions clearly tell us that 
+\bse 
+    \Delta_{\xi} a = \dot{T}, \qand \Delta_{\xi} b_{\a} = \dot{L}_{\a} - D_{\a}T,
+\ese 
+but the third expression needs a little work. We contract both sides with $\gamma^{\a\beta}$ and use $\gamma^{\a\beta}\gamma_{\a\beta}=3$ along with the fact that $D$ is $\gamma$-metric compatible (so we can `take $\gamma$ inside it'), giving
+\bse 
+    6\Delta_{\xi}c + \Delta_{\xi}\gamma^{\a\beta}e_{\a\beta} = 2D_{\a}\big(\gamma^{\a\beta}L_{\beta}\big) \qquad \implies \qquad \Delta_{\xi} c = \frac{1}{3}D_{\a}L^{\a},
+\ese 
+where we used the trace-free condition of $e_{\a\beta}$. From this it follows that 
+\bse 
+    \Delta_{\xi} e_{\a\beta} = 2D_{(\a}L_{\beta)} - \frac{2}{3}D_{\mu}L^{\mu}\gamma_{\a\beta}.
+\ese 
+
+\section{Scalar Perturbations}
+
+We now wan to consider the decomposed fields, and we start with the scalar perturbations.
+
+\bcl 
+    If we consider the seemingly restricted case $L^{\a}=D^{\a}L$ for some scalar field $L$, we actually get the same result for the scalar perturbations as if we had done it generally.
+\ecl 
+
+We do not prove this claim here but just use it to simplify the following. 
+
+Using the above claim and the results from last lecture we see that 
+\bse 
+    \begin{split}
+        \Delta_{\xi} A & = \dot{T}, \\
+        \Delta_{\xi}B & = \dot{L}-T \\
+        \Delta_{\xi} C & = \frac{1}{3}\Delta L \\
+        \Delta_{\xi} E & = L,
+    \end{split}
+\ese 
+where on the right-hand side of the $C$ equation $\Delta$ is the Laplacian.
+\bbox
+    Show the above results hold. 
+    
+    \textit{Hint: If you're stuck Dr. Schuller does this in the videos.}\footnote{There is a couple factors of $2$ for the  $E$ in my notes that I think Dr. Schuller missed, but they end up cancelling above so I get the same result for $\Delta_{\xi}E$.}
+\ebox 
+
+We can now use these results to show the results quoted at the end of last lecture, namely
+\bse 
+    \Psi := A + \dot{B} - \Ddot{E}, \qand \Phi := C - \frac{1}{3}\Delta E
+\ese 
+are gauge invariants. 
+
+\bbox
+    Show that above hold. 
+    
+    \textit{Hint: Again this is done in the lectures.}
+\ebox 
+
+\br 
+    Note these results tell us that the scalars $A,B,C$ and $E$ can not be `switched on' independently, as the only real perturbations are given as combinations of them. 
+\er 
+
+For convenience only, and precisely because the $\Phi$ and $\Psi$ are gauge invariants, we are free to pick any $(T,L^{\a})$ we want. Such a choice is known as a \textbf{gauge}, and the process  \textbf{gauge fixing}. Again should be familiar from electromagnetism. We decide to use the gauge 
+\bse 
+    T := B - \dot{E}, \qand L := -E.
+\ese 
+We choose this gauge as then 
+\bse 
+    \begin{split}
+        \Delta_{\xi} E = L \qquad \implies \qquad  E & = 0 \\
+        \Delta_{\xi} B = \dot{L} - T \qquad \implies \qquad B & = 0,
+    \end{split}
+\ese 
+and so 
+\bse 
+    \Psi = A, \qand \Phi = C.
+\ese 
+This is known as the \textbf{longitudinal gauge}. Working in this gauge, we finally get the left-hand side for the scalar perturbations for Einsteins equations, $\del G_{ab} = T_{ab}$, as 
+\bse 
+    \begin{split}
+        \del G_{00} & = 2\Delta \Phi \\
+        \del G_{0\a} & = 2 D_{\a} \dot{\Phi} \\
+        \del G_{\a\beta} & = \bigg[2\Ddot{\Phi} - \frac{2}{3}\Delta(\Psi+\Phi)\bigg]\gamma_{\a\beta} + \bigg[ D_{(\a}D_{\beta)} - \frac{1}{3}\gamma_{\a\beta} \Delta\bigg](\Psi+\Phi)
+    \end{split}
+\ese 
+
+\section{Vector Perturbations}
+
+\bcl 
+    As with the scalar perturbations, it turns out we can consider the seemingly restricted cases of 
+    \bse 
+        T = 0, \qand D_{\a}L^{\a}=0, 
+    \ese 
+    and get the full result.
+\ecl 
+Again, we do not prove this claim but just use it. 
+
+The results here are 
+\bse 
+    \Delta_{\xi} B_{\a} = \dot{L}_{\a}, \qand \Delta_{\xi}E_{\a} = L_{\a},
+\ese 
+and so the only gauge invariant quantities are
+\bse 
+    \Theta := B_{\a} - \dot{E}.
+\ese    
+
+We then use the \textbf{vector gauge}, which sets $E=0$, and obtain $\Theta_{\a} = B_{\a}$. We then obtain the left-hand side of the vector perturbations of Einsteins equations, 
+\bse 
+    \del G_{0\a} = \frac{1}{2}\Delta \Theta_{\a}, \qand \del G_{\a\beta} = D_{(\a} \dot{\Theta}_{\beta)}.
+\ese 
+
+\section{Tensor Perturbations}
+
+\bcl 
+    Once again we can consider a seemingly restricted case, this time $T=0 = L^{\a}$. 
+\ecl 
+With this claim it follows trivially that 
+\bse 
+    \Delta_{xi} E_{\a\beta} =0,
+\ese 
+and so all $E_{\a\beta}$ are gauge invariants. The left-hand side equations are 
+\bse 
+    \del G_{\a\beta} = - \ddot{E}_{\a\beta} + \Delta E_{\a\beta}.
+\ese
+
+\br 
+    If we start from the exact solution $G_{ab}[g]=0$ and do not introduce any mass (so $\del T_{ab}[g]=0$) we get for the tensor perturbations 
+    \bse 
+        -\ddot{E}_{\a\beta} + \Delta E_{\a\beta} = 0,
+    \ese 
+    which is a \textit{wave equation}. These are so-called \textbf{gravitational waves}. It is important to note that this wave equation is made from gauge invariant quantities and is a real world wave, not some `coordinate wave' that can be removed by a transformation.
+\er 

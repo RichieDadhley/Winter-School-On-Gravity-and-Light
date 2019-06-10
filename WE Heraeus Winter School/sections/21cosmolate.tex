@@ -1,0 +1,126 @@
+\chapter{Cosmology: The Late Epoch}
+
+We now want to consider various matter types simultaneously. We will continue to assume that our equations of state are linear, though. We do this simply because these lectures are meant as an introduction to the field of cosmology and so we need to specialise somewhat. Of course linear equations of state by no means cover every possible situation, and that is part of what the research in cosmology is about; looking for what happens if we change our conditions. 
+
+The information we have obtained so far can be summarised in the following table. 
+
+\begin{center}
+	\begin{tabular}{@{} p{2cm}p{2cm}p{2cm}p{3.7cm}@{}}
+		\toprule
+		$\omega$ & $n(\omega)$ & $a(t)$ & matter type\\
+		\midrule 
+		$1/3$ & 4 & $t^{1/2}$ & radiation \\
+		$0$ & 3 & $t^{2/3}$ & dust \\
+		-1 & 0 & $e^{Ht}$ & cosmological constant \\
+		$-1/3$ & $2$ & $t$ & spatial curvature \\ 
+		\bottomrule
+	\end{tabular}
+\end{center}
+where $H = \dot{a}/a$ is the Hubble function. We also had that $\rho\sim t^{-2}$ for all matter types with $\omega\neq -1$ and $H^2\sim \rho$, which tells us that $H^{-1}$ is the age of the universe. 
+
+\section{Density Parameters}
+
+\bd[Density Parameter]
+    Let $\rho_i$ be the density of the $i^{\text{th}}$ matter type, where $i=1,...,N$ with $N$ being the number of matter types we're considering. Then we define, for any non cosmological constant or spatial curvature matter type, the \textbf{density parameter}
+    \bse 
+        \Omega_i := \frac{8\pi G_N}{3} \frac{\rho_i}{H^2}.
+    \ese 
+    For the cosmological constant type matter we define 
+    \bse 
+        \Omega_{\Lambda} := \frac{\Lambda}{3H^2},
+    \ese 
+    and for the spatial curvature we define 
+    \bse 
+        \Omega_{\kappa} := -\frac{\kappa}{H^2 a}.
+    \ese
+\ed 
+
+\br 
+    Dr. Schuller likes to refer the the $\Omega_i$s are density parameters whereas call the $\Omega_{\kappa}$ a `fake' density parameter. The reason for this is that this type of density has not risen from some matter contribution to the Einstein equation, but more comes about by saying `what matter type would we need to simulate the effects of $\kappa$?' Similarly you could call $\Lambda$ a pseudo-fake density parameter, as it does enter the action and we choose to view it as a matter type rather then a curvature. With this idea in mind we shall define $N$ to include the cosmological constant type matter but not the $\kappa$ type. 
+\er 
+
+Using the Hubble function and the density parameters, the Friedmann and acceleration equations give us 
+\bse 
+    \Omega_{\kappa} + \sum_{i=1}^N \Omega_i  = 1, \qand H^{-2} \frac{\ddot{a}}{a} = - \frac{1}{2} \sum_{i=1}^N(1+3\omega_i)\Omega_i,
+\ese 
+respectively. 
+
+\section{Dominant Matter At Various Epochs}
+
+\bter 
+    We shall use $\gamma$ to denote radiation matter and $M$ to denote dust matter, e.g. $n_{\gamma} = 4$ and $n_M = 3$.
+\eter 
+
+Using the above terminology along with the table at the start of this lecture and the result $\rho_i \sim a^{-n(\omega_i)}$, which also holds for the $\kappa$ matter, we conclude that 
+\bse 
+    \Omega_{\Lambda} \sim a^2 \Omega_{\kappa} \sim a^3\Omega_M \sim a^4\Omega_{\gamma}.
+\ese
+
+This is an important observation and allows us to read off which matter types dominated at which epochs of the universe. An expanding universe is one with $H>0$, corresponding to $a(t_2)>a(t_1)$ for $t_2>t_1$. We see, therefore, that at later times the matter types to the left become more and more dominating and conversely at early times the ones of the right are more dominant. 
+
+\begin{center}
+    \btik 
+        \draw[thick, ->] (0,0) -- (7.5,0);
+        \draw[fill=black] (0,0) circle [radius=0.05cm];
+        \node at (0.5,0.5) {\large{$\gamma$}};
+        \node at (2,0.5) {\large{$\kappa$}};
+        \node at (3.5,0.5) {\large{$M$}};
+        \node at (6.5,0.5) {\large{$\Lambda$}};
+        \node at (7.5,-0.5) {\large{time}};
+        \node at (0,-0.5) {\large{Big Bang}};
+    \etik 
+\end{center}
+
+Note this result comes from the theory, it is not something we have proposed as a model. That is, given our assumptions, the theory tells us what matter types dominate at what epochs.
+
+\section{A More Realistic Late Universe}
+
+We now want to start accounting for having multiple matter types in the universe at the same time. Let's start by considering the example where we have $\Omega_M$, $\Omega_{\kappa}$ and $\Omega_{\Lambda}$. We can use the Friedmann equation to express $\Omega_{\kappa}= 1 - \Omega_M - \Omega_{\Lambda}$, and so the parameter space of our problem is two-dimensional, i.e. $(\Omega_M,\Omega_{\Lambda})$.
+
+We want to plot this parameter space, but it is worth deriving a few results in order to classify the different regions of the plot.
+
+\benr 
+    \item We have seen that $\kappa$ can be positive, negative or zero, so let's try classify these regions. Recall that $\Omega_{\kappa}\sim\kappa$ and so if $\kappa=0$, $\Omega_{\kappa}=0$. The Friedmann equation then tells us that this corresponds to 
+    \bse 
+        \Omega_{\Lambda}=1-\Omega_M.
+    \ese 
+    By the same method we get $\Omega_{\Lambda}>1-\Omega_M$ for $\kappa>0$ and similarly for $\kappa<0$.
+    \item Now let's consider the acceleration equation:
+    \bse 
+        H^{-2}\frac{\ddot{a}}{a} = -\frac{1}{2}\sum_{i=1}^N (1+3\omega_i)\Omega_i.
+    \ese 
+    We know that $H$ and $a$ are both positive, and so the sign of the left-hand just depends on the sign of $\ddot{a}$. We think of this physically as the acceleration of the expansion of the universe, e.g. $\ddot{a}>0$ corresponds to an accelerated expansion. Using $\omega_M=0$ and $\omega_{\Lambda}=-1$ we get 
+    \bse 
+        \Omega_{\Lambda} = \frac{1}{2}\Omega_M
+    \ese 
+    for $\ddot{a}=0$. We get analogous results for $\ddot{a}>0$ and $\ddot{a}<0$.
+    \item Now lets consider collapse vs. eternal expansion. That is, we want to ask the question as to whether there is a maximum turning in $a(t)$. We formulate this mathematically as looking for a $t^*\in\R^+_0$ such that $\dot{a}=0$ and $\ddot{a}<0$. You can analytically calculate the expression for the turning point (in the sense of the line that separates collapse from eternal expansion), however its rather complicated. We shall just plot its form on the graph below. 
+\een    
+
+\begin{center}
+    \btik 
+        \draw[fill = gray!40, opacity = 0.8] (0,0) .. controls (5.5,0) .. (8,0.5) -- (8,-2.5) -- (0,-2.5) -- (0,0);
+        \draw[thick, ->] (0,0) -- (8.5,0);
+        \draw[thick, ->] (0,-2.5) -- (0,3);
+        \node at (0,3.2) {\large{$\Omega_{\Lambda}$}};
+        \node at (9,0) {\large{$\Omega_M$}};
+        \node at (-0.2,0) {$0$};
+        \node at (-0.2,2.5) {$1$};
+        \node at (-0.3,-2.5) {$-1$};
+        \node at (4,-0.2) {$1$};
+        \node at (8,-0.2) {$2$};
+        \draw[ultra thick, blue] (0,2.5) -- (8,-2.5);
+        \draw[thick, ->, blue] (1,1.9) -- (1.3,2.4);
+        \node at (1.4,2.6) {\textcolor{blue}{$\kappa>0$}};
+        \draw[thick, ->, blue] (1,1.9) -- (0.7,1.4);
+        \node at (1,1.2) {\textcolor{blue}{$\kappa<0$}};
+        \draw[ultra thick, red] (0,0) -- (8,2.5);
+        \draw[thick, ->, red] (7.5,2.35) -- (7.2,2.95);
+        \node at (7.2,3.1) {\textcolor{red}{$\ddot{a}>0$}};
+        \draw[thick, ->, red] (7.5,2.35) -- (7.8,1.75);
+        \node at (7.8,1.6) {\textcolor{red}{$\ddot{a}<0$}};
+        \node at (4,-1.25) {Collapse};
+    \etik 
+\end{center}
+
+Experimental observation tells us that $\Omega_{\Lambda}=0.7$ and $\Omega_M=0.3$, from which we conclude (up to the uncertainty of the experiment) that $\kappa=0$, i.e. the universe is a flat geometry. It also turns out that the $30\%$ of curvature generated by matter is further split into standard model matter, which is only $5\%$, and so-called \textit{dark matter}, which is the remaining $25\%$. So we see, again assuming everything we have done is true and valid, that the standard model of physics only makes up $5\%$ of all the matter \textit{needed} in the universe to explain our observations. This is one of the main driving forces behind research in cosmology: what is this other stuff?!

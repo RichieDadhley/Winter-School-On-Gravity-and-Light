@@ -1,0 +1,159 @@
+\chapter{Einstein Gravity}
+
+\br 
+    In this lecture (and the proceeding ones) we will use a lot of indices. This obviously implies that we are using charts and so our results could turn out to be physically nonsense in the end. This remark claims that the results, unless otherwise specified, are indeed chart independent, and we simply use indices to make it notationally clearer what we're doing. 
+\er 
+
+Recall that in lecture 9, we were able to reformulate Poisson's equation, $\nabla^2\phi = 4\pi G_N \rho$, in terms of the curvature of \textit{Newtonian spacetime}, namely as $\Ric_{00}=4\pi G_N\rho$. This prompted Einstein to postulate that the relativistic field equations for the Lorentzian metric $g$ of spacetime\footnote{Recall that when we say spacetime we mean \textit{relativistic spacetime}.} as 
+\bse 
+    \Ric_{ab} = 8 \pi G_N T_{ab}.
+\ese 
+However, this equation suffers from a problem: it can be shown\footnote{See my notes for Dr. Shiraz Minwalla's String theory course for an outline of the proof.} that $(\nabla_aT)^{ab}=0$. This would imply that $(\nabla_a\Ric)^{ab}=0$, which is \textit{not} true generically. Einstein tried to argue this problem away, but it turns out that these equations are fundamentally wrong and cannot be upheld, and we to obtain a new set of field equations. 
+
+\section{Hilbert}
+
+Hilbert was an variation principle specialist and had the brilliant idea to say "The right-hand side of the gravitational field equations come from an action, so why don't we try and obtain the left-hand side from an action too?" He decided to work through the simplest actions\footnote{That is he asked what combination of objects will give a scalar field.} he could until he obtained one that worked. His final result was the following:
+
+\bse 
+    S_H[g] := \int_{\cM} \sqrt{-g} \, R := \int_{\cM} \sqrt{-g} \, \Ric_{ab} g^{ab}.
+\ese 
+The aim is to vary this action w.r.t. $g_{ab}$ and obtain some tensor, which we denote $-G^{ab}$.\footnote{The minus sign is just a convention choice.} The obvious next step is to do this variation and find out what $-G^{ab}$ is. 
+
+\section{Variation of $S_H$}
+
+We have 
+\bse
+    \del S_H[g] = \int_{\cM} \big[\del \sqrt{-g} \cdot \Ric_{ab} \cdot  g^{ab} + \sqrt{-g} \cdot \del \Ric_{ab} \cdot g^{ab} + \sqrt{-g} \cdot \Ric_{ab} \cdot \del g^{ab}\big].
+\ese 
+Let's consider this term by term. 
+
+First let's consider $\del g$, from $g := \det g = \exp\big(\Tr(\ln g)\big)$, we have 
+\bse 
+    \del g = -\frac{g \cdot g^{ab}\del g_{ab}}{2\sqrt{-g}} = -\frac{1}{2}\sqrt{-g}\cdot g^{ab}\cdot \del g_{ab}
+\ese 
+Next, let's look at $\del g^{ab}$. We know $g^{ac}g_{cb} = \del^a_b$, and so we have
+\bse 
+    \del g^{ac}\cdot g_{cb} + g^{ac} \cdot \del g_{cb} = 0 \qquad \implies \qquad \del g^{ab} = - g^{am} \cdot g^{bn} \cdot \del g_{mn},
+\ese
+where we have relabelled the indices on the latter equation.
+
+Finally, we have to work out $\del\Ric_{ab}$. This one is a little more tricky, and involves us making some clever steps. We start of by considering normal coordinates,\footnote{That is a \textit{local} flat space, so the $\Gamma$s vanish, but their derivatives need not.} giving us 
+\bse 
+    \del \Ric_{ab} = \del \big({\Gamma^m}_{am,b}\big) - \del\big( {\Gamma^m}_{ab,m}\big) = (\del{\Gamma^m}_{am}\big)_{,b} - (\del{\Gamma^m}_{ab}\big)_{,m}.
+\ese
+This seems like an awful idea because the results depend on the fact that we're in normal coordinates. However we now use a remarkably clever trick. Recall that $\Gamma$s are not tensor components because they have a term in their transformation given by second derivatives. We now note that this term does not depend on the $\Gamma$s themselves, and therefore if we take the difference of two $\Gamma$s this term will vanish in the transformation. That is
+\bse 
+    \Gamma^k_{(x)ij} - \widetilde{\Gamma}^k_{(x)ij} 
+\ese 
+transform like the components of a tensor. We then note that the derivative essentially compares two $\Gamma$s, and so conclude that the the derivatives of the $\Gamma$s are indeed $(1,2)$-tensor components. This is good, but we then run into the problem that we can't just take the derivative of a tensor. This problem is solved quite easily by the fact that we are considering normal coordinates and so the covariant derivative and the partial derivative coincide (that is the $\Gamma$s vanish in normal coordinates). So we have
+\bse 
+    \begin{split}
+        \sqrt{-g} \cdot g^{ab} \cdot \del \Ric_{ab} & = \sqrt{-g} \cdot g^{ab} \cdot \Big[(\del{\Gamma^m}_{am}\big)_{;b} - (\del{\Gamma^m}_{ab}\big)_{;m}\Big] \\
+        & = \sqrt{-g} \cdot \Big[(g^{ab}\del{\Gamma^m}_{am}\big)_{;b} - (g^{ab}\del{\Gamma^m}_{ab}\big)_{;m}\Big] \\
+        & =: \sqrt{-g} \big[ {A^b}_{;b} - {B^m}_{;m}\big],
+    \end{split}
+\ese
+where we have defined $A^b := g^{ab}\del {\Gamma^m}_{am}$ and similarly for $B^b$ we have used the metric compatibility condition (as spacetime is equipped with the Levi-Civita connection) to `move $g^{ab}$ inside the covariant derivative'. Next we have
+\bse 
+    \sqrt{-g}_{,b} = -\frac{1}{2}\sqrt{-g} \cdot g^{ac} \cdot g_{ac,b},
+\ese 
+which, using normal coordinates again along with the metric compatibility condition, gives us
+\bse 
+    {\big(\sqrt{-g} A\big)^b}_{,b} = \sqrt{-g} \bigg[ -\frac{1}{2}g^{ac} \cdot g_{ac,b} \cdot A^b + {A^b}_{;b} \bigg] = \sqrt{-g} {A^b}_{;b}.
+\ese
+So we finally arrive at 
+\bse 
+    \sqrt{-g} \cdot g^{ab}\cdot \del \Ric_{ab} = {\big(\sqrt{-g} A\big)^b}_{,b} - {\big(\sqrt{-g}B\big)^b}_{,b}.
+\ese 
+
+Collecting terms, we have
+\bse 
+    \del S_H[g] = \int_{\cM} \bigg[ \frac{1}{2}\sqrt{-g}g^{cd}(\del g_{cd}) g^{ab}\Ric_{ab} - \sqrt{-g}g^{ac}g^{bd}\del g_{cd}\Ric_{ab} + \big(\sqrt{-g}A^b\big)_{,b} - \big(\sqrt{-g}B^b\big)_{,b}  \bigg].
+\ese 
+We now notice that the last two terms are volume integrals over divergences and so, by Stoke's law, are surface terms. These terms will therefore not contribute to the equations of motion, which is what we're interested in, and so we can essentially just drop them. This leaves us finally with
+\bse 
+    0 = \del S_H = \int_{\cM} \sqrt{-g} \del g_{ab} \bigg[\frac{1}{2} g^{ab} R - \Ric^{ab}\bigg],
+\ese 
+where we have used $R := g^{ab}\Ric_{ab}$ and $\Ric^{cd} := g^{ac}g^{bd} \Ric_{ab}$ and then relabelled the indices. This must hold for an arbitrary variation $\del g_{ab}$, and so we conclude 
+\bse 
+    G^{ab} = \Ric^{ab} - \frac{1}{2} g^{ab}R.
+\ese 
+This expression is known as the (components of the) \textbf{Einstein curvature}. They are the field equations for the vacuum spacetime, i.e. one with no matter. If we include matter into our spacetime, our action changes in accordance with the previous lecture, and we obtain\footnote{Note we have moved the indices back down here. It is annoying common to just move the indices in equations up and down like this, however you should be careful when doing this as in order to do it the metric components have been used twice.} 
+\bse 
+    G_{ab} = \Ric_{ab} - \frac{1}{2}g_{ab}R = 8\pi G_N T_{ab}.
+\ese 
+These are known as the \textbf{Einstein equations}, as Einstein also arrived at this result using more physical arguments. As such the Hilbert action is often called the Einstein-Hilbert action and is denoted 
+\bse 
+    S_{EH}[g] = \int_{\cM} \sqrt{-g}R.
+\ese 
+
+\br 
+    With the remark made at the start of this lecture in mind, we have a clear way to distinguish between the Riemann curvature, the Ricci curvature and the Ricci scalar, namely the number of indices. We shall therefore write the Einstein equations simply as 
+    \bse 
+        G^{ab} = R^{ab} - \frac{1}{2}g^{ab}R = 8\pi G_N T^{ab}.
+    \ese 
+    We do this both for notational brevity, but also because this is how it appears in basically all textbooks. 
+\er
+
+\section{Solution Of The $(\nabla_aT)^{ab}=0$ Issue}
+
+Recall the Bianchi identity in components\footnote{Technically there is a $3!$ missing here, but the right-hand side vanishes so it's not important.}
+\bse 
+    {R^a}_{b[mn;\ell]} = {R^a}_{bmn;\ell} + {R^a}_{b\ell m;n} + {R^a}_{bn\ell;m} = 0.
+\ese 
+If we then use the metric compatible condition we obtain the so-called \textit{contracted} Bianchi identity
+\bse 
+    R_{ab[mn;\ell]} = R_{abmn;\ell} + R_{ab\ell m;n} + R_{abn\ell;m} = 0.
+\ese 
+Further contraction (i.e. using the metric components to set indices equal to each other) can be used to give\footnote{See tutorial.}
+\bse 
+    {R^{\ell}}_{m;\ell} = \frac{1}{2} R_{;m},
+\ese 
+and so we get 
+\bse 
+    {G^{ab}}_{;a} := (\nabla_aG)^{ab} =0,
+\ese 
+which resolves our problem. 
+
+\section{Variations of The Field Equations}
+
+Firstly let's choose units such that $G_N = 8\pi$, so the factor in Einstein's equations becomes 1, so we have 
+\bse 
+    R_{ab} - \frac{1}{2}g_{ab}R = T_{ab}. 
+\ese
+We now want to manipulate this a little to express it in different ways.
+
+\subsection{Ricci Scalar Expression}
+
+First consider contracting with $g^{ab}$. This gives 
+\bse 
+    \begin{split}
+        g^{ab} T_{ab} & = g^{ab}R_{ab} - \frac{1}{2} g^{ab}g_{ab} R \\
+        T & = R - 2R \\
+        T & = - R,
+    \end{split}
+\ese
+where we have used $g^{ab}g_{ab}=\del^a_a=\dim\cM = 4$, and where we have defined $T := g^{ab}T_{ab}$. Substituting this back into the Einstein equations, we get 
+\bse 
+    R_{ab} = T_{ab} - \frac{1}{2}g_{ab}T =: \widehat{T}_{ab}.
+\ese 
+So we have $R_{ab}=\widehat{T}_{ab}$, which is of the same form as what Einstein proposed right at the start of this lecture, the only difference being we need to use the modified energy-momentum tensor. 
+
+\subsection{Cosmological Constant}
+
+We could modify the Einstein-Hilbert action to include some constant term $\Lambda$, known as the \textbf{cosmological constant}. That is
+\bse 
+    S_{EH}[g] = \int_{\cM} \sqrt{-g}(R +2\Lambda).
+\ese
+
+You might ask why we would do such a thing, and the answer is to do with talking about an expanding universe. Einstein initially included it as a negative value in order to ensure the universe was static (i.e. not expanding). Hubble then showed that the universe was indeed expanding and so we could have $\Lambda=0$, which prompted Einstein to call this his `greatest blunder'. It now turns out that we know the universe is not only expanding, but it is also accelerating in its expansion and so we require $\Lambda>0$. 
+
+The real question is, though, what on Earth is the cosmological constant? Well, if we think of $\int_{\cM}\sqrt{-g}R$ as being gravity, it appears to us that $\Lambda$ is some matter contribution to the action that is always there. That is it has a contribution to the  field equations of the form $\Lambda g_{ab}$. 
+
+This is rather remarkable though, as $\Lambda$ is a constant and $g_{ab}\neq 0$ everywhere\footnote{Well everywhere it's defined at least. Who knows what values it takes at places like the singularity.} and so this matter contribution takes the same value over the \textit{entirety} of the universe! Note it also does not couple to any fields. This is what people refer to as \textit{dark energy}.
+
+The next question is: what causes dark energy? The answer is nobody knows. 
+
+Our observations tell us that, although $\Lambda\neq 0$, it is very small. This is what troubles us. We need something that exists throughout the whole universe in a constant manner, but that also doesn't contribute much energy to the universe system. For an idea of how bad this problem is, consider the following proposal. 
+
+It was suggested that vacuum fluctuations of quantum field theories could be the root of dark energy. However, the calculation for the contribution to the energy from QCD fluctuations alone gave a value for $\Lambda$ that was 120 orders of magnitude too big!

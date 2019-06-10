@@ -1,0 +1,149 @@
+\chapter{Matter}
+
+There are two types of (theoretical\footnote{This is really just a academic distinction, as it is often useful to think about these two separate kinds of matter and treat them accordingly. Of course in the real world we just have matter.}) matter: point matter and field matter. Examples of each are a massive point particle and the electromagnetic field, respectively. As we will see, it is this field matter that generates the curvature of spacetime, and therefore, from general relativity's point of view, field matter is the more fundamental type. 
+
+\section{Point Matter}
+
+\Cref{post:WorldlineMassive} and \Cref{post:WorldlineMassless} already constrain the possible particle worldlines for massive and massless particles. However, it does not tell us what their precise law of motion, possibly in the presence of forces, is.  
+
+\subsection{Without External Forces}
+
+We know that the equations of motion for a system can be obtained by varying a suitable action and obtaining the Euler-Lagrange equations. Below we simply provide the actions for massive and massless particles, however we will see later that they actually arise as a consequence of Einstein's field equations. 
+\begin{equation*}
+    \begin{split}
+        S_{\text{massive}}[\gamma] & := m\int d\lambda \sqrt{g_{\gamma(\lambda)}\big(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}\big)}, \\
+        S_{\text{massless}}[\gamma,\mu] & := \int d\lambda \, \mu \, g_{\gamma(\lambda)}\big(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}\big),
+    \end{split}
+\end{equation*}
+where $\mu$ is a Lagrange multiplier, which is introduced so that when you vary w.r.t. it you get $g_{\gamma(\lambda)}\big(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}\big) =0$, which is condition \textit{(i)} in \Cref{post:WorldlineMassless}. Of course we also impose the condition $g_{\gamma(\lambda)}\big(T,v_{\gamma,\gamma(\lambda)}\big) >0$ on our actions. 
+
+It is a fair challenge to ask `why are we starting from actions instead of just starting from the Euler-Lagrange equations?' The answer is simply the fact that we can add different actions together easily and then find the corresponding e.o.m. for that composite system. That is, composite systems have an action which is given by the sum of the constituent actions, possibly including interaction terms, and we then vary this composite action to obtain the complete e.o.m. 
+
+\subsection{Presence of External Forces}
+
+Roughly speaking, in special relativity, the reaction of a particle to a force is not instantaneous, but has some time delay. This time delay is explained by the fact that forces are mediated by fields and if the particle is to react to the field it must be \textit{coupled}. So what we really mean by `presence of external forces' is `presence of fields to which the particles couple'.
+
+The prime example for action of a particle coupling to an external field is that of a massive charged particle coupling to the electromagnetic field, 
+\bse 
+    S[g;A] := \int d\lambda \Big[m\sqrt{g_{\gamma(\lambda)}\big(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}\big)} + q\big(A:v_{\gamma,\gamma(\lambda)}\big)\Big],
+\ese 
+where $A\in \Gamma T\cM$ is the electromagnetic potential on $\cM$ and $q\in\R$ is the charge of the particle. 
+
+\bnn 
+    We have used a semi-colon in the arguments of the action to indicate that we treat $A$ as a fixed quantity, and so we do not vary w.r.t. it. 
+\enn 
+
+\bbox 
+    Let $L_{\text{int}} := q\big(A:v_{\gamma,\gamma(\lambda)}\big)$. Use a chart $(U,x)$ to show that the Euler-Lagrange equations of the above action are 
+    \bse 
+        m\big(\nabla_{v_{\gamma}} v_{\gamma}\big)^a = - q {F^a}_b \dot{\gamma}^b,
+    \ese 
+    where ${F^a}_b := g^{ac}(A_{c,b} - A_{b,c})$.
+    
+    \textit{Hint: If you get stuck, this one is done on the videos.}
+\ebox 
+
+The result of the above exercise is the \textit{Lorentz force law} on a charged particle in the electromagnetic field. Note also that the action given above is reparameterisation ($\lambda\to\lambda'(\lambda)$) invariant, as it must be if it is to be the action for the Lorentz force law.
+
+\section{Field Matter}
+
+\bd[Classical Field Matter]
+    \textbf{Classical}\footnote{As in non-quantum.} \textbf{field matter} is any tensor field on spacetime whose equations of motion derive from an action. 
+\ed 
+
+This definition is of course quite unhelpful, but we use it because its hard to give another definition that does no over or understate what field matter is. We rather see what field matter is by considering Maxwell's action.\footnote{In the definition below we have assumed there is a chart that covers the whole spacetime. If this is not the case, the definition holds, but we just need to use the ideas discussed at the end of lecture 12.} 
+
+\bse 
+    S_{\text{Maxwell}}[A;g] := \frac{1}{4}\int_{\cM} dx^4 \sqrt{-g} F_{ab}F_{cd} g^{ac} g^{bd}, 
+\ese 
+where, for the time being, we have assume the metric to be fixed.
+
+\br 
+    Note that we use $\sqrt{-g}$ not just $\sqrt{g}$. This is because we are looking at a Lorentzian metric which has negative determinant. 
+\er 
+
+\bex 
+    If we take our spacetime to be Minkowski spacetime and use the chart $(\R^4,\b1_{\R^4})$, we have $g=-1$, $g^{ab}=\eta^{ab}$ and so the Maxwell action just becomes 
+    \bse 
+        S_{\text{Maxwell}}^{\text{Mink}} [A;g] = \frac{1}{4}\int_{\R^4} dx^4 F_{ab}F^{ab},
+    \ese 
+    which may be familiar to the reader. Note, however, that it only takes this form \textit{in this chart}. If we chose to use polar coordinates, we would not have $g=-1$ nor $g^{ab}=\eta^{ab}$. 
+\eex
+
+The Euler-Lagrange equations (in a chart) for a field action are given by 
+\bse 
+    0 = \frac{\p \cL}{\p A_m} - \frac{\p}{\p x^s}\bigg(\frac{\p \cL}{\p \p_sA_m}\bigg) + \frac{\p}{\p x^t}\frac{\p}{\p x^s}\bigg(\frac{\p^2 \cL}{\p \p_t\p_sA_m}\bigg) - ...,
+\ese 
+where the trend continues with alternating sign. Calculating the Euler-Lagrange equations for the Maxwell action gives the inhomogeneous Maxwell equations 
+\bse 
+    (\nabla_a F)^{ab} = 0.
+\ese 
+If we had considered the action including a coupling to a current $j\in\Gamma T\cM$,
+\bse 
+    S[A;g,j] = \frac{1}{4}\int_{\cM} dx^4 \sqrt{-g} \big(F_{ab}F_{cd} g^{ac} g^{bd} + A:j\big),
+\ese 
+the Euler-Lagrange equations become 
+\bse 
+    (\nabla_a F)^{ab} = j^b. 
+\ese 
+The remaining two Maxwell equations can be obtained via 
+\bse 
+    \big(\nabla_{[a}F\big)_{bc]} = 0. 
+\ese 
+
+\br 
+    There is a much nicer way (in my opinion) to write Maxwell's equations, but it involves properly introducing the exterior derivative, $d$, and the Hodge star, $\star$. The formulas are 
+    \bse 
+        dF = 0 \qand d\star F = \star j,
+    \ese
+    where $F=dA$ is the Faraday tensor and $J$ is the current density. The interested reader is directed to Example 3.14 and Exercise 3.28 of Renteln's \textit{Manifolds, Tensors, and Forms} textbook (or many other textbooks which will cover it).
+\er 
+
+There are other well liked (by textbooks) examples, including the \textit{Klein-Gordan} action 
+\bse 
+    S_{\text{KG}}[\phi] := \int_{\cM} d\phi \sqrt{-g}\big[ g^{ab}\p_a\phi\p_b\phi - m^2\phi^2\big],
+\ese 
+where $\phi\in C^{\infty}(\cM)$, is a scalar field on the spacetime.
+
+\section{Energy-Momentum Tensor Of Matter Fields}
+
+So far we have always assumed that we are given the Lorentzian metric for our spacetime. The obvious question is `which metric?' If we are to describe a physical system, e.g. the universe, obviously we want a metric that will give us precisely these physical results. We therefore want to obtain some action for the metric tensor field itself, which we shall denote $S_{\text{grav}}[g]$. This action will be added to any matter action $S_{\text{matter}}[...]$, in order to describe the total system. 
+
+\bex 
+    If we take the Maxwell action we have 
+    \bse 
+        S_{\text{total}}[g,A] = S_{\text{grav}}[g] + S_{\text{Maxwell}}[A,g],
+    \ese 
+    where the metric is no longer taken as fixed in the Maxwell action, i.e. we use a comma not a semi-colon. 
+\eex 
+
+Of course, varying the total action w.r.t. the arguments of the matter action ($A$ in the above example) will just give us the matter e.o.m  (Maxwell's equations for the example). However, now varying w.r.t. $g$ will give a contribution from both $S_{\text{grav}}$ and $S_{\text{matter}}$, 
+\bse 
+    G_{ab} = 8\pi G_N T_{ab},
+\ese
+where $G_{ab}$ is the contribution from $S_{\text{grav}}$, $T_{ab}$ is the contribution from $S_{\text{matter}}$, and where we have included the factor $8\pi G_N$, where $G_N$ is Newton's constant, for convention. This is the so-called \textbf{Einstein equation}.
+
+Once we have fixed $S_{\text{grav}}$ we will of course always obtain the same $G_{ab}$, but the $T_{ab}$ depends on which matter action we are using. We can ensure that our e.o.m. are always satisfy the Einstein equation by introducing the following definition. 
+
+\bd[Energy-Momentum Tensor]
+    Let $S_{\text{matter}}[...,g]$ be any matter action that couples to the metric. Then we define the components of the \textbf{energy-momentum tensor} via 
+    \bse 
+        T^{ab} := \frac{-2}{\sqrt{-g}}\bigg[ \frac{\p \cL_{\text{matter}}}{\p g_{ab}} - \frac{\p}{\p x^s}\bigg(\frac{\p \cL_{\text{matter}}}{\p \p_s g_{ab}}\bigg) + \frac{\p}{\p x^t}\frac{\p}{\p x^s}\bigg(\frac{\p^2 \cL_{\text{matter}}}{\p \p_t\p_s g_{ab}}\bigg) - ...\bigg],
+    \ese
+    where the terms continue with alternating sign. 
+\ed 
+
+\br 
+    In the above definition we said `that couples to the metric'. This is true for all of the classical matter fields of the standard model, and so we will always have this in this course. 
+\er 
+
+\br 
+    The minus sign in that above definition is included to ensure $T(\epsilon^0,\epsilon^0)>0$, which tells us that energy is positive. 
+\er 
+
+\bex 
+    For the Maxwell action, the energy-momentum tensor is 
+    \bse 
+        T_{ab} = F_{am}F_{bn}g^{mn} - \frac{1}{4} F_{mn}F^{mn}g_{ab}.
+    \ese
+\eex 

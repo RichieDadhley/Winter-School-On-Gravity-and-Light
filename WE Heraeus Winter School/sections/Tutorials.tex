@@ -1,0 +1,2218 @@
+\chapter{Tutorials}
+
+\begin{center}
+    The following chapters are the tutorials for the course. I haven't included everything from the tutorials (e.g. the definitions etc are omitted), but I have tried to include the most helpful questions. Some of the answers to the tutorial questions have also been placed within the main content of the lecturers as remarks etc. 
+\end{center}
+
+\section{Topology}
+
+\subsection{Topologies On A Simple Set}
+
+\mybox{
+Let $\cM = \{ 1,2,3,4\}$ be a set. 
+
+\textbf{Question}: does $\cO_1 := \big\{ \emptyset, \{1\},\{1,2,3,4\}\big\}$ constitute a topology on $\cM$?
+}
+
+\textbf{Solution}: Check the conditions:
+\benr 
+    \item $\emptyset\in\cO_1$ and $\cM \in \cO_1$. 
+    \item $\emptyset\cap\{1\} = \emptyset\in\cO_1$, $\emptyset\cap\{1,2,3,4\}=\emptyset\in\cO_1$ and $\{1\}\cap\{1,2,3,4\}=\{1\}\in\cO_1$. 
+    \item $\emptyset\cup\{1\}=\{1\} \in\cO_1$, $\emptyset\cup\{1,2,3,4\}=\{1,2,3,4\}\in\cO_1$, $\{1\}\cup\{1,2,3,4\}=\{1,2,3,4\}\in\cO_1$ and $\emptyset\cup\{1\}\cup\{1,2,3,4\}=\{1,2,3,4\}\in\cO_1$.
+\een 
+So the answer is yes. 
+
+\mybox{
+\textbf{Question}: What about $\cO_2 := \big\{ \emptyset, \{1\}, \{2\},\{1,2,3,4\}\big\}$.
+}
+\textbf{Solution}: The only new addition is $\{2\}$ so just need to check its involvement. We see straight away that $\{1\}\cup\{2\} = \{1,2\}\notin\cO_2$ and so we conclude that it is not a topology. 
+
+\subsection{Continuous Functions}
+
+\mybox{
+\textbf{Question}: Let $\cM = \{1,2,3,4\}$ and consider the identity map $\id_{\cM}:\cM\to\cM$ defined by 
+\bse 
+    \id_{\cM}(1) = 1, \quad \id_{\cM}(2) = 2, \quad \id_{\cM}(3) = 3, \quad \id_{\cM}(4) = 4. 
+\ese 
+Is the map $\id_{\cM}$ continuous if the domain is equipped with the chaotic topology and the target with the topology $\cO_{\text{target}} := \big\{ \emptyset,\{1\},\{1,2,3,4\}\big\}$?
+}
+\textbf{Solution}:
+The chaotic topology here is 
+\bse 
+    \cO_{\text{chaotic}} = \big\{\emptyset,\{1,2,3,4\}\big\}.
+\ese
+We see straight away that the preimage of $\{1\}\in\cO_{\text{target}}$ is $\{1\}$ which is not in $\cO_{\text{chaotic}}$, and so the map is not continuous w.r.t. these topologies. 
+
+\mybox{
+\textbf{Question}: Consider the inverse $\id^{-1}_{\cM}:\cM\to\cM$ of the identity map $\id_{\cM}$, such that now the target is equipped with the chaotic topology and the domain with the topology $\big\{\emptyset,\{1\},\{1,2,3,4\}\big\}$.
+
+Provide the values of the map $\id^{-1}_{\cM}$ and decide whether $\id^{-1}_{\cM}$ is continuous!
+}
+
+\textbf{Solution}:
+\bse 
+    \id^{-1}_{\cM}(1) = 1, \quad \id^{-1}_{\cM}(2) = 2, \quad \id^{-1}_{\cM}(3) = 3, \quad \id^{-1}_{\cM}(4) = 4
+\ese 
+Now consider the preimages. 
+\bse 
+    \preim_{\id^{-1}_{\cM}}(\emptyset) = \emptyset, \qquad \text{and} \qquad \preim_{\id^{-1}_{\cM}}(\{1,2,3,4\}) = \{1,2,3,4\} = \cM,
+\ese 
+both of which are in our domain's topology. Therefore the map is continuous w.r.t. to these topologies. 
+
+\subsection{The Standard Topology On $\R^d$}
+
+\mybox{
+I have not included question 4 here because it would be too much drawing on Tikz for me... however the questions are worth looking at, so if you haven't already go \href{https://www.youtube.com/watch?v=_XkhZQ-hNLs&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL}{watch the video}. 
+}
+
+\section{Topological Manifolds}
+
+\subsection{An Atlas From A Real World --- the M\"{o}bius river}
+\mybox{
+\textbf{Question}: Consider a M\"{o}bius strip\footnote{Please Google it if you don't know what it is.} with a river drawn along it. How many charts do you need to cover the M\"{o}bius strip? 
+
+Draw an image of the river and M\"{o}bius strip under the chat map(s)!
+}
+
+\textbf{Solution}: The M\"{o}bius strip can be represented by the following diagram 
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) -- (5,0);
+        \draw[thick] (0,2) -- (5,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,0) -- (0,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (5,2) -- (5,0);
+        \draw[blue, ultra thick] (0,1.5) .. controls (2,0) and (4,1.5) ..(5,0.5);
+    \etik 
+\end{center}
+where the arrows indicate how we identify the two edges together (i.e. the bottom right corner goes to the top left corner). The blue line is the river. It is clear that we will need at least two charts in order to map the whole strip. We could choose them as follows 
+
+\begin{center}
+    \btik 
+        \draw[dashed, fill=lightgray] (0,0) -- (0,2) -- (1.5,2) -- (1.5,0) -- (0,0);
+        \draw[dashed, fill=lightgray] (5,0) -- (5,2) -- (3.5,2) -- (3.5,0) -- (5,0);
+        \draw[thick] (0,0) -- (5,0);
+        \draw[thick] (0,2) -- (5,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,0) -- (0,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (5,2) -- (5,0);
+        \draw[blue, ultra thick] (0,1.5) .. controls (2,0) and (4,1.5) ..(5,0.5);
+        \node at (0.75,0.5) {\Large{$U_1$}};
+        \node at (4.25,1.5) {\Large{$U_1$}};
+        %
+        \draw[dashed, fill=lightgray] (7.5,0) -- (7.5,2) -- (11.5,2) -- (11.5,0) -- (7.5,0);
+        \draw[thick] (7,0) -- (12,0);
+        \draw[thick] (7,2) -- (12,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (7,0) -- (7,2);
+        \draw[thick, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (12,2) -- (12,0);
+        \draw[blue, ultra thick] (7,1.5) .. controls (9,0) and (11,1.5) ..(12,0.5);
+        \node at (9.5,1.5) {\Large{$U_2$}};
+        %
+    \etik 
+\end{center}
+We then define maps from these shaded regions into $\R^2$. For example we can just map them so that they are the shaded regions on the page, taking care to region the two parts of $U_1$ properly. To save my writing more Tikz code, I'll leave this to your imagination. 
+
+\subsection{A Real World From An Atlas}
+
+\mybox{
+This is worth watching on \href{https://www.youtube.com/watch?v=ghfEQ3u_B6g&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL&index=2}{the video}, but would be way too hard for me to do on here. So please go watch the video for this one.
+}
+
+\subsection{Before The Invention Of The Wheel}
+
+\mybox{
+Consider the set $F^1:= \{(m,n)\in\R^2 \, | \, m^4 + n^4 = 1\}$ of pairs of real numbers $(m,n)$. Let it be equipped with the topology subset topology $\cO_{s}|_{F^1}$ inherited from the standard topology on $\R^2$.  
+
+\textbf{Question}: We look at a map $x:F^1\to \R$ that maps a pair in $F^1$ to the first entry in the pair. Write this in formal mathematical terms! Is the map injective?
+}
+
+\textbf{Solution}: The map is $x: F^1 \to [-1,1]$ given by $x:(m,n) 
+\mapsto m$. Clearly this map is not injective as $x\big((m,n)\big) = x\big((m,n')\big)$ where $n' = -n$. 
+
+\mybox{
+\textbf{Question}: This map may be made injective by restricting its domain to either of two maximal open subsets of $F^1$. Which ones? Call them $x_{\uparrow}$ and $x_{\downarrow}$.
+}
+
+\textbf{Solution}: The problem was that $n'=-n$ gave non-injectivity, so clearly we define
+\bse 
+    \begin{split}
+        U_{\uparrow}  & := \{(m,n)\in\R^2 \, | \, m^4 + n^4 = 1, n>0\} \\
+        U_{\downarrow}  & := \{(m,n)\in\R^2 \, | \, m^4 + n^4 = 1, n<0\} 
+    \end{split}
+\ese 
+and so have the maps 
+\bse 
+    x_{\uparrow} : U_{\uparrow} \to (-1,1), \qquad \text{and} \qquad x_{\downarrow} : U_{\downarrow} \to (-1,1).
+\ese 
+It is important that we take the inequalities for $n$ (i.e. $n\neq 0$) so that our sets are open, as required by the question. 
+
+\mybox{
+\textbf{Question}: Now, construct an injective map $y_{\uparrow}:F^1 \to \R$ that maps every pair in a maximal open subset of $F^1$ to the second entry of the pair. 
+}
+
+\textbf{Solution}: Same as above we simply define 
+\bse 
+    V_{\uparrow}  := \{(m,n)\in\R^2 \, | \, m^4 + n^4 = 1, m>0\},
+\ese 
+and the map 
+\bse 
+    y_{\uparrow} : V_{\uparrow} \to (-1,1),
+\ese 
+given by $y_{\uparrow}:(m,n)\mapsto n$. 
+
+\mybox{
+\textbf{Question}: Is $y_{\uparrow}$ invertible? If so, construct $y_{\uparrow}^{-1}$!
+}
+
+\textbf{Solution}: Yes it is invertible as it is bijective. We construct the inverse as 
+\bse 
+    y_{\uparrow}^{-1} : (-1,1) \to V_{\uparrow},
+\ese 
+where the action is given by
+\bse 
+    y_{\uparrow}^{-1} : n \mapsto \big( \sqrt[4]{1-n^4}, n\big).
+\ese 
+
+\mybox{
+\textbf{Question}: Do the domains of the maps $x_{\uparrow}$ and $y_{\uparrow}$ overlap? If so, construct the \textit{transition map} $x_{\uparrow}\circ y_{\uparrow}^{-1}$ and specify its domain and target. 
+}
+
+\textbf{Solution}: Yes their domains overlap as 
+\bse 
+    U_{\uparrow}\cap V_{\uparrow} = \{(m,n)\in\R^2 \, | \, m^4 + n^4 = 1, n,m>0\}
+\ese 
+The transition map is 
+\bse 
+    \big(x_{\uparrow}\circ y_{\uparrow}^{-1}\big) : (0,1) \to (0,1)
+\ese 
+with 
+\bse 
+    \big(x_{\uparrow}\circ y_{\uparrow}^{-1}\big)(a) = x_{\uparrow}\big(\sqrt[4]{1-a^4}, a\big) = \sqrt[4]{1-a^4} \in (0,1).
+\ese 
+
+\mybox{
+\textbf{Question}: How many maps (constructed this way) do you need for their domains to cover the whole of $F^1$? Does the collection of these domains and maps form an atlas on $F^1$?
+}
+
+\textbf{Solution}: The answer is obviously 4 maps, $x_{\uparrow},x_{\downarrow},y_{\uparrow}$ and $y_{\downarrow}$, and yes they form an atlas. From this we see that $F^1$ is a topological manifold of dimension $d=1$.
+
+\section{Multilinear Algebra}
+
+\subsection{Vector Spaces}
+
+\mybox{
+Let $V:=\R^3$ be the set of all real triples. 
+
+\textbf{Question}: We equip $V$ with addition $\oplus : V \times V\to V$ and s-multiplication $\odot:\R\times V \to V$ defined by 
+\bse 
+    (a,b,c)\oplus(d,e,f) := (a+d,b+e,c+f)
+\ese 
+and 
+\bse 
+    \lambda \odot (a,b,c) := (\lambda \cdot a, \lambda \cdot b, \lambda \cdot c)
+\ese 
+where $+$ and $\cdot$ are the addition and multiplication on $\R$. Check that $(V,\oplus,\odot)$ is a vector space.
+}
+
+\textbf{Solution}: We need to check it meets the 8 axioms. 
+\benr 
+    \item Commutative w.r.t. $\oplus$:
+    \bse 
+        (a,b,c) \oplus (d,e,f) = (a+d,b+e,c+f) = (d+a,b+e,f+c) = (d,e,f) \oplus (a,b,c).
+    \ese 
+    \item Associative w.r.t. $\oplus$: 
+    \bse
+        \begin{split}
+            \big[ (a,b,c)\oplus(d,e,f) \big] \oplus (h,i,j) & = (a+d,b+e,c+f) \oplus (h,i,j) \\
+            & = (a+d+h,b+e+i,c+f+j) \\
+            & = (a,b,c) \oplus (d+h,e+i,f+j) \\
+            & = (a,b,c)\oplus \big[ (d,e,f)\oplus(h,i,j) \big].
+        \end{split}
+    \ese 
+    \item Neutral element w.r.t. $\oplus$: this is clearly just $(0,0,0)$. 
+    \item Inverse w.r.t. $\oplus$: this is clearly just $(-a,-b,-c)$. Note for this to be true it is important that we take the whole real line, not just the positive reals (otherwise $(-a,-b,-c)\notin V$.
+    \item Associative w.r.t. $\odot$: 
+    \bse 
+        \begin{split}
+            \lambda \odot \big[\mu\odot(a,b,c)\big] & = \lambda \odot (\mu\cdot a,\mu\cdot b, \mu\cdot c) \\
+            & = (\lambda \odot\mu\cdot a,\lambda \odot\mu\cdot b, \lambda \odot\mu\cdot c) \\
+            & = \big[\lambda \odot \mu] \odot (a,b,c).
+        \end{split}
+    \ese 
+    \item Distributive 1: 
+    \bse
+        \begin{split}
+            (\lambda + \mu)\odot (a,b,c) & = \big( (\lambda + \mu)\cdot a, (\lambda + \mu)\cdot b,(\lambda + \mu)\cdot c\big) \\
+            & = (\lambda \cdot a, \lambda \cdot b, \lambda \cdot c) \oplus (\mu\cdot a,\mu\cdot b, \mu \cdot c) \\
+            & = \lambda \odot (a,b,c) \oplus \mu \odot (a,b,c).
+        \end{split}
+    \ese
+    \item Distributive 2:
+    \bse 
+        \begin{split}
+            \lambda \odot \big[(a,b,c)\oplus(d,e,f)\big] & = \lambda \odot (a+d,b+e,c+f) \\
+            & = \big( \lambda\cdot(a+d),\lambda\cdot(b+e), \lambda\cdot(c+f)\big) \\
+            & = (\lambda\cdot a, \lambda\cdot b, \lambda\cdot c) + (\lambda\cdot d, \lambda\cdot e, \lambda\cdot f) \\
+            & = \lambda \odot (a,b,c) \oplus \lambda \odot (d,e,f).
+        \end{split}
+    \ese 
+    \item Unitary w.r.t. $\odot$: Clearly $1\odot(a,b,c)=(a,b,c)$.
+\een
+
+\mybox{
+\textbf{Question}: Consider the map $d:V\to V$; $(a,b,c)\mapsto d\big((a,b,c)\big) := (b,2c,0)$.
+
+Is $d$ linear?
+}
+
+\textbf{Solution}: Consider 
+\bse 
+    \begin{split}
+        d\big( \lambda\odot (a,b,c) \oplus (d,e,f)\big) & = d\big( ([\lambda \cdot a]+d, [\lambda \cdot b]+e,[\lambda \cdot c]+f)\big) \\
+        & = ([\lambda \cdot b]+e, 2[\lambda \cdot c]+2f, 0) \\
+        & = \lambda\odot(b, 2c,0) \oplus (e,2f) \\
+        & = \lambda\odot d\big((a,b,c)\big) \oplus d\big((d,e,f)\big),
+    \end{split}
+    so yes it's linear. 
+\ese 
+
+\mybox{
+\textbf{Question}: Show that the map $d\circ d$ is linear.
+}
+\textbf{Solution}: This follows immediately from \Cref{thrm:CompositionOfLinearMaps}, however if you want you can show it explicitly (we won't here to save me writing.)
+
+\mybox{
+\textbf{Question}: Consider the map 
+\bse 
+    i: V \to \R; \, (a,b,c) \mapsto i\big((a,b,c)\big) := a + \frac{1}{2}b + \frac{1}{3}c.
+\ese 
+Check linearity. Of what set is $i$ an element?
+}
+\textbf{Solution}: The linearity calculation is exactly the same method as above, so to save me typing I'm just going to say the answer: yes it is. Being a linear map from $V$ to $\R$ it is, by definition, an element of $V^*$.
+
+\mybox{
+\textbf{Question}: Another (multi)linear question. Again I don't want to keep typing out that check so see \href{https://www.youtube.com/watch?v=5oeWX3NUhMA&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL&index=3}{the video} for this one.
+}
+
+\mybox{
+\textbf{Question}: Compare the above map $d:V \to V$ with the map $\del : P \to P$ from the lecture and construct a bijective linear map $j:P_2\to \R^3$ such that 
+\bse 
+    d = j \circ \del \circ j^{-1}.
+\ese 
+}
+
+\textbf{Solution}: Recall that $\del:P\to P$ is defined as the derivative, i.e. $\del(p) = p'$. Clearly for this question we want to focus on the map $\del : P_2\to P_2$. Recall the definition
+\bse 
+    P_2 := \{ p :\R \to \R \, | \, p(x) = a + bx + cx^2\},
+\ese 
+and so we have 
+\bse 
+    p'(x) = b + 2cx + 0x^2.
+\ese 
+We instantly see this resembles the map $d: V \to V$ which acts as $d\big((a,b,c)\big) := (b,2c,0)$. We just need to construct the map $j:P_2\to \R^3$. With a bit of thought it is clear that the answer is simply 
+\bse 
+    j(p) := (a,b,c),
+\ese 
+where $p = a + bx +cx^2$. The inverse map $j^{-1}:\R^3\to P_2$ is then simply given by 
+\bse 
+    \big(j^{-1}(a,b,c)\big)(x) := a+bx+cx^2. 
+\ese
+Direct substitution then gives 
+\bse 
+    \big((j\circ \del \circ j^{-1}\big)(a,b,c) := (b,2c,0) =: d\big((a,b,c)\big). 
+\ese
+
+Similar exercises can be done to compare $i:V\to\R$ to $I:P\to\R$ given in the lecture (and also for the above exercise which I haven't typed here.) See \href{https://www.youtube.com/watch?v=5oeWX3NUhMA&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL&index=3}{the video} for more details.
+
+\subsection{Indices}
+
+\mybox{
+Let $V$ be a $d$-dimensional vector space. Consider two maps $A$ and $B$, where
+\bse 
+    \begin{split}
+        A : V^*\times V^* & \to \R \\
+        B : V \times V & \to \R.
+    \end{split}
+\ese 
+$V$ has a basis $e_1,...,e_d$ and $V^*$ has the basis $\epsilon^1,...,\epsilon^d$. 
+
+\textbf{Question}: Define the components $A^{ab}$ of $A$ and $B_{ab}$ of $B$ with respect to the given bases.
+}
+
+\textbf{Solution}: We simply uses the duality of the basis elements, namely $e_i(\epsilon^j) = \del^j_i = \epsilon^j(e_i)$. So we have 
+\bse 
+    A^{ab} = A(\epsilon^a,\epsilon^b), \qand B_{ab} = B(e_a,e_b).
+\ese 
+
+\mybox{
+\textbf{Question}: We define $A^{[ab]} := \frac{1}{2}\big(A^{ab}-A^{ba}\big)$. Show that 
+\bse 
+    A^{[ab]} = - A^{[ba]}
+\ese 
+and also 
+\bse 
+    A^{[ab]}B_{ab} = A^{ab}B_{[ab]}.
+\ese 
+}
+
+\textbf{Solution}: From direct calculation we have 
+\bse 
+    A^{[ab]} := \frac{1}{2}\big(A^{ab}-A^{ba}\big) = - \frac{1}{2} \big( A^{ba} - A^{ab}\big) =: - A^{[ba]}.
+\ese 
+We also have 
+\bse 
+    \begin{split}
+        A^{[ab]}B_{ab} & := \frac{1}{2}\big(A^{ab}-A^{ba}\big)B_{ab} \\
+        & = \frac{1}{2} \big( A^{ab}B_{ab} - A^{ba}B_{ab}\big) \\
+        & = \frac{1}{2} \big( A^{ab}B_{ab} - A^{ab}B_{ba}\big) \\
+        & = A^{ab}\frac{1}{2}\big(B_{ab}-B_{ba}\big) \\
+        & =: A^{ab}B_{[ab]},
+    \end{split}
+\ese 
+where we have used the Einstein summation convention to relabel the dummy indices of the second term to get to the third line.
+
+\mybox{
+\textbf{Question}: We additionally define $B_{(ab)}:= \frac{1}{2}\big(B_{ab}+B_{ba}\big)$. Now, show that 
+\bse 
+    B_{(ab)} = B_{(ba)}
+\ese
+and again 
+\bse 
+    A^{ab}B_{(ab)} = A^{(ab)}B_{ab}.
+\ese 
+}
+\textbf{Solution}: Follows exactly like the previous solution. 
+
+\mybox{
+\textbf{Question}: Using the results from the previous questions, we can easily show 
+\bse 
+    A^{[ab]}B_{(ab)} = 0,
+\ese 
+i.e., the summation (contraction) of symmetric and antisymmetric indices yields zero.
+}
+\textbf{Solution}: We have 
+\bse 
+    \begin{split}
+        A^{[ab]}B_{(ab)} & := \frac{1}{2}\big( A^{ab}B_{(ab)} - A^{ba}B_{(ab)} \big) \\
+        & = \frac{1}{2}\big( A^{(ab)}B_{ab} - A^{(ba)}B_{ab} \big) \\
+        & = \frac{1}{2}\big( A^{(ab)}B_{ab} - A^{(ab)}B_{ab}\big) \\
+        & = 0.
+    \end{split}
+\ese
+
+\subsection{Linear Maps As Tensors}
+
+\mybox{
+\textbf{Question}: Given a vector space $V$ and a linear map $\phi: V^* \lmap V^*$ construct a $(1,1)$-tensor $T_{\phi}$. 
+}
+\textbf{Solution}: We know a $(1,1)$-tensor is a linear map $T_{\phi}: V^*\times V \lmap \R$. We also know that $\psi\in V^*$ is a map $\psi: V\lmap \R$. So it's clear that we just define 
+\bse 
+    T_{\phi}(\sig, v) := \big(\phi(\sig)\big)(v),
+\ese 
+where $\sig\in V^*$ and $v\in V$. 
+
+\mybox{
+\textbf{Question}: Given a $(1,1)$-tensor $T : V^*\times V \lmap \R$, construct a linear map $\phi_T :V^*\lmap V^*$. 
+}
+\textbf{Solution}: This is just the previous exercise in reverse. That is we define 
+\bse 
+    \big(\phi_T(\sig)\big)(v) := T(\sig,v),
+\ese 
+which we write as 
+\bse 
+    \phi_T(\sig) := T(\sig, \cdot).
+\ese 
+
+\mybox{
+\textbf{Question}: Show that 
+\ben[label=(\alph*)]
+    \item $T_{\phi_T} = T$, and
+    \item $\phi_{T_{\phi}}=\phi$.
+\een 
+}
+\textbf{Solution}: 
+\ben[label=(\alph*)]
+    \item We have 
+    \bse 
+        T_{\phi_T}(\sig,v) := \big(\phi_T(\sig)\big)(v) =: T(\sig,v).
+    \ese 
+    \item We have 
+    \bse 
+        \big(\phi_{T_{\phi}}(\sig)\big)(v) := T_{\phi}(\sig,v) =: \big(\phi(\sig)\big(v),
+    \ese 
+    and so 
+    $\phi_{T_{\phi}} = \phi$.
+\een
+
+\mybox{
+\textbf{Question}: Conclude that we can consider a linear map $\phi : V^*\lmap V^*$ as a $(1,1)$-tensor.
+}
+\textbf{Solution}: The above exercises have just shown us that there is a unique link between $T$ and $\phi$ and so we can think of them as being isomorphic as maps and as such can be viewed as the same object.
+
+\section{Differential Manifolds}
+
+\subsection{Restricting The Atlas}
+
+\mybox{
+Let $(\R,\cO_{\text{standard}})$ be a topological space. Let it be further equipped with an atlas $\cA = \{ (\R,x), (\R,y)\}$ where $x:\R\to\R$; $a\mapsto x(a) = a$ and $y:\R\to\R$; $a\mapsto y(a)= a^3$. 
+
+\textbf{Question}: Construct the chart transition map $y\circ x^{-1}:\R \to \R$ and give its differentiability class. 
+}
+\textbf{Solution}: We have $x^{-1}:\R \to \R$; $a\mapsto x^{-1}(a) = a$, and so $y\circ x^{-1}:\R\to\R$; $a\mapsto a^3$. This is $C^{\infty}(\R)$. 
+
+\mybox{
+\textbf{Question}: Also construct the chart transition map $x\circ y^{-1}:\R\to\R$. Is $(\R,\cO_{\text{standard}},\cA)$ a differentiable manifold?
+}
+
+\textbf{Solution}: We have $x\circ y^{-1}: \R\to\R$; $a\mapsto \sqrt[3]{a}$, but this function is not even $C^1(\R\to\R)$ as the first derivative is $\frac{1}{3}a^{-2/3}$, which blows up as $a\to 0$. So no it is not a differentiable manifold. 
+
+\mybox{
+\textbf{Question}: Restrict the atlas $\cA$ to an atlas $\widetilde{\cA}$ in order to make $(\R,\cO_{\text{standard}},\widetilde{\cA})$ a smooth manifold.
+}
+\textbf{Solution}: The problem above came from the chart transition maps. Both chart maps themselves are $C^{\infty}(\R\to\R)$ and their domain is the whole manifold (namley $\R$) and so if we just remove one of the two charts we get a smooth manifold. 
+
+\subsection{Soft Squares on $\R\times\R$}
+
+\mybox{
+Let $\cM=\R\times\R$ equipped with the soft square topology $\cO_{ssq}$ and an atlas $\cA=\{(U_n,x_n)\}$, where $U_n = \{(x,y)\in\R\times\R \, | \, |x|<n, |y|<n, n\in \mathbb{N}^+\}$ and 
+\bse 
+    x_n : U_n \to x_n(U_n) \ss \R^2; \, (x,y) \mapsto x_n\big((x,y)\big) := \bigg(\frac{x+y}{2n}, \frac{x-y}{2n}\bigg).
+\ese
+\textbf{Question}: Recall the definition of a chart and show that the $(U_n,x_n)$ are indeed charts.
+}
+
+\textbf{Solution}: For $(U_n,x_n)$ to be charts, we need to show that $U_n\in \cO_{ssq}$ and that the $x_n$s are homeomorphisms (i.e. inevitable and continuous). 
+
+The soft square topology is rather self explanatory, it is the set of squares around the origin without the boundary. This is exactly the definition of the $U_n$s where the sides of consecutive $U_n$ increase by $2n$. So we have $U_n\in\cO_{ssq}$.
+
+Next we need to show that the chart maps are homeomorphisms. It is clear that $x_n$ is continuous w.r.t. $\cO_{ssq}$ and $\cO_{\text{standard}}$. So we just need to check that $x_n^{-1}$ exists and is continuous. We have 
+\bse 
+    x_n^{-1}(a,b) = \big(n(a+b), n(a-b)\big),
+\ese 
+which is again clearly continuous. 
+
+Therefore we know that the $(U_n,x_n)$ are indeed charts. 
+
+\mybox{
+\textbf{Question}: Show that $\cA$ is a $C^k$-atlas by explicitly constructing the chart transition maps. What is $k$? 
+}
+\textbf{Solution}: The chart transition maps are given by 
+\bse 
+    \begin{split}
+        x_m \circ x_n^{-1} : x_n(U_n\cap U_m) & \to x_m(U_n\cap U_m) \\
+        (a,b) & \mapsto \bigg(\frac{na}{m}, \frac{nb}{m}\bigg) = \frac{n}{m}(a,b).
+    \end{split}
+\ese 
+This tells us that $x_m\circ x_n^{-1} = \frac{n}{m}\b1_{\R^2}$, which together with $m\neq 0$ tells us $k=\infty$. 
+
+\mybox{
+\textbf{Question}: Construct at least one other chart that would lie in the maximal extension of $\cA$ and prove that it does. 
+}
+
+\textbf{Solution}: There are many, but we could take the map $\widetilde{x}:U_5 \to \widetilde{U_5}\ss\R^2$; $(a,b) \mapsto (a,b)$, i.e. it is the identity map restricted to $U_5$. It is clear that this will be $C^{\infty}$ compatible with any overlapping charts and so it lies in the atlas. 
+
+\subsection{Undergraduate Multi-Dimensional Analysis}
+
+\mybox{
+\textbf{Question}: There is a question about calculating partial derivatives. I am not including it here as its fairly straight forward.
+}
+
+\subsection{Differentiability On A Manifold}
+
+\mybox{
+\textbf{Question}: There is a question about drawing a diagram to show a bunch of different spaces and maps. It will take a while to draw in Tikz and there are plenty examples in the notes themselves, so I haven't included it here. This is followed by a calculation of a derivative of a map, it is worth seeing this exercise, so please \href{https://www.youtube.com/watch?v=FXPdKxOq1KA&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL&index=4}{the video}. 
+}
+
+\section{Tangent Spaces}
+
+\subsection{Virtuoso Use Of The Symbol $\big(\frac{\p}{\p x^i}\big)_p$}
+
+\mybox{
+\textbf{Question}: Show that, for overlapping charts $(U,x)$ and $(V,y)$, one has 
+\bse 
+    \bigg(\frac{\p x^a}{\p y^m}\bigg)_p \bigg(\frac{\p y^m}{\p x^b}\bigg)_p = \del^a_b
+\ese
+for any $p\in U\cap V$. 
+}
+\textbf{Solution}: We have 
+\bse 
+    \begin{split}
+        \del^a_b & = \bigg(\frac{\p}{\p x^b}\bigg)_p(x^a) \\
+        & := \p_b\big(x^a\circ x^{-1}\big)\big(x(p)\big) \\
+        & = \p_b\big(x^a\circ (y^{-1}\circ y) \circ x^{-1}\big)\big(x(p)\big) \\
+        & = \p_b\big((x^a\circ y^{-1}) \circ (y \circ x^{-1})\big)\big(x(p)\big) \\
+        & = \p_b\big(y^m\circ x^{-1}\big)\big(x(p)\big) \cdot \p_m\big(x^a\circ y^{-1}\big) \big(y(p)\big) \\
+        & =:  \bigg(\frac{\p y^m}{\p x^b}\bigg)_p \bigg(\frac{\p x^a}{\p y^m}\bigg)_p,
+    \end{split}
+\ese 
+where we have inserted the identity, used the associativity of the composition of maps, and the multidimensional chain rule along with $\big(y\circ x^{-1}\big)\big(x(p)\big) = y(p)$. 
+
+\mybox{
+\textbf{Question}: After inserting $y^{-1}\circ y$, where $y$ is another chart map on the same chart domain $U$, at the appropriate position in the definition of the left hand side of 
+\bse 
+    \bigg(\frac{\p f}{\p x^i}\bigg)_p = \bigg(\frac{\p y^m}{\p x^i}\bigg)_p\bigg(\frac{\p f}{\p y^m}\bigg)_p,
+\ese 
+use the multidimensional chain rule to show that it equals the right-hand side. 
+}
+\textbf{Solution}: This follows in a similar manner to the previous question and so I won't type it here. 
+
+\mybox{
+\textbf{Question}: Do the $\dim\cM$ many quantities defined by the left-hand side of the above expression constitute the components of a tensor? If so, what is the valence and rank of the tensor?
+}
+\textbf{Solution}: The above expression is clearly of the form of 
+\bse 
+    T_{(x)i}(p) = \bigg(\frac{\p y^m}{\p x^i}\bigg)_p T_{(y)m}(p),
+\ese 
+which is the transformation law for the components of a $(0,1)$-tensor. So the answer is "yes" and the valence is $(0,1)$ and the rank is $1$. 
+
+\subsection{Transformation Of Vector Components}
+
+\mybox{
+Let the topological space $(\R^2,\cO_{st.})$ be equipped with the atlas $\cA = \{(\R^2,x),(\R^2,y)\}$, where 
+\bse 
+    x : (a,b) \mapsto (a,b) \qand y:(a,b) \mapsto (a,b+a^3).
+\ese 
+\textbf{Question}: Calculate the objects $\big(\frac{\p x^i}{\p y^j}\big)_p$!
+}
+
+\textbf{Solution}: We have $\big(x \circ y^{-1}\big)\big((u,v)\big) = (u, v-u^3)$, and so direct calculation gives 
+\bse 
+    \bigg(\frac{\p x^1}{\p y^1}\bigg)_p := \p_1 \big(x^1 \circ y^{-1}\big)\big(y(p)\big) = 1,
+\ese 
+where we have used $\p_1\big(x^\circ y^{-1}\big)\big((u,v)\big) = 1$, irrespective of the value $u$ takes.  
+
+Next we have,
+\bse 
+    \bigg(\frac{\p x^2}{\p y^1}\bigg)_p := \p_1\big( x^2 \circ y^{-1}\big)\big(y(p)\big) = \p_1\big( x^2 \circ y^{-1}\big)\big((a,b+a^3)\big) = -3a^2,
+\ese 
+where we have used $\p_2\big(x^1\circ y^{-1}\big)\big((u,v)\big) = -2u^2$ along with $p=(a,b)$. 
+
+Similar calculations give 
+\bse 
+    \bigg(\frac{\p x^1}{\p y^2}\bigg)_p = 0, \qand \bigg(\frac{\p x^2}{\p y^2}\bigg)_p = 1
+\ese
+
+\mybox{
+(Reworded slightly to save typing) Recall that the components of the velocity to a curve $\gamma$ in a chart $(U,x)$ at point $p=\gamma(\lambda_0)$ are given by 
+\bse 
+    \dot{\gamma}_x^i(\lambda_0) := \big(x\circ \gamma)^{i\prime} (\lambda_0).
+\ese 
+Now consider the curve 
+\bse 
+    \gamma :\R\to \R^2; \quad  \lambda\mapsto (\lambda,-\lambda). 
+\ese
+\textbf{Question}: Calculate the components $\dot{\gamma}_x^i (\lambda_0)$ and $\dot{\gamma}_y^i (\lambda_0)$!
+}
+
+\textbf{Solution}: We have $(x\circ\gamma)(\lambda) = (\lambda, -\lambda)$ and $(y\circ\gamma)(\lambda) = (\lambda, -\lambda+\lambda^3)$, so we have 
+\bse 
+    \begin{split}
+        \dot{\gamma}_x^1(\lambda_0) & := \big(x\circ \gamma)^{1\prime} (\lambda_0) = 1, \\
+        \dot{\gamma}_x^2(\lambda_0) & := \big(x\circ \gamma)^{2\prime} (\lambda_0) = -1, \\
+        \dot{\gamma}_y^1(\lambda_0) & := \big(y\circ \gamma)^{1\prime} (\lambda_0) = 1, \\
+        \dot{\gamma}_y^2(\lambda_0) & := \big(x\circ \gamma)^{2\prime} (\lambda_0) = -1+3\lambda_0^2. 
+    \end{split}
+\ese 
+
+\mybox{
+\textbf{Question}: With the above results in mind, how could you have obtained the components of $\dot{\gamma}_x^i(\lambda_0)$ from the $\dot{\gamma}_y^i(\lambda_0)$?
+}
+
+\textbf{Solution}: The answer is clearly to just use the transformation property 
+\bse 
+    \dot{\gamma}_x^i(\lambda_0) = \bigg(\frac{\p x^i}{\p y^m}\bigg)_p \dot{\gamma}_y^m(\lambda_0).
+\ese 
+That is, we have
+\bse 
+    \begin{split}
+        \dot{\gamma}_x^1(\lambda_0) & = \bigg(\frac{\p x^1}{\p y^1}\bigg)_p \dot{\gamma}_y^1(\lambda_0) + \bigg(\frac{\p x^1}{\p y^2}\bigg)_p \dot{\gamma}_y^2(\lambda_0) \\
+        & = 1\cdot 1 + 0\cdot(-1+3\lambda_0)^2 \\
+        & = 1,
+    \end{split}
+\ese 
+and 
+\bse 
+    \begin{split}
+        \dot{\gamma}_x^2(\lambda_0) & = \bigg(\frac{\p x^2}{\p y^1}\bigg)_p \dot{\gamma}_y^1(\lambda_0) + \bigg(\frac{\p x^2}{\p y^2}\bigg)_p \dot{\gamma}_y^2(\lambda_0) \\
+        & = -3\lambda_0^2 \cdot 1 + 1\cdot (-1+3\lambda_0^2) \\
+        & = -1.
+    \end{split}
+\ese 
+
+\subsection{The Gradient}
+
+\mybox{
+Given a function $f$ on a manifold $\cM$, the level sets of $f$ for a constant $c\in\R$ are defined as 
+\bse 
+    N_c(f) := \{p\in\cM \, | \, f(p) = c\}. 
+\ese 
+\textbf{Question}: Formulate the condition for a curve $\gamma:\R\to\cM$ to take values solely in one of the level sets of a function $f$!
+}
+\textbf{Solution}: Clearly we just want $(f\circ \gamma)(\lambda)=c$ for all $\lambda\in\R$. We can formulate this as $f\circ \gamma$ being equivalent to the constant function, which simply obeys the above property. 
+
+\mybox{
+\textbf{Question}: Now show that the gradient of the function annihilates the velocity vector $v_{\gamma,p}$ for any such $\gamma$ through $p$ in $N_c(f)$. In other words, show that 
+\bse 
+    (df)_p (v_{\gamma,p})=0. 
+\ese
+}
+\textbf{Solution}: We have 
+\bse 
+    (df)_p (v_{\gamma,p}) := v_{\gamma,p}(f) := \big(f\circ \gamma)^{\prime}(\lambda_0) =0,
+\ese 
+as the derivative of a constant vanishes. 
+
+\subsection{Is There A Well-Defined Sum Of Curves?}
+
+\mybox{
+Let the topological manifold $(\R^2,\cO_{st.})$ be equipped with the atlas $\cA=\{(\R^2,x),(\R^2,y)\}$ where 
+\bse 
+    x:(a,b) \mapsto (a,b) \qand y:(a,b)\mapsto (a, b\cdot e^a).
+\ese 
+\textbf{Question}: Is $\cA$ a $C^{\infty}$-atlas?
+}
+\textbf{Solution}: We need to construct the chart transition maps 
+\bse 
+    \begin{split}
+        (x\circ y^{-1})(u,v) & = x\big((u, v \cdot e^{-u})\big) = (u,v\cdot e^{-u}) \\
+        (y\circ x^{-1})(u,v) & = y\big((u,v)\big) = (u, v\cdot e^u). 
+    \end{split}
+\ese 
+These are both infinitely times continuously differentiable and so the answer is "yes". 
+
+\mybox{
+\textbf{Question}: On our $\R^2$ above, consider two curves $\gamma,\del:\R\to\R^2$ given by 
+\bse 
+    \gamma: \lambda \mapsto (\lambda, 1),  \qand  \del :\lambda \mapsto  (1,\lambda).
+\ese 
+Without referring to any chart, can you give the sum $\gamma + \del$ of these curves? 
+}
+\textbf{Solution}: The answer is "no" because our manifold is just the set $\R^2$ (with a topology) and so carries no vector space structure so we cannot talk about the addition on $\R^2$. 
+
+\mybox{
+\textbf{Question}: Calculate the representatives of both curves with respect to both charts. Illustrate the results. Where do the curves in the charts intersect?
+}
+
+\textbf{Solution}: First consider the $x$ chart. We have 
+\bse 
+    (x\circ \gamma) (\lambda) = (\lambda, 1), \qand (x\circ \del) (\lambda) = (1,\lambda).
+\ese 
+
+In the $y$ chart we have 
+\bse 
+    (y\circ \gamma) (\lambda) = (\lambda, e^{\lambda}), \qand (y\circ \del) (\lambda) = (1,\lambda\cdot e)
+\ese 
+The illustrations are as follows 
+
+\begin{center}
+    \btik 
+        \draw[thick,->] (-3,0) -- (3,0);
+        \draw[thick,->] (0,-2) -- (0,3);
+        \node at (2.8,-0.5) {\large{$x^1$}};
+        \node at (-0.5,1.8) {\large{$x^2$}};
+        \draw[ultra thick, blue] (-3,1) -- (3,1);
+        \draw[ultra thick, red] (1,-2) -- (1,3);
+        \node at (-2,1.2) {\large{\textcolor{blue}{$\gamma$}}};
+        \node at (1.2,2) {\large{\textcolor{red}{$\del$}}};
+        % 
+        \draw[thick,->] (5,0) -- (11,0);
+        \draw[thick,->] (8,-2) -- (8,3);
+        \node at (10.8,-0.5) {\large{$y^1$}};
+        \node at (7.5,1.8) {\large{$y^2$}};
+        \draw[ultra thick, blue] (5,0.2) .. controls (8.5,0.5) .. (10,2.8);
+        \draw[ultra thick, red] (9,-2) -- (9,3);
+        \node at (10,2.4) {\large{\textcolor{blue}{$\gamma$}}};
+        \node at (8.8,2) {\large{\textcolor{red}{$\del$}}};
+    \etik 
+\end{center}
+
+The intersection points are $(1,1)$ in the $x$ chart and $(1,e)$ in the $y$ chart. These both correspond to $\lambda=1$, which it must from the definition of the curves. 
+
+\mybox{
+(Reworded to save typing)
+\textbf{Question}: Use the formula from the lectures 
+\bse 
+    \sig_x: \R\to U; \quad \lambda \mapsto x^{-1}\big( (x\circ\gamma)(\lambda+\lambda_0) + (x\circ\del)(\lambda+\lambda_1) - (x\circ\gamma)(\lambda_0)\big),
+\ese 
+where $\gamma(\lambda_0)=\del(\lambda_1)$, to find the sum $\gamma+\del$. Also do the calculation for $\sig_y(\lambda)$.
+}
+
+\textbf{Solution}: Using the previous question, direct calculation gives: for the $x$ chart 
+\bse 
+    \begin{split}
+        \sig_x(\lambda) & = x^{-1}\big( (\lambda+1,1) + (1,\lambda+1) - (1,1)\big) \\
+        & = x^{-1}(\lambda+1,\lambda+1) \\
+        & = (\lambda+1,\lambda+1).
+    \end{split}
+\ese 
+The calculation i the $y$ chart gives 
+\bse 
+    \sig_y(\lambda) = (\lambda+1, 1+ \lambda \cdot e^{-\lambda}). 
+\ese 
+
+\mybox{
+\textbf{Question}: Show that -- desipite the above results -- the velocity of $\sig_x$ and the velocity $\sig_y$ are equal at the intersection point.  
+}
+
+\textbf{Solution}: The intersection point is $(1,1)$ in $x$ and so we require $\lambda=0$. Using this, we have 
+\bse 
+    \dot{\sig}_{(x)x}^1 = 1 \qand \dot{\sig}_{(x)x}^2 = 1,
+\ese
+as both are just the derivative w.r.t. $\lambda$ of $\lambda+1$. 
+
+In the $y$ chart we have (note we use the $x$ chart in to find these components in order to compare it to the above ones)
+\bse 
+    \dot{\sig}_{(x)y}^1 = 1 \qand \dot{\sig}_{(x)y}^2 = 1 \cdot e^0 - 0\cdot e^0 = 1.
+\ese 
+
+So we have 
+\bse 
+    v_{\sig_x,(1,1)} = \dot{\sig}_{(x)x}^i \bigg(\frac{\p}{\p x^i}\bigg)_p = \dot{\sig}_{(x)y}^i\bigg(\frac{\p}{\p x^i}\bigg)_p = v_{\sig_y,(1,1)}. 
+\ese 
+
+\section{Fields}
+
+\subsection{Vector Fields For Practitioners}
+
+\mybox{
+\textbf{Question}: Let $(U,x)$ be a chart of a smooth a smooth manifold $(\cM,\cO,\cA)$. Explain why the map 
+\bse 
+    \frac{\p}{\p x^i} : U\to TU; \quad p\mapsto \bigg(\frac{\p}{\p x^i}\bigg)_p
+\ese 
+is a vector field on $U$.
+}
+
+\textbf{Solution}: We need to check that it is a section. That is $\pi\circ \frac{\p}{\p x^i} = \b1_{\cM}$. This is clearly true as $\pi:T_p\cM \to \cM$ is defied as 
+\bse 
+    \pi : \bigg(\frac{\p}{\p x^i}\bigg)_p \mapsto p.
+\ese 
+We now need to check if this section is smooth. If we denote the chart map on $TU$ as $\xi_x$, that is we need to check that 
+\bse 
+    \xi_x \circ \frac{\p}{\p x^i} \circ x^{-1} : x(U) \to \xi(TU)
+\ese 
+is smooth. Recalling the definition of $\xi_x$, and using the fact that the only non-vanishing component of $\frac{\p}{\p x^i}$ is the $i^{\text{th}}$ entry, we have 
+\bse 
+    \bigg(\xi_x \circ \frac{\p}{\p x^i} \circ x^{-1}\bigg)(\a^1,...,\a^d) =  (\a^1,...,\a^d, 0,...,1,...,0),
+\ese 
+where the $1$ appears at the $(d+i)^{\text{th}}$ entry. This is clearly smooth (w.r.t. the standard topologies on $\R^d$ and $\R^{2d}$), and so $\frac{\p}{\p x^i}$ is a vector field on $U$.
+
+\subsection{The Cotangent Bundle $T^*\cM \xrightarrow{\pi} \cM$}
+
+\mybox{
+We consider the \textit{cotangent bundle} total space $T^*\cM$ as the disjoint union 
+\bse 
+    T^*\cM := \bigcup^{\bullet}_{p\in\cM} T^*_p\cM 
+\ese 
+of all cotangent spaces and define the bundle projection map 
+\bse 
+    \begin{split}
+        \pi : T^*\cM & \to \cM \\
+        \omega & \mapsto \text{the unique $p$ with } \omega\in T^*_p\cM.
+    \end{split}
+\ese 
+\textbf{Question}: Show that 
+\bse 
+    \cO_{T^*\cM} := \{\preim_{\pi}(U) \, | \, U\in\cO_{\cM}\} 
+\ese 
+defines a topology on $T^*\cM$.
+}
+
+\textbf{Solution}: We check the three conditions for a topology in the order given in the definition. 
+\benr 
+    \item We have 
+    \bse 
+        \preim_{\pi}(\emptyset) = \emptyset, \qand \preim_{\pi}(\cM) = T^*\cM,
+    \ese
+    and so $\emptyset,T^*\cM\in\cO_{T^*\cM}$. 
+    \item This just follows from properties of the preimage, namely 
+    \bse 
+        \preim_f(U\cap V) = \preim_f(U)\cap \preim_f(V). 
+    \ese
+    \item This just follows from another property of the preimage, namely
+    \bse 
+        \bigcup_i \preim_f(U_i) = \preim_f\Big(\bigcup_i U_i\Big).
+    \ese 
+\een 
+
+\mybox{
+The rest of this tutorial is basically the same calculations as the ones in the lecture. Specifically find the components of $\xi^*_x$, its inverse and showing that the chart transition maps are smooth. 
+}
+
+\section{Connections}
+
+\subsection{Practical Rules For How $\nabla$ Acts}
+
+\mybox{
+\textbf{Question:} What is the result of the following applications of a torsion free covariant derivative? 
+\begin{itemize}
+    \item There are some others in the video, but they are basically covered in the lectures so I won't repeat them here. 
+    \item $\big(\nabla_{[m} A\big)_{n]}$,
+    \item $\big(\nabla_{[m}\omega\big)_{nr]}$.
+\end{itemize}
+}
+
+\textbf{Solution:} We have 
+\bse 
+    \begin{split}
+        \big(\nabla_{[m} A\big)_{n]} & := \frac{1}{2}\Big[\big(\nabla_mA\big)_n - \big(\nabla_nA\big)_m\Big] \\
+        & = \frac{1}{2} \big( A_{n,m} - {\Gamma^r}_{nm}A_r - A_{m,n} + {\Gamma^r}_{mn}A_r\big) \\
+        & = A_{[n,m]} + {\Gamma^r}_{[mn]} \\
+        & = \frac{1}{2}F_{mn},
+    \end{split}
+\ese 
+where we have used the fact that $\nabla$ is torsion free and so ${\Gamma^a}_{[bc]}=0$.
+
+Next, we have
+\bse 
+    \big(\nabla_{[m}\omega\big)_{nr]} = \frac{1}{3!}\Big[ \big(\nabla_{m}\omega\big)_{nr} - \big(\nabla_{m}\omega\big)_{rn} + \big(\nabla_{r}\omega\big)_{mn} - \big(\nabla_{r}\omega\big)_{nm} + \big(\nabla_{n}\omega\big)_{rm} - \big(\nabla_{n}\omega\big)_{mr}\Big].
+\ese 
+If we expand this out we will see that the $\Gamma$s all cancel, e.g.
+\bse 
+    \begin{split}
+        \big(\nabla_{m}\omega\big)_{nr} - \big(\nabla_{n}\omega\big)_{mr} & = \omega_{nr,m} - {\Gamma^s}_{nm}\omega_{sr} - {\Gamma^s}_{rm}\omega_{ns} - \omega_{mr,n} + {\Gamma^s}_{mn}\omega_{sr} + {\Gamma^s}_{rn}\omega_{ms} \\
+        & = \omega_{nr,m} - \omega_{mr,n} + 2{\Gamma^s}_{[mn]}\omega_{sr} + 2{\Gamma^s}_{r[n}\omega_{m]s} \\
+        & = \omega_{nr,m} - \omega_{mr,n} + 2{\Gamma^s}_{r[n}\omega_{m]s},
+    \end{split}
+\ese 
+and the other $\Gamma$ will cancel with another term's expansion. We are therefore left with 
+\bse 
+    \big(\nabla_{[m}\omega\big)_{nr]} = \omega_{[nr,m]}.
+\ese 
+
+\subsection{Connection Coefficients}
+
+\mybox{
+There is a question about stating the chart transformation laws of the $\Gamma$s and stating which class of transformations make the $\Gamma$s look like tensors. We have discussed this in the notes already, but I have but this box here to remind readers to re-read \Cref{rem:GammasTensorTransformation} as it's an important point often missed.
+}
+
+\mybox{
+\textbf{Question:} Let $(\cM,\cO,\cA,\nabla)$ be the flat plane. Consider two charts that both cover the upper half plane, that is all the points $(a,b)\in\R^2$ with $b>0$, one representing the familiar Cartesian coordinates and the other the familiar polar coordinates on there.  
+
+We already know the chart transition map from Cartesian to polar coordinates is given by 
+\bse 
+    y\circ x^{-1}(a,b) = \bigg( \sqrt{a^2+b^2}, \arccos\bigg(\frac{a}{\sqrt{a^2+b^2}}\bigg)\bigg),
+\ese 
+while the inverse transition map from polar to Cartesian is given by 
+\bse 
+    x\circ y^{-1}(r,\varphi) = \big( r\cos\varphi, r\sin\varphi), \qquad \text{for } r\in\R^+ \text{ and } \varphi\in(0,\pi).
+\ese 
+Starting from the assumption of vanishing connection coefficient functions in the Cartesian chart, calculate the connection coefficient functions $\Gamma^a_{(y)bc}$ w.r.t. the polar chart!
+}
+
+\textbf{Solution}: Recall that the transformation law is 
+\bse 
+    \Gamma^a_{(y)bc} = \frac{\p y^a}{\p x^k} \frac{\p^2 x^k}{\p y^b\p y^c} + \frac{\p y^a}{\p x^k} \frac{\p x^n}{\p y^b}\frac{\p x^m}{\p y^c} \Gamma^{k}_{(x)mn}.
+\ese 
+The assumption is $\Gamma^q_{(x)sp}=0$, and so we just need to find the first term. We have 
+\bse 
+    \bigg(\frac{\p x^k}{\p y^c}\bigg)_{y^{-1}(r,\varphi)} := \p_c\big(x^k\circ y^{-1}\big)(r,\varphi) = \begin{pmatrix}
+        \cos\varphi & -r\sin\varphi \\
+        \sin\varphi & r\cos\varphi 
+    \end{pmatrix}^k_{\,\,\, c}.
+\ese 
+Now, using the first question in the tangent spaces tutorial above, we have 
+\bse 
+    \begin{split}
+        \bigg(\frac{\p y^a}{\p x^k}\bigg)_p & = \bigg(\frac{\p x^k}{\p y^a}\bigg)^{-1} \\
+        & = \frac{1}{r} \begin{pmatrix}
+            r\cos\varphi & r\sin\varphi \\
+            -\sin\varphi & \cos\varphi 
+        \end{pmatrix}^k_{\,\,\, a} \\
+        & = \begin{pmatrix}
+            \cos\varphi & \sin\varphi \\
+            -\frac{1}{r}\sin\varphi & \frac{1}{r}\cos\varphi 
+        \end{pmatrix}^k_{\,\,\, a},
+    \end{split}
+\ese
+where we have used the fact that the determinant of the first matrix is $r$.
+We can also calculate 
+\bse 
+    \begin{split}
+        \bigg(\frac{\p^2 x^1}{\p y^1 \p y^1}\bigg)_{y^{-1}(r,\varphi)} & = 0 \\
+        \bigg(\frac{\p^2 x^1}{\p y^2 \p y^1}\bigg)_{y^{-1}(r,\varphi)} & = -\sin\varphi \\
+        \bigg(\frac{\p^2 x^1}{\p y^1 \p y^2}\bigg)_{y^{-1}(r,\varphi)} & = -\sin\varphi \\
+        \bigg(\frac{\p^2 x^1}{\p y^2 \p y^2}\bigg)_{y^{-1}(r,\varphi)} & = -r\cos\varphi \\
+        \bigg(\frac{\p^2 x^2}{\p y^1 \p y^1}\bigg)_{y^{-1}(r,\varphi)} & = 0 \\
+        \bigg(\frac{\p^2 x^2}{\p y^2 \p y^1}\bigg)_{y^{-1}(r,\varphi)} & = \cos\varphi \\
+        \bigg(\frac{\p^2 x^2}{\p y^2 \p y^2}\bigg)_{y^{-1}(r,\varphi)} & = -r\sin\varphi.
+    \end{split}
+\ese 
+
+We then simply have to pick the relevant expressions to find the $\Gamma^a_{(y)bc}$s. For example 
+\bse 
+    \Gamma^1_{(y)11} = \frac{\p y^1}{\p x^1} \frac{\p^2 x^1}{\p y^1\p y^1} + \frac{\p y^1}{\p x^2} \frac{\p^2 x^2}{\p y^1\p y^1} = 0,
+\ese 
+and 
+\bse
+    \begin{split}
+        \Gamma^1_{(y)22} & = \frac{\p y^1}{\p x^1} \frac{\p^2 x^1}{\p y^2\p y^2} + \frac{\p y^1}{\p x^2} \frac{\p^2 x^2}{\p y^2\p y^2} \\
+        & = \cos\varphi (-r\cos\varphi) + \sin\varphi(-r\sin\varphi) \\
+        & = -r(\cos^2\varphi + \sin^2\varphi) \\
+        & = -r.
+    \end{split}
+\ese 
+
+\section{Parallel Transport and Curvature}
+
+\subsection{Where Connection Coefficients Appear}
+
+\mybox{
+\textbf{Question}: Determine the coefficients of the Riemann tensor with respect to a chart $(U,x)$ in terms of the connection coefficient functions. 
+}
+
+\textbf{Solution}: Recall the definition 
+\bse 
+    \Riem(\omega,Z,X,Y) := \omega : \Big( \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{[X,Y]}Z\Big).
+\ese 
+We have already seen\footnote{Or more correctly, you have shown as an exercise in Lecture 8.} that Riem is $C^{\infty}$-linear in all its entries and so we can just consider basis elements. That is, we can set (using the notation $\p_j := \frac{\p}{\p x^j}$)
+\bse 
+    \omega = dx^i, \qquad Z = \p_j, \qquad X = \p_k, \qand Y = \p_m.
+\ese 
+So we have 
+\bse 
+    \begin{split}
+        \Riem(dx^i,\p_j,\p_k,\p_m) & := dx^i : \Big(\nabla_k\nabla_m\p_j - \nabla_m\nabla_k\p_j - \nabla_{[\p_k,\p_m]}\p_j\Big) \\ 
+        & = dx^i : \Big[ \nabla_k \big(\Gamma^r_{(x)jm}\p_r\big) - \nabla_m\big( \Gamma^r_{(x)jk}\p_r\big) \Big] \\
+        & = dx^i : \Big[ \Gamma^r_{(x)jm,k}\p_r + \Gamma^r_{(x)jm}\Gamma^s_{(x)rk}\p_s - \Gamma^r_{(x)jk,m}\p_r - \Gamma^r_{(x)jk}\Gamma^s_{(x)rm}\p_s \Big] \\
+        {\Riem^i}_{jkm} & = \Gamma^i_{(x)jm,k} - \Gamma^i_{(x)jk,m} + \Gamma^r_{(x)jm}\Gamma^i_{(x)rk}  - \Gamma^r_{(x)jk}\Gamma^i_{(x)rm}.
+    \end{split}
+\ese 
+We can see the antisymmetry in the last two entries immediatley from the above. That is ${\Riem^i}_{jkm} = -{\Riem^i}_{jmk}$.
+
+\mybox{
+\textbf{Question}: Does a one-dimensional manifold with connection have curvature? Why?
+}
+
+\textbf{Solution}: No, as if it is one-dimensional we only have one $\Gamma$, namely ${\Gamma^1}_{11}$, and if we put this into the above definition, all the only component ${\Riem^1}_{111}$ vanishes and so there is no curvature. 
+
+Geometrically this makes sense if we think about embedding the one-dimensional manifold into a higher dimensional space. We can always `pull' the one-dimensional manifold straight and thus show that it has no intrinsic curvature. 
+
+\subsection{The Round Sphere}
+
+\mybox{
+There is a question about finding the components of Riem for given $\Gamma$s. I am not going to write it here to save myself time, but I recommend at least watching the video (available \href{https://gravity-and-light.herokuapp.com/tutorials}{here}, for some reason this video is not on YouTube) for a worked calculation. 
+}
+
+\subsection{How Not To Define Parallel Transport}
+
+\mybox{
+\textbf{Question}: H\"{a}nschen defines two vectors $X\in T_p\cM$ and $Y\in T_q\cM$ as parallel if 
+\bse 
+    X^i_{(x)} = Y^i_{(x)}
+\ese 
+with respect to some chart $(U,x)$ whose domain $U$ contains both $p$ and $q$. 
+
+Prove that this notion of parallelity is ill-defined!
+}
+
+\textbf{Solution}: Consider the transformation to another chart with the same domain $(U,y)$, 
+\bse 
+    X^i_{(y)} = \bigg(\frac{\p y^i}{\p x^j}\bigg)_p X^j_{(x)} = \bigg(\frac{\p y^i}{\p x^j}\bigg)_p Y^j_{(x)} = \bigg(\frac{\p y^i}{\p x^j}\bigg)_p \bigg(\frac{\p x^j}{\p y^k}\bigg)_q Y^k_{(y)},
+\ese 
+but because $p\neq q$ we cannot, in general, use 
+\bse 
+    \bigg(\frac{\p y^i}{\p x^j}\bigg)_p \bigg(\frac{\p x^j}{\p y^k}\bigg)_q = \del^i_k,
+\ese 
+and so 
+\bse 
+    X^i_{(y)} \neq Y^i_{(y)}.
+\ese 
+
+\mybox{
+There is then a diagram to show how the above definition of parallelity fails for parallel (as defined in the lecture) vectors around a circle when considered in the Cartesian chart and the polar chart. 
+
+To save myself time I have not drawn the diagrams here, but if you can't picture the images in your head, again go see the video!
+}
+
+% Setting counter to match Lecture number
+\setcounter{section}{9}
+
+\section{Metric Manifolds}
+
+\subsection{Recognising \& Dealing With Different Signatures}
+
+\mybox{
+\textbf{Question}: (reworded) State the possible signatures of a metric $g$ for the following set of $g$-null vectors: 
+\benr
+    \item A cone through the origin, 
+    \item A point at the origin,
+    \item A straight line through the origin, and 
+    \item A plane through the origin,
+\een 
+where the origin is the origin of the vector space, namely the point $p\in\cM$ that we are tangent to. 
+}
+
+\textbf{Solution}: W.l.o.g. let's assume the vector space is 3-dimensional and introduce a basis $\{e_1,e_2,e_3\}$. The relevant equations giving the correct surfaces are
+\benr 
+    \item $g(X,X) = -(X^1)^2 + (X^2)^2 + (X^3)^2 = 0$, so we have $(-,+,+)$, or equivalently $(+,-,-)$.
+    \item $g(X,X)=0$ only for the zero vector, and so we need $(+,+,+)$ or $(-,-,-)$. 
+    \item From the above case, we just need to have one of the entries to be 0, i.e. $(0,+,+)$/$(0,-,-)$, as then all vectors with only an $e^1$ component are null. 
+    \item Extending the previous case, we have $(0,0,+)$/$(0,0-)$.
+\een 
+
+\subsection{Levi-Civita Connection}
+
+\mybox{
+\textbf{Question}: Expand in terms of connection coefficient functions 
+\benr 
+    \item $\big(\nabla_ag\big)_{bc}$, 
+    \item $\big(\nabla_bg\big)_{ca}$,
+    \item $\big(\nabla_cg\big)_{ab}$.
+\een
+}
+
+\textbf{Solution}: We just do the first one, as the other two are obtained by simply relabeling the indices. We have 
+\bse 
+    \big(\nabla_ag\big)_{bc} = g_{bc,a} - {\Gamma^m}_{ba}g_{mc} - {\Gamma^m}_{ca}g_{bm}. 
+\ese
+
+\mybox{
+\textbf{Question}: By adding and/or subtracting (i), (ii) and (iii) above in a clever way, obtain 
+\bse 
+    {\Gamma^a}_{bc} = \frac{1}{2}\big(g^{-1}\big)^{am} \big( g_{mc,b} + g_{mb,c} - g_{bc,m}\big)
+\ese 
+and conclude that $\nabla g=0$ and $T=0$ (torsion) uniquely determine the connection coefficient functions in terms of the metric. 
+}
+
+\textbf{Solution}: Consider (i)+(ii)-(iii), 
+\bse 
+    g_{bc,a} - {\Gamma^m}_{ba}g_{mc} - {\Gamma^m}_{ca}g_{bm} + g_{ca,b} - {\Gamma^m}_{cb}g_{ma} - {\Gamma^m}_{ab}g_{cm} - g_{ab,c} + {\Gamma^m}_{ac}g_{mb} + {\Gamma^m}_{bc}g_{am}.
+\ese 
+Now if we consider a metric compatible connection and vanishing torsion, we have that the above vanishes (as each of (i), (ii) and (iii) vanish themselves) and that the $\Gamma$s are symmetric in the lower two indices. Also using the fact that the metric is symmetric, we have 
+\bse 
+    0 = g_{bc,a} + g_{ac,b} - g_{ab,c} - 2{\Gamma^m}_{ba}g_{mc},
+\ese 
+which after rearranging and using $g_{mc}g^{-1})^{cn} = \del^n_m$ we have 
+\bse 
+    {\Gamma^n}_{ba} = \frac{1}{2}\big(g^{-1}\big)^{cn}\big(g_{bc,a} + g_{ac,b} - g_{ab,c}\big),
+\ese 
+which, relabelling $n\to a \to c \to m$ gives
+\bse 
+    {\Gamma^a}_{bc} = \frac{1}{2}\big(g^{-1}\big)^{ma}\big(g_{bm,c} + g_{cm,b} - g_{cb,m}\big)
+\ese 
+which is the result (when you us the symmetries). So we see the connection coefficient functions are uniquely determined by the metric components given the above conditions. 
+
+\subsection{Massaging The Length Functional}
+
+\mybox{
+\textbf{Question}: Let $\gamma :(0,1) \to \cM$ be a smooth curve on a smooth manifold $(\cM,\cO,\cA)$. Now consider a second curve $\widetilde{\gamma}:(0,1)\to\cM$ defined by 
+\bse 
+    \widetilde{\gamma}(\lambda) = \gamma\big(\sig(\lambda)\big),
+\ese 
+where $\sig:(0,1)\to(0,1)$ is an increasing bijective smooth function. 
+
+Show that the length of both curves is the same:
+\bse 
+    L[\widetilde{\gamma}] = L[\gamma].
+\ese 
+}
+
+\textbf{Solution}: Using 
+\bse 
+    \cL[\gamma] = \sqrt{g(v_{\gamma},v_{\gamma})}, \qand \dot{\widetilde{\gamma}}^a(\lambda) = (x^a\circ \gamma)'(\lambda),
+\ese 
+and introducing the notation 
+\bse 
+    \widetilde{\lambda} := \sig(\lambda), \qquad \implies \qquad \widetilde{\gamma}(\lambda) = \gamma(\widetilde{\lambda}),
+\ese 
+we have 
+\bse 
+    \begin{split}
+        L[\widetilde{\gamma}] & := \int_0^1 d\lambda \sqrt{g(v_{\widetilde{\gamma}},v_{\widetilde{\gamma}})} \\
+        & = \int_0^1 d\lambda \sqrt{g_{ab}\big(\widetilde{\gamma}(\lambda)\big)\cdot\dot{\widetilde{\gamma}}^a(\lambda) \cdot  \dot{\widetilde{\gamma}}^b}(\lambda) \\
+        & = \int_0^1 d\lambda \sqrt{g_{ab}\big(\gamma(\widetilde{\lambda})\big) \cdot (x^a\circ \gamma \circ \sig)'(\lambda) \cdot (x^b\circ \gamma \circ \sig)'(\lambda)} \\
+        & = \int_0^1 d\lambda \sqrt{g_{ab}\big(\gamma(\widetilde{\lambda})\big) \cdot (x^a\circ \gamma)'(\widetilde{\lambda})\cdot \dot{\sig}(\lambda) \cdot (x^b\circ \gamma)'(\widetilde{\lambda)}\cdot\dot{\sig}(\lambda)} \\
+        & = \int_0^1 d\lambda \dot{\sig}(\lambda)\sqrt{g_{ab}\big(\gamma(\widetilde{\lambda})\big) \cdot \dot{\gamma}^a(\widetilde{\lambda}) \cdot \dot{\gamma}^b(\widetilde{\lambda})} \\
+        & = \int_0^1 d\widetilde{\lambda} \sqrt{g_{ab}\big(\gamma(\widetilde{\lambda})\big) \cdot \dot{\gamma}^a(\widetilde{\lambda}) \cdot \dot{\gamma}^b(\widetilde{\lambda})} \\
+        & = L[\gamma],
+    \end{split}
+\ese 
+where we have used the chain rule, and the result $d\widetilde{\lambda} = \dot{\sig}d\lambda$.
+
+\mybox{
+\textbf{Question}: Show that the Euler-Lagrange equations for a Lagrangian $\cT$ have precisely the same solutions as the Euler-Lagrange equations for the Lagrangian $\cL :=\sqrt{\cT}$, if of the latter one only selects those solutions that satisfy the condition $\cT=1$ on their parameterisation. 
+}
+\textbf{Solution}: Let's denote the canonical variables at $t$ and $q$, then the Euler-Lagrange equations for $\cL$ read 
+\bse 
+    \frac{d}{dt}\bigg(\frac{\p \cL}{\p \dot{q}^a}\bigg) - \frac{\p \cL}{\p q^a} = 0.
+\ese 
+Substituting in $\cL := \sqrt{\cT}$, and using the assumption that we only consider solutions were $\cT=1$, and so it is a constant w.r.t. $t$, we have 
+\bse 
+    \begin{split}
+        0 & = \frac{d}{dt}\bigg(\frac{\p \sqrt{\cT}}{\p \dot{q}^a}\bigg) - \frac{\p \sqrt{\cT}}{\p q^a} \\
+        & = \frac{d}{dt}\bigg(\frac{1}{2\sqrt{\cT}}\frac{\p \cT}{\p \dot{q}^a}\bigg) - \frac{1}{2\sqrt{\cT}} \frac{\p \cT}{\p q^a} \\
+        & = \frac{1}{2\sqrt{\cT}} \bigg[ \frac{d}{dt}\bigg(\frac{\p \cT}{\p \dot{q}^a}\bigg) - \dfrac{\p \cT}{\p q^a} \bigg],
+    \end{split}
+\ese 
+which multiplying out the $1/2\sqrt{\cT}$ gives the answer.
+
+\subsection{A Practical Way To Quickly Determine Christoffel Symbols}
+
+\mybox{
+\textbf{Question}: Derive the geodesic equation for the two-dimensional round sphere of radius $R$, whose metric in some chart $(U,x)$ is given by 
+\bse 
+    g_{ab}\big( x^{-1}(\vartheta,\phi)\big) = \begin{pmatrix}
+        R^2 & 0 \\
+        0 & R^2 \sin^2\vartheta
+    \end{pmatrix}
+\ese 
+via a convenient Euler-Lagrange equation. In order to lighten notation, you may define 
+\bse 
+    \vartheta(\lambda) := (x^1\circ\gamma)(\lambda), \qand \phi(\lambda) := (x^2\circ\gamma)(\lambda).
+\ese 
+}
+
+\textbf{Solution}: We have $\cL[\gamma] :=\sqrt{g(v_{\gamma},v_{\gamma})}$, but the previous question showed us we can instead consider $\cT:= g(v_{\gamma},v_{\gamma}) = g_{ab}\dot{\gamma}^a\dot{\gamma}^b$ if we restrict ourselves to $\cT=1$ on the parameterisation. For our metric components, we have 
+\bse 
+    \cT = R^2 \cdot \dot{\vartheta}(\lambda) \cdot \dot{\vartheta}(\lambda) + R^2\sin^2\vartheta  \cdot \dot{\phi}(\lambda) \cdot \dot{\phi}(\lambda).
+\ese 
+Plugging this into our Euler-Lagrange equations, we have 
+\bse 
+    \begin{split}
+        \frac{d}{d\lambda}\bigg(\frac{\p \cT}{\p \dot{\vartheta}}\bigg) - \frac{\p \cT}{\p \vartheta} & = 2R^2 \big(\ddot{\vartheta}(\lambda) - \sin\vartheta\cos\vartheta \cdot \dot{\phi}^2(\lambda)\big) \\
+        \frac{d}{d\lambda}\bigg(\frac{\p \cT}{\p \dot{\phi}}\bigg) - \frac{\p \cT}{\p \phi} & = 2R^2\sin\vartheta \big( \sin\vartheta\cdot \ddot{\phi}(\lambda) + 2\cos\vartheta \cdot \dot{\vartheta}\cdot \dot{\phi}\big)
+    \end{split}
+\ese 
+which simplify to 
+\bse 
+    \begin{split}
+        \ddot{\vartheta}(\lambda) - \sin\vartheta\cos\vartheta \cdot \dot{\phi}^2(\lambda) & = 0 \\
+        \ddot{\phi} + 2\cot\vartheta \cdot \dot{\vartheta}\cdot \dot{\phi} & = 0.
+    \end{split}
+\ese 
+These are the geodesic equations for our round sphere of radius $R$.
+
+\mybox{
+\textbf{Question}: Read off the metric-induced connection coefficient functions for the round sphere. 
+}
+\textbf{Solution}: Comparing the above result to the geodesic equation for the metric induced connection coefficients, 
+\bse 
+    \ddot{\gamma}^a + {\Gamma^a}_{bc}\dot{\gamma}^b\dot{\gamma}^c,
+\ese 
+we see straight away that 
+\bse 
+    {\Gamma^1}_{22} = -\sin\vartheta\cos\vartheta, \qand {\Gamma^2}_{12} = {\Gamma^2}_{21} = \cot\vartheta,
+\ese 
+with all other $\Gamma$s vanishing. Note in the second expression there is no $2$ as we distribute it across the ${\Gamma^2}_{12}$ and ${\Gamma^2}_{21}$.
+
+\subsection{Properties Of The Riemann-Christoffel Tensor}
+
+\mybox{
+\textbf{Question}: Show that the chart-induced basis fields act on the coefficient functions as 
+\bse 
+    \frac{\p}{\p x^c}\big(g^{-1}\big)^{ab} = - \big(g^{-1}\big)^{ar} \big(g^{-1}\big)^{bs} \frac{\p}{\p x^c}g_{rs}.
+\ese 
+}
+
+\textbf{Solution}: Using $(g^{-1})^{ab}g_{bs} = \del^a_s$, we have
+\bse 
+    \begin{split}
+        0 & = \frac{\p}{\p x^c} \del^a_s \\
+        & = \frac{\p}{\p x^c}\Big( \big(g^{-1}\big)^{ab}g_{bs}\Big) \\
+        & = \bigg(\frac{\p}{\p x^c}\big(g^{-1}\big)^{ab}\bigg)g_{bs} + \big(g^{-1}\big)^{ab}\bigg(\frac{\p}{\p x^c}g_{bs}\bigg) \\
+        & = \frac{\p}{\p x^c}\big(g^{-1}\big)^{ar} + \big(g^{-1}\big)^{sr}\big(g^{-1}\big)^{ab}\bigg(\frac{\p}{\p x^c}g_{bs}\bigg)
+    \end{split}
+\ese 
+which, after relabelling and rearranging gives the result.
+
+\mybox{
+\textbf{Question}: Use normal coordinates to find an expression for the Riemann-Christoffel tensor 
+\bse 
+    R_{abcd} = g_{ak}{R^k}_{bcd}
+\ese 
+at a given point $p$ in terms of $g_{ab}$ and its first and second order derivatives at that very point. 
+}
+
+\textbf{Solution}: This is just a long calculation involving the product rule and using the fact that in normal coordinates all the $\Gamma$s vanish. The full calculation is given in the video. The result is 
+\bse 
+    R_{abcd} = \frac{1}{2}\big( g_{ad,bc} - g_{bd,ac} + g_{ac,bd} - g_{bc,ad} \big),
+\ese 
+where 
+\bse 
+    g_{ab,cd} := \frac{\p^2 g_{ab}}{\p x^c\p x^d}.
+\ese 
+
+\mybox{
+\textbf{Question}: Show --- in normal coordinates --- that $R_{abcd}=-R_{bacd}$.
+}
+\textbf{Solution}: Switching the indices $a\leftrightarrow b$ in the result of the previous exercise we have 
+\bse 
+    R_{bacd} = \frac{1}{2}\big( g_{bd,ac} - g_{ad,bc} + g_{bc,ad} - g_{ac,bd}\big) = -\frac{1}{2}\big( g_{ad,bc} - g_{bd,ac} + g_{ac,bd} - g_{bc,ad} \big) = - R_{abcd}.
+\ese 
+
+\mybox{
+\textbf{Question}: Similarly, show that $R_{abcd}=R_{cdab}$.
+}
+
+\textbf{Solution}: Again just switch the indices and get the result.
+
+\mybox{
+\textbf{Question}: Show that $R_{a[bcd]}=0$ for the Riemann-Christoffel tensor.
+}
+
+\textbf{Solution}: We have
+\bse 
+    R_{a[bcd]} := \frac{1}{3!}\big( R_{abcd} - R_{abdc} + R_{acdb} - R_{acbd} + R_{adbc} - R_{adcb}\big).
+\ese 
+Then using the previous two questions, we also have 
+\bse 
+    R_{abcd} = R_{cdab} = -R_{dcab} = -R_{abdc}.
+\ese 
+Following this with the other indice arrangments, we get 
+\bse 
+    R_{a[bcd]} = \frac{1}{3}\big( R_{abcd} + R_{acdb} + R_{adbc}\big).
+\ese 
+If you then plug in the expansion in terms of $g_{ab}$ and its derivatives, you can show everything cancels and you get the result. 
+
+\section{Symmetry}
+
+\subsection{Pull-Back \& Push-Forward}
+
+\mybox{
+\textbf{Question}: Consider a smooth map $\phi:\cM\to\cN$ between two differential manifolds. Show that a function $f\in C^{\infty}(\cN)$, the pull-back of the gradient of $f$ is the same as the gradient of the pull-back of $f$, i.e. 
+\bse 
+    \phi^*(df) = d(\phi^*f).
+\ese 
+}
+\textbf{Solution}: By definition, we have
+\bse 
+    (\phi_*X)\la f \ra = X \la f\circ \phi \ra,
+\ese 
+for $X\in T\cM$, giving
+\bse 
+    \begin{split}
+        \phi^*(df) : X & := df : \phi_*(X) \\
+        & = \phi_* X \la f \ra \\
+        & = X \la f\circ \phi \ra \\
+        & = d(f\circ \phi) : X \\
+        & =: d(\phi^*f) :X,
+    \end{split}
+\ese 
+which holds for arbitrary $X$ and therefore proves the result. 
+
+\mybox{
+\textbf{Question}: The push-forward $\phi_* : T\cM \to T\cN$ is a linear map between tangent bundles. Calculate its component functions 
+\bse 
+    \phi_{*\,\, b}^{\,\, a} := dy^a : \phi_*\bigg(\frac{\p}{\p x^b}\bigg)
+\ese 
+with respect to charts $(U\ss\cM, x)$ and $(V\ss \cN, y)$!
+}
+
+\textbf{Solution}: If we considered a general vector and gradient, we would have 
+\bse 
+    df : \phi_*X = \phi_*X\la f \ra = X\la f \circ \phi \ra = X^i \bigg(\frac{\p(f\circ\phi)}{\p x^i}\bigg).
+\ese 
+Now we have 
+\bse 
+    \begin{split}
+        \bigg(\frac{\p (f\circ\phi)}{\p x^i}\bigg)_p & := \p_i\big(f\circ\phi\circ x^{-1}\big)\big|_{x(p)} \\
+        & = \p_i\big(f\circ y^{-1}\circ y\circ \phi\circ x^{-1}\big)\big|_{x(p)} \\
+        & = \p_j\big(f\circ y^{-1}\big)\big|_{(y\circ\phi\circ x^{-1}\circ x)(p)} \cdot \p_i\big(y^i\circ \phi\circ x^{-1}\big)\big|_{x(p)} \\
+        & =: \bigg(\frac{\p f}{\p y^j}\bigg)_q \cdot \bigg(\frac{\p (y^j\circ\phi)}{\p x^i}\bigg)_p, 
+    \end{split}
+\ese
+where $q:=\phi(p)\in\cN$. Now put in $f=y^a$ and $X=\frac{\p}{\p x^b}$, giving 
+\bse 
+    \begin{split}
+        \phi_{*\,\, b}^{\,\, a}(p) & = \bigg(\frac{\p y^a}{\p y^j}\bigg)_q \cdot \bigg(\frac{\p (y^j\circ \phi)}{\p x^b}\bigg)_p \\
+        & = \del^a_j \cdot \bigg(\frac{\p (y^j\circ \phi)}{\p x^b}\bigg)_p \\
+        & = \bigg(\frac{\p (y\circ \phi)^a}{\p x^b}\bigg)_p.
+    \end{split}
+\ese 
+
+\mybox{
+\textbf{Question}: Show that the component functions of the pull back $\phi^*g$ of the metric tensor field are obtained from the component functions of $g$ by 
+\bse 
+    (\phi^*g)_{ab}(p) = \bigg(\frac{\p(y\circ\phi)^m}{\p x^a}\bigg)_p \bigg(\frac{\p(y\circ\phi)^n}{\p x^b}\bigg)_p g_{mn}\big(\phi(p)\big).
+\ese 
+}
+
+\textbf{Solution}: With the definition of the induced metric in mind, we have
+\bse 
+    \begin{split}
+        (\phi^*g)(X,Y) & = g\big(\phi_*X,\phi_*Y\big) \\ 
+        & = g_{ab}\big(\phi_*X\big)^a\big(\phi_*Y\big)^b \\
+        & = g_{ab} \big(dy^a:\phi_*X\big) \big(dy^b:\phi_*Y\big).
+    \end{split}
+\ese
+Then if we use $g_{ab}=g\big(\frac{\p}{\p x^a},\frac{\p}{\p x^b}\big)$ and the results of the previous exercise we get 
+\bse
+    \begin{split}
+        (\phi^*g)_{ab}(p) & = g_{mn}(q) \cdot \bigg[dy^m:\phi_*\bigg(\frac{\p}{\p x^a}\bigg)\bigg](p) \cdot \bigg[dy^n:\phi_*\bigg(\frac{\p}{\p x^b}\bigg)\bigg](p) \\
+        & = \bigg(\frac{\p(y\circ\phi)^m}{\p x^a}\bigg)_p \bigg(\frac{\p(y\circ\phi)^n}{\p x^b}\bigg)_p g_{mn}\big(\phi(p)\big).
+    \end{split}
+\ese 
+
+\subsection{Lie Derivative --- The Pedestrian Way}
+
+\mybox{
+\textbf{Question}: Consider the smooth embedding $\iota:S^2\to \R^3$ of $(S^2,\cO,\cA)$ into $(\R^3,\cO_{st},\cB)$, which for the familiar chart $(U,x)\in\cA$ and $(\R^3,y=\b1_{\R^3})\in\cB$ is given by 
+\bse 
+    y\circ\iota\circ x^{-1} : (\vartheta,\varphi) \mapsto (a\cos\varphi\sin\vartheta, b\sin\varphi\sin\vartheta,c\cos\vartheta),
+\ese 
+where $a,b$ and $c$ are positive real numbers. What can you say about the shape of $\iota(S^2)$?
+}
+
+\textbf{Solution}: Nothing as in order to talk about shape you need either a covariant derivative or a metric, neither of which we have. I guess you could say it is some closed and compact 2-dimensional shape, but you could not specify which one, i.e. if its a round sphere or an ellipsoid or a potato. 
+
+\mybox{
+\textbf{Question}: Now assume $(\R^3,\cO_{st},\cB)$ is additionally equipped with the Euclidean metric $g$, whose components with respect to the chart $(\R^3,y)$ are given by 
+\bse 
+    g_{ab}(p) = \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 
+    \end{pmatrix} \qquad \text{for any } p\in U.
+\ese
+Write down the component functions of $g^{\text{ellipsoid}}:=\iota^*g$ with respect to the chart $(U,x)$!
+}
+
+\textbf{Solution}: Using the result of the previous questions, we need to find
+\bse 
+    \bigg(\frac{\p (y\circ \iota)^m}{\p x^a}\bigg)_p := \p_a\big(y^m\circ \iota \circ x^{-1}\big)\big|_{x(p)}.
+\ese 
+Using the definition given, we have 
+\bse 
+    \begin{split}
+        \bigg(\frac{\p (y\circ \iota)^1}{\p x^1}\bigg)_p & = a\cos\varphi\cos\vartheta, \qquad \bigg(\frac{\p (y\circ \iota)^1}{\p x^2}\bigg)_p = -a\sin\varphi\sin\vartheta \\
+        \bigg(\frac{\p (y\circ \iota)^2}{\p x^1}\bigg)_p & = b\sin\varphi\cos\vartheta, \qquad \bigg(\frac{\p (y\circ \iota)^2}{\p x^2}\bigg)_p  = b\cos\varphi\sin\vartheta \\
+        \bigg(\frac{\p (y\circ \iota)^3}{\p x^1}\bigg)_p & = -c\sin\vartheta, \qquad \qquad \bigg(\frac{\p (y\circ \iota)^3}{\p x^2}\bigg)_p = 0.
+    \end{split}
+\ese 
+You then just plug in the relevant terms, giving 
+\bse 
+    \begin{split}
+        g^{\text{ellipsoid}}_{11} & = a^2 \cos^2\varphi\cos^2\vartheta + b^2\sin^2\varphi\cos^2\vartheta + c^2\sin^2\vartheta \\
+        g^{\text{ellipsoid}}_{22} & = a^2\sin^2\varphi\sin^2\vartheta + b^2\cos^2\varphi\sin^2\vartheta,
+    \end{split}
+\ese
+and $g^{\text{ellipsoid}}_{12}=0=g^{\text{ellipsoid}}_{21}$. 
+
+\mybox{
+\textbf{Question}: For convenience, denote by $(\vartheta,\varphi)$ the coordinate functions $(x^1,x^2)$. Check the vector fields 
+\bse 
+    \begin{split}
+        X_1(p) & = -\sin\varphi(p)\bigg(\frac{\p}{\p \vartheta}\bigg)_p - \cot\vartheta(p)\cos\varphi(p)\bigg(\frac{\p}{\p \varphi}\bigg)_p \\
+        X_2(p) & = \cos\varphi(p)\bigg(\frac{\p}{\p \vartheta}\bigg)_p - \cot\vartheta(p)\sin\varphi(p)\bigg(\frac{\p}{\p \varphi}\bigg)_p \\
+        X_3(p) & = \bigg(\frac{\p}{\p\varphi}\bigg)_p
+    \end{split}
+\ese 
+constitute a Lie subalgebra of $(\Gamma TS^2,[\cdot,\cdot])$ and determine the structure constants!
+}
+\textbf{Solution}: Let $f\in C^{\infty}(\cM)$ be an arbitrary smooth function. We need to consider the action of the Lie bracket expressions on $f$, e.g. $[X_1,X_2]\la f\ra$. We use the clever trick that in this expansion only the terms where a derivative acts on a term in the $X$s will remain. That is, any terms that are second order derivative of $f$ will vanish because it will appear in both $X_1\la X_2\la f\ra \ra$ and $X_2\la X_1\la f\ra \ra$ which the order switched, but partial derivative commute and so these terms cancel. 
+
+We then have (dropping the $p$s for notational reasons)
+\bse 
+    \begin{split}
+        [X_1,X_2]\la f \ra & := X_1\big\la X_2\la f\ra \big\ra - X_2\big\la X_1\la f\ra \big\ra \\
+        & = \bigg[\big(-\cosec^2\vartheta \sin^2\varphi + \cot^2\vartheta\cos^2\varphi\big) \bigg(\frac{\p f}{\p\varphi}\bigg) + \cot\vartheta\cos\varphi\sin\varphi \bigg(\frac{\p f}{\p \vartheta}\bigg)\bigg]  \\
+        & \qquad - \bigg[\big(\cosec^2\vartheta\cos^2\varphi - \cot^2\vartheta\sin^2\varphi\big) \bigg(\frac{\p f}{\p \varphi}\bigg) + \cot\vartheta\sin\varphi\cos\varphi \bigg(\frac{\p f}{\p \vartheta}\bigg)\bigg] \\
+        & = \big(\cot^2\vartheta-\cosec^2\vartheta\big)\bigg(\frac{\p f}{\p \varphi}\bigg) \\
+        & = -\bigg(\frac{\p }{\p \varphi}\bigg)\la f \ra \\
+        & = - X_3\la f \ra \\
+        \implies [X_2,X_1] & = X_3,
+    \end{split}
+\ese 
+where on the last line we have used the antisymmetry of the Lie bracket.
+
+Next we have
+\bse 
+    \begin{split}
+        [X_1,X_3]\la f \ra & = 0 - \bigg[-\cos\varphi \bigg(\frac{\p f}{\p \vartheta}\bigg) + \cot\vartheta\sin\varphi\bigg(\frac{\p f}{\p \varphi}\bigg)\bigg] \\
+        & = X_2\la f \ra \\
+        \implies [X_1,X_3] & = X_2,
+    \end{split}
+\ese 
+and 
+\bse 
+    \begin{split}
+        [X_3,X_2] & = \bigg[ -\sin\varphi\bigg(\frac{\p f}{\p \vartheta}\bigg) -\cot\vartheta\cos\varphi\bigg(\frac{\p f}{\p \varphi}\bigg) \bigg] - 0 \\
+        & = X_1\la f\ra \\
+        \implies [X_3,X_2] = X_1.
+    \end{split}
+\ese 
+So we see that $\{X_1,X_2,X_3\}$ is closed under the Lie bracket, and so forms a Lie subalgebra. The structure constants are 
+\bse 
+    {C^3}_{21} = {C^2}_{13} = {C^1}_{32} = 1,
+\ese 
+and all other non-related (i.e. not ${C^3}_{12} = - {C^3}_{21}$, etc.) structure constants vanish. 
+
+Note this result tells us that $\{X_1,X_2,X_3\}$ is a 3-dimensional rotation algebra, as defined in the lecture. We therefore expect it to be a symmtry of $S^2$, which we show explictly below for $X_3$.
+
+\mybox{
+\textbf{Question}: Calculate the integral curve of $X_3$ through the point $p=x^{-1}(\vartheta_0,\varphi_0)$, i.e. the curve $\gamma_p$ satisfying 
+\bse 
+    \gamma_p(0) = p, \qand v_{\gamma_p,\gamma_p(\lambda)} = (X_3)_{\gamma_p(\lambda)}
+\ese 
+in the chart $(U,x)$!
+}
+
+\textbf{Solution}: Using 
+\bse 
+    v_{\gamma_p,\gamma_p(\lambda)} = (X_3)_{\gamma_p(\lambda)} \qquad \iff \qquad \dot{\gamma}^i_{p(x)}\bigg(\frac{\p}{\p x^i}\bigg)_{\gamma_p(\lambda)} = \bigg(\frac{\p}{\p \varphi}\bigg)_{\gamma_p(\lambda)},
+\ese 
+we have 
+\bse 
+    \dot{\gamma}^1_{p(x)}(\lambda) := \big(x^1\circ \gamma_p\big)'(\lambda) = 0, \qand \dot{\gamma}^2_{p(x)}(\lambda) := \big(x^2\circ \gamma_p\big)'(\lambda) = 1,
+\ese 
+from which is follows that 
+\bse 
+    \vartheta(\gamma_p) = a, \qand \varphi(\gamma_p) = \lambda + b,
+\ese
+for constants $a$ and $b$. We see from the question that $a=\vartheta_0$ and $b=\varphi_0$. So we have 
+\bse 
+    \gamma_{p(x)}(\lambda) = \big(\vartheta_0, \lambda + \varphi_0\big),
+\ese 
+which satisfies 
+\bse 
+    \gamma_p(0) = x^{-1}\big(\gamma_{p(x)}(0)\big) = x^{-1}(\vartheta_0,\varphi_0) = p.
+\ese
+
+\mybox{
+\textbf{Question}: The integral curves $\gamma_p$ give rise to a one-parameter family of smooth maps $h^{X_3}_{\lambda}:S^2\to S^2$. Calculate the pull-back
+\bse 
+    \Big(h^{X_3}_{\lambda}\Big)^*g^{\text{ellipsoid}}
+\ese 
+of the metric on $S^2$. What can you conclude about the Lie derivative $\cL_{X_3}g^{\text{ellipsoid}}$?
+}
+
+\textbf{Solution}: The flow is 
+\bse 
+    h^{X_3}_{\lambda} : p \mapsto \gamma_p(\lambda),
+\ese 
+so we have 
+\bse 
+    \Big(x^m\circ h^{X_3}_{\lambda}\circ x^{-1}\Big) : (\vartheta,\varphi) \mapsto \gamma^m_p(\lambda), 
+\ese 
+and so 
+\bse 
+    \begin{split}
+        \bigg(\frac{\p (x\circ h^{X_3}_{\lambda})^1}{\p x^1}\bigg)_p & := \p_1\Big( x^1 \circ h^{X_3}_{\lambda}\circ x^{-1}\Big)\Big|_{x(p)} = \vartheta_0 \\ 
+        \bigg(\frac{\p (x\circ h^{X_3}_{\lambda})^1}{\p x^2}\bigg)_p & := \p_2\Big( x^1 \circ h^{X_3}_{\lambda}\circ x^{-1}\Big)\Big|_{x(p)} = 0 \\
+        \bigg(\frac{\p (x\circ h^{X_3}_{\lambda})^2}{\p x^1}\bigg)_p & := \p_1\Big( x^2 \circ h^{X_3}_{\lambda}\circ x^{-1}\Big)\Big|_{x(p)} = 0 \\
+        \bigg(\frac{\p (x\circ h^{X_3}_{\lambda})^2}{\p x^2}\bigg)_p & := \p_2\Big( x^2 \circ h^{X_3}_{\lambda}\circ x^{-1}\Big)\Big|_{x(p)} = \lambda + \varphi_0.
+    \end{split}
+\ese 
+This gives us 
+\bse 
+    \begin{split}
+        \Big[\Big(h^{X_3}_{\lambda}\Big)^*g^{\text{ellipsoid}}\Big]_{11}(p) & = \vartheta_0^2 g^{\text{ellipsoid}}_{11}\big(\gamma_p(\lambda)\big) \\
+        \Big[\Big(h^{X_3}_{\lambda}\Big)^*g^{\text{ellipsoid}}\Big]_{22}(p) & = (\lambda+\varphi_0)^2 g^{\text{ellipsoid}}_{22}\big(\gamma_p(\lambda)\big)
+    \end{split}
+\ese 
+and again the other two components vanish. If we then take the coordinate transformation
+\bse 
+    \vartheta \to \frac{1}{\vartheta_0}\vartheta, \qand \varphi \to \frac{1}{\lambda+\varphi_0}\varphi,
+\ese 
+which we can do as $\vartheta_0,\varphi_0 >0$ (as the ranges of $\vartheta$ and $\varphi$ are positive), we then get 
+\bse 
+    \Big[\Big(h^{X_3}_{\lambda}\Big)^*g^{\text{ellipsoid}}\Big]_{ab}(p) = g^{\text{ellipsoid}}_{ab}\big(\gamma_p(\lambda)\big),
+\ese 
+or more nicely
+\bse 
+    \Big(h^{X_3}_{\lambda}\Big)^*g^{\text{ellipsoid}} = g^{\text{ellipsoid}}.
+\ese 
+This tells us that $X_3$ is a symmetry of the metric, and so $\cL_{X_3}g^{\text{ellipsoid}} = 0$. 
+
+\section{Integration}
+
+\subsection{Integrals \& Volumes}
+
+\mybox{
+\textbf{Question}: Calculate the volume of the round sphere $S^2$ of radius $R$, i.e., 
+\bse 
+    \text{vol}(S^2) = \int_{S^2}1.
+\ese 
+}
+
+\textbf{Solution}: The first thing we have to not is that `volume' here does not mean what we intuitively think, i.e. the Euclidean 3-volume, but it means what we would normally call the `surface area'. This distinction comes from which metric we are using, the metric on $S^2$ itself or the Euclidean metric with a sphere of radius $R$ embedded into it. Once this distinction is made the calculation is trivial, consider the chart with $(x^1,x^2) = (\vartheta,\varphi)$, then 
+\bse 
+    g_{(x)ab}\big(x^{-1}(\vartheta,\varphi)\big) = \begin{pmatrix}
+        R^2 & 0 \\
+        0 & R^2\sin^2\vartheta
+    \end{pmatrix}, \qquad \implies \qquad  g := \det\big(g_{(x)ab}\big)\big(x^{-1}(\vartheta,\varphi)\big) = R^4\sin^2\vartheta
+\ese 
+and so
+\bse 
+    \begin{split}
+        \int_{S^2}1 & := \int_{x(S^2)} d^2x \, \sqrt{g} 1 \\
+        & = \int^{\pi}_0 d\varphi \int^{2\pi}_0 d\vartheta \, \big|R^2\sin^2\vartheta\big| \\
+        & = 4\pi R^2, 
+    \end{split}
+\ese
+which is what we expect.
+
+Technically we need to include another chart, as $x(S^2)$ will miss two antipodal points and a geodesic connecting them, however this will contribute nothing to the volume as, we would only consider this line (the partition of unity removing the overlap region), which has no `thickness' and so no volume. For example if the line missing was the line of longitude connecting the North and South poles, we would have
+\bse 
+    \int^{\varphi_0}_{\varphi_0}d\varphi \int^{\pi}_0 d\vartheta R^2\sin\vartheta = 0,
+\ese 
+where $\varphi_0$ is the value of $\varphi$ along the line of longitude. 
+
+\section{Schwarzschild Spacetime}
+
+\subsection{Geodesics In A Schwarzschild Spacetime}
+
+\mybox{
+The Schwarzschild metric is given and we are told to use the light hand notation 
+\bse 
+    t(\lambda) := \big(x^0\circ\gamma)(\lambda),
+\ese 
+and similarly for $r(\lambda)$, $\theta(\lambda)$ and $\varphi(\lambda)$, where $\gamma:\R\to U$ is some curve. 
+
+\textbf{Question}: Write down the Lagrangian $\cL := g_{ab}\dot{\gamma}^a\dot{\gamma}^b$! 
+}
+
+\textbf{Solution}: Using the metric given in the question (see the video if you don't know it) we have 
+\bse 
+    \cL = \bigg(1-\frac{2GM}{r}\bigg) \dot{t}^2 - \bigg(1-\frac{2GM}{r}\bigg)^{-1} \dot{r}^2 - r^2\dot{\theta}^2 - r^2\sin^2\theta \dot{\varphi}^2.
+\ese 
+
+\mybox{
+\textbf{Question}: Find the Euler-Lagrange equation with respect to $t(\lambda)$!
+}
+
+\textbf{Solution}: We see straight away that 
+\bse 
+    \frac{\p \cL}{\p t} = 0.
+\ese 
+We also have 
+\bse 
+    \frac{d}{d\lambda}\bigg(\frac{\p \cL}{\p \dot{t}}\bigg) = 2\bigg(1-\frac{2GM}{r}\bigg) \ddot{t} + \frac{4GM}{r^2}\dot{r}\dot{t},
+\ese 
+which gives the Euler-Lagrange equation 
+\bse 
+    \ddot{t} + \frac{2GM}{r^2\Big(1-\frac{2GM}{r}\Big)}\dot{r}\dot{t} = 0
+\ese 
+
+\mybox{
+\textbf{Question}: Show that the Lie derivative of $g$ with respect to the vector field $K_t := \frac{\p}{\p t}$ vanishes. What does this mean?
+}
+
+\textbf{Solution}: We have 
+\bse 
+    (\cL_{K_t} g)_{ab} = K_t\la g_{ab}\ra + g_{mb}\frac{\p}{\p x^a}(K_t)^m + g_{ab}\frac{\p}{\p x^b}(K_t)^m = 0,
+\ese 
+as all three terms vanish. This tells us that $K_t$ is a symmetry of the metric. Indeed the Schwarzschild spacetime is stationary (and even static), the definitions for which are given in lecture 16. We will see this symmetry is the conservation of energy.
+
+\mybox{
+\textbf{Question}: The exact form of the conserved quantity is given by $(K_t)_a(x^a)'(\lambda)=$const. (without proof). Derive an expression for the quantity $t'(\lambda)$ appearing in the Lagrangian!
+}
+
+\textbf{Solution}: Using $(K_t)_a := g_{ab}(K_t)^b$, we have 
+\bse 
+    g_{ab}(K_t)^b(x^a)'(\lambda) = g_{00}t'(\lambda) = \bigg(1-\frac{2GM}{r}\bigg) t'(\lambda) = \text{const.}
+\ese 
+Letting $\sqrt{E}$ be the constant, we have 
+\bse 
+    t'(\lambda) = \frac{r\sqrt{E}}{r-2GM}
+\ese 
+
+\mybox{
+\textbf{Question}: Moreover, we can find so-called "spherical symmetry", that is, the Lie derivative of $g$ with respect to the already known vector fields 
+\bse 
+    \begin{split}
+        X_1 & = \sin\varphi\frac{\p}{\p\theta} + \cot\theta\cos\varphi\frac{\p}{\p\varphi} \\
+        X_2 & = \cos\varphi\frac{\p}{\p\theta} - \cot\theta\sin\varphi\frac{\p}{\p\varphi} \\
+        X_3 & = \frac{\p}{\p\varphi}
+    \end{split}
+\ese 
+vanishes. What physical quantity is conserved by this symmetry?
+}
+
+\textbf{Solution}: Angular momentum. 
+
+\mybox{
+\textbf{Question}: Due to $X_1$ and $X_2$ (without proof), one can fix the motion to a plane of constant $\theta=\frac{\pi}{2}$. How can you derive an expression for the remaining term $\varphi'(\lambda)$?
+}
+\textbf{Solution}: From two questions above, we have 
+\bse 
+    \text{const.} = g_{ab}X_3^b(x^a)'(\lambda) = g_{33}\varphi'(\lambda) = -r^2\sin^2\theta\varphi'(\lambda),
+\ese
+so using $\theta=\frac{\pi}{2}$ and labelling the constant $J$, we have 
+\bse 
+    \varphi'(\lambda) = \frac{J}{r^2}.
+\ese 
+
+\mybox{
+\textbf{Question}: Use all the fact that $\cL=1$ on the parameterisation. Insert the previously obtained results and take all terms not containing $E$ to one side!
+}
+
+\textbf{Solution}: First note that we have replaced the dots with primes, and also note that $\theta'=0$ as $\theta$ is a constant. We therefore have 
+\bse 
+    1 = \bigg(1-\frac{2GM}{r}\bigg)\frac{E}{\Big(1-\frac{2GM}{r}\Big)^2} - \frac{1}{1-\frac{2GM}{r}}(r')^2 - r^2\frac{J^2}{r^4},
+\ese 
+which can be rearranged to 
+\bse 
+    E = (r')^2 + 1 - \frac{2GM}{r} + \frac{J^2}{r^2} - \frac{2GMJ^2}{r^3}.
+\ese 
+
+\mybox{
+\textbf{Question}: Can you interpret the terms appearing in this expression?
+}
+\textbf{Solution}: If we then consider a particle of mass $m=1$, we see the above formula as representing 
+\begin{itemize}
+    \item $E$ is total energy, 
+    \item $(r')^2$ is the kinetic energy, 
+    \item $1$ is the mass, 
+    \item $-\frac{2GM}{r}$ is the Newtonian gravitational potential, 
+    \item $\frac{J^2}{r^2}$ is some angular momentum contribution, and 
+    \item $-\frac{2GMJ^2}{r^3}$ is some GR correction term. 
+\end{itemize}
+
+\subsection{Gravitational Redshift}
+
+\mybox{
+Consider a spacetime equipped with the Schwarzschild metric as well as two observers 1 and 2 at rest in their respective system of reference ($\dot{r}=0$, $\dot{\theta}=0$, $\dot{\varphi}=0$). The observers sit at the same $\theta$ and $\varphi$ while $r_1<r_2$.
+
+\textbf{Question}: Derive an expression for $t'(\lambda)$ using the Lagrangian from the previous exercise!
+}
+
+\textbf{Solution}: Using $1=\cL =g_{ab}\dot{\gamma}^a\dot{\gamma}^b$, we get 
+\bse 
+    t'(\lambda) = \bigg(1-\frac{2GM}{r}\bigg)^{-1/2}.
+\ese 
+
+\mybox{
+\textbf{Question}: Observer 1 emits photons that observer 2 detects. The gap between the two photon emissions is $\Delta \lambda_1$. Find the gap $\Delta \lambda_2$ seen by observer 2!
+}
+
+\textbf{Solution}: We have 
+\bse 
+    \begin{split}
+        \Delta t_1 & = \bigg(1-\frac{2GM}{r_1}\bigg)^{-1/2} \Delta \lambda_1 \\
+        \Delta t_2 & = \bigg(1-\frac{2GM}{r_2}\bigg)^{-1/2} \Delta \lambda_2.
+    \end{split}
+\ese 
+Then, we use the fact that $K_t$ was a Killing vector field, and so the path taken by the two emitted photons is the same, apart from a constant time shift.
+\begin{center}
+    \btik 
+        \draw[thick,->] (-0.2,0) -- (5,0);
+        \node at (4.8,-0.2) {$r$};
+        \draw[thick,->] (0,-0.2) -- (0,3);
+        \node at (-0.2,2.8) {$t$};
+        \draw[thick] (1,-0.2) -- (1,3);
+        \node at (0.8,-0.2) {$r_1$};
+        \draw[thick] (4,-0.2) -- (4,3);
+        \node at (3.8,-0.2) {$r_2$};
+        \draw[thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (1,0.5) .. controls (2,0.6) and (3,0.6) .. (4,1);
+        \draw[thick, fill=black] (1,0.5) circle [radius=0.05cm];
+        \draw[thick, fill=black] (4,1) circle [radius=0.05cm];
+        \draw[thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (1,2) .. controls (2,2.1) and (3,2.1) .. (4,2.5);
+        \draw[thick, fill=black] (1,2) circle [radius=0.05cm];
+        \draw[thick, fill=black] (4,2.5) circle [radius=0.05cm];
+        \node at (0.6,1.25) {\large{$\Delta t_1$}};
+        \node at (4.5,1.75) {\large{$\Delta t_2$}};
+    \etik 
+\end{center}
+
+As the above diagram shows, the Killing condition basically tells us that $\Delta t_1 = \Delta t_2$, and so we get 
+\bse 
+    \Delta \lambda_2 = \sqrt{\frac{1-\frac{2GM}{r_2}}{1-\frac{2GM}{r_1}}} \Delta \lambda_1
+\ese 
+
+\mybox{
+\textbf{Question}: Consider the ratio of frequencies $\frac{\omega_1}{\omega_2}$. What happens for observer 2 being approximately at infinity? What happens when sending $r_1$ to the Schwarzschild radius $r_s=2GM$?
+}
+
+\textbf{Solution}: We can think of $\Delta \lambda$ being the time period (time between photons emitted) and so the frequency (which is the reciprocal of the time period) is 
+\bse 
+    \frac{\omega_1}{\omega_2} = \frac{\Delta \lambda_2}{\Delta \lambda_1} = \sqrt{\frac{1-\frac{2GM}{r_2}}{1-\frac{2GM}{r_1}}}.
+\ese 
+As $r_1<r_2$, the above tells us that $\omega_2<\omega_1$. In terms of wavelength, this is $\mu_1<\mu_2$ (we have used $\mu$ for wavelength as $\lambda$ is already used above), which tells us that the light has been \textit{red-shifted}. This is seen also in the definition of redshift, 
+\bse 
+    1+z = \frac{\omega_1}{\omega_2},
+\ese 
+where $z>0$ is redshift and $z<0$ is blueshift. 
+
+For $r_2\to \infty$ we have 
+\bse 
+    \frac{\omega_1}{\omega_2} \to  \bigg(1-\frac{2GM}{r_1}\bigg)^{-1/2}.
+\ese 
+For $r_1\to r_s$, we have 
+\bse 
+    \frac{\omega_1}{\omega_2} \to \infty, 
+\ese 
+which tells us $\omega_1\to \infty$. In terms of wavelengths, this says $\mu_2\to\infty$, and so the light is infinitely redshifted. This is a so-called \textit{infinite redshift surface}.
+
+This result is actually misleading as it really only holds because of the choice of reference frame. We took the coordinate time to be that of the black hole's rest frame. If we use an in-falling observer's clock to define the coordinate time, this infinite redshift behaviour disappears. I have discussed this in more detail in the notes I have put on my blog site. 
+
+\section{Relativistic Spacetime, Matter \& Gravitation}
+
+\subsection{Lorentz Force Law}
+
+\mybox{
+\textbf{Question}: Recall from the lecture that for a particle coupling to the electromagnetic potential, we have 
+\bse 
+    m\big(\nabla_{v_{\gamma}}v_{\gamma}\big)^a = q{F^a}_b{v_{\gamma}}^b,
+\ese 
+where $v_{\gamma}$ is the velocity of a particle of mass $m$ and charge $q$.
+
+Now "$1+3$"-decompose this equation in components with respect to the frame of an observer.
+}
+
+\textbf{Solution}: The observer $(\del,e)$ has a frame such that 
+\bse 
+    g(e_a,e_b) = \eta_{ab}, \qand e_0(\lambda) = v_{\del,\del(\lambda)}.
+\ese 
+We thus have 
+\bse 
+    m\big(\nabla_{v_{\gamma}}v_{\gamma}\big)^a = qF^{ac}\eta_{cb}{v_{\gamma}}^b,
+\ese 
+and so 
+\bse 
+    \begin{split}
+        m\big(\nabla_{v_{\gamma}}v_{\gamma}\big)^0 & = qF^{00}{v_{\gamma}}^0 + \sum_{\beta=1}^3 qF^{0\beta}{v_{\gamma}}^{\beta} \\
+        m\big(\nabla_{v_{\gamma}}v_{\gamma}\big)^{\a} & = -qF^{\a0}{v_{\gamma}}^0 - \sum_{\beta=1}^3 qF^{\a\beta}{v_{\gamma}}^{\beta}.
+    \end{split}
+\ese 
+
+
+\mybox{
+\textbf{Question}: Using the definitions $E_{\a}$ := $F_{\a0}$ for the electric field and $B^{\a} := \frac{1}{2}\varepsilon^{\a\rho\sig}F_{\rho\sig}$ for the magnetic 2
+field seen by an observer, bring the right hand side of the above equation to the familiar form of the Lorentz force law for a particle of charge $q$ and spatial velocity
+\bse 
+    \mathbf{v} := \bigg(\frac{e^{\a}:v_{\del}}{e^0:v_{\del}}\bigg) e_{\a} \qquad (\a=1,2,3\text{ and careful: the denominator was forgotten in lectures})
+\ese 
+that the observer detects for the particle. 
+
+\textit{Hint: $(a\times b)^{\a} = g^{\a\mu}\varepsilon_{\mu\rho\sig}a^{\rho}b^{\sig}$, $\varepsilon_{123}=1$ and $\epsilon^{123}=1$.}
+}
+
+\textbf{Solution}: We set 
+\bse 
+    \cF^{\a} = m \big(\nabla_{v_{\del}}v_{\del}\big)^{\a} = q{F^{\a}}_b{v_{\del}}^b,
+\ese
+where $\cF$ is the Lorentz force, up to some factors. We can split the right-hand side into two terms, one for $b=0$ and the other for $b=\beta$. For the former we note that 
+\bse 
+    \eta^{\a\beta}E_{\beta} = \eta^{\a\beta}F_{\beta0} = {F^{\a}}_0,
+\ese 
+so, using $\epsilon^0:(v_{\del}) = {v_{\del}}^0$, the first term is simply 
+\bse 
+    q\eta^{\a\beta}E_{\beta}\big(\epsilon^0:v_{\del}\big).
+\ese 
+The second term need a little more work, but we start using the hint: using $g^{ab}=\eta^{ab}$ in the observers frame, we have
+\bse 
+    (v_{\del}\times B)^{\a} = \eta^{\a\mu}\varepsilon_{\mu\rho\sig} {v_{\del}}^{\rho}B^{\sig} := \frac{1}{2}\eta^{\a\mu}\varepsilon_{\mu\rho\sig}\varepsilon^{\sig\nu\tau} {v_{\del}}^{\rho}F_{\nu\tau}. 
+\ese 
+We see that the $\eta^{\a\mu}$ tells us that $\mu=\a$ in the Levi-Civita symbol. By definition, the only non-vanishing terms on the right, then, have $\rho\neq\sig\neq\a$. Let's consider the case for $\a=1$ (the other two follow analogously)
+\bse 
+    \begin{split}
+        \frac{1}{2}\eta^{1\mu}\varepsilon_{\mu\rho\sig}\varepsilon^{\sig\nu\tau}F_{\nu\tau}{v_{\del}}^{\rho} & = \frac{1}{2}\varepsilon_{123}\big(\varepsilon^{312}F_{12} + \varepsilon^{321}F_{21}\big){v_{\del}}^2 + \frac{1}{2}\varepsilon_{132}\big(\varepsilon^{213}F_{13} + \varepsilon^{231}F_{31}\big){v_{\del}}^3 \\
+        & = \frac{1}{2} \varepsilon_{123} \big( \varepsilon^{123}F_{12} + (-\varepsilon^{123})(-F_{12})\big) {v_{\del}}^2 + \frac{1}{2} (-\varepsilon_{123}) \big( (-\varepsilon^{123})F_{13} + \varepsilon^{123}(-F_{13})\big){v_{\del}}^3 \\
+        & = F_{12}{v_{\del}}^2 + F_{13}{v_{\del}}^3,
+    \end{split}
+\ese 
+where we have indicated where the antisymmetries of $\varepsilon$ and $F$ have been used, and we have also used $\varepsilon_{123}=1=\varepsilon^{123}$. This generalises to 
+\bse 
+    \frac{1}{2}\eta^{\a\mu}\varepsilon_{\mu\rho\sig}\varepsilon^{\sig\nu\tau}F_{\nu\tau}{v_{\del}}^{\rho} = \eta^{\a\sig}F_{\sig\beta}{v_{\del}}^{\beta} = {F^{\a}}_{\beta}{v_{\del}}^{\beta},
+\ese
+where we note the fact that $F_{\a\a}=0$ due to antisymmetry. 
+
+So the second term in our Lorentz force equation is simply 
+\bse 
+    q{F^{\a}}_{\beta}{v_{\del}}^{\beta} = q\big( v_{\del} \times B \big)^{\a},
+\ese 
+giving us 
+\bse 
+    \cF^{\a} = q\eta^{\a\beta} E_{\beta} \big( \epsilon^0:v_{\del}\big) + q\big(v_{\del}\times B\big)^{\a}.
+\ese 
+Finally, we note that  
+\bse 
+    \frac{1}{(\epsilon^0:v_{\del})} \big(v_{\del}\times B\big)^{\a} = \big(\mathbf{v}\times B\big)^{\a},
+\ese 
+as everywhere in the calculation above we'll get terms like 
+\bse 
+    \frac{v_{\del}^\rho}{(\epsilon^0:v_{\del})} = \frac{(\epsilon^\rho:v_{\del})}{(\epsilon^0:v_{\del})} =: \mathbf{v}^{\rho}.
+\ese 
+This gives us the form we want on the right-hand side, i.e.
+\bse 
+    \frac{1}{(\epsilon^0:v_{\del})}\cF^{\a} = q\eta^{\a\beta}E_{\beta} + q\big(\mathbf{v}\times B\big)^{\a}. 
+\ese 
+
+\subsection{Which Curvature Can Feature In Einstein’s Equations?}
+
+\mybox{
+This questions asks to show that the differential Bianchi identity holds for the Riemann tensor. This was given as an exercise in the lecture. 
+
+If the reader couldn't work it out there, \href{https://math.stackexchange.com/questions/1494262/direct-proof-of-the-second-bianchi-identity}{this link} should prove helpful. Note the notation is slightly different in the link, but of course the answer is the same.
+
+I didn't include this link in the notes to hopefully avoid temptation of just looking up the answer.
+}
+
+\mybox{
+\textbf{Question}: The above component-free version can equivalently be written as 
+\bse 
+    {R^w}_{zab;c} + {R^w}_{zbc;a} + {R^w}_{zca;b} = 0.
+\ese
+Using this result, show that by appropriate contractions one obtains
+\bse 
+    (\nabla_aG)^{ab}=0.
+\ese 
+}
+
+\textbf{Solution}: First use the antisymmetry to give 
+\bse 
+    {R^w}_{zab;c} + {R^w}_{zbc;a} + {R^w}_{zca;b} = {R^w}_{zab;c} + {R^w}_{zbc;a} - {R^w}_{zac;b}.
+\ese 
+Now, we can use the fact that $\nabla$ is metric-compatible and the result 
+\bse 
+    g^{av}g_{vw} = \del^a_w
+\ese
+to give
+\bse 
+    \begin{split}
+        g^{av}g_{vw}\big({R^w}_{zab;c} + {R^w}_{zbc;a} + {R^w}_{zca;b}\big) & = {R^a}_{zab;c} + {R^a}_{zbc;a} - {R^a}_{zac;b} \\
+        & = R_{zb;c} - R_{zc;b} + {R^a}_{zbc;a}.
+    \end{split}
+\ese 
+Then contract with $g^{bz}$ along with the results $R^{\,\,\,a}_{z\,\,\,bc} = -{R^a}_{zbc}$\footnote{We essentially showed this result in tutorial 9 (we showed $R_{abcd}=-R_{bacd}$).} and $R:= g^{ab}R_{ab}$ to give 
+\bse 
+    \begin{split}
+        g^{bz}\big(R_{zb;c} - R_{zc;b} + {R^a}_{zbc;a}\big) & = R_{;c} - {R^b}_{c;b} - {R^{ba}}_{bc;a} \\
+        & = R_{;c} - {R^b}_{c;b} - {R^a}_{c;a} \\
+        & = R_{;c} - 2{R^b}_{c;b}.
+    \end{split}
+\ese 
+Finally using the fact that the Ricci tensor is symmetric,\footnote{This result is obtained from $R_{abcd}=R_{cdab}$, then setting $a=c$ and raising the first index back up.} and contracting with $g^{ac}$, we have (after relabelling)
+\bse 
+    \big(\nabla_aG)^{ab} = {R^{ab}}_{;a} - \bigg(\frac{1}{2}g^{ab}R\bigg)_{;a} = 0.
+\ese 
+
+% Set counter to match cosmology lecture number. The tutorials online are not numbered this way, but definitely makes sense to do it here.
+\setcounter{section}{19}
+
+\section{Cosmology}
+
+\subsection{Killing's Equation}
+
+\mybox{
+\textbf{Question}: Show that a vector field $K$ is Killing if, and only if, 
+\bse 
+    (\nabla_aK)_b + (\nabla_bK)_a = 0.
+\ese 
+}
+
+\textbf{Solution}: If you have done the exercise in the notes to show 
+\bse 
+    g\big(\nabla_XK,Y\big) + g\big(X,\nabla_YK\big)=0,
+\ese
+this question follows trivially by setting $X=\p_a$ and $Y=\p_b$:
+\bse 
+    0 = g_{cb}\big(\nabla_aK)^c + g_{ac}\big(\nabla_bK)^c =: (\nabla_aK)_b + (\nabla_bK)_a.
+\ese 
+
+If you didn't do that exercise, go back and do it, but also you can see \href{https://www.youtube.com/watch?v=HuQ79CWcDac&list=PLFeEvEPtX_0RQ1ys-7VIsKlBWz7RX-FaL&index=10}{the video} for a method considering the components.
+
+This result is known as Killing's equation. 
+
+\subsection{Age Of The Universe...}
+
+\mybox{
+The energy-momentum tensor for a perfect fluid is 
+\bse 
+    T^{ab} := \big[\rho(t)+p(t)\big]u^au^b + g^{ab}p(t),
+\ese 
+where $u^a=(1,0,0,0)^a$ are the components functions of a smooth vector field and $g_{ab}$ are those of a FRW metric w.r.t. the coordinate chart $(t,r,\vartheta,\phi)$ employed in the lectures. 
+
+\textbf{Question}: Derive the conservation equation 
+\bse 
+    \dot{\rho}(t) = -3\frac{\dot{a}}{a}\big(\rho(t)+p(t)\big)
+\ese 
+by evaluating the condition 
+\bse 
+    \big(\nabla_aT\big)^{ab}u_b = 0,
+\ese
+which follows from the Einstein equations by virtue of the differential Bianchi identity.
+}
+
+\textbf{Solution}: We have 
+\bse 
+    \big(\nabla_aT\big)^{ab}u_b = \big(\nabla_aT\big)^{a0},
+\ese 
+as $u_b=(1,0,0,0)_b$. Then using $T^{a0}=0$ and $T^{00} = \rho(t)$ we have 
+\bse 
+    \begin{split}
+        \big(\nabla_aT\big)^{ab}u_b & = {T^{a0}}_{,a} + {\Gamma^a}_{na}T^{n0} + {\Gamma^0}_{na}T^{an} \\
+        & = \dot{\rho}(t) + {\Gamma^a}_{0a}\rho(t) + {\Gamma^0}_{na}T^{an}.
+    \end{split}
+\ese 
+We now use the results from the lecture, 
+\bse 
+    {\Gamma^{\a}}_{0\a} = \frac{\dot{a}}{a}\del^{\a}_{\a} = 3\frac{\dot{a}}{a}, \qquad {\Gamma^0}_{\a\beta} = a\dot{a}\gamma_{\a\beta},
+\ese 
+and the other $\Gamma$s vanishing. This gives 
+\bse 
+    \big(\nabla_aT\big)^{ab}u_b = \dot{\rho}(t) + 3\frac{\dot{a}}{a}\rho(t) + a\dot{a}\gamma_{\a\beta}T^{\a\beta}.
+\ese 
+Then using $T^{\a\beta}=p(t)$ and $g^{\a\beta}=\frac{1}{a^2}\gamma^{\a\beta}$ we get 
+\bse 
+    0 = \dot{\rho}(t) + 3\frac{\dot{a}}{a}\rho(t) + \frac{\dot{a}}{a}\gamma_{\a\beta}\gamma^{\a\beta}p(t),
+\ese 
+which gives the result. 
+
+\mybox{
+\textbf{Question}: For $p(t)=\omega\rho(t)$, solve the conservation equation above for $\rho$ and use the Friedmann equation with vanishing spatial curvature
+\bse 
+    \bigg(\frac{\dot{a}}{a}\bigg)^2 = \frac{8\pi G}{3}\rho,
+\ese 
+to derive an autonomous differential equation for $a$. 
+}
+
+\textbf{Solution}: We have 
+\bse 
+    \begin{split}
+        \dot{\rho}(t) & = - 3\frac{\dot{a}(t)}{a(t)} (1+\omega)\rho(t) \\
+        \frac{\dot{\rho}(t)}{\rho(t)} & = -3\frac{\dot{a}(t)}{a(t)}(1+\omega) \\
+        \frac{d}{dt}\ln\big(\rho(t)\big) & = -3(1+\omega)\frac{d}{dt}\ln\big(a(t)\big) \\
+        \rho(t) & = Ba^{-3(1+\omega)},
+    \end{split}
+\ese
+for some constant $B=e^{A}$, where $A$ is the constant of integration. If we plug this into the expression given in the question we have 
+\bse 
+    \bigg(\frac{\dot{a}}{a}\bigg)^2 = \frac{8\pi GB}{3}a^{-3(1+\omega)},
+\ese 
+which is an autonomous differential equation for $a$. 
+
+\mybox{
+\textbf{Question}: Show that 
+\bse 
+    a(t) = C\cdot t^{\a}, \qquad C=\text{const}
+\ese
+solves the autonomous differential equation equation for the scale factor $a$ if $\omega\neq 1$ and a suitably chosen $\a$.
+}
+
+\textbf{Solution}: By direct calculation, we have 
+\bse 
+    \a^2 t^{-2} = \frac{8\pi GBC}{3} t^{-3\a(1+\omega)},
+\ese 
+from which we see 
+\bse 
+    \a = \frac{2}{3(1+\omega)}.
+\ese 
+
+\mybox{
+\textbf{Question}: Use the result of the previous question to write down an equation for $H(t) := \frac{\dot{a}}{a}$ and estimate the age of the universe only filled with dust for today's value of the Hubble constant being given by $\frac{1}{H_0} \approx 13\times 10^9yrs$. Repeat the calculation for a universe containing only radiation. 
+}
+
+\textbf{Solution}: We have 
+\bse 
+    a(t) = C\cdot t^{\frac{2}{3(1+\omega)}}, \qquad \implies \qquad H(t) = \frac{2}{3(1+\omega)}t^{-1}.
+\ese
+So the age is given by
+\bse 
+    t_0 = \frac{2}{3(1+\omega)}\frac{1}{H_0}.
+\ese
+For dust $\omega=0$ and so we have
+\bse 
+    t^{\text{dust}}_0 \approx 8.6\times 10^9yrs.
+\ese 
+For radiation, $\omega=\frac{1}{3}$, giving 
+\bse 
+    t^{\text{radiation}}_0 \approx 6.5 \times 10^9 yrs.
+\ese 
+
+\mybox{
+\textbf{Question}: Consider a universe filled with only one type of matter characterised by a linear equation of state with constant $\omega$. For which values of the latter is the expansion of the universe accelerating?
+}
+
+\textbf{Solution}: We have 
+\bse 
+    \ddot{a}(t) = \bigg(\frac{2}{3(1+\omega)}\bigg)\bigg(\frac{2}{3(1+\omega)}-1\bigg) \cdot a\cdot t^{-2}. 
+\ese 
+An expanding universe means $a(t)>0$ (or, equivalently, $C>0$), and so the turning point for accelerated expansion is the condition 
+\bse 
+    \frac{2}{3(1+\omega)}-1 = 0 \qquad \implies \qquad \omega = -\frac{1}{3}.
+\ese
+We therefore get accelerated expansion for $\omega<-\frac{1}{3}$ and decelerated expansion for $\omega >-\frac{1}{3}$.
+
+% Setting section counter to match Penrose Diagrams lecture number.
+\setcounter{section}{22}
+
+\section{Diagrams}
+
+\subsection{Penrose Diagram Of A Radiation-Filled Universe}
+
+\mybox{
+\textbf{Question}: Find a differential equation for radial null geodesics in a spatially flat FRW universe filled with radiation, using the chart $(t,r,\vartheta,\phi)$ introduced in the lectures. Explicitly write down the precise range of the chart variables. 
+}
+
+\textbf{Solution}: A spatially flat FRW universe has $\kappa=0$ and a metric with components 
+\bse 
+    g_{ab}(t,r,\vartheta,\varphi) = \begin{pmatrix} 
+    -1 & 0 & 0 & 0 \\
+    0 & a^2(t) & 0 & 0 \\
+    0 & 0 & a^2(t)r^2 & 0 \\
+    0 & 0 & 0 & a^2(t)r^2\sin^2\vartheta
+    \end{pmatrix}_{ab},
+\ese
+in the chart given. If we have a radiation-filled universe, we have $\omega=-\frac{1}{3}$, and from the last tutorial we have 
+\bse 
+    a(t) = C \cdot t^{1/2}.
+\ese 
+Radially null geodesics have $\dot{\vartheta}=0=\dot{\phi}$, so our Lagrangian reads 
+\bse 
+    0 = -\dot{t}^2 + a^2\cdot \dot{r}^2,
+\ese 
+which, subbing in our $a(t)$ expression and using the chain rule backwards, gives the differential equation 
+\bse 
+    \frac{dt}{dr} = \pm C\sqrt{t}.
+\ese 
+
+We have seen that in the FRW universe, there is a beginning time (the Big Bang), and so our $t$ coordinate must be lower bounded. We can choose to parameterise it such that $t=0$ is the Big Bang value, giving us the coordinate ranges 
+\bse 
+    t \in (0,\infty), \qquad r \in (0, \infty), \qquad \vartheta \in (0,\pi), \qand \phi \in (0,2\pi),
+\ese
+where the $0$ point is removed from $t$'s range as it is not actually a point in our spacetime (it's a singularity). 
+
+\mybox{
+\textbf{Question}: Determine the $t$-coordinate of a geodesic in terms of the $r$ coordinate. Draw some of the null geodesics in the underlying chart. 
+}
+
+\textbf{Solution}: Solving the differential equation from the previous question gives us 
+\bse 
+    t_{\pm}(r) = \frac{1}{4}\big(A \pm Cr\big)^2,
+\ese
+for some integration constant $A$. So we have a series of squared curves, shifted for different values of $A$. 
+\begin{center}
+    \btik 
+        \draw[thick, ->] (0,0) -- (5,0);
+        \node at (4.8,-0.2) {$r$};
+        \draw[thick, ->] (0,0) -- (0,5);
+        \node at (-0.2,4.8) {$t$};
+        \begin{scope}
+            \clip (0,0) -- (5,0) -- (5,5) -- (0,5) -- (0,0);
+            \draw[thick, blue, yshift=-2.25cm] (-3,9) .. controls (0,0) ..  (3,9);
+            \draw[thick, blue, yshift=-2.25cm, xshift=1.5cm] (-3,9) .. controls (0,0) ..  (3,9);
+            \draw[thick, blue, yshift=-2.25cm, xshift=3cm] (-3,9) .. controls (0,0) ..  (3,9);
+            \draw[thick, blue, yshift=-2.25cm, xshift=4.5cm] (-3,9) .. controls (0,0) ..  (3,9);
+            \draw[thick, blue, yshift=-2.25cm, xshift=-1.5cm] (-3,9) .. controls (0,0) ..  (3,9);
+        \end{scope}
+        \draw[fill=white] (0,0) circle [radius=0.06cm];
+        \draw[fill=white] (1.5,0) circle [radius=0.06cm];
+        \draw[fill=white] (3,0) circle [radius=0.06cm];
+        \draw[fill=white] (4.5,0) circle [radius=0.06cm];
+        \draw[fill=white] (0,2.4) circle [radius=0.06cm];
+    \etik 
+\end{center}
+The white circles indicated that these points are not part of our diagram as $t$ and $r$ cannot take the value $0$. As these parts are not included, the lines to either side actually represent two separate geodesics, just as we saw with the Schwarzschild drawings in the lectures. 
+
+\mybox{
+\textbf{Question}: Find a chart in which the geodesics are lines of constant slope $\pm1$. Determine the range of the coordinates. 
+}
+
+\textbf{Solution}: We can rearrange the expression for $t_{\pm}$ in terms of $r$ to give 
+\bse 
+    r = \pm\frac{2}{C}\sqrt{t_+} - \frac{A}{C}, \qquad r = \mp\frac{2}{C}\sqrt{t_-} + \frac{A}{C}.
+\ese 
+If we then define 
+\bse 
+    \Bar{t}_{\pm} := \frac{2}{C}\sqrt{t_{\pm}},
+\ese 
+we get 
+\bse 
+    r = \pm \Bar{t}_+ - B, \qquad r = \mp \Bar{t}_- + B,
+\ese 
+where $B=\frac{A}{C}$. All of these plots are just lines of constant slope $\pm1$. With a bit of thought, its clear that we can just consider either $\bar{t}_+$ or $\bar{t}_-$ and obtain the other results using different values of $B$. So we shall just write 
+\bse 
+    r_{\pm} = \pm \bar{t} - B.
+\ese 
+The ranges are 
+\bse 
+    \bar{t} \in (0,\infty), \qquad r \in (0, \infty), \qquad \vartheta \in (0,\pi), \qand \phi \in (0,2\pi),
+\ese 
+
+\mybox{
+\textbf{Question}: Choose the so-called null coordinates $u$ and $v$ in which the null geodesics of positive slope are parallel to the $u$-axis and the ones of negative slope are parallel to the $v$-axis. Determine the range of the coordinates. 
+}
+
+\textbf{Solution}: We define
+\bse 
+    u := \bar{t} + r, \qand v := \bar{t}-r,
+\ese 
+and their ranges are 
+\bse 
+    u \in (0,\infty), \qand v\in(-\infty,\infty).
+\ese 
+We then have the conditions $u+v=2\bar{t}>0$ and $u-v=2\bar{r}>0$, so we need to exclude the regions $u<0$, $v+u<0$ and $u-v<0$ from our diagram. We therefore get
+\begin{center}
+    \btik[scale=0.8]
+        \fill[gray!40, opacity=0.8] (0,0) -- (3,3) -- (3,-3) -- (0,0);
+        \draw[thick, ->] (-0.2,0) --(3.2,0);
+        \node at (3,-0.3) {$u$};
+        \draw[thick,->] (0,-3) -- (0,3);
+        \node at (-0.3,2.7) {$v$};
+        \draw[thick] (0,0) -- (3,3);
+        \draw[thick] (0,0) -- (3,-3);
+        \begin{scope}
+            \clip (0,0) -- (3,3) -- (3,-3) -- (0,0);
+            \draw[thick, blue] (0,0.5) -- (3,0.5);
+            \draw[thick, blue] (0,1.5) -- (3,1.5);
+            \draw[thick, blue] (0,2.5) -- (3,2.5);
+            \draw[thick, blue] (0,-0.5) -- (3,-0.5);
+            \draw[thick, blue] (0,-1.5) -- (3,-1.5);
+            \draw[thick, blue] (0,-2.5) -- (3,-2.5);
+            %
+            \draw[thick, blue] (0.7,-3) -- (0.7,3);
+            \draw[thick, blue] (1.7,-3) -- (1.7,3);
+            \draw[thick, blue] (2.7,-3) -- (2.7,3);
+        \end{scope}
+    \etik 
+\end{center}
+where the shaded area is the only area we consider. 
+
+The blue lines are the geodesics in this chart. Note that by going to this chart we can compactify without ruining the 90-degree nature of the cone structure. This is exactly why this step is included, and is what \Cref{rem:ConeCompactify} is talking about. 
+
+\mybox{
+\textbf{Question}: Compactify, i.e., rescale to finite ranges, each of the two null coordinates by an appropriate transformation. Determine the range of the coordinates. 
+}
+
+\textbf{Solution}: We define
+\bse 
+    p := \arctan(u), \qand q := \arctan(v),
+\ese 
+which have ranges 
+\bse 
+    p \in (0, \pi/2), \qand q \in (-\pi/2,\pi/2).
+\ese 
+Our other range conditions still hold, namely $p+q>0$ and $p-q>0$. 
+
+Our plot looks the same as in the previous question, apart from now the right-hand edge is bounded at value $p=\pi/2$. 
+
+\mybox{
+\textbf{Question}: By final transformation, recover the notion of temporal and radial coordinates. Determine the ranges of those coordinates. Draw the Penrose-Carter diagram. 
+}
+
+\textbf{Solution}: We define 
+\bse 
+    T := p+q, \qand R := p-q,
+\ese
+whose ranges are
+\bse 
+    T\in (0,\pi), \qand R\in(0,\pi).
+\ese 
+We have the further constraint $T+R =2U <\pi$, so our Penrose-Carter diagram looks like 
+\begin{center}
+    \btik 
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-0.15,0) -- (5,0) -- (-0.15,5) -- (-0.15,0);
+            \clip (0,4.5) -- (0,-1) -- (5.5,-1) -- (0,4.5);
+            \fill[gray!40, opacity=0.8] (0,4.5) -- (0,-1) -- (5.5,-1) -- (0,4.5);
+            \draw[thick, blue] (0,0) -- (4,4);
+            \draw[thick, blue] (0,1.5) -- (3,4.5);
+            \draw[thick, blue] (0,3) -- (3,6);
+            \draw[thick, blue] (0,-1.5) -- (3,1.5);
+            \draw[thick, blue] (0,-3) -- (4,1);
+            %
+            \draw[thick, blue] (0,3.5) -- (4,-0.5);
+            \draw[thick, blue] (0,2) -- (2.5,-0.5);
+            \draw[thick, blue] (0,0.5) -- (1,-0.5);
+        \end{scope}
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (0,0) -- (4.5,0);
+        \draw[thick] (4.5,0) -- (0,4.5);
+        \draw[thick, dashed] (0,0) -- (0,4.5);
+    \etik 
+\end{center}
+We have used the snake-like line to indicate the Big Bang singularity, and a dashed line on the left-hand side to remind us that there is nothing wrong here (i.e. lines that go off to the left just come back form the dashed line --- think about rotating the diagram by reinstating $\phi$).  
+
+
+\section{Perturbation Theory}
+
+\textcolor{red}{To come later.}

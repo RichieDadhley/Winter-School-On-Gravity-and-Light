@@ -1,0 +1,333 @@
+\chapter{Newtonian Spacetime Is Curved}
+
+The title to this lecture sounds shocking: isn't Newtonian spacetime flat? The answer is `yes in the standard formulation it is.' What this lecture aims to do is to express Newtonian spacetime in a new way such that gravity manifests itself as curvature. It is important to note that this is \textbf{not} general relativity, it is simply Newtonian spacetime.
+
+Our argument is going to revolve around showing that gravity must not be considered as a force but instead it must be considered to be encoded in a curvature of the spacetime. 
+
+Recall Newton's first two laws:
+\ben[label=(\Roman*)] 
+    \item A body on which \textbf{no} force acts moves uniformly along a straight line. 
+    \item Deviation of a body's motion from such straight motion is effected by a force, reduced by a factor of the body's reciprocal mass.
+\een 
+The first thing we note is that, if read as a prescription of what a body does, the first axiom is merely a specific case of the second one (i.e. just let the force vanish in Newton II). We therefore need to read the first axiom in a different manner: you assume that a particle is not experiencing any forces and you use these particles to experimentally check what a straight line is. The first axiom is a measurement prescription for geometry. 
+
+The second important point we need to note is that, if we view gravity as a force, the first axiom is only useful if we consider a universe in which a single particle lives. That is, gravity universally acts on all massive objects and so if we have two massive particles in our universe (which our Universe clearly does\footnote{Otherwise there is no one else to read these notes, and I have wasted some time.}) they must both experience a force, and so Newton (I) becomes useless... Unless we stop thinking of gravity as a force.
+
+\br 
+    You might think that we're being a bit pedantic here and just say `oh ok, but we can just use Newton II and go on our merry way!' The problem with that is that Newton II talks about the deviation from a straight line, and without Newton I we don't know what a straight line is.\footnote{Checkmate.}
+\er 
+
+\section{Laplace's Question}
+
+Laplace asked the following question: 
+\begin{center}
+    \textit{"Can gravity be encoded in the curvature of space, such that its effects show if particles under the influence of (no other) force are postulated to move along straight lines in this curved space?"}
+\end{center}
+
+The answer to this question is, unfortunetly for Laplace, a resounding "no". 
+\bq 
+    Let's consider the `gravity as a force' point of view. We have
+    \bse 
+        m \Ddot{x}^{\a}(t) = F^{\a}\big(x(t)\big),
+    \ese
+    for $\a=1,2,3$, and Poisson's equation for $F^{\a}= mf^{\a}$
+    \bse 
+        - \p_{\a} f^{\a} = 4\pi G \rho.
+    \ese 
+    Substituting in $F^{\a}=mf^{\a}$ we see that we can cancel out the $m$s to get a relationship between the acceleration and the force that is independent of mass. This is an experimentally verified fact (see \href{https://www.youtube.com/watch?v=IBlCu1zgD4Y&list=PLFeEvEPtX_0S6vxxiiNPrJbLu9aK1UVC_&index=9}{video at 16:50-20:00} if you aren't familiar with such an experiment), and is given the name `weak equivalence principle'.
+    
+    So Laplace's question becomes is 
+    \bse 
+        \Ddot{x}^{\a}(t) - f^{\a}\big(x(t)\big) = 0
+    \ese 
+    of the form of a autoparallel equation. That is is it of the form 
+    \bse 
+        \Ddot{x}^{\a}(t) + \Dot{x}^{\beta}(t) \Dot{x}^{\gamma}(t){\Gamma^{\a}}_{\beta\gamma}\big(x(t)\big) =0?
+    \ese 
+    The answer is no, because $f^{\a}$ is only a function of $x(t)$ and no its derivatives, but the second term in the autoparallel equation contains derivatives. Along with this, the $\Gamma$s are only dependent on $x(t)$ and so can't cancel out this velocity dependence and so it is just not possible to equate the two expressions. 
+    
+    So we cannot find $\Gamma$s such that Newton's equation takes the form of an autoparallel, and since the $\Gamma$s are what determine the connection, which we have seen is related to the curvature, we cannot encode the effect of gravity as a curvature in this way. 
+\eq 
+
+\section{The Full Wisdom of Newton I}
+
+We have just shown that the answer to Laplace's question was no, so why did we bother to talk about it? The answer is that it highlights its flaw and then allows us to see how to change it in order to get something correct. The problem was that Laplace didn't read Newton I careful enough. Newton I does not just talk about motion but about \textit{uniform} motion.
+
+Uniform motion involves understanding how something moves in \textit{time} as well as space. Uniform motion is plotted as a straight line on a space-time graph, whereas straight, but not uniform, motion is given by a curve.
+
+\begin{center}
+    \btik
+        \draw[thick] (-5,0) -- (0,0);
+        \draw[thick] (-5,0) -- (-5,3.5);
+        \draw[thick] (3,0) -- (8,0);
+        \draw[thick] (3,0) -- (3,3.5);
+        %
+        \node at (-5.25,3.5) {\large{$t$}};
+        \node at (2.75,3.5) {\large{$t$}};
+        \node at (-0.1, -0.25) {\large{$x$}}; 
+        \node at (7.9, -0.25) {\large{$x$}}; 
+        \node at (-2.5,-0.6) {\large{Straight, uniform Motion}};
+        \node at (5.5,-0.6) {\large{Straight, non-uniform Motion}};
+        %
+        \draw[thick, rotate around={-55: (-5,0)}] (-5,0) -- (-5,1);
+        \draw[thick, rotate around={-55: (-5,0)}, yshift=1.2cm] (-5,0) -- (-5,1);
+        \draw[thick, rotate around={-55: (-5,0)}, yshift=2.4cm] (-5,0) -- (-5,1);
+        \draw[thick, rotate around={-55: (-5,0)}, yshift=3.6cm] (-5,0) -- (-5,1);
+        %
+        \draw[thick, rotate around={-55: (3,0)}] (3,0) -- (3,1);
+        \draw[thick, rotate around={-45: (3,0)}, yshift=1.2cm, xshift=0.2cm] (3,0) -- (3,1);
+        \draw[thick, rotate around={-30: (3,0)}, yshift=2.3cm, xshift=0.75cm] (3,0) -- (3,1);
+        \draw[thick, rotate around={-10: (3,0)}, yshift=3.1cm, xshift=1.85cm] (3,0) -- (3,1);
+    \etik
+\end{center}
+
+In a spacetime picture, then, straight, uniform motion in space is simply just straight motion. So our idea is to alter Laplace's question to be "... curvature of spacetime, ...", and then repeat the process. Again note that here we are talking about Newtonian spacetime, this is not general relativity!
+
+For motion in space we had the particles motion given by $x:\R \to \R^3$. We need to convert this into the particles \textit{worldline}, which we get from the map $X:\R\to\R^4$ given by 
+\bse 
+    X(t) = \big(t,x^1(t),x^2(t),x^3(t)\big) := \big( X^0(t), X^1(t),X^2(t),X^3(t)\big).
+\ese 
+We haven't done anything new, we have simply just turned the parameterisation of the curve (the `time') into a coordinate and considered the spacetime picture.
+
+\bcl
+    By doing the above, the answer to the modified Laplace's question is "yes".
+\ecl
+
+\bq 
+    Assume that (note it is the little $x$ here)
+    \bse 
+        \Ddot{x}^{\a}(t) = f^{\a}\big(x(t)\big)
+    \ese 
+    for $\a=1,2,3$, still holds. We now have the trivial result
+    \bse 
+        \Dot{X}^0(t) =1, \qquad \implies \qquad \Ddot{X}^0(t) = 0.
+    \ese 
+    We can rewrite the Newton equation in terms of the big $X$ as\footnote{Note technically $f^{\a}(X(t))$ is a new function, but we just define it to be such that it ignores the first entry.} 
+    \bse 
+        \Ddot{X}^{\a}(t) = f^{\a}\big(X(t)\big),
+    \ese 
+    for $\a=1,2,3$. Now, we can multiply by $\Dot{X}^0(t)$ because its equal to $1$, and so we have 
+    \bse 
+        \Ddot{X}^{\a}(t)  - f^{\a}\big(X(t)\big)\Dot{X}^0(t)\Dot{X}^0(t) = 0.
+    \ese
+    Now combing this with the $\Ddot{X}^0(t)=0$ equation, we see that we have a autoparallel equation
+    \bse 
+        \Ddot{X}^a + {\Gamma^a}_{bc} \Dot{X}^b\Dot{X}^c = 0
+    \ese
+    where $a,b,c=0,1,2,3$. This is seen by choosing all of the $\Gamma$s to vanish apart from 
+    \bse 
+        {\Gamma^{\a}}_{00} = -f^{\a} \qquad \forall \a=1,2,3.
+    \ese 
+    Now this could just be a coordinate-choice artefact, and so could be transformed away. In terns out that this is not the case, and you can show it by calculating the Riemann curvature tensor components. The only non-vanishing ones are 
+    \bse 
+        {\Riem^{\a}}_{0\beta0} = -\p_{\beta}\la f^{\a}\ra.
+    \ese 
+    As this is a tensor, if it is non-vanishing in one chart it must be non-vanishing in all charts. 
+\eq 
+
+\br 
+    Given the Riemann tensor at the end of the proof above, we can actually workout the Ricci tensor, given by setting $\a=\beta$, 
+    \bse 
+        \Ric_{00} = -\p_a\la f\ra,
+    \ese 
+    which, using the Poisson equation gives 
+    \bse 
+        \Ric_{00} = 4\pi G\rho.
+    \ese 
+    This is actually one of the so-called Einstein equations
+    \bse 
+        \Ric_{00} = 8\pi G T_{00},
+    \ese 
+    where $T_{00}=\rho/2$. $T$ is known as the \textit{energy-momentum tensor}, we shall meet this in much more detail later on. 
+\er 
+
+\br 
+    Note the fact that the only non-vanishing $\Gamma$s have the lower indices both `time' (i.e. they are 0), it tells us that the curvature is taking place in \textit{spacetime}, not just in space. That is the Riemann tensor vanishes for all spatial indices ${\Riem^{\a}}_{\beta\gamma\del} = 0$ for all $\a,\beta,\gamma,\del = 1,2,3$.
+\er 
+
+\subsection{Tidal Forces} 
+The result above about not being able to transform away the curvature result is known as tidal forces. The basic idea is that you can only transform away gravitational fields locally. In other words, the only way you can transform away a gravitational field globally is if it is uniform. 
+    
+To see why this is the case, imagine being inside a box in space with two balls. now imagine the box is in a gravitational field, and so is in free fall towards some massive object. We shall ignore the gravitational fields generated by our body and by the balls themselves. If the gravitational field is uniform across the box, everything experiences the same pull and so falls exactly the same. That is, if we put the balls out at our sides, they would appear to just float there, and if there was no windows on our box to see things moving past us, we actually wouldn't even know we were in a gravitational field. Obviously someone sat stationary (w.r.t the massive object) outside the box would see the balls moving down and so would say they are in a gravitational field. 
+    
+What is going on here is that we have transformed ourselves to a frame of reference (which for this remark is just a chart) which falls with the balls and so we have `removed' the effects of gravity via such a change of chart. 
+    
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) -- (4,0) -- (4,3) -- (0,3) -- (0,0);
+        \draw[thick] (1,1.5) circle [radius=0.3cm];
+        \draw[thick] (3,1.5) circle [radius=0.3cm];
+        \draw[ultra thick, ->, blue] (0.5,3.5) -- (0.5,-0.5);
+        \draw[ultra thick, ->, blue] (1,3.5) -- (1,-0.5);
+        \draw[ultra thick, ->, blue] (1.5,3.5) -- (1.5,-0.5);
+        \draw[ultra thick, ->, blue] (2,3.5) -- (2,-0.5);
+        \draw[ultra thick, ->, blue] (2.5,3.5) -- (2.5,-0.5);
+        \draw[ultra thick, ->, blue] (3,3.5) -- (3,-0.5);
+        \draw[ultra thick, ->, blue] (3.5,3.5) -- (3.5,-0.5);
+        \draw[thick] (6,0) -- (10,0) -- (10,3) -- (6,3) -- (6,0);
+        \draw[thick] (7,1.5) circle [radius=0.3cm];
+        \draw[thick] (9,1.5) circle [radius=0.3cm];
+        \node at (8,-0.5) {\large{Gravitational effect transformed away}};
+    \etik  
+\end{center}
+    
+Now imagine we do the same thing, but the gravitational field is not uniform, but comes radially from some spherical object. Again everything still falls at the same rate, but now the ball to our left will be pulled slightly to the right and the ball to our right will be pulled slightly left. To us inside the box, then, the balls slowly move towards each other. This is not an effect that we can remove by going to another frame of reference, and so represents something physical. This is `real' gravity.
+    
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) -- (4,0) -- (4,3) -- (0,3) -- (0,0);
+        \draw[thick] (1,1.5) circle [radius=0.3cm];
+        \draw[thick] (3,1.5) circle [radius=0.3cm];
+        \draw[ultra thick, ->, blue] (-0.5,3.5) -- (1,-0.25);
+        \draw[ultra thick, ->, blue] (0.5,3.5) -- (1.5,-0.5);
+        \draw[ultra thick, ->, blue] (1.25,3.5) -- (1.75,-0.25);
+        \draw[ultra thick, ->, blue] (2,3.5) -- (2,-0.5);
+        \draw[ultra thick, ->, blue] (2.75,3.5) -- (2.25,-0.25);
+        \draw[ultra thick, ->, blue] (3.5,3.5) -- (2.5,-0.5);
+        \draw[ultra thick, ->, blue] (4.5,3.5) -- (3,-0.25);
+        \draw[thick] (6,0) -- (10,0) -- (10,3) -- (6,3) -- (6,0);
+        \draw[ultra thick, ->, blue] (7,1.5) -- (7.75,1.5);
+        \draw[ultra thick, ->, blue] (9,1.5) -- (8.25,1.5);
+        \draw[thick, fill=white] (7,1.5) circle [radius=0.3cm];
+        \draw[thick, fill=white] (9,1.5) circle [radius=0.3cm];
+        \node at (8,-0.5) {\large{Tidal force}};
+    \etik  
+\end{center}
+    
+The inability to remove this effect by a change of chart is what we refer to as a tidal force.\footnote{The name derives from the fact that its due to this that the moon creates tides in the oceans/seas.} From this we see that when we feel gravity pulling us, it's actually the inhomogeneous nature of the gravity we feel; it pulls our feet harder then it pulls our head and it pushes are arms towards each other. 
+
+\section{The Foundation of the Geometric Formulation of Newton's Axioms}
+
+So far we have managed to change our thinking of gravity as a force into thinking of it as being part of a curvature of spacetime. This is done so that Newton's first axiom, which now reads "the worldline of a body on which no force acts is a straight line in spacetime", can be taken a measurement prescription for what a straight line is. The problem is, we have had indices flying about everywhere and so have been committing the crime of relying on charts!
+
+We are now going to rederive our result without making reference to a chart at all. We are doing this afresh, and so should not use the results we just obtained (e.g. ${\Gamma^{\a}}_{00} = -f^{\a}$). In order to do this, we need to introduce a few definitions. 
+
+\bd[Newtonian Spacetime]
+    A \textbf{Newtonian spacetime} is a quintuple of structures $(\cM,\cO,\cA,\nabla,t)$ where $(\cM,\cO,\cA)$ is a 4-dimensional smooth manifold and $t:\cM\to \R$ is a smooth function called the \textbf{absolute time}, which satisfies:
+    \benr 
+        \item $(dt)_p\neq 0$ for all $p\in\cM$ --- there is a concept of \textit{absolute space} (defined below),
+        \item $\nabla dt = 0$ everywhere --- absolute time flows uniformly,
+        \item $\nabla$ is torsion free. 
+    \een 
+\ed 
+
+\bd[Absolute Space] 
+    Let $(\cM,\cO,\cA,\nabla,t)$ be a Newtonian spacetime. \textbf{Absolute space} at time $\tau$ is the set 
+    \bse 
+        S_{\tau} := \{p\in\cM \, | \, t(p) = \tau\}. 
+    \ese 
+    It follows that 
+    \bse 
+        \cM = \bigcup^{\bullet}_{\tau} S_{\tau}.
+    \ese 
+\ed 
+
+Condition (i) in the definition of Newtonian spacetime is what gives us the disjoint union in the definition of absolute time. That is, condition (i) says the surfaces of absolute space at different times must not meet, as if they did the gradient of $t$ would vanish. Note it is only once we introduce the absolute time function that we can think of splitting spacetime into space and time, before that it was just a 4-dimensional manifold. 
+
+\bd[Future Directed / Spatial / Past Directed]
+    A vector $X\in T_p\cM$ is called
+    \benr 
+        \item \textbf{Future directed} if $dt:X>0$, 
+        \item \textbf{Spatial} if $dt:X =0$, and
+        \item \textbf{Past directed} if $dt:X<0$.
+    \een 
+\ed 
+
+We see the above definition nicely pictorially. Let $\tau_2>\tau_1$, then we have the following picture.
+\begin{center}
+    \btik
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5, yshift=-1.5cm, xshift=0.5cm, fill = gray!40, opacity = 0.8] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5, yshift=-1.5cm, xshift=0.5cm] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \draw[ultra thick, ->, red, rotate around={180:(4,0.5)}] (4,0.5) -- (4,2.5);
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5, fill = gray!40, opacity = 0.8] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \draw[thick, rotate around={-25:(0,0)}, xscale=1.5] (0,0) .. controls (0.8,0.5) and (1.2,0.5) .. (3.5,1) .. controls (4,1.5) and (4,3) .. (4.5,4.5) .. controls (3.2,4) and (3.7,4) .. (1,3.5) .. controls (0.5,3) and (0.5,1.5) .. (0,0);
+        \draw[ultra thick, ->, blue, rotate around={10:(4,0.5)}] (4,0.5) -- (4,2.5);
+        \draw[ultra thick, ->, green, rotate around={-105:(4,0.5)}] (4,0.5) -- (4,2.5);
+        \draw[fill=black] (4,0.5) circle [radius=0.05cm];
+        %
+        \node at (8.5,1.25) {\large{$S_{\tau_2}$}};
+        \node at (8.5,-0.5) {\large{$S_{\tau_1}$}};
+        %
+        \draw[ultra thick, ->, blue, rotate around={10:(12.5,0.5)}] (12.5,0.5) -- (12.5,2);
+        \draw[ultra thick, ->, red, rotate around={-10:(12.5,0.5)}] (12.5,0.5) -- (12.5,-1);
+        \draw[ultra thick, ->, green] (12.5,0.5) -- (14.5,0.5);
+        \draw[thick] (10,0.5) -- (15,0.5);
+        \draw[thick] (10,-1.5) -- (15,-1.5);
+        %
+        \node at (12.2,2.3) {\textcolor{blue}{Future directed}};
+        \node at (14,0.8) {\textcolor{green}{Spatial}};
+        \node at (12.5,-1.2) {\textcolor{red}{Past directed}};
+    \etik
+\end{center}
+
+We can now reword Newton's laws as 
+\ben[label=(\Roman*)]
+    \item The worldline of a particle under the influence of no force (gravity is not one here) is a future directed autoparallel. That is $\nabla_{v_{\gamma}}v_{\gamma} =0$ and $dt:v_{\gamma}>0$ everywhere.
+    \item The acceleration along a worldline is 
+    \bse 
+        a_{\gamma}:= \nabla_{v_{\gamma}}v_{\gamma} = \frac{F}{m},
+    \ese 
+    where the force, $F$, is a spatial vector field, $dt:F=0$, and where $m$ is the mass of the particle.
+\een 
+
+\section{Acceleration}
+
+\bcon 
+    Restrict attention to atlases $\cA_{\text{stratified}}$ where the chart $(U,x)$ have the property that $x^0=t|_U$. That is the first chart map coincides with the absolute time function. This convention, along with condition (ii) in the definition of Newtonian spacetime gives us 
+    \bse 
+        0 = (\nabla_a dx^0)_b = - {\Gamma^0}_{ba}
+    \ese 
+    for $a,b=0,1,2,3$. So in a stratified atlas all the $\Gamma$s with an upper 0 index vanish. 
+\econ 
+
+Let's now evaluate Newton II in a stratified atlas. Let $X(\lambda)$ denote the particle's worldline, then we have 
+\bse 
+    \nabla_{v_X}v_X = \frac{F}{m}.
+\ese
+We have 
+\bse 
+    (X^{\a})'' + {\Gamma^{\a}}_{\gamma\del} (X^{\gamma})'(X^{\del})' + 2{\Gamma^{\a}}_{0\gamma} (X^{\gamma})'(X^0)' + {\Gamma^{\a}}_{00} (X^0)'(X^0)' = \frac{F^{\a}}{m},
+\ese 
+for $\a=1,2,3$, where we have used the fact that Newtonian spacetime is torsion free and so the $\Gamma$s are symmetric in the lower indices. 
+
+Now, using the fact that $F$ is a spatial vector field (so $F^0=0$) we also have 
+\bse 
+    \begin{split}
+        (X^0)'' + {\Gamma^0}_{ab}(X^a)'(X^b)' & = 0 \\
+        (X^0)'' & = 0 \\
+        \implies X^0(\lambda) & = a\lambda + b \\
+        (t \circ X)(\lambda) & = a\lambda + b,
+    \end{split}
+\ese 
+for $a,b\in\R$. This gives us the idea that we can reparameterise our curve in terms of the absolute time, and we get 
+\bse 
+    \frac{d}{d\lambda} \longrightarrow a\frac{d}{d t}.
+\ese 
+Subbing this into the expression for the spatial components to give
+\bse 
+    \Ddot{X}^{\a} + {\Gamma^{\a}}_{\gamma\del}\Dot{X}^{\gamma}\Dot{X}^{\del} + 2{\Gamma^{\a}}_{0\gamma}\Dot{X}^0\Dot{X}^{\gamma} + {\Gamma^{\a}}_{00}\Dot{X}^0\Dot{X}^0 = \frac{F^{\a}}{a^2m}.
+\ese
+Now recalling \Cref{rem:Acc}, we see that it is the \textit{entire} left-hand side that is the ($\a$ component of the) acceleration, \textit{not} just $\Ddot{X}^{\a}$. This is a really profound result and it explains a lot of the stuff you hear about lower down in education. 
+
+First we note that the ${\Gamma^{\a}}_{00}$ term is non-zero in the presence of gravity, it is $-f^{\a}$. So let's assume there is no gravity so this term vanishes. Now, there exists a chart such that all the $\Gamma$s vanish and we are simply left with $\Ddot{X}^{\a} = F^{\a}/a^2m$, which is our usual result. However if we simply just choose another chart, $\Gamma$s will start to appear! Obviously physically nothing has changed, but it appears that looking at the problem in different ways introduces new `accelerations' (quotation marks because we know they aren't real accelerations, only their sum is). These are charts in spacetime, not just space and so we need to make sure we account for this. 
+
+The ${\Gamma^{\a}}_{\gamma\del}$ terms arise if we simply choose another coordinate system, e.g. instead of considering Cartesian coordinates we could use polar coordinates for the spatial part and leave time unchanged. 
+
+\begin{center}
+    \btik 
+        \draw[thick, ->] (0,-2) -- (0,2);
+        \draw[thick, ->, rotate around={-40:(0,0)}] (0,2) -- (0,-2);
+        \draw[thick, ->, rotate around={-100:(0,0)}] (0,-2) -- (0,2);
+        \node at (0.5,2) {\large{$t$}};
+        \node at (0,-2.5) {\large{All $\Gamma$s vanish}};
+        % 
+        \draw[thick, ->] (8,-2) -- (8,2);
+        \draw[thick, decoration={markings, mark=at position -0.1 with {\arrow{<}}}, postaction={decorate}] (8,0) ellipse (0.5cm and 0.25cm);
+        \draw[thick, decoration={markings, mark=at position -0.1 with {\arrow{<}}}, postaction={decorate}] (8,0) ellipse (1cm and 0.5cm);
+        \draw[thick, decoration={markings, mark=at position -0.1 with {\arrow{<}}}, postaction={decorate}] (8,0) ellipse (1.5cm and 0.75cm);
+        \node at (8.5,2) {\large{$t$}};
+        \node at (8,-2.5) {\large{${\Gamma^{\a}}_{\gamma\del}$ terms present}};
+    \etik  
+\end{center}
+
+The ${\Gamma^{\a}}_{0\gamma}$ terms arise when your charted spatial slices `move' in time. For example if the chart it made up lots of spatial slices that rotate about the time axis, which we'll call a rotating chart. It is important to note that it is only the chart that rotates, its not that the actual, real world, spatial slices are rotating. In this case both the ${\Gamma^{\a}}_{00}$ and ${\Gamma^{\a}}_{0\gamma}$ terms appear and they represent the so-called \textit{centrifugal} and \textit{Coriolis} pseudo-accelerations. The `pseudo' tells us that something is not quite right about them being accelerations, and now we understand why: they are not accelerations in themselves but only the sum is an acceleration.

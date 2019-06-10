@@ -1,0 +1,191 @@
+\chapter{Perturbation Theory I}
+
+We have seen that in order for us to solve Einstein's equations exactly, we require strong symmetry conditions, or, equivalently, simply energy-momentum tensors. This is a shame as we would obviously like to also study the cases of weaker symmetry conditions. An important example would be to find the gravitational filed, $g$,\footnote{Technically $g$ is the gravitational potential, but this subtlety is not important here.} within for a rotating shell of evenly distributed mass.
+
+\begin{center}
+    \btik 
+        \draw[thick, fill=gray!40, opacity=0.8, even odd rule] (0,0) circle (1.5) (0,0) circle (2);
+        \draw[thick, ->] (2.2,0) arc (0:30:2.2cm and 2.2cm);
+        \node at (2.3,0.7) {$\omega$};
+    \etik
+\end{center}
+
+Note that Newtonain gravity, which is given by Poisson's equation 
+\bse 
+    \rho = \nabla^2\phi,
+\ese 
+would tell us that the gravitational field inside the shell vanishes as $\rho$ vanishes inside it. Besides this fact, introducing rotation would not effect the gravitational field as all Poisson's equation cares about is the distribution of mass $\rho$, and our mass is evenly distributed so there is no change by rotation. 
+
+Einsteins equations\footnote{In units where $\frac{8\pi G_N}{c^4}=1$.}
+\bse 
+    G_{ab}[g] = T_{ab}[g,\Phi],
+\ese 
+will encode both a non-vanishing field inside the shell and will also encode the change due to introducing rotation, as the $T_{0\mu}$ components encode the angular momentum. 
+
+\section{Perturbation Of Exact Solutions}
+
+Assume that an exact solution $g$ to some Einstein's equations
+\bse 
+    G_{ab}[g]= T_{ab}[g]
+\ese 
+is known in terms of of component functions $g_{ab}$ w.r.t. to some coordinate chart(s). It would be nice to be able to extract the gravitational potential, $g_{ab} + \del g_{ab}$, that solves the equations
+\bse 
+    G_{ab}[g + \del g] = T_{ab}[g] + \del T_{ab}[g],  
+\ese
+where $\del T_{ab}[g]$ is a small perturbation of the right-hand side of the Einstein equations. If the perturbation on the right-hand side is small, we can assume that $\del g$ itself is small\footnote{If it turned out not to be small, we should have that a small change to the right-hand side of our equations of motion gives rise to a large change on the left-hand side, indicating that the solution is not stable. We clearly ignore any cases like this on physical grounds.} and so we can expand 
+\bse 
+    G_{ab}[g] + \del G[g,\del g] + \cO(\del g^2) = T_{ab}[g] + \del T_{ab}[g],
+\ese 
+where $\del G[g,\del g]$ has linear dependence on $\del g$. Dropping the higher order terms and using the fact that $g$ is an exact solution, we have 
+\bse 
+    \del G_{ab}[g,\del g] = \del T_{ab}[g].
+\ese
+The remaining task is to then find $\del g_{ab}$. This method is known as \textit{linear perturbation theory.}
+
+\bex 
+    For the shell of mass, we could consider the exact solution to be that where there is no shell at all, i.e. 
+    \bse 
+        G_{ab}[g] = 0.
+    \ese
+    We know an exact solution to this is given by the flat metric $g=\eta$. We can now ask the question about introducing a small mass that rotates slowly and treat it as a perturbation to the energy-momentum tensor,
+    \bse 
+        \del G_{ab}[\eta,\del g] = \del T_{ab}[g].
+    \ese 
+\eex 
+
+\br 
+    It will turn out to be interesting to also consider cases where the right-hand side of the Einstein equations are not perturbed (i.e. $\del T_{ab}[g]=0$). For example this will lead us to so-called \textit{gravitational waves}. This might seem like a strange thing to say, as how can we perturb the metric but not the right-hand side of the Einstein equations? The answer is the idea that the right-hand side encodes the matter in the spacetime, whereas the metric encodes the gravity and curvature. We can think of this as `prodding' the spacetime manifold and getting it to ripple, without introducing any new matter. It is by the same argument that we see that $\del T_{ab}$ is only a function of $g$ and not $\del g$.
+\er 
+
+\section{The Perturbed Metric}
+The idea is the following: we are calculating/solving in some chart $(U,x)$ anyway, so we can equally well arrange for our known exact solution to take a particular form. For example, for a static metric $g$, we can always find a chart $(U,x)$ such that 
+\bse 
+    g_{ab} = \left( \begin{array}{c|ccc}
+        1 & 0 & 0 & 0 \\
+        \midrule
+        0 &  \\
+        0 & & -\gamma_{\a\beta} \\
+        0 & 
+    \end{array}\right),
+\ese
+where $\gamma_{\a\beta}$ is some time-independant Riemannian 3-metric. We can write this more compactly as 
+\bse 
+    g = dx^0\otimes dx^0 - \gamma_{\a\beta} dx^{\a}\otimes dx^{\beta}.
+\ese 
+This particular case is useful for taking perturbations about Schwarzschild spacetime, for example.
+
+Now it is clever to describe the 10 small fields encoded in $\del g_{ab}$ as 
+\bse 
+    \del g = 2a\,dx^0\otimes dx^0 - b_{\a} \big[ dx^0\otimes dx^{\a} + dx^{\a}\otimes dx^0\big] - \big[ 2c\,\gamma_{\a\beta} + e_{\a\beta}\big] dx^{\a}\otimes dx^{\beta},
+\ese 
+for \textit{small}, spatial
+\benr 
+    \item scalar fields $a$ and $c$, 
+    \item vector field $b^{\a}=\gamma^{\a\beta}b_{\beta}$, 
+    \item symmetric tensor field $e_{\a\beta}$, which is trace free, $\gamma^{\a\beta}e_{\a\beta}=0$,
+\een 
+all of which are allowed to depend on all $x^a$s (i.e. can depend on $x^0$, even though they are spatial). 
+
+\br 
+    Note this is just the perturbation. That is the complete new metric is $g+\del g = (1+2a)dx^0\otimes dx^0 - ...$.
+\er 
+
+Counting the number of degrees of freedom, we have 
+\benr 
+    \item $1+1=2$, 
+    \item $3$, 
+    \item $\frac{3(3+1)}{2}-1 = 5$
+\een
+to give a total of 10, as required.
+
+\br 
+    It is simply convenient to think of a general perturbation of the metric in terms of these 10 degrees of freedom. 
+\er 
+
+\br 
+    We shall use notation such that Greek indices which do not appear in their natural position have been raised/lowered using $\gamma^{\a\beta}/\gamma_{\a\beta}$. We do this just to lighten notation a bit.
+\er 
+
+\section{Helmholtz-Hodge}
+
+It is immensely useful to further decompose the
+\ben[label=(\alph*)]
+    \item vector field $b_{\a}$ as 
+    \bse 
+        b_{\a} = D_{\a}B + B_{\a},
+    \ese 
+    where $D$ is the Levi-Civita covariant derivative of $\gamma$, $B$ is a scalar field and $B_{\a}$ is a \textit{divergence-free} vector field, $D_{\a} B^{\a}=0$. This is known as \textbf{Helmholtz Theorem}, and actually states that $B$ and $B_{\a}$ are unique. 
+    \item tensor field $e_{\a\beta}$ as
+    \bse 
+        e_{\a\beta} = \bigg(2D_{(\a}D_{\beta)} - \frac{1}{3}\gamma_{\a\beta}\Delta\bigg)E + 2D_{(\a}E_{\beta)} + E_{\a\beta},
+    \ese 
+    where $\Delta := \gamma^{\a\beta}D_{\a}D_{\beta}$ is the spatial \textit{Laplacian}, $E$ is a scalar field, $E_{\a}$ is a divergence-free vector field, and $E_{\a\beta}$ is a symmetric,  divergence-free, $D_{\a}E^{\a\beta} = 0$, and trace-free tensor field. This decomposition is also unique, and is known as \textbf{Hodge Theorem}. 
+\een 
+
+Thus a general perturbation from a static metric uniquely decomposes into three, independent types of perturbation:
+\bse 
+    \del g = \del g_{\text{scalar}} + \del g_{\text{vector}} + \del g_{\text{tensor}}.
+\ese 
+If we make the trivial decompositions $a=A$ and $c=C$, the above formula is summarised in the table below, where we have included some common terminology for the categories
+\begin{center}
+    \begin{tabular}{@{} p{5cm}p{4cm}p{5cm} @{}}
+	    \toprule
+	    Type of perturbation & Contains & Terminology \\
+	    \midrule 
+	    $\del g_{\text{scalar}}$ & $A,B,C$ and $E$ & Scalars \\
+	    $\del g_{\text{vector}}$ & $B_{\a}$ and $E_{\a}$ & Solenoidal vector fields\\
+	    $\del g_{\text{tensor}}$ & $E_{\a\beta}$ & Symmetric, TT\footnote{TT stands for trace-free and transverse.} tensor fields \\
+	    \bottomrule
+    \end{tabular}
+\end{center}
+People then say "scalar perturbations come from scalars, vector perturbations come from solenoidal vector fields, and tensor perturbations come from symmetric, TT tensor fields."
+
+The rational behind this distinction is that a perturbation $\del T_{ab}[g]$ on the right-hand side which is effected only by a scalar fields will \textit{at most} `switch on' the scalar fields in the metric $g+\del g$ on the left-hand side. Similarly for solenoidal and TT perturbations of the energy-momentum tensor.
+
+This means that if we decompose the right-hand side of our perturbed system into the three types of contributions, we can solve each part separately and see its contribution to the system. 
+
+\br 
+    Note that the above decomposition only works in \textit{linear} perturbation theory, as higher order terms would contain cross terms when the decompositions are expanded out. So we can only do the above solving independently for in linear perturbation theory.
+\er 
+
+\bex 
+    For our rotating shell, the scalar perturbation is given by introducing the mass distribution $\rho$, and the solenoidal perturbation is given by introducing rotation, as the vector field associated to it is divergence free (it is essentially a curl field). We could introduce a TT perturbation by applying pressure to the shell. 
+\eex 
+
+\br 
+    It is important to consider what is fundamentally contributing to the perturbation. In our shell example, we might think of some vector field which causes the shell to pulse and oscillate in size is a solenoidal vector perturbation. This is not the case as it is not divergence-free and so is not a \textit{solenoidal} vector perturbation. It is, in fact, a scalar contribution as the required vector field can be obtained as the gradient of some scalar field, and it is the scalar field that generates the perturbation. 
+\er 
+
+\bter
+    Despite the last remark, people do not often say the "solenoidal" and simply say "vector perturbations". Similarly they just say "tensor perturbations".
+\eter 
+
+\section{The Price Paid For The Luxury Of Working In A Chart}
+
+We have made the argument again and again that real world objects, like the metric, are independent of which chart you choose to express them in, and that the components of these objects can vary vastly from one chart to another. 
+
+So far we have calculated everything in the chart $(U,x)$ and obtained some $\del g_{(x)ab}$. The obvious question to ask is whether there exists another chart $(U,y)$ such that 
+\bse 
+    g_{(x)ab} + \del g_{(x)ab} = g_{(y)ab}?
+\ese 
+If this is the case, we have no choice but to conclude that the metric with components $g_{(x)ab}+\del g_{(x)ab}$ is precisely the metric we started with. That is, we have not actually found a \textit{real world} perturbation to the system but instead we have generated a `fake' one at the chart level. 
+
+\bex 
+    Consider an infinitely extended plane. We introduce an evenly distributed matter density across the whole plane. Newtonian theory tells us that the gravitational field is homogeneous and just points orthogonal to the plane. However, we saw when discussing tidal forces that in general relativity such a gravitational field can be removed by transforming to a freely falling frame. We can therefore find a coordinate system in which the contribution made by the matter vanishes, and so it is a `fake' perturbation. 
+\eex 
+
+The insight into this problem is that for
+\benr 
+    \item scalar perturbations, only two combinations of $A,B,C$ and $E$
+    \bse 
+        \Psi := A + \dot{B} - \ddot{E}, \qand \Phi := C - \frac{1}{3}\Delta E
+    \ese 
+    \item vector perturbations, only one combination of the $B_{\a}$ and $E_{\a}$ 
+    \bse 
+        \Theta_{\a} = B_{\a} - \dot{E}_{\a}
+    \ese 
+    \item tensor perturbations all the $E_{\a\beta}$
+\een 
+are unaffected (and therefore \textit{not} removable) by general coordinate transformations. They are known as \textbf{gauge invariants}. They are the only ones that can be taken seriously. We will derive these results next lecture. 
+
+This concept should be familiar from electrodynamics, where we know that the fields $A_{\mu}$ themselves are not physically meaningful, but certain combinations are, for example the field strength tensor components $F_{\mu\nu} = \p_{\mu}A_{\nu}-\p_{\nu}A_{\mu}$.

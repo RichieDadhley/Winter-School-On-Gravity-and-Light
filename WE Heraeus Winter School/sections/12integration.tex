@@ -1,0 +1,255 @@
+\chapter{Integration}
+
+This lecture completes our `lift' of analysis on the charts to analysis at the manifold level. It is the last step in the mathematical foundations before we can move on next lecture to start to discuss general relativity itself. 
+
+The aim is to define a notion of integration at the manifold level, i.e. we want to be able to compute $\int_{\cM}f$ where $f$ is a smooth function on $\cM$. In order to define this, we need to introduce a mild new structure, known as the \textit{volume form}. We will also need to restrict our atlas, giving us a so-called \textit{orientation}.
+
+\section{Review of Integration on $\R^d$}
+
+The simplest case is that of a function $F:\R\to\R$, where we simply have\footnote{We are assuming that the following exists. We shall assume that the results exist for this whole section. } 
+\bse 
+    \int_{(a,b)}F := \int_a^bdx F(x),
+\ese 
+where the right-hand side integral is some known integration operation (e.g. Riemann integrals). 
+
+Next we can consider $F:\R^d\to\R$. If we are to do this over a box shaped domain, $(a,b)\times ... \times (u,v)\se \R^d$, the integral is simply 
+\bse 
+    \int_{(a,b)\times...\times(u,v)} d^dx F(x) := \int_a^bdx^1 ... \int_u^vdx^d F(x^1,...,x^d).
+\ese 
+We can then extend this to general domains (i.e. not necessarily box shaped) $G\se \R^d$ by introducing an \textit{indication function} $\mu_G :\R^d \to \R$ given by 
+\bse 
+    \mu_G(x) = \begin{cases}
+    1 & \text{if } x\in G \\
+    0 & \text{otherwise}.
+    \end{cases}
+\ese
+We then define the integral 
+\bse 
+    \int_G d^dx F(x) := \int_{-\infty}^{\infty}dx^1 ... \int_{-\infty}^{\infty}dx^d \mu_G(x) F(x).
+\ese 
+
+We now need to ask how this definition changes under a change of variable (which will correspond to a change of chart in the lifted notion). 
+
+\bt 
+    Let $\phi : \preim_{\phi}(G) \to G$ denote the change of variable map with $G,\preim_{\phi}(G)\se \R^d$. Then if the integral of $F:G\to\R$ is defined as above we have\footnote{The indices $a$ and $b$ in the determinant do not break Einstein summation convention. What is meant here is the determinant of the elements, and we know the determinant is invariant of which chart we use (think about the determinant of a matrix just being the product of the eigenvalues).} 
+    \bse 
+        \int_G d^dx F(x) = \int_{\preim_{\phi}(G)} d^dy \big| \det\big(\p_a \phi^b\big)(y) \big| \big(F\circ \phi\big)(y),
+    \ese
+    where $\big|\det\big(\p_a\phi^b)(y)\big|$ is the \textbf{Jacobian} of $\phi$.\footnote{Sometimes the Jacobian is defined without the absolute value part, but here we shall use the whole thing.}
+\et 
+
+\bex 
+    Consider $d=2$ and let $G = \R^2 \setminus (x,0)$, i.e. $\R^2$ with the $x$-axis cut out. Then let 
+    \bse 
+        \begin{split}
+            \phi : \R^+ \times \big[(0,\pi) \cup (\pi,2\pi)\big] & \to G \\
+            (r,\varphi) & \mapsto (r\cos\varphi, r\sin\varphi).
+        \end{split}
+    \ese
+    We have 
+    \bse 
+        \big(\p_a\phi^b\big)(r,\varphi) := \begin{pmatrix}
+        \p_r(r\cos\varphi) & \p_r(r\sin\varphi) \\
+        \p_{\varphi}(r\cos\varphi) & \p_{\varphi}(r\sin\varphi)
+        \end{pmatrix} = \begin{pmatrix}
+        \cos\varphi & \sin\varphi \\
+        -r\sin\varphi & r\cos\varphi
+        \end{pmatrix},
+    \ese 
+    so $\big|\det\big(\p_a\phi^b)(r,\varphi)\big| = |r|=r$. This gives 
+    \bse 
+        \int_G dx^1dx^2 F(x^1,x^2) = \int_0^{\infty} dr \int_0^{2\pi} d\varphi \, r F(r\cos\varphi,r\sin\varphi).
+    \ese 
+    We then say that the volume elements $dx^1dx^2$ and $r drd\varphi$ correspond to each other in their respective coordinates. Of course what we have just looked at is simply changing from Cartesian to polar coordinates. 
+\eex
+
+\section{Integration on One Chart}
+
+Let $(\cM,\cO,\cA)$ be a smooth manifold and let $f\in C^{\infty}(\cM)$. Consider charts $(U,x), (U,y)\in\cA$ with the same domain. Denote $f\circ x^{-1} =: f_{(x)} : x(U)\to \R$ and similarly for $f_{(y)}:y(U)\to\R$. We want to define the integral of $f$ over $U$ at the manifold level as something along the lines of 
+\bse 
+    \int_U f := \int_{x(U)} d^d\a \, f_{(x)}(\a),
+\ese 
+where $\a\in\R^d$ is the coordinate tuple in $x(U)$. However, this is not possible as it is not chart independent. This is seen easily by considering the chart transition map $x\circ y^{-1} : y(U)\to x(U)$:
+\bse 
+    \begin{split}
+        \int_{x(U)} d^d\a \, f_{(x)}(\a) & = \int_{y(U)} d^d\beta \big| \det\big( \p_a (x\circ y^{-1})^b\big)(\beta)\big| \,  f_{(y)}(\beta) \\
+        & = \int_{y(U)} d^d\beta \bigg| \det \bigg(\frac{\p x^b}{\p y^a}\bigg)_{y^{-1}(\beta)}\bigg| \, f_{(y)}(\beta),
+    \end{split}
+\ese 
+where we have used $f_{(x)}\circ x\circ y^{-1} = f_{(y)}$ and our definition of $\p_a (x\circ y^{-1})^b$ in terms of the fraction notation. In general this Jacobian will not be unit, and so we don't get $\int_Uf = \int_{y(U)}d^d\beta f_{(y)}(\beta)$, as is required for chart independence. 
+
+The obvious solution to this problem is to try and introduce something to the right-hand side of our definition of $\int_Uf$ that cancels the Jacobian factor we obtain. Such a structure can not be define on just a smooth manifold, and we need to introduce a new structure. 
+
+\section{Volume Forms}
+
+\bd[Volume Form]
+    Let $(\cM,\cO,\cA)$ be a smooth manifold. We call a $(0,\dim\cM)$-tensor field $\Omega$ is called a \textbf{volume form} if 
+    \benr 
+        \item it vanishes nowhere; $\Omega|_p \neq 0$ for all $p\in\cM$, and
+        \item it is totally antisymmetric; $\Omega(...,X,...,Y...) = - \Omega(...,Y,...,X,...)$ for all entries. 
+    \een 
+\ed 
+
+The obvious question to ask is do we need to provide the volume form by hand or can be obtain it from some structure we've already talked about. The answer is, that we can obtain it from a metric on a metric manifold. In order to make this definition we have to introduce the Levi-Civita symbol. 
+\bd[Levi-Civita Symbol]
+    The \textbf{Levi-Civita symbol} in $d$ dimensions is denoted $\epsilon_{i_1...i_d}$ and is defined via the following two properties:
+    \benr 
+        \item $\epsilon_{123...d} = 1$, and 
+        \item total antisymmetry, i.e. it flips sign when any two indices are exchanged
+        \bse 
+            \epsilon_{i_1...i_j...i_k...i_d} = -\epsilon_{i_1...i_k...i_j...i_d}
+        \ese 
+    \een
+\ed
+
+\br 
+    Note condition (ii) for the Levi-Civita symbol tells us that if any two indices repeat the symbol vanishes. It also tells us that permutations of the indices leave the value unchanged. For example for $d=4$, $\epsilon_{1123} = 0$ and $\epsilon_{1234}=\epsilon_{2341}$.
+\er 
+
+\bd[Oriented Atlas]
+    Let $(\cM,\cO,\cA)$ be a manifold. Then the subatlas $\cA^{\uparrow}\se \cA$ is called the (positive) \textbf{oriented atlas} if 
+    \bse 
+        \det\bigg(\frac{\p y^m}{\p x^i}\bigg) >0,
+    \ese 
+    for all overlapping charts $(U,x),(V,y)\in\cA^{\uparrow}$.
+\ed 
+
+We can similarly define $\cA^{\downarrow}$ to be such that the determinant is negative.
+
+\br 
+    It is important to note that you can not always define a oriented atlas. That is, it's not necessarily true that the charts $(U_i,x_i)$ that satisfy the determinant condition will cover all of $\cM$, and so do not form an atlas. Such manifolds are known as \textit{non-orientable} manifolds. 
+\er 
+
+\bcl 
+    Let $(\cM,\cO,\cA^{\uparrow},g)$ be an oriented metric manifold. We can define the components of the volume form in some chart $(U,x)\in\cA^{\uparrow}$ as the following 
+    \bse 
+        \Omega_{(x)i_1...i_d} := \sqrt{\det\big(g_{(x)ij}\big)} \,  \epsilon_{i_1...i_d}.
+    \ese 
+\ecl 
+
+\bq 
+    It is clear that the two conditions for the volume form are satisfied as $\det(g)\neq0$ for Riemannian/pseudo-Riemannian metrics (i.e. there are no $0$s in the signature), and the Levi-Civita symbol is totally antisymmetric. So we just need to show that the result is well defined, i.e. we need to show the components transform like those of a $(0,d)$-tensor field. We have\footnote{The index notation here can be a bit confusing, but the main thing to keep an eye on is where determinants appear, because then the indices simply tell us about the positions in matrices and so we can seemingly break summation convention.} 
+    \bse 
+        \begin{split}
+            \Omega_{(x)i_1...i_d} & = \sqrt{\det \bigg( g_{(y)mn} \frac{\p y^m}{\p x^i}\frac{\p y^n}{\p x^j}\bigg)} \, \epsilon_{i_1...i_d} \\
+            & = \sqrt{\det\big(g_{(y)mn}\big)} \, \bigg| \det\bigg(\frac{\p y^m}{\p x^i}\bigg)\bigg|\, \epsilon_{i_1...i_d} \\
+            & = \sqrt{\det\big(g_{(y)mn}\big)} \,  \text{sgn}\Bigg(\det\bigg(\frac{\p y^m}{\p x^i}\bigg)\Bigg) \det\bigg(\frac{\p y^m}{\p x^i}\bigg) \, \epsilon_{i_1...i_d}.
+        \end{split}
+    \ese
+    Now we use the result 
+    \bse 
+        \det\bigg(\frac{\p y^m}{\p x^i}\bigg) \, \epsilon_{i_1...i_d} = \bigg( \frac{\p y^{m_1}}{\p x^{i_1}}...\frac{\p y^{m_d}}{\p x^{i_d}}\bigg) \, \epsilon_{m_1...m_d}.
+    \ese 
+    So we have 
+    \bse 
+        \begin{split}
+            \Omega_{(x)i_1...i_d} & = \text{sgn}\Bigg(\det\bigg(\frac{\p y^m}{\p x^i}\bigg)\Bigg) \cdot \bigg[ \bigg( \frac{\p y^{m_1}}{\p x^{i_1}}...\frac{\p y^{m_d}}{\p x^{i_d}}\bigg) \sqrt{\det\big(g_{(y)mn}\big)} \, \epsilon_{m_1...m_d}\bigg] \\
+            & = \text{sgn}\Bigg(\det\bigg(\frac{\p y^m}{\p x^i}\bigg)\Bigg) \cdot \bigg[ \bigg( \frac{\p y^{m_1}}{\p x^{i_1}}...\frac{\p y^{m_d}}{\p x^{i_d}}\bigg) \Omega_{(y)m_1...m_d}\bigg],
+        \end{split}
+    \ese 
+    which would be the correct transformation property if we didn't have the sgn term. So we see that if we restrict our atlas such that $\det\big(\frac{\p y^m}{\p x^i}\big) >0$, as stated in the claim, then we simply get our desired transformation property. 
+\eq 
+
+\br 
+    The above definition of a volume form is quite a tedious way to define define a volume form, as you would have to check all the chart transition maps and ensure your manifold is orientable etc. There is a much nicer way to define a volume form (using the pull-back map), however in order to introduce it here, we would need to introduce the idea of a differential form (which is where the volume form derives the latter part of its name). The interested reader is directed to appendix C of Renteln's \textit{Manifolds, Tensors and Forms} textbook. 
+\er 
+
+\bd[Scalar Density]
+    Let $(\cM,\cO,\cA^{\uparrow})$ be a oriented smooth manifold. We define the \textbf{scalar density} in chart $(U,x)$ as 
+    \bse 
+        \omega_{(x)} := \Omega_{i_1...i_d}\epsilon^{i_1...i_d},
+    \ese
+    where $\epsilon^{i_1...i_d}$ is defined the same as $\epsilon_{i_1...i_d}$.
+\ed
+
+It follows from the calculations above that scalar densities on metric manifolds satisfy\footnote{We drop the indices in the determinant to lighten the notation, but they are just the indices used for $x$ and $y$.} 
+\bse 
+    \omega_{(y)} = \det\bigg(\frac{\p x}{\p y}\bigg)\omega_{(x)}.
+\ese 
+
+\section{Integration On One Chart Domain}
+
+\bd[Integration on a Chart Domain]
+    Let $(\cM,\cO,\cA^{\uparrow})$ be a oriented smooth manifold and let $(U,x)\in\cA^{\uparrow}$. We define the integral of $f\in C^{\infty}(\cM)$ on the domain $U$ via 
+    \bse 
+        \int_U f := \int_{x(U)} d^d\a \, f_{(x)}(\a)\cdot  \omega_{(x)}\big(x^{-1}(\a)\big),
+    \ese 
+    where $\omega_{(x)}$ is the scalar density corresponding to the volume form $\Omega$. 
+\ed 
+
+\bcl 
+    The above notion of integration is well defined. 
+\ecl
+
+\bq 
+    We need to show that the formula doesn't change form when we change charts. From the calculations done in this lecture, we have
+    \bse 
+        \begin{split}
+            \int_U f & = \int_{y(U)} d^d\beta \, \bigg|\det\bigg(\frac{\p x}{\p y}\bigg)\bigg| f_{(y)}(\beta) \cdot \bigg[(\det\bigg(\frac{\p x}{\p y}\bigg)\bigg]^{-1} \omega_{(y)}\big(y^{-1}(\beta)\big) \\
+            & = \int_{y(U)} d^d\beta \, f_{(y)}(\beta)\cdot \omega_{(y)}\big(y^{-1}(\beta)\big),
+        \end{split}
+    \ese 
+    which is our well definition condition. Note we have used the fact that our atlas is positive orientated to `remove' the absolute value sign. 
+\eq 
+
+For the special case of an oriented metric manifold $(\cM,\cO,\cA^{\uparrow},g)$ our result becomes 
+\bse 
+    \int_U f := \int_{x(U)} d^d\a \sqrt{\det\big(g_{(x)ij}\big)\big(x^{-1}(\a)\big)} \, f_{(x)}(\a).
+\ese 
+
+\bnn 
+    To lighten notation, it is common to denote 
+    \bse 
+        g := \det\big(g_{(x)ij}\big)\big(x^{-1}(\a)\big),
+    \ese 
+    turning the above expression into 
+    \bse 
+        \int_U f := \int_{x(U)}d^d\a \sqrt{g} \, f_{(x)}(\a). 
+    \ese 
+\enn
+
+\br 
+    In the above we have assumed we are using a Riemannian manifold, in which case $g>0$. The above formula is adapted to pseudo-Riemannian manifolds with $g<0$ by simply replacing $\sqrt{g} \to \sqrt{-g}$. We will see this later when, for example, considering Maxwell's action. 
+\er 
+
+\section{Integration Over The Entire Manifold}
+
+We might be tempted at this point to simply say that the integral over the whole manifold is just given as the sum over the chart domain integrals. That is let $\{(U_i,x_i)\}\se\cA^{\uparrow}$ be a subatlas (i.e. $\cup_i U_i = \cM$) then we might be tempted to say 
+\bse 
+    \int_{\cM}f = \sum_i \bigg(\int_{x_i(U_i)} d^d\a \sqrt{g} f_{(x_i)}(\a)\bigg).
+\ese 
+However this suffers from the common problem of over counting. That is, as it is defined, the contributions from the overlap regions $U_i\cap U_j$ are counted in \textit{both} the $x_i(U_i)$ integral and the $(U_j,x_j)$ integral. We need a way, therefore, to remove this over counting. This problem is resolved by requiring that the manifold admit a so-called \textit{partition of unity}.
+
+Roughly speaking, for any finite\footnote{Note we require it to finite, as otherwise we would need to check for convergence in order to be able to take the sum out of the integral below.} subatlas $\cA' = \{ (U_1,x_1),...,(U_N,x_N) \} \se \cA^{\uparrow}$ there exists continuous functions $\rho_i : U_i \to \R$, such that for all $p\in\cM$ 
+\bse 
+    \sum_i \rho_i(p) = 1,
+\ese
+where the sum is performed such that $p\in U_i$.\footnote{Alternatively you could just say $\rho_i(p) = 0$ if $p\notin U_i$ and let the sum run from $i=1$ to $i=N$.} This accounts exactly for this over counting and allows us to define the integral over the whole manifold as
+\bse 
+    \int_{\cM}f := \sum_i \bigg(\int_{U_i} \rho_i \cdot f\bigg).
+\ese 
+That is, the $\rho_i$s are defined such that their sum at any point in $\cM$ equals unity. Clearly this removes the over counting and just gives one contribution for the overlap region.
+
+\bex 
+    Let $\dim\cM = 1$ and let it be covered by two charts $(U_1,x_1)$ and $(U_2,x_2)$. Define the $\rho_i$s to be such that they change linearly across the overlap region. Then we have something like the below diagram. 
+    \begin{center}
+        \btik
+            \draw[thick, green] (-3,5) -- (5,5);
+            \draw[thick] (-5,4.5) -- (5,4.5);
+            \draw[thick, blue] (-5,4) -- (3,4);
+            \draw[green, fill=white] (-3,5) circle [radius=0.1];
+            \draw[blue, fill=white] (3,4) circle [radius=0.1];
+            \node at (6,5) {\color{green}{\large{$U_1$}}};
+            \node at (6,4.5) {\large{$\cM$}};
+            \node at (6,4) {\color{blue}{\large{$U_2$}}};
+            %
+            \draw[->,thick] (-5,0) -- (-5,3);
+            \draw[->,thick] (-5,0) -- (5.5,0);
+            \draw[ultra thick, blue] (-5,2) -- (-3,2) -- (3,0) -- (5,0);
+            \draw[ultra thick, green] (-5,0) -- (-3,0) -- (3,2) -- (5,2);
+            \node at (-5.5,2) {\Large{1}};
+            \node at (6,2) {\color{green}{\large{$\rho_1$}}};
+            \node at (6,0) {\color{blue}{\large{$\rho_2$}}};
+        \etik
+    \end{center}
+\eex 

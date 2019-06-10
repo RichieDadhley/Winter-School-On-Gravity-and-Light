@@ -1,0 +1,486 @@
+\chapter{Symmetry}
+
+We have the intuitive feeling that the round sphere of radius $R$, $(S^2,\cO,\cA,g^{\text{round}})$, has \textit{rotational symmetry}, while the potato $(S^2,\cO,\cA,g^{\text{potato}})$ does not. 
+
+Prior to this course we have been taught\footnote{Well I was and am assuming the reader was too.} to think of symmetries as a group of maps which map the object to itself, while preserving all of the structures of the object. For example, 3-dimensional rotational symmetry is often given by the $SO(3)$ group. In teaching this, we make use of the inner product available to us. The method we're about to describe here is actually subtly different. As we have just seen above, it is through the introduction of the metric that we get symmetries. That is, the symmetries are \textit{not} something else we provide as well as providing the metric, they come as a consequence of \textit{which} metric we provide. Now it's reasonable to think `well the metric provides a inner product in each tangent space, so we could make a connection to the previously taught idea?' This is where the subtle nature comes in. What they metric is a tensor \textit{field}, and so tells us how to \textit{distribute} these inner products over all the tangent spaces. So the symmetry appears not to come from the inner products themselves but somehow from their distribution over the manifold. 
+
+So we want to answer the question `how do we describe the symmetries of a metric?' This is not just a matter of academic interest, but actually is very important when it comes to studying the physical solutions. For example, the only way to solve Einstein's equations is to provide some symmetry conditions for the spacetime (i.e. the Universe).
+
+\section{Push-Forward Map}
+
+\bd[Push-Forward Map]
+    Let $\phi:\cM\to\cN$ be a smooth map between two smooth manifolds. Then we define the \textbf{push-forward map} $\phi_* : T\cM \to T\cN $ by 
+    \bse
+        \phi_*(X)\la f \ra  := X \la f \circ \phi \ra,
+    \ese
+    where $f\in C^{\infty}(\cN)$, i.e. $f:\cN\to\R$. 
+\ed 
+Diagrammatically, the maps in the above definition are related by the following diagram. 
+\begin{center}
+    \btik 
+        \draw[thick, ->] (0,0) -- (3,0) node[label={above:\large $\phi_*$}, midway]{};
+        \draw[thick, ->] (-0.5,-0.5) -- (-0.5,-1.5) node[label={left:\large $\pi_{\cM}$}, midway]{};
+        \draw[thick, ->] (3.5,-0.5) -- (3.5,-1.5) node[label={right:\large $\pi_{\cN}$}, midway]{};
+        \draw[thick, ->] (0,-2) -- (3,-2) node[label={above:\large $\phi$}, midway]{};
+        \draw[thick, ->] (4,-2) -- (5.5,-2) node[label={above:\large $f$}, midway]{};
+        \node at (-0.5,0) {\large{$T\cM$}};
+        \node at (3.5,0) {\large{$T\cN$}};
+        \node at (-0.5,-2) {\large{$\cM$}};
+        \node at (3.5,-2) {\large{$\cN$}};
+        \node at (6,-2) {\large{$\R$}};
+    \etik 
+\end{center}
+
+\bc 
+    Recall that the fibres of the tangent bundle are just the tangent spaces to that point, i.e. $\preim_{\pi_{\cM}}p = T_p\cM$. It follows, then, that 
+    \bse 
+        \phi_* \big(T_p\cM\big) \se T_{\phi(p)}\cN.
+    \ese 
+    That is, the image of the $p$-fibres on $\cM$ are at least contained within the $\phi(p)$-fibres on $\cN$.
+\ec 
+
+There is a mnemonic to remember what the push forward does: "vectors are pushed forward". 
+
+It is worth looking at the components of the push-forward map in the \textit{two} charts $(U,x)\in\cA_{\cM}$ and $(V,y)\in\cA_{\cN}$. We have, for $p\in\cM$ 
+\bse 
+    \begin{split}
+        \phi^{\,\,a}_{*\,\,i} := dy^a : \phi_*\Bigg(\bigg(\frac{\p}{\p x^i}\bigg)_p\Bigg) = \phi_*\Bigg(\bigg(\frac{\p}{\p x^i}\bigg)_p\Bigg)\la y^a \ra  = \frac{\p (y\circ\phi)^a}{\p x^i} =: \frac{\p \hat{\phi}^a}{\p x^i},
+    \end{split}
+\ese 
+where $a\in\{1,...,\dim\cN\}$ and $i\in\{1,...,\dim\cM\}$. Note that $\hat{\phi} := (y\circ\phi)$ is a map $\hat{\phi}:U\to\R^{\dim\cN}$. 
+
+The following figure gives a nice pictorial description of the push-froward map.
+
+\begin{figure}[h]
+    \begin{center}
+        \btik
+            \draw[thick] (-3,0) .. controls (-1.7,1.75) .. (-1,3.5);
+            \draw[thick] (-1,3.5) .. controls (1.5,3.3) .. (3.5,3.5);
+            \draw[thick] (3.5,3.5) .. controls (2.9,1.75) .. (3, 0.3);
+            \draw[thick] (-3,0) .. controls (0,0.33) .. (3,0.3);
+            \node at (0, 4) {\Huge{$\cM$}};
+            %
+            \draw[thick] (4.5,0) .. controls (5.3,1) .. (6,3.5);
+            \draw[thick] (6,3.5) .. controls (7.5,3.5) .. (10,4);
+            \draw[thick] (10,4) .. controls (10,2) ..(10.5,0);
+            \draw[thick] (4.5,0) .. controls (7.5,0.2) .. (10.5,0);
+            \node at (7, 4) {\Huge{$\cN$}};
+            %
+            \draw[thick] (-2.3, 0.5) .. controls (-1,1) and (1,3) .. (3,3);
+            \node at (-1.9,0.4) {\Large{$\gamma$}};
+            \node[circle, fill=black, inner sep=1.25pt] at (0,1.89) {};
+            \node at (0,1.5) {\Large{$p$}};
+            \draw[->, ultra thick, red] (0,1.89) -- (1,2.6);
+            \node at (0.4, 2.7) {\color{red}\Large{$v_{\gamma,p}$}};
+            %
+            \draw[thick] (6.3,3) .. controls (11.5,3) and (3.5,1) .. (10, 0.5); 
+            \node at (9.5,1) {\Large{$(\phi\circ\gamma)$}};
+            \node[circle, fill=black, inner sep=1.25pt] at (7.31,1.3) {};
+            \node at (6.9,0.75) {\Large{$\phi(p)$}};
+            \draw[->, ultra thick, red] (7.31,1.3) -- (7.2,2.5);
+            \node at (8.15, 2.22) {\color{red}\Large{$\phi_* (v_{\gamma,p})$}};
+            %
+            \draw[thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,1.89) .. controls (3,2) and (5,0.5) .. (7.31, 1.3);
+            \node at (4,1.75) {\color{blue}\Large{$\phi$}};
+        \etik
+        \caption{Given two smooth manifolds and a smooth map $\phi: \cM \to \cN$, the push forward, $\phi_*$, maps tangent vector, $v_{\gamma,p}$ of curve $\gamma$ at point $p \in \cM$ to  from the corresponding tangent vector, $\phi_* (v_{\gamma,p})$, of curve $(\phi \circ \gamma)$ at point $\phi(p) \in \cN$.}
+        \label{fig:PushForward}
+    \end{center}
+\end{figure}
+
+\bc 
+\label{col:Pushforward}
+    Looking at \Cref{fig:PushForward}, we see that $\phi_* : v_{\gamma,p} \mapsto v_{(\phi\circ\gamma),\phi(p)}$.
+\ec 
+
+\bq 
+    Let $f\in C^{\infty}(\cN)$ and let $p\in\cM$ be such that $\gamma(\lambda_0)=p$. Then 
+    \bse 
+        \begin{split}
+            \phi_*\big(v_{\gamma,p}\big) & := v_{\gamma,p}(f\circ \phi) \\
+            & = \big( (f\circ \phi) \circ \gamma\big)'(\lambda_0) \\
+            & = \big( f\circ (\phi \circ \gamma)\big)'(\lambda_0) \\
+            & = v_{(\phi\circ\gamma),(\phi\circ\gamma)(\lambda_0)} \\
+            & = v_{(\phi\circ\gamma),\phi(p)}.
+        \end{split}
+    \ese 
+\eq 
+
+\bex 
+    An important/interesting example of use of the push-forward is when $\phi$ is an \textit{embedding} map\footnote{It is important we use an embedding here and not just an \textit{immersion}, which can have self-intersections. If we had self intersections we would not have a unique tangent vector to the mapped curve. For more details on embeddings and immersions, see section 3.6 of Renteln's \textit{Manifolds, Tensors and Forms} textbook.} from a $d$-dimensional manifold to a $(d+1)$-dimensional manifold. 
+    
+    For obvious pictorial reasons, let $d=1$.\footnote{We could also use $d=2$, but that will be significantly harder for me to draw in Tikz, so $d=1$ it is.} If $\gamma:(0,1)\to\cM$ is a curve in this $1$-dimensional manifold, then $v_{\gamma,p}$ is an element of the $1$-dimensional tangent space $T_p\cM$. Let $\phi:\cM\hookrightarrow\cN$ be an embedding of $\cM$ into $\cN$, where $\dim\cN=2$. Then the velocity $v_{(\phi\circ\gamma),\phi(p)}$ is an element of the $2$-dimensional tangent space $T_{\phi(p)}\cN$. This allows us to make a connection between the \textit{intrinsic} vector $v_{\gamma,p}$ and the \textit{extrinsic} vector $v_{(\phi\circ\gamma),\phi(p)}$. 
+    
+    As an analogy, consider an ant walking along a wire laid down on a table. The vector $v_{\gamma,p}$ would be what the ant (who is oblivious to the higher dimensional space) itself says its velocity is, whereas $v_{(\phi\circ\gamma),\phi(p)}$ is what we (who have a birds eye view of the table) would say the ant's velocity is. 
+    
+    \begin{center}
+        \btik 
+            \draw[thick] (-1,0) -- (5,0);
+            \draw[ultra thick, blue] (0,0) -- (4,0);
+            \draw[ultra thick, ->, red] (1,0) -- (2.5,0) node[label={above:\large $v_{\gamma,p}$}, midway]{};  
+            \draw[fill=black] (1,0) circle [radius=0.08cm];
+            \node at (1,-0.35) {\large{$p$}};
+            \node at (3.8,0.3) {\large{\textcolor{blue}{$\gamma$}}};
+            \node at (-1,-0.3) {\large{$\cN=\R$}};
+            %
+            \draw[thick, blue] (7.5, -1) .. controls (9.5,-0.5) and (10,1.5) .. (12.2,1.5);
+            \draw[thick] (7,-1.5) -- (12.5,-1.5) -- (12.5,2) -- (7,2) -- (7,-1.5);
+            \draw[ultra thick, red, ->, rotate around={32.5:(8.55,-0.55)}] (8.55,-0.55) -- (10.05,-0.55);
+            \draw[fill=black] (8.55,-0.55) circle [radius=0.08];
+            \node at (8.7,-1) {\large{$\phi(p)$}};
+            \node at (10.25,1.5) {\large{\textcolor{blue}{$\phi\circ\gamma$}}};
+            \node at (10.75,0) {\large{\textcolor{red}{$v_{(\phi\circ\gamma),\phi(p)}$}}};
+            \node at (8,1.5) {\large{$\cM=\R^2$}};
+        \etik 
+    \end{center}
+\eex
+
+\section{Pull-back Map}
+
+\bd[Pull-back]
+    Let $\phi:\cM\to\cN$ be a smooth map between two smooth manifolds. Then we define the \textbf{pull-back map} as $\phi^*:T^*\cN\to T^*\cM$ via 
+    \bse 
+        \phi^*(\omega) : X := \omega : \phi_*(X).
+    \ese 
+    for $\omega\in T^*\cN$ and $X\in T\cM$.
+\ed 
+
+Again let's look at the components with respect to the two charts $(U,x)\in\cA_{\cM}$ and $(v,y)\in\cA_{\cN}$.
+\bse
+    {\phi^{*\,a}}_i := \phi^*\big((dy^a)_{\phi(p)}\big) : \bigg(\frac{\p}{\p x^i}\bigg)_p = (dy^a)_{\phi(p)} : \phi_*\Bigg(\bigg(\frac{\p}{\p x^i}\bigg)_p\Bigg) =: \phi_{*\,\,i}^{\,\,a},
+\ese 
+so the components of the pull-back and the components of the push-forward are the same!
+
+Just as we showed that the push-forward of a velocity to a curve was the velocity of the mapped curve, the pull-back of the gradient of some function is the gradient of a function that is mapped to the other function. That is 
+\bse 
+    \phi^*(df) = d(f\circ \phi).
+\ese
+This result can be obtained in a similar manner to the push-forward calculation (see tutorial), or it follows immediately from the following proposition and definition. 
+\bp 
+    The pull-back map and the map $d$ commute. That is 
+    \bse 
+        \phi^*(d \bullet) = d(\phi^*\bullet).
+    \ese 
+\ep 
+
+\bd 
+    Let $\phi:\cM\to\cN$ be a smooth map between two smooth manifolds. Then the pull back of $f\in C^{\infty}(\cN)$ is given by 
+    \bse 
+        \phi^*(f) := f\circ \phi.
+    \ese 
+\ed 
+
+The mnemonic phrase here is "covectors are pulled back."
+
+\section{Induced Metric}
+
+There is an important application for the pull-back. Again consider $\phi:\cM\hookrightarrow\cN$ as an embedding with $\dim\cM <\dim\cN$. Now let the smooth manifold with $\cN$ be equipped with a metric, $g$. We now want to ask whether we can use this metric to define one on the manifold with $\cM$, which we shall call the \textit{induced metric}, $g_{\cM}$. The metric is a $(0,2)$-tensor field, and so can be pulled-back. The question we want to answer is "But how do we define such a metric?"
+
+The way we want this to work is the following. We want to work out the length of a path, $\gamma$, between two points on $\cM$ using $g_{\cM}$. We take the value to be the length of the mapped path, $\gamma\circ\phi$, obtained using $g$. 
+
+Now obviously there is more then one way to embed the space. Each one of these embeddings gives a potentially different length, and so defines a different metric (and shape) for $(\cM,\cO,\cA)$. To use the examples referred to frequently in these notes, the smooth manifold $(S^2,\cO,\cA)$ can be either a round sphere of radius $R$ or a potato. We can decide which it is by defining an embedding $\phi:S^2\hookrightarrow\R^3$ such that the induced metric gives the correct shape. This is what our eyes do when differentiating a football\footnote{That is `Soccer' to some.} from a potato; they look at the lengths between points using our 3D Euclidean metric and conclude that the induced metric is that of a football (or potato). 
+
+We can write this mathematically as the following definition. 
+
+\bd[Induced Metric]
+    Let $(\cM,\cO,\cA)$ and $(\cN,\cO,\cA)$ be a smooth manifolds, with $|\cM|\leq |\cN|$.\footnote{The vertical lines indicate the so-called cardinality of the set, i.e. how many elements are in it.} and let $\phi:\cM\hookrightarrow\cN$ be an embedding. Now equip $(\cN,\cO,\cA)$ with a metric $g$. We define the \textbf{induced metric} on $\cM$ as the pull back $g_{\cM} := \phi^* g$, which satisfies\footnote{The push-forward of a vector field is simply defined point wise, i.e. push-forward each vector and make a vector field.} 
+    \bse 
+        g_{\cM}(X,Y) := g\big(\phi_*(X),\phi_*(Y)\big),
+    \ese 
+    for all $X,Y\in \Gamma T\cM$. 
+\ed 
+
+The above condition in the definition can be written in components as 
+\bse
+    (g_{\cM})_{ij} = g_{ab} \frac{\p \hat{\phi}^a}{\p x^i}\frac{\p \hat{\phi}^b}{\p x^j},
+\ese 
+where $\hat{\phi} = (y\circ \phi)$, as in the calculation for the components of the push-forward.
+
+\bex 
+    Pictorially we can see the above ideas via the following drawings. Let $(\cM,\cO,\cA)$ be some 2-dimensional smooth manifold and let $(\cN,\cO,\cA,g) = (\R^3,\cO_{st},\cA,g_E)$, the Euclidean $3$-space. We could define an embedding $\phi:\cM\hookrightarrow\R^3$ such that $(\cM,\cO,\cA)$ looks dome shaped w.r.t. the metric $g_E$. We can then pull this metric back onto the $\cM$ manifold itself, giving the induced metric space $(\cM,\cO,\cA,g_{\cM})$.
+    \begin{center}
+        \btik[scale=0.9]
+            \draw[thick, fill = gray!40, opacity = 0.8] (0,0) -- (4,0) -- (4,3) -- (0,3) -- (0,0);
+            \draw[ultra thick, blue] (0.5,0.5) .. controls (1.5,2) and (2.5,1) .. (3.5,2.5);
+            \node at (2,3.5) {$(\cM,\cO,\cA)$};
+            %
+            \draw[thick,->] (4.5,1.5) -- (6.5,1.5);
+            \node at (5.5,1.9) {\Large{$\phi$}};
+            %%
+            \node at (9,4) {$(\R^3,\cO_{st},\cA,g_E)$};
+            \draw[thick, rotate around={-40:(9,1.5)}] (9,1.2) -- (9,3.5);
+            \draw[thick] (9,-0.5) -- (9,2);
+            \draw[thick, ->, rotate around={-100:(9,1.5)}] (9,0.7) -- (9,3.5);
+            %
+            \draw[thick, scale=0.8, fill = gray!40, opacity = 0.8, rotate around={-10:(8.75,1.5)}, yshift = 0.5cm] (8.75,1.5) .. controls (10.25,3.5) and (11.75,3.5) .. (13.25,1.5);
+            \draw[thick, scale=0.8, fill = gray!40, opacity = 0.8, rotate around={-10:(8.75,1.5)}, yshift = 0.5cm] (8.75,1.5) arc (180:360: 2.25 and 0.4);
+            \draw[dashed, scale=0.8, rotate around={-10:(8.75,1.5)}, yshift = 0.5cm] (13.25,1.5) arc (0:180:2.25 and 0.4);
+            %
+            \draw[thick, <-, rotate around={-40:(9,1.5)}] (9,-0.5) -- (9,1.2);
+            \draw[thick, ->] (9,2) -- (9,3.5);
+            \draw[thick, rotate around={-100:(9,1.5)}] (9,-0.5) -- (9,0.7);
+            \draw[blue, ultra thick, scale=0.8, rotate around={-10:(8.75,1.5)}, yshift = 0.5cm] (10.25,1.5) .. controls (10.55,1.5) and (10.95,2.5) .. (11.75,2.5);
+            %%
+            \draw[thick,->] (11.5,1.5) -- (13.5,1.5);
+            \node at (12.5,1.9) {\Large{$\phi^*$}};
+            %
+            \node at (16.25,3) {$(\cM,\cO,\cA,g_{\cM})$};
+            \draw[thick, fill = gray!40, opacity = 0.8] (14,1) .. controls (15.5,3) and (17,3) .. (18.5,1);
+            \draw[thick, fill = gray!40, opacity = 0.8] (14,1) arc (180:360: 2.25 and 0.4);
+            \draw[dashed] (18.5,1) arc (0:180:2.25 and 0.4);
+            \draw[blue, ultra thick] (15.5,1) .. controls (15.8,1) and (16.2,2) .. (17,2);
+        \etik 
+    \end{center}
+    It is important to note that we only have a dome shape both in the embedding and as the induced metric because we are considering the embedding space to be the Euclidean $3$-space. That is, when we draw the diagrams on the far right, we are seeing it as being embedded in Euclidean 3-space. This is the comment made about what our eyes do to give differentiate between footballs and potatoes. 
+\eex 
+
+\section{Flow of a Complete Vector Field}
+
+\bd[Integral Curve]
+    Let $(\cM,\cO,\cA)$ be a smooth manifold and let $\gamma:(a,b)\to \cM$ be a smooth curve with $(a,b)\se\R$. If we have a vector field $X\in\Gamma T\cM$, then $\gamma$ is said to be an \textit{integral curve} of $X$ if
+    \bse 
+        v_{\gamma,\gamma(\lambda)} = X_{\gamma(\lambda)}.
+    \ese 
+    That is, the tangent vectors to the curve reproduce the vector field constrained to the curve. 
+\ed 
+
+\bex 
+    An example of a integral curve would be that corresponding to a paper ship floating down a river. The vector field $X$ would be the velocity field of the water molecules and the curve $\gamma$ would be the trajectory of the ship. 
+\eex 
+
+\bd[Complete Vector Field]
+    A vector field $X\in\Gamma T\cM$ is called \textbf{complete} if all integral curves have domain $\R$ (i.e. $(a,b)=\R$).
+\ed 
+
+It is tempting to think that this is always possible because you can just reparameterise $\gamma$ such that $(a,b)=\R$, right? Well it's true that you can do this, but in doing so you change the absolute value/length of the tangent vectors and then they no longer coincide with the vector field vectors. So the choice of parameterisation if chosen by the absolute values of the vectors in the vector field. 
+
+Following from the above point, note that for a vector field to be complete it is important that we don't remove points from the domain of the vector field. If we did this, the integral curve through that point would then have finite length and so we would not be able to extend the interval $(a,b)$ to the whole of $\R$ without breaking the integral curve nature. This is a really important point because it leads the way to a proper understanding of singularity\footnote{A singularity can be thought of as a point that is removed from the spacetime because, for example, the curvature blows up there.} theorems.
+
+This result is contained within the following theorem. 
+
+\bt 
+    A compactly\footnote{A topological space is said to be compact if every open cover has a finite subcover. For more details see, e.g., Renteln's Manifolds, Tensors, and Forms textbook.} supported, smooth vector field is complete. 
+\et 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik[scale=1.5]
+            \draw[ultra thick, red] (-4.1,-0.05) .. controls (-3.32,0.45) .. (-3,0.8) .. controls (-2.6,1.2) .. (-1.7,1.5);
+            \node at (-4,1.5) {\Large{$X$}};
+            \node at (-1.5, 1.7) {\color{red}\Large{$\gamma$}};
+            %
+            \draw[thick, blue] (-3.5,-0.8) .. controls (-1,0.6) and (-4,1.5) .. (-2.5,2.5);
+            \node at (-2.2,2.5) {\color{blue}\Large{$\sigma$}};
+            %
+            \draw[->, thick, rotate around={30: (-4,0)}] (-4,0) -- (-3.3,0);
+            \draw[->, thick, rotate around={45: (-3,0)}, yshift=0.55cm, xshift=0.3cm] (-3,0) -- (-2.3,0);
+            \draw[->, thick, rotate around={20: (-2,0)}, yshift=1.32cm] (-2,0) -- (-1.3,0); 
+            %
+            \draw[->, thick, rotate around={30: (-3.7,-0.5)}] (-3.7,-0.5) -- (-3,-0.5);
+            \draw[->, thick, rotate around={45: (-2.7,-0.5)}, yshift=0.55cm, xshift=0.3cm] (-2.7,-0.5) -- (-2,-0.5);
+            \draw[->, thick, rotate around={20: (-1.7,-0.5)}, yshift=1.32cm] (-1.7,-0.5) -- (-1,-0.5);
+            %
+            \draw[->, thick, rotate around={30: (-4.3,0.5)}] (-4.3,0.5) -- (-3.6,0.5);
+            \draw[->, thick, rotate around={45: (-3.3,0.5)}, yshift=0.55cm, xshift=0.3cm] (-3.3,0.5) -- (-2.6,0.5);
+            \draw[->, thick, rotate around={20: (-2.3,0.5)}, yshift=1.32cm] (-2.3,0.5) -- (-1.6,0.5);
+            %
+            \draw[ultra thick, red] (1.5,2) .. controls (2.2,2) .. (2.45,1.5) .. controls (2.8,1) .. (2.45,0.4) .. controls (2.2,-0.2) .. (1.5, -0.2) .. controls (0.9,-0.2) .. (0.65,0.4) .. controls (0.28,0.9) .. (0.65,1.4) .. controls (0.95,2.05) .. (1.5,2);
+            \node at (2.5,2.2) {\Large{$Y$}};
+            \node at (3,1.5) {\color{red}\Large{$\delta$}};
+            %
+            \draw[->, thick] (1.05,2) -- (2.05,2);
+            \draw[->, thick, rotate around={-60: (2.2,1.9)}] (2.2,1.9) -- (3.2,1.9);
+            \draw[->, thick, rotate around={-120:(2.7,0.8)}] (2.7,0.8) -- (3.7,0.8);
+            \draw[->, thick] (2,-0.2) -- (1,-0.2);
+            \draw[->, thick, rotate around={(-60):(0.9,-0.05)}] (0.9, -0.05) -- (-0.1,-0.05);
+            \draw[->, thick, rotate around={60:(0.4,1)}] (0.4, 1) -- (1.4, 1);
+            %
+            \draw[->, thick] (1.35,1.5) -- (1.85,1.5);
+            \draw[->,thick, rotate around={-60:(1.9,1.4)}] (1.9,1.4) -- (2.4,1.4);
+            \draw[->,thick,rotate around={-120:(2.15,0.85)}] (2.15,0.85) -- (2.65,0.85);
+            \draw[->, thick] (1.85,0.3) -- (1.35,0.3);
+            \draw[->,thick, rotate around={-60:(1.3,0.4)}] (1.3,0.4) -- (0.7,0.4);
+            \draw[->,thick, rotate around={60:(1,1)}] (1, 1) -- (1.5,1);
+        \etik
+        \caption{Left: $\gamma$ is an integral curve of the smooth vector field $X$ as its tangent vectors at all points reproduce the vector field at those points. $\sigma$ is not a integral curve as the tangent vectors do not coincide with the vector field vectors at that point. Right: Example of a complete vector field, $Y$. The integral curves, $\delta$, are closed and therefore have domain $\mathbb{R}$. If we were to remove one point in the space, we would not longer have a complete vector field as one of the integral curves would then have finite length.}
+    \end{center}
+\end{figure}
+
+\bd[Flow of a Complete Vector Field]
+    The \textbf{flow of a complete vector field} $X\in\Gamma T\cM$ is a one-parameter family 
+    \bse 
+        \begin{split}
+            h^X : \R \times \cM & \to \cM \\
+            (\lambda, p) & \mapsto \gamma_p(\lambda),
+        \end{split}
+    \ese 
+    where $\gamma_p:\R\to\cM$ is \textit{the} integral curve of $X$ with $\gamma(0)=p$. 
+\ed 
+
+We can use the above definition to introduce a new map by simply taking a fixed value for $\lambda$. That is, for fixed $\lambda\in\R$ we have the smooth map 
+\bse
+    h^X_{\lambda} :\cM \to \cM,
+\ese  
+which takes every point in $\cM$ and moves it a parameter distance $\lambda$ along the integral curve through that point. 
+
+\section{Lie Subalgebras of the Lie Algebra $(\Gamma T\cM,[\cdot,\cdot])$ of Vector Fields}
+
+\bd[Lie Algebra]
+    A \textbf{Lie algebra} is a vector space\footnote{In fact you only need a module over a commutative ring.} $\mathfrak{g}$ equipped with a bilinear operation $[\cdot,\cdot]:\mathfrak{g}\times\mathfrak{g}\to\mathfrak{g}$, known as the \textbf{Lie bracket}, that also satisfies
+    \benr 
+        \item Antisymmetry: $[x,y]=-[y,x]$, 
+        \item The \textit{Jacobi identity}: $\big[x,[y,z]\big] + \big[z,[x,y]\big] + \big[y,[z,x]\big]= 0$
+    \een 
+\ed 
+
+\bd[Structure Constants]
+    Let $(\mathfrak{g},[\cdot,\cdot])$ be a Lie algebra. We define the \textbf{structure constants} of the Lie algebra, ${C^k}_{ij}\in\F$, via 
+    \bse 
+        [x_i,x_j] = {C^k}_{ij}x_k
+    \ese 
+    for $x_i\in\mathfrak{g}$ and $i,j,k\in\{1,...,\dim\mathfrak{g}\}$.
+\ed 
+
+Recall in lecture 8 we defined the commutator of two vector fields as 
+\bse 
+    [X,Y]\la f \ra = X\big\la Y\la f\ra \big\ra - Y\big\la X\la f\ra \big\ra. 
+\ese 
+We want to make this into a Lie bracket, however we have to address a problem. As it stands we are considering the $C^{\infty}$-module $(\Gamma T\cM,\oplus,\odot)$, but our commutator does not obey $C^{\infty}$-bilinearity. That is 
+\bse 
+    [f\odot X,Y] \neq f\odot [X,Y].
+\ese 
+However, it does obey $\R$-bilinearity. 
+
+\bp 
+\label{prop:LieAlgebraVectorFields}
+    If we therefore restrict ourselves to the $\R$-vector space $(\Gamma T\cM,+,\cdot)$ then the commutator becomes a Lie bracket. 
+\ep 
+
+\bnn 
+    We will denote the Lie algebra of vector fields as just $(\Gamma T\cM,[\cdot,\cdot])$, but it is important to remember that we are considering the restricted to case of $\cdot:\R\times\Gamma T\cM \to \Gamma T\cM$, i.e. $\R$-vector space.
+\enn 
+
+\bbox 
+    \ben[label=(\alph*)]
+    \item Show the above inequality, $[f\odot X,Y] \neq f\odot [X,Y]$.
+    \item Prove \Cref{prop:LieAlgebraVectorFields}.
+    \een 
+\ebox 
+
+\bd[Lie Subalgebra]
+    Let $(\mathfrak{g}, [\cdot,\cdot])$ be a Lie algebra. A vector subspace $\mathfrak{a}\se\mathfrak{g}$ is called a \textbf{Lie subalgebra} if it is closed under the Lie bracket. That is, $[x,y]\in\mathfrak{a}$ for all $x,y\in\mathfrak{a}$. 
+\ed 
+
+By restricting to $\R$-linearity we get an infinite dimensional vector space. This just comes from the fact that we can only scale the basis vector fields by the same amount at each point (as opposed to with $C^{\infty}$-linearity), and so we need an infinite number of them to have a complete basis. However, we can just restrict ourselves to a subalgebra $(\Span_\R\{X_1,...,X_s\},[\cdot,\cdot])$ of finite dimension. 
+
+\bex 
+    An example of such a Lie subalgebra on $(S^2,\cO,\cA)$ is\footnote{We're actually being a bit clumsy here. $\mathfrak{so}(3)$ is the Lie algebra of the Lie group $SO(3)$, which is a manifold equipped with a group structure.}
+    \bse 
+        \mathfrak{so}(3) := (\Span_{\R}\{X_1,X_2,X_3\}, [\cdot,\cdot]),
+    \ese
+    where 
+    \bse 
+        [X_1,X_2] = X_3, \qquad [X_3,X_1] = X_2 \qand [X_2,X_3] = X_1.
+    \ese 
+    This is the 3-dimensional rotation Lie algebra, and finds important use in quantum mechanics.\footnote{For more details see Dr. Schuller's Lectures on Quantum Theory course.}
+\eex 
+
+\br 
+    In the tutorials we show that 
+    \bse 
+        \begin{split}
+            X_1(p) & = -\sin\big(\varphi(p)\big) \frac{\p}{\p \theta} - \cot\big(\theta(p)\big)\cos\big(\varphi(p)\big)\frac{\p}{\p \varphi}, \\
+            X_2(p) & = \cos\big(\varphi(p)\big) \frac{\p}{\p \theta} - \cot\big(\theta(p)\big)\sin\big(\varphi(p)\big) \frac{\p}{\p \varphi}, \\
+             X_3(p) & = \frac{\p}{\p \varphi},
+        \end{split}
+    \ese 
+    is of the form above, justifying why it is often called the 3-dimensional rotation algebra. 
+\er 
+
+Note that we can made no reference to a metric at any point here, and so any $\{X_1,X_2,X_3\}$ that satisfies the above will hold on both the round sphere of radius $R$ and on the potato. 
+
+\section{Symmetry}
+
+\bd[Symmetry of a Metric]
+    Let $(\cM,\cO,\cA,g)$ be a metric manifold, and let $\{X_1,..,X_s\} \ss \Gamma T\cM$. Define $L := \Span_{\R}\{X_1,...,X_s\}$, then the $s$-dimensional Lie subalgebra $(L,[\cdot,\cdot])$ is said to be a \textbf{symmetry} of a metric tensor field $g$, if for all $X\in L$
+    \bse 
+        g\big( (h^X_{\lambda})_*(A), (h^X_{\lambda})_*(B)\big) = g(A,B),
+    \ese
+    for $A,B\in T_p\cM$ and $(h^X_{\lambda})_*$ is the push-forward of the flow of $X$. We can write this alternatively as 
+    \bse 
+        (h_{\lambda}^X)^*g = g,
+    \ese 
+    where $(h_{\lambda}^X)^*$ is the pull-back associated to the flow of $X$.
+\ed 
+
+The first part in the above definition basically says that the angle and projection between $A$ and $B$ (which the metric tells you) does not change if you move both $A$ and $B$ along the integral curves of $X$. For example, for the round sphere of radius $R$, if we move $A$ and $B$ around the sphere in the `$\theta$'-direction then obviously nothing changes. 
+
+The second part just says if we move the metric `backwards' along the integral curves, it still looks the same. This is again intuitively clear for a round sphere when we rotate the sphere. It is not true, however, for the potato, because by moving the metric, the shape of the potato moves. This is clearly just the statement that the round sphere is rotationally symmetric, but the potato is not. 
+
+\section{Lie Derivatives}
+
+The above test for symmetry is very intuitive but it has the major flaw that you have to do a lot of calculation. We therefore typically don't use that method, but instead use the following one. 
+
+It follows from the above that if, for all $X\in L$, 
+\bse 
+    \lim_{\lambda\to0}\frac{\big(h^X_{\lambda}\big)^*g-g}{\lambda} =0
+\ese 
+holds then $L$ is a symmetry of $g$. We actually give the left-hand side its own notation. We define the \textit{Lie derivative} of a metric $g$, w.r.t. a vector field $X$ as 
+\bse 
+    \cL_Xg := \lim_{\lambda\to0}\frac{\big(h^X_{\lambda}\big)^*g-g}{\lambda}.
+\ese
+
+The Lie derivative is actually quite a subtle thing to define. The definition we've used above makes contact with the pull back ideas we discussed above and so we can think of it as comparing the `dragged back'\footnote{Dragged back as the map $h$ is an automorphism, so the pull-back just drags the points backwards.} tensor to the tensor as it is. For another explanation of this see \href{http://web.math.ucsb.edu/~ebrahim/liederivs_tame.pdf}{these notes}.
+
+\br 
+    Alternatively, one can define the Lie derivative using \textit{Cartan's formula}. This useful when discussing the Lie derivative of differential forms. We shall not discuss this further her, but for the interested reader the formula is $\cL_X := d\iota_X - \iota_Xd$.\footnote{$d$ is the exterior derivative, which we have touched on in these notes, and $\iota_X$ is the so-called interior derivative w.r.t. $X$.}
+\er
+
+Given the above comments, we actually define the Lie derivative in a rather abstract way, but that looks very similar to the definition of the covariant derivative. 
+
+\bd[Lie Derivative]
+    The \textit{Lie derivative} $\cL$ on a smooth manifold $(\cM,\cO,\cA)$ sends a pair of a vector \textit{field}, $X$, and a $(p,q)$-tensor \textit{field}, $T$, to a $(p,q)$-tensor field such that: for $f\in C^{\infty}(\cM)$ and $Y\in\Gamma T\cM$,
+    \benr 
+        \item $\cL_X = X\la f\ra$, 
+        \item $\cL_XY = [X,Y]$,
+        \item $\cL_X(T+S) = \cL_XT+\cL_XS$,
+        \item $\cL_X\big(T(\omega,Y)\big) = (\cL_XT)(\omega,Y) + T\big(\cL_X\omega,T\big)+T\big(\omega,\cL_XY\big)$ and similarly for different rank tensors,
+        \item $\cL_{X+Y}T = \cL_XT + \cL_YT$.
+    \een 
+\ed 
+
+These conditions look very similar to those of the covariant derivative, but with the Lie derivative we don't need to provide any extra structure, i.e. don't need to define any $\Gamma$s. You might think that this makes the Lie derivative a more useful derivative, however it comes with its own flaws. 
+
+The first thing we notice is that the lower entry for the Lie derivative must be a vector \textit{field}. This is different to the covariant derivative, where we can take just a vector here. This comes from the idea that we need to obtain this flow of $X$, and that clearly involves knowing $X$ in a neighbourhood of the point and so it must be a field. Next we notice that condition (ii) is something not present in the definition of a covariant derivative. It has the drastic effect on condition (v) whereby the Lie derivative is \textbf{not} $C^{\infty}$-linear in the lower slot (as the covariant derivative is). This comes simply from 
+\bse 
+    \cL_{fX}Y = [fX,Y] = f[X,Y] - Y\la f \ra X.
+\ese 
+
+\bbox 
+    There is another important difference to note. Recall that for the components of the covariant derivative of a tensor, each upper index came with a $+$ sign and each lower index came with a $-$ sign. The opposite is true for the Lie derivative. That is, 
+    \bse 
+        {(\cL_XT)^i}_j = X^m \frac{\p {T^i}_j}{\p x^m} - \frac{\p X^i}{\p x^m} {T^m}_j + \frac{\p X^m}{\p x^j}{T^i}_m.
+    \ese 
+    Show that this result holds.
+\ebox 
+
+Using the relation in the above exercise, the condition $\cL_Xg=0$ becomes a very easy thing to solve, and so we obtain a nice way to see if a metric features a symmetry. 
+
+\subsection{Killing Vector Fields}
+
+\bd[Killing Vector Field] 
+    Let $(\cM,\cO,\cA,g)$ be a metric manifold. A vector field $K\in\Gamma T\cM$ is called a \textbf{Killing vector field} (or just Killing field) if it is a symmetry of the metric, i.e. $\cL_Kg = 0$, which can equally be written as 
+    \bse 
+        K\big\la g(X,Y)\big\ra - g\big([K,X],Y\big) - g\big(X,[K,Y]\big) = 0.
+    \ese 
+\ed 
+
+Noether's theorem tells us that there is a link between symmetries and conservation laws, and so we see that Killing vector fields correspond to conservation laws. For example, as we will see later, the vector field which corresponds to temporal translation $\p_0$ is a Killing vector field Minkowski spacetime, and gives rise to conservation of energy. Similarly we have Killing vector fields for momentum conservation. 
+
+\bbox 
+    Show that for the Levi-Civita connection the Killing vector field condition becomes 
+    \bse 
+        g\big(\nabla_XK,Y\big) + g\big(X,\nabla_YK\big) = 0.
+    \ese 
+    \textit{Hint: You need to use both the metric compatible and the Torsion free conditions.}
+\ebox 

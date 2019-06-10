@@ -1,0 +1,331 @@
+\chapter{Relativistic Spacetime}
+
+We now start talking about physics. Of course we will use all of the mathematical tools developed so far and so it is important that the reader understands the content up to this point fully. 
+
+Recall the definition of Newtonian spacetime from Lecture 9 as the quintuple $(\cM,\cO,\cA,\nabla,t)$ where $(\cM,\cO,\cA)$ is a 4-dimensional smooth manifold, $\nabla$ is a torsion free connection and an absolute time $t\in C^{\infty}(\cM)$ satisfying $dt|_p\neq0$ for all $p\in\cM$ and $\nabla dt = 0$. 
+
+Recall also the definition given at the very start of the course. We have a 4-dimensional topological manifold with a smooth atlas, $(\cM,\cO,\cA)$, carrying a torsion free connection, $\nabla$, but now we also require the connection be compatible with a Lorentzian metric, $g$, and a so-called \textit{time orientation}, $T$. So we need the sextuple $(\cM,\cO,\cA,\nabla,g,T)$. 
+
+\section{Time Orientation}
+
+The absolute time function in Newtonian spacetime associates to each $p\in\cM$ a time. That is, given any point you can just quote the time of that point unarguably. We used the absolute time function to define a future directed vector field $X$ as $dt:X>0$. Pictorially this is given by an arrow pointing to the `upper side' of a tangent plane to a constant $t$ surface. 
+\begin{center}
+    \btik
+        \draw[ultra thick] (0,0) .. controls (3,1) and (5,-1) .. (7,0.8);
+        \draw[ultra thick] (0,1.5) .. controls (3,2.5) and (5,0.5) .. (7,2.3);
+         \node at (7.5,0.8) {\Large{$t_1$}};
+         \node at (7.5,2.3) {\Large{$t_2$}};
+        \draw[ultra thick, blue, rotate around={10:(1,0.23)}] (-0.5,0.23) -- (2.5,0.23);
+        \draw[->, ultra thick, red] (1,0.23) -- (1.5, 1.5);
+        \node[circle, fill, inner sep=1.5pt, label={below:\Large{$p$}}] at (1,0.23) {};
+        \node at (0.8,1) {\color{red}\Large{$X$}};
+        \node at (-0.8, 0.2) {\color{blue}\Large{$dt$}};
+    \etik
+\end{center}
+
+We don't have an absolute time function for our relativistic spacetime, and so we need some other way to define what a future directed vector field is. We know from the tutorials that a Lorentzian metric structure gives a double cone structure in the tangent space to each point. The question is, "can we use this double cone structure in a similar way to how we use the $dt$ surfaces in Newtonian physics to define future/past/spatial directed vector fields?" The answer is "yes, but not by itself."
+
+\bd[Time Orientation]
+    Let $(\cM,\cO,\cA^{\uparrow},g)$ be an oriented Lorentzian manifold. Then a \textbf{time orientation} is given by a smooth vector field $T$ that 
+    \benr 
+        \item does not vanish anywhere, and 
+        \item $g(T,T)>0$.\footnote{In our signature which is $(+,-,-,-)$. For the signature $(-,+,+,+)$ the condition would be $g(T,T)<0$.}
+    \een 
+\ed 
+
+\bp 
+    It is the \textit{combination} of the metric and the time orientation that allows us to define future/past/spatial directed vector fields in relativistic spacetime.
+\ep 
+
+The `proof' of the above proposition comes from simply breaking down the definition. The metric structure gives us a double cone structure in the tangent plane to each $p\in\cM$. We want to identify one of these cones as the future and the other as the past. We know that a vector $X$ that satisfies $g(X,X)|_p>0$ then it lies within \textit{either} one of the two cones tangent to $p$. It doesn't, however, tell us which cone is lies in, and so we don't know if it's future directed or past directed. We therefore need some method to select which cone is which. This is exactly what the time orientation does. Condition (i) tells us that it is defined everywhere, and so we can define the future cone at each point, and condition (ii) tells us that $T$ lies within the cone (an obvious necessity). We then simply say `whichever cone $T$ lies in, that is the future cone'. The final, but very important, property is that $T$ is a \textit{smooth} vector field. This means that the future cones at separate points are smoothly connected. That is, the selected cone doesn't suddenly `flip' as you move from point to point. 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik[scale=1.3]
+            \draw[draw=red, opacity=0.2, fill=red, fill opacity=0.2] (0,2) -- (-0.2,3.4) .. controls (2,4) and (3,1) .. (5,1.5) -- (4,0) .. controls (3,-0.5) and (2,3) .. (0,2);
+            %
+            \node at (-0.5,3.5) {\color{red}\Large{$T_p$}};
+            \node at (5.2,1.6) {\color{red}\Large{$T_q$}};
+            \node at (2.2,2.1) {\color{red}\Large{$T$}};
+            %
+            \draw [thick](-1,3) arc (180:0:1cm and 0.15cm);
+            \draw[->,ultra thick,red] (0,2) -- (-0.2,3.4);
+            \draw [thick](-1,3) arc (180:360:1cm and 0.15cm) -- (0,2) -- cycle;
+            \draw [dashed,thick](-1,1) arc (180:360:1cm and 0.15cm) -- (0,2) -- cycle;
+            \draw [dashed,thick](-1,1) arc (180:0:1cm and 0.15cm);
+            %
+            \draw [thick,rotate around={-30:(4,0)}](3.5,1.5) arc (180:0:0.5cm and 0.1cm);
+            \draw[->,ultra thick,red] (4,0) -- (5,1.5);
+            \draw [thick,rotate around={-30:(4,0)}](3.5,1.5) arc (180:360:0.5cm and 0.1cm) -- (4,0) -- cycle;
+            \draw [dashed,thick,rotate around={-30:(4,0)}](3.5,-1.5) arc (180:360:0.5cm and 0.1cm) -- (4,0) -- cycle;
+            \draw [dashed,thick,rotate around={-30:(4,0)}](3.5,-1.5) arc (180:0:0.5cm and 0.1cm);
+            %
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$p \,\,$}}] at (0,2) {};
+            \node[circle, fill, inner sep=1.5pt, label={right:\Large{$q$}}] at (4,0) {};
+        \etik
+        \caption{Pictorial representation of the relativistic spacetime. The metric $g$ produces a double cone structure in the tangent plane to each point of the manifold. In order to differentiate the two cones, a smooth vector field $T \in \Gamma T\cM$ is introduced in such a way that, at each point $p\in M$, the vector $T_p\in T$ points within one of the two cones associated to that point. This cone is then identified as the `future' relative to that point. The smoothness of $T$ (indicated by the shaded region) ensures a smooth transition from the `future' of one cone to another. Solid lined cones indicate the chosen `future' cones and dashed the `past' cones.}
+    \end{center}
+\end{figure}
+
+\br 
+    For the Newtonian spacetime picture, it is always possible to find a so-called \textit{stratified atlas}, in which all of the $dt$ planes lie horizontally in the charts. For the relativistic picture, this is not true; that is, we can not in general define an atlas such that all the cones line up. Physically this is not a problem because of course who cares what they look like in a chart, its the physical things that are important. However it can make calculations harder and so it is worth noting. 
+\er 
+
+\bnn
+    We shall now simply refer to relativistic spacetime as just spacetime.
+\enn 
+
+Note for Newtonian spacetime a future directed vector only had to point `above' the $dt$ tangent surface and no restriction was placed on its steepness (i.e. the angle between it and the $dt$ plane). Recall that particles are defined to travel along future-directed worldlines. Intuitively, this corresponds to the idea that there is no bound to the speed\footnote{Note we don't have a metric and so can't actually define a speed here.} of a particle, provided it is still future directed. This is obviously in contrast to the idea from special relativity that no massive object can travel at the speed of light (or faster).
+    
+In the spacetime picture, though, we require that the future directed lie \textit{within} the cone. They are then bounded by the surface of the cone (which, as we will define, correspond to so-called \textit{null} vectors). If we then identified the surface of this cone with the worldlines of light, this would correspond to exactly the condition that massive particles are bound by the speed of light.\footnote{Again we should be careful saying speed here because speed is relative in relativity. We simply mean that there is no frame of reference where the speed of a massive particle exceeds the speed of light.} 
+
+Let's make this more precise. 
+
+\bpo 
+\label{post:WorldlineMassive}
+    The worldline $\gamma$ of a \textit{massive} particle satisfies
+    \benr 
+        \item $g_{\gamma(\lambda)}(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}) >0$, and 
+        \item $g_{\gamma(\lambda)}(T,v_{\gamma,\gamma(\lambda)}) >0$.
+    \een 
+\epo
+
+\bpo 
+\label{post:WorldlineMassless}
+    The worldline $\gamma$ of a \textit{massless} particle satisfies 
+    \benr 
+        \item $g_{\gamma(\lambda)}(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}) =0$, and 
+        \item $g_{\gamma(\lambda)}(T,v_{\gamma,\gamma(\lambda)}) >0$.
+    \een 
+\epo 
+
+Postulate 1 tells us that \textit{(i)} a massive particle's worldline lies inside the cone structure, and \textit{(ii)} it is future-directed. The only difference with postulate 2 is that the worldline of a massless particle lines on the surface of the future cone. It is at this point that we can identify the surface of the cone as the trajectory of light, as light is massless particle. 
+
+\br 
+    The wording above is a bit sloppy. The trajectory of the light is the worldline, which is defined on the manifold. The surfaces of the light cones live in the tangent spaces. It is therefore none sense to identify the two. What we mean by identify is that the velocity vectors to the worldline of light lie on the cone, which is exactly what condition \textit{(i)} says. 
+\er 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik[scale=0.8]
+            \draw [thick, blue, rotate around={-30:(1.415,1.3)}](1,2) arc (180:0:0.5cm and 0.1cm);
+            \draw[red, ultra thick,->, rotate around={-12.5:(1.415,1.3)}] (1.415,1.3) -- (1.415,2.3); 
+            \draw [thick,blue,rotate around={-30:(1.415,1.3)}](1,2) arc (180:360:0.5cm and 0.1cm) -- (1.415,1.3) -- cycle;
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$p$}}] at (1.415,1.3) {};]
+            \node at (2,2.4) {\color{red}\Large{$v_{\gamma,p}$}};
+            %
+            \draw [thick, blue, rotate around={-10:(0.56,3.8)}] (-1,5) arc (180:0:1cm and 0.1cm);
+            \draw[red, ultra thick,->, rotate around={-10:(0.56,3.8)}] (0.56,3.8) -- (0.56,5.5);
+            \draw [thick,blue,rotate around={-10:(0.56,3.8)}] (-1,5) arc (180:360:1cm and 0.1cm) -- (0.56,3.8) -- cycle;
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$q$}}] at (0.56,3.8) {};
+            \node at (1.2,5.7) {\color{red}\Large{$v_{\gamma,q}$}};
+            %
+            \draw[thick] (0,0) .. controls (4,2) and (-2,3.5) .. (2,5);
+            \node at (-0.2,-0.2) {\Large{$\gamma$}};
+            %
+            \draw[thick] (8,0) .. controls (12,2) and (6,3.5) .. (10,5);
+            \node at (7.8,-0.2) {\Large{$\gamma$}};
+            %
+            \draw [thick, blue, rotate around={-42:(9.415,1.3)}](9,2) arc (180:0:0.5cm and 0.1cm);
+            \draw[red, ultra thick,->, rotate around={-12.5:(9.415,1.3)}] (9.415,1.3) -- (9.415,2.3); 
+            \draw [thick,blue,rotate around={-42:(9.415,1.3)}](9,2) arc (180:360:0.5cm and 0.1cm) -- (9.415,1.3) -- cycle;
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$p$}}] at (9.415,1.3) {};
+            \node at (10,2.4) {\color{red}\Large{$v_{\gamma,p}$}};
+            %
+            \draw [thick, blue, rotate around={10:(8.56,3.8)}] (7,5) arc (180:0:1cm and 0.1cm);
+            \draw[red, ultra thick,->, rotate around={-10:(8.56,3.8)}] (8.56,3.8) -- (8.56,5.5);
+            \draw [thick,blue,rotate around={10:(8.56,3.8)}] (7,5) arc (180:360:1cm and 0.1cm) -- (8.56,3.8) -- cycle;
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$q$}}] at (8.56,3.8) {};
+            \node at (9.2,5.7) {\color{red}\Large{$v_{\gamma,q}$}};
+        \etik
+        \caption{World lines in spacetime of a massive particle (left) and a massless particle (right). It is important to remember that the cones and velocity vectors live in the tangent space to the point, not on the manifold itself, which the above picture might lead you to believe.}
+    \end{center}
+\end{figure}
+
+\br 
+    Note in Newtonian mechanics, we can't not talk about massless particles and therefore we can't define something akin to postulate 2. 
+\er 
+
+\br 
+    Note we required that the time orientation be a non-vanishing smooth vector field. We have already seen examples of topological manifolds that do not support such things, namely the sphere. We are saved here by the fact that we can also not define a Lorentzian metric on the sphere, and so we can't even begin to try and define a time orientation. 
+\er 
+
+\bex 
+    Consider the example spacetime given by $\cM=\R^4$, $\cO=\cO_{st}$ and where the atlas contains the chart $(\R^4,\b1_{\R^4})$. Let the metric in this chart be given by $g_{(x)ij}=\eta_{ij}$ and the time orientation be $T_{(x)} = (1,0,0,0)$. From the metric components we get vanishing Christoffel symbols ${\Gamma^k}_{ij}=0$ everywhere, and from which, by using the Levi-Civita connection, it follows that the Riemann curvature vanishes. This spacetime is therefore \textit{flat}. This is the spacetime of special relativity and is known as \textbf{Minkowski spacetime} (or just Minkowski space). In the chart given, the representations of the light cones all stand up-right, i.e. they make a 45 degree angle to the horizontal plane.
+\eex 
+
+\section{Observers}
+
+\bd[Observer]
+    An \textbf{observer} on a 4-dimensional spacetime $(\cM,\cO,\cA^{\uparrow},g,T)$ is a worldline $\gamma$ of a massive particle together with a choice of basis $\{e_0(\lambda),...,e_3(\lambda)\}$ in each $T_{\gamma(\lambda)}\cM$, with 
+    \benr 
+        \item $g(e_a,e_b) = \eta_{ab}$, and 
+        \item $e_0(\lambda) = v_{\gamma,\gamma(\lambda)}$,
+    \een 
+    where\footnote{As normal this is just in our signature. If we used $(-,+,+,+)$ the definiton of $\eta_{ab}$ changes accordingly.}
+    \bse 
+        \eta_{00} = 1, \qquad \eta_{11} = \eta_{22} = \eta_{33} = -1, \qand \eta_{ab} = 0 \quad \forall a\neq b.
+    \ese 
+\ed 
+
+\bnn 
+    We will denote observers by $(\gamma,e)$ where $e$ stands for the whole basis selection. 
+\enn 
+
+Condition (i) is the condition that the basis in each tangent space be orthonormal (in the Lorentzian sense). The significance of condition (ii) shall be clarified soon, but it is the idea that the observer does not move in space relative to themselves. 
+
+There is an alternative, more precise, definition of an observer, which we give below. 
+
+\bd[Observer (Frame Bundle)]
+    An \textbf{observer} is a smooth section in the \textit{frame bundle} $\cL\cM$ over $\cM$.
+\ed 
+
+We do not need to go into great detail here about what the frame bundle is, but the basic idea is that the fibres are the space of bases. That is, an element in the fibre is a quadruple of elements corresponding to a basis for that $p\in\cM$. We take a section so that we have a basis at every point along the worldline and finally require the section to be smooth, so that the bases smoothly transition from one to another as you move along $\gamma$; that is you don't want left to suddenly become down. 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik
+            \draw [thick, blue, rotate around={-30:(0.5,0.26)}](0,1) arc (180:0:0.5cm and 0.1cm);
+            \draw [thick,blue,rotate around={-30:(0.5,0.26)}](0,1) arc (180:360:0.5cm and 0.1cm) -- (0.5,0.26) -- cycle;
+            %
+            \draw[red, ultra thick,->, rotate around={-12.5:(1.415,1.3)}] (1.415,1.3) -- (1.415,2.3);
+            \node[circle, fill, inner sep=1.5pt, label={left:\Large{$p$}}] at (1.415,1.3) {};
+            %
+            \draw[green, thick,->, rotate around={-12.5:(1.415,1.3)}] (1.415,1.3) -- (1.415,2.3);
+            \node at (1.8,2.5) {\color{green}\large{$e_0(\lambda_1)$}};
+            \draw[green, thick,->, rotate around={-57.25:(1.415,1.3)}] (1.415,1.3) -- (1.415,2.3);
+            \node at (2.9,1.9) {\color{green}\large{$e_1(\lambda_1)$}};
+            \draw[green, thick,->, rotate around={-112.5:(1.415,1.3)}] (1.415,1.3) -- (1.415,2.3);
+            \node at (2.6,0.7) {\color{green}\large{$e_2(\lambda_1)$}};
+            %
+            \draw[red, ultra thick,->, rotate around={-10:(0.56,3.8)}] (0.56,3.8) -- (0.56,5.5);
+            \node[circle, fill, inner sep=1.5pt, label={right:\Large{$q$}}] at (0.56,3.8) {};
+            %
+            \draw[green, thick,->, rotate around={-10:(0.56,3.8)}] (0.56,3.8) -- (0.56,5.5);
+            \node at (1,5.7) {\color{green}\large{$e_0(\lambda_2)$}};
+            \draw[green, thick,->, rotate around={35:(0.56,3.8)}] (0.56,3.8) -- (0.56,5.5);
+            \node at (-0.5,5.4) {\color{green}\large{$e_2(\lambda_2)$}};
+            \draw[green, thick,->, rotate around={80:(0.56,3.8)}] (0.56,3.8) -- (0.56,5.5);
+            \node at (-1.4,4.4) {\color{green}\large{$e_1(\lambda_2)$}};
+            %
+            \draw[thick] (0,0) .. controls (4,2) and (-2,3.5) .. (2,5);
+            \node at (-0.2,-0.2) {\Large{$\gamma$}};
+        \etik
+    \caption{Pictorial representation of an observer, $(\gamma, e)$. The curve $\gamma$ is that of a massive particle, and for each point $p \in \gamma$, the observer has a basis for $T_p\cM$, such that $e_0$ is the velocity at that point. The bases at different points are related by the smooth curve in the frame bundle --- where smoothness ensures a continuous transition from the one at $p$ to the one at $q$.}
+    \end{center}
+\end{figure}
+
+\bpo 
+\label{post:Clock}
+    A \textbf{clock} carried by a specific observer $(\gamma,e)$ will measure a \textbf{time} $\tau$, known as the proper/eigen-time, between two events $\gamma(\lambda_1)$ and $\gamma(\lambda_2)$ as 
+    \bse 
+        \tau := \int_{\lambda_1}^{\lambda_2}d\lambda  \sqrt{g\big(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)}\big)}.
+    \ese 
+\epo 
+
+It the combination of this with condition (ii) in the definition of an observer, that tells us that they simply follow time \textit{as they know it}. As the emphasis suggests, this time is defined relative to them. What we are highlighting here is the fact that time is a derived notion on our spacetime. Indeed, a different observer could well disagree with the time and there would be no way to determine who is correct in an absolute way, unlike with Newtonian spacetime, where the absolute time function would give us our answer. This is the idea that time is relative and the simultaneity is ill-defined. 
+
+\br 
+\label{rem:ObserverTime}
+    Note it also only makes sense for an observer to measure the time between events they have passed through. This is a subtle point but actually has far reaching impact, for example when it comes to talking about things like infinite redshift surfaces of black holes.
+\er 
+
+\bex 
+    Consider two observers on Minkowski spacetime. In the chart $(\R^4,\b1_{\R^4})$ let these observers be parameterised as 
+    \bse 
+        \begin{minipage}{0.70\linewidth}
+            \begin{align*}
+                \gamma_{(x)}(\lambda) & = (\lambda,0,0,0) \\
+                \del_{(x)}(\lambda) & = \begin{cases}
+                (\lambda, \a\lambda,0,0) & \lambda \leq \frac{1}{2} \\
+                \big(\lambda, (1-\lambda)\a,0,0\big) & \lambda >\frac{1}{2}
+                \end{cases}
+            \end{align*}
+        \end{minipage}
+        %
+        \begin{minipage}{0.20\linewidth}
+            \begin{center}
+                \btik 
+                    \draw[thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,0) -- (0,3);
+                    \draw[thick, red, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,0) -- (1,1.5);
+                    \draw[thick, red, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (1,1.5) -- (0,3);
+                    \node at (-0.2,1.5) {\textcolor{blue}{$\gamma$}};
+                    \node at (1.2,1.5) {\textcolor{red}{$\del$}};
+                    \draw[thick, fill=black] (0,0) circle [radius=0.05];
+                    \draw[thick, fill=black] (0,3) circle [radius=0.05];
+                \etik 
+            \end{center}
+        \end{minipage}
+    \ese 
+    for $\lambda\in(0,1)$ and $\a$ a constant between $0$ and $1$. We calculate 
+    \bse 
+        \tau_{\gamma} = \int_0^1 d\lambda \sqrt{g_{(x)ij}\dot{\gamma}_{(x)}^i \dot{\gamma}_{(x)}^j} = \int_0^1 d\lambda \sqrt{1} = 1,
+    \ese 
+    and 
+    \bse 
+        \tau_{\del} = \int_0^{\frac{1}{2}} d\lambda \sqrt{1 -\a^2} + \int_{\frac{1}{2}}^1 d\lambda \sqrt{1 - (-\a)^2} = \sqrt{1-\a^2}.
+    \ese 
+    So the $\del$ observer measures a shorter time. This is the twin paradox and time dilation, where $\a\to 1$ corresponds to $v\to c$.
+\eex 
+
+\bpo 
+\label{post:3Velocity}
+    Let $(\gamma,e)$ be an observer and $\del$ be a massive particle worldline, that is parameterised  such that $g(v_{\del,\del(\lambda)},v_{\del,\del(\lambda)})=1$ everywhere along $\del$.\footnote{This corresponds to normalising the worldlines to follow the clock that the observer carries. We choose to do this because it makes the following definitions easier.} Suppose the observer and the particle meet at some $p\in\cM$, i.e. $\gamma(\tau_1) = p = \del(\tau_2)$. \textit{This} observer measures the 3-velocity (or spatial velocity) of this particle as 
+    \bse 
+        u_{\del(\tau_2)} := \big(\epsilon^{\a} : v_{\del,\del(\tau_2)}\big) e_{\a}, \qquad \a = 1,2,3,
+    \ese
+    where $\epsilon^{\a}$ is the $\a^{\text{th}}$ component of the so-called dual basis\footnote{See Dr. Schuller's Lectures on the Geometrical Anatomy of Theoretical Physics course for more details.} of $e$.
+\epo 
+
+We see the basis dependence clearly in the above postulate and so we know that a different observer, that also meets $\del$ at $p\in\cM$, could get a different measurement for the 3-velocity of the massive particle. This is exactly the idea that 3-velocity is a relative concept. Note that the 4-velocity $v_{\del,\del(\tau_2)}$ is objective; it is only the 3-velocity (which we can think of as a `projection' of the 4-velocity into the spatial plane of the observer) that is ill-defined. 
+
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) .. controls (1.5,1.66) and (-0.5,3.33) .. (1,5);
+        \draw[ultra thick, blue] (2,0) .. controls (2.5,2) and (0,2) .. (-0.5,5);
+        \draw[thick, fill = gray!40, opacity = 0.8] (-1.5,2.85) -- (0.45,2) -- (2.4,2.85) -- (0.45,3.7) -- (-1.5,2.85);
+        \begin{scope}
+            \clip (-1.5,2.85) -- (2.4,2.85) -- (0.45,3.7) -- (-1.5,2.85);
+            \draw[ultra thick, blue] (2,0) .. controls (2.5,2) and (0,2) .. (-0.5,5);
+            \draw[thick] (0,0) .. controls (1.5,1.66) and (-0.5,3.33) .. (1,5);
+        \end{scope}
+        \draw[fill=black] (0.45,2.85) circle [radius=0.05];
+        \draw[ultra thick, ->, blue, rotate around={45:(0.45,2.85)}] (0.45,2.85) -- (0.45,4.35);
+        % 
+        \draw[thick, ->, red,  rotate around={8:(0.45,2.85)}] (0.45,2.85) -- (0.45,3.85);
+        \draw[thick, ->, red,  rotate around={-60:(0.45,2.85)}] (0.45,2.85) -- (0.45,3.65);
+        \draw[thick, ->, red,  rotate around={-120:(0.45,2.85)}] (0.45,2.85) -- (0.45,3.65);
+        \draw[dashed] (-0.55,3.75) -- (-0.55, 2.85);
+        \draw[ultra thick, ->, dashed, blue] (0.45,2.85) -- (-0.55,2.85);
+        %
+        \node at (1.2,5) {\large{$\gamma$}};
+        \node at (2.3, 0.5) {\large{\textcolor{blue}{$\del$}}};
+        \node at (1.3,3) {\large{\textcolor{red}{$e$}}};
+        \node at (-0.7,4) {\large{\textcolor{blue}{$v$}}};
+        \node at (0,2.6) {\large{\textcolor{blue}{$u$}}};
+        \node at (2.3,3.2) {$T_p\cM$};
+    \etik 
+\end{center}
+
+\section{Role Of Lorentz Transformations}
+
+Lorentz transformations emerge as follows: let $(\gamma,e)$ and $(\widetilde{\gamma},\widetilde{e})$ be observers with $\gamma(0) = \widetilde{\gamma}(0)$. Now $\{e_0,...,e_3\}$ and $\{\widetilde{e}_0,...,\widetilde{e}_3\}$ are both bases for the tangent space $T_{\gamma(0)}\cM$. Thus we can express the latter basis in terms of the former one. That is,
+\bse 
+    \widetilde{e}_a = {\Lambda^b}_a e_b,
+\ese 
+where $\Lambda\in GL(4)$.\footnote{For the unfamiliar reader that is the group of 4x4 inevitable matrices, known as the 4-dimensional general linear group. See any group theory course for more details.} From the definition of an observer we have 
+\bse 
+    \begin{split}
+        \eta_{ab} & = g(\widetilde{e}_a,\widetilde{e}_b) \\
+        & = g\big({\Lambda^m}_ae_m, {\Lambda^n}_be_n\big) \\
+        & = {\Lambda^m}_a{\Lambda^n}_b g(e_m,e_n) \\
+       \therefore \eta_{ab} & = {\Lambda^m}_a{\Lambda^n}_b \eta_{mn},
+    \end{split}
+\ese 
+which tells us that the $\Lambda$s are elements of the Lorentz transformations, $\Lambda \in O(1,3)$. 
+
+So we see that the Lorentz transformations relate the \textit{frames} of two observes at the point that they meet. It is completely meaningless say `we use a Lorentz transformation to relate a frame of one observer at $p\in\cM$ to another observer at $q\neq p \in\cM$'. As such, Lorentz transformations act on a single tangent space to the manifold, and do \textit{not}, by any stretch of the imagination, act on the spacetime. That is writing things like 
+\bse 
+    \widetilde{x}^{\mu} = {\Lambda^{\mu}}_{\nu} x^{\nu} 
+\ese 
+is utter nonsense. It is true in special relativity, where the spacetime is flat, that we can think of extending the tangent space over the whole manifold, and then you could say `ah well now it acts on all the tangent spaces and so now we can think of it as acting on the spacetime.' This just brings us back to \Cref{rem:SpecialRelLorentz}, where we said that by doing so you restrict yourselves firstly to linear transformations between frames and then also to the specific case of Lorentz transformations. Physically this is not a good idea, because the objective world does not care which frames we use and therefore we should be able to transform to any frame and study the physics. 

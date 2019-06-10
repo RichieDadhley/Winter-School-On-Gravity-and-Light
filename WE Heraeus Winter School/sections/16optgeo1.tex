@@ -1,0 +1,67 @@
+\chapter{Optical Geometry I}
+
+\br 
+\label{rem:SigChange}
+    This lecture is given by Dr. Werner, and he decides to use the opposite signature to Dr. Schuller, namely he uses $(-,+,+,+)$. I shall change to this signature too as Dr. Schuller changes to it anyways in lecture 20 and it is also my preferred signature. 
+\er 
+
+\bnn 
+    Dr. Werner uses the notation that Greek indices represent spacetime components (i.e. $\mu=0,1,2,3$), whereas Latin indices represent spatial components (i.e. $i=1,2,3$). We shall use the opposite convention here as that is what we have been using throughout these notes.
+\enn 
+
+We want to look at \textit{gravitational lensing}, which is the bending of light in space. Historically, gravitational lensing played a really important part in the field of general relativity, as it was one of the first proposed predictions of the theory. In order to study gravitational lensing we shall first return to Fermat's principle and try and express it in the context of GR. 
+
+\section{Fermat's Principle}
+
+Classically, Fermat's principle is the statement that light will follow a path that minimises its time. That is, 
+\bse 
+    0 = \del \int_{\gamma} dt = \del \int_{\gamma} \frac{1}{v}d\ell = \del\int_{\gamma} \frac{n}{c}d\ell. 
+\ese 
+There is a problem with trying to do this in GR, though; light rays follow null geodesics and so have zero spacetime length. That is $g(v_{\gamma,\gamma(\lambda)},v_{\gamma,\gamma(\lambda)})=0$ for all $\gamma$ that represent the path of a light ray. 
+
+For us to proceed here, we are going to assume that our spacetime is so-called \textit{stationary}. 
+\bd[Stationary Spacetime]
+    A spacetime $(\cM,\cO,\cA,g,T)$ is called \textbf{stationary} if it admits a Killing vector field $K$ such that $g(K,K)<0$.\footnote{Technically all we require is that the spacetime has an asymptotically flat region and that the Killing vector field satisfies $g(K,K)<0$ in this region. This distinction does carry forward into some of the next expressions, however we shall ignore it in these notes as the general idea holds.}
+\ed 
+
+\bcl 
+    A stationary spacetime is one where we can find a chart such that the components of the metric do not depend on time. 
+\ecl 
+
+\bq 
+    Recall a vector field is Killing if $\cL_Kg=0$. The exercise at the end of lecture 11 shows that in a chart this condition reads 
+    \bse 
+        T^{c} g_{ab,c} + g_{cb}{T^c}_{,a} + g_{ca}{T^c}_{,b} = 0.
+    \ese 
+    Now imagine we pick a chart such that $T = \del^{a}_0 \p_{a} = \p_0$, then the second two terms vanish and we are simply left with
+    \bse 
+        g_{ab,0} = 0,
+    \ese
+    which is the statement that the metric components are time-independent in this chart.
+\eq 
+
+In the chart described above, a general stationary spacetime is one who's metric is of the form
+\bse 
+    g = - dt\otimes dt + \omega_{\mu} \big( dt\otimes dx^{\mu} + dx^{\mu}\otimes dt\big) + h_{\mu\nu} dx^{\mu}\otimes dx^{\nu},
+\ese
+where $h_{\mu\nu}=\diag(+,+,+)$, and where both $h_{\mu\nu}$ and $\omega_{\mu}$ are functions of the $x$s only, i.e. $h_{\mu\nu,0} = 0 = \omega_{\mu,0}$. 
+
+\bd[Static Spacetime]
+    A spacetime $(\cM,\cO,\cA,g,T)$ is called \textbf{static} if it is stationary and \textit{hypersurface-orthogonal}, which essentially means $\omega_{\mu} = 0$ for all $\mu\in\{1,2,3\}$. 
+\ed 
+
+\br 
+    The $\omega_i$s have the nice geometrical interpretation of being (the spatial part) of a twisting vector, which corresponds to a rotation of the spacetime. So the difference between a stationary and static spacetime can be thought of as allowing or not rotation.
+\er 
+
+\textcolor{red}{I will finish typing up this lecture, and the next three later. I have typed up all of Dr. Schuller's lectures though. These lectures are very well taught (I just decided to finish Dr. Schuller's stuff first), so please watch them if you haven't already.}
+
+\mybox{
+\ben
+    \item Fermat's principle GR --- it is the variation of the arrival time that vanishes, not the total time. 
+    \item Finsler-Randers Geometry 
+    \item Optical metrics 
+    \item Schwarzchild 
+    \item Gaussian Curvature
+\een 
+}

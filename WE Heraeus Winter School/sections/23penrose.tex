@@ -1,0 +1,662 @@
+\chapter{Penrose Diagrams}
+
+Would it not be nice to be able to draw an informative picture of an \textit{entire} spacetime on a finite portion of paper? For some spacetimes, this is possible and the resulting diagrams are known as \textbf{Penrose} (or Penrose-Carter) diagrams. In order for the diagrams to be useful, we will compromise on a number of issues, but we will \textit{not} compromise on the nice property of null geodesics having slope $\pm1$, i.e. the light cones stand upright and make a 90 degree angle everywhere.
+
+\section{Recipe To Construct A Diagram}
+
+The `recipe' is as follows:
+\benr 
+    \item Start with a spacetime metric in some chart, and \textit{painfully note the coordinate ranges}.
+    \item Find coordinates such that two previously non-compact coordinates are replaced by two (possibly still non-compact) \textit{null coordinates}, which we label $v$ and $w$.
+    \item Compactify the two null coordinates separately, i.e. introduce new coordinates\footnote{You don't need to use $\arctan$, but just any compactifying function.}
+    \bse 
+        p := \arctan(v), \qand q := \arctan(w).
+    \ese 
+    Thus $(p,q)$ will take values in (some subset of) $(-\pi/2,\pi/2)\times(-\pi/2,\pi/2)$.
+    \item Define again a temporal and spatial coordinate 
+    \bse 
+        T := p + q, \qand X := p - q,
+    \ese 
+    again keeping track of the ranges. 
+    \item Express the metric $g$ in the coordinates $(T,X,...)$, where $...$ are the original coordinates which we haven't changed. 
+    \item \textit{If}\footnote{It may not be possible!} the metric in these coordinates takes the form 
+    \bse 
+        g = \Omega^{-2}(T,X,...)\Big[ dT\otimes dT - dX\otimes dX - R(T,X)\big( d... \otimes d...\big)\Big].
+    \ese
+    where $d...\otimes d...$ is meant to indicate the remaining coordinates in diagonal form (e.g. $d\theta\otimes d\theta + d\varphi\otimes d\varphi$), then obtain the non-physical diagram
+    \bse 
+        g_{\text{diagram}} = dT\otimes dT - dX\otimes dX,
+    \ese 
+    again noting the ranges.
+\een 
+
+The above result seems rather strange; essentially what we've done is turn everything into what appears to be flat Minkowski space! Well yes and no. Yes because we want the cones to stand upright and at 90 degrees, but no because $(T,X)\ss \R\times\R$ is not an equality: our diagram is finite in size. We can therefore think about the information of the diagram, and therefore the spacetime, as being contained in where the boundaries are. 
+
+\br 
+\label{rem:ConeCompactify}
+    Step (ii) in the above is important, as its what allows us to preserve the cones. This is easily seen pictorially, as compressing along null coordinates doesn't change the angles of the cones, whereas if we had used a temporal coordinate and a spatial coordinate, we would only preserve the angle if we compactified in a $1:1$ manner everywhere.\footnote{The below diagram is a bit misleading: the cones are infinitely big so when we draw them smaller to the right we just mean that the part part of the cone has been made smaller; both are still infinite in size.}
+    \begin{center}
+        \btik 
+            \draw[thick, rotate around={45:(0,0)}] (0,0) -- (0,2);
+            \draw[thick, rotate around={-45:(0,0)}] (0,0) -- (0,2);
+            \draw[thick] (-1.4,1.4) arc (180:-180:1.4cm and 0.2cm);
+            \draw[ultra thick, blue, ->] (-1.4,1.4) -- (-0.2,0.2);
+            \draw[ultra thick, blue, ->] (1.4,1.4) -- (0.8,0.8);
+            \draw[thick, rotate around={45:(4,0)}] (4,0) -- (4,1);
+            \draw[thick, rotate around={-45:(4,0)}] (4,0) -- (4,1);
+            \draw[thick] (3.3,0.7) arc (180:-180:0.7cm and 0.1cm);
+            %
+            \draw[thick, rotate around={45:(0,-2.5)}] (0,-2.5) -- (0,-0.5);
+            \draw[thick, rotate around={-45:(0,-2.5)}] (0,-2.5) -- (0,-0.5);
+            \draw[thick] (-1.4,-1.1) arc (180:-180:1.4cm and 0.2cm);
+            \draw[ultra thick, blue, ->] (0,-1.1) -- (0,-1.9);
+            \draw[ultra thick, blue, ->] (-2,-2) -- (-0.1,-2);
+            \draw[thick, rotate around={25:(4,-2.5)}] (4,-2.5) -- (4,-1.3);
+            \draw[thick, rotate around={-25:(4,-2.5)}] (4,-2.5) -- (4,-1.3);
+            \draw[thick] (3.5,-1.4) arc (180:-180:0.5cm and 0.1cm);
+        \etik 
+    \end{center}
+\er  
+
+\br 
+    In going to step (vi) we seem to have `forgotten' about the $\Omega^{-2}$ factor and the $R(T,X)(...)$ terms. 
+    
+    The first is simply a conformal factor,\footnote{A lot more information on conformal transformations can be found in my notes on Dr. Shiraz Minwalla's String Theory course.} and conformal factors do not change the shape of null geodesics. They will, however, change the shape of others (i.e. timelike and spacelike geodesics). We state this more precisely in the following proposition. Seeing as we are only interested in persevering the null geodesics (i.e. the light cones), we can do this and just accept that the shape of the others will change.
+    
+    The second point we fix by simply imagining that at each point on our diagram we attach a space whose geometry is given by the $R(T,X)(...)$ terms. This is why we allowed $R$ to be a function of $T$ and $X$ and also why we denote it $R$ --- we can loosely think of it as being the radius of these geometries we attach.
+\er 
+
+\bp 
+    A curve $\gamma$ is a null geodesic of $g$ if and only if if it is a null geodesic of $\Omega^2g$, where $\Omega^2\in C^{\infty}(\cM)$ is no-where vanishing.
+\ep 
+
+\bq 
+    Let $^g\nabla$ and $^\Omega\nabla$ denote the connections associated to $g$ and $\Omega^2g$, respectively. Let $\gamma:(0,1)\to\cM$ be a curve and denote the tangent vector field to it by $X$. Then:
+    \begin{itemize}
+        \item[$(\Rightarrow)$] Assume $\gamma$ is a affinely parameterised null geodesic of $g$. That is $^g\nabla_X X = 0$. Now consider the covariant derivative of $X$ using $^\Omega\nabla$:
+        \begin{equation*}
+            \begin{split}
+                \Big( {}^\Omega\nabla_X X\Big)^a & = X^b \frac{\p}{\p x^b}X^a + {}^\Omega{\Gamma^a}_{cb}X^bX^c \\
+                & = X^b \frac{\p}{\p x^b}X^a + \frac{1}{2\Omega^2}g^{ad}\big[ (\Omega^2g)_{cd,b} + (\Omega^2g)_{bd,c} - (\Omega^2g)_{bc,d} \big]X^bX^c
+            \end{split}
+        \end{equation*}
+        Let's just consider the second term, 
+        \begin{equation*}
+            \begin{split}
+                \frac{1}{2\Omega^2}g^{ad}\big[(\Omega^2g)_{cd,b} + (\Omega^2g)_{bd,c} - (\Omega^2g)_{cb,d}\big]X^bX^c & = \frac{1}{2\Omega^2}g^{ad}\big[2{\Omega^2}_{,b} g_{cd} - {\Omega^2}_{,d} g_{bc}\big]X^bX^c \\
+                & \qquad + \frac{1}{2\Omega^2}\Omega^2g^{ad}\big[g_{cd,b} + g_{bd,c} - g_{bc,d}\big]X^cX^d,
+            \end{split}
+        \end{equation*}
+        where we have used the summation convention to obtain the $2$ inside the first square brackets. The second term on the right-hand side goes with the first term of the right-hand side of the first equation to give us $^g\nabla_XX$, which we assumed vanished, so we are just left with 
+        \bse 
+             \Big( {}^\Omega\nabla_X X\Big)^a = \frac{1}{2\Omega^2}g^{ad}\big[2{\Omega^2}_{,b} g_{cd} - {\Omega^2}_{,d} g_{bc}\big]X^bX^c.
+        \ese 
+        Now the second term on the right-hand side contains $g_{bc}X^bX^c=g(X,X)=0$, as our geodesic is null, so we are just left with the first term. We have 
+        \bse 
+            \begin{split}
+                \frac{1}{\Omega^2} g^{ad}g_{cd} {\Omega^2}_{,b}X^bX^c & = \frac{2}{\Omega} \Omega_{,b}X^bX^a \\
+                & = 2X\la\ln\Omega\ra X^a \\
+                & = A\cdot X^a
+            \end{split}
+        \ese 
+        where we have used $g^{ad}g_{cd}=\del^a_c$ and the fact that $X\la\ln\Omega\ra \in C^{\infty}(\cM)$ and denoted it by $A$. So we finally have 
+        \bse 
+            \Big( {}^\Omega\nabla_X X\Big)^a = A \cdot X^a.
+        \ese 
+        This is the equation for a geodesic that has not been affinely parameterised, which is why it doesn't vanish.
+        
+        So we have shown it is a geodesic. We now just need to show it is null. Trivially we have 
+        \bse 
+            \big(\Omega^2g\big)(X,X) = \Omega^2 \cdot \big(g(X,X)\big) = 0.
+        \ese 
+        \item[$(\Leftarrow)$] This is the same calculation as above but made in reverse. 
+    \end{itemize}
+\eq 
+
+\br 
+    Note we had to use the null condition to show that we had a geodesic of $\Omega^2$ (i.e. to remove the $g_{bc}X^bX^c$ term). It is for this reason that it is only the null geodesics that are left untouched by our conformal transformation, whereas the shape of our other geodesics change. 
+\er 
+
+\section{Minkowski}
+
+The simplest vacuum solution of Einstein's equations is Minkowski space, which in coordinates $(t,r,\theta,\varphi)$ with $t\in(-\infty,\infty)$, $r\in(0,\infty)$, $\theta\in(0,\pi)$ and $\varphi\in(0,2\pi)$, has the metric 
+\bse 
+    g = dt\otimes dt - dr\otimes dr - r^2\big(d\theta\otimes d\theta +\sin^2\theta d\varphi\otimes d\varphi\big).
+\ese 
+Our two non-compact coordinates are $t$ and $r$ and so it is these we replace by null coordinates. We define\footnote{As an additional exercise, check that these are indeed null.} 
+\bse 
+    v := t+r, \qand w = t -r.
+\ese 
+The range here is $v,w\in\R$, but with the condition $r=\frac{1}{2}(v-w)>0$, and so we require $v>w$. Now we compactify: 
+\bse 
+    p := \arctan(v), \qand q := \arctan(w).
+\ese
+Our range is now $p,q\in(-\pi/2,\pi/2)$ with the condition $p>q$. Now we construct the new temporal and spatial coordinates
+\bse 
+    T := p+q, \qand X := p-q.
+\ese 
+Using $p=\frac{1}{2}(T+X)$ and $q=\frac{1}{2}(T-X)$, the ranges/condition then become 
+\bse 
+    -\pi < T+X < \pi, \qquad -\pi < T-X <\pi, \qand X>0.
+\ese 
+We now need to express our metric in terms of $(T,X,\theta,\varphi)$. We need to obtain expressions for $T$ and $X$ in terms of these coordinates. Putting the above results together, we have
+\bse 
+    T := \arctan(t+r) + \arctan(t-r), \qand X := \arctan(t+r) - \arctan(t-r).
+\ese 
+The metric in these coordinates is 
+\bse 
+    g = \sec^2(T+X)\sec^2(T-X)\Big[dT\otimes dT - dX\otimes dX - R(T,X)\big(d\theta\otimes d\theta + \sin^2\theta d\varphi\otimes d\varphi\big)\Big],
+\ese 
+where 
+\bse 
+    R(T,X) := \frac{r^2(T,X)}{\sec^2(T+X)\sec^2(T-X)}.
+\ese 
+
+\bbox 
+    Prove the expression for the metric above is true. 
+    
+    \textit{Hint: use}
+    \bse 
+        t+r = \tan(T+X), \qand t-r = \tan(T-X).
+    \ese 
+    \textit{along with $d(f(x)) = \p_ifdx^i$ to find $dt$ and $dr$ in terms of $dT$ and $dX$, then multiply out all the terms and cancel.}
+    
+    \textit{Hint 2: Before doing the big expansion, look at the expressions for $dt$ and $dr$ and argue that its terms containing $\sec^2(T+X)\sec^2(T-X)$ that will remain.}
+\ebox 
+
+We can therefore draw the diagram of 
+\bse 
+    g_{\text{diagram}} = dT\otimes dT - dX\otimes dX,
+\ese
+\textit{with the ranges} $|T-X|<\pi$, $|T-X|<\pi$ and $X>0$.
+
+\begin{center}
+    \btik 
+        \draw[thick, ->] (-3,0) -- (3,0);
+        \node at (3.2,0) {$X$};
+        \draw[thick, ->] (0,-3) -- (0,3);
+        \node at (0,3.2) {$T$};
+        \draw[thick] (-0.5,3) -- (3,-0.5);
+        \draw[thick] (3,0.5) -- (-0.5,-3);
+        \draw[thick] (0.5,-3) -- (-3,0.5);
+        \draw[thick] (-3,-0.5) -- (0.5,3);
+        \draw[fill = gray!40, opacity = 0.8] (0,2.5) -- (2.5,0) -- (0,-2.5) -- (0,2.5);
+        \node at (-0.3,2.5) {$\pi$};
+        \node at (-0.5,-2.5) {$-\pi$};
+        \node at (2.5,-0.3) {$\pi$};
+        \node at (-2.5,-0.3) {$-\pi$};
+        %
+        \draw[thick, orange] (0,2.5) -- (2.5,0);
+        \node at (1.6,1.5) {\textcolor{orange}{$\fI^+$}};
+        \draw[thick, green] (2.5,0) -- (0,-2.5);
+        \node at (1.5,-1.5) {\textcolor{green}{$\fI^-$}};
+        \draw[blue, fill=blue] (2.5,0) circle [radius=0.06cm];
+        \node at (2.6,0.5) {\textcolor{blue}{$i^0$}};
+        \draw[red, fill=red] (0,2.5) circle [radius=0.06cm];
+        \node at (0.4,2.6) {\textcolor{red}{$i^+$}};
+        \draw[purple, fill=purple] (0,-2.5) circle [radius=0.06cm];
+        \node at (0.4,-2.4) {\textcolor{purple}{$i^-$}};
+    \etik 
+\end{center}
+
+Where we have labelled: 
+\begin{itemize}
+    \item Spacelike infinity, $i^0$,
+    \item Future timelike infinity, $i^+$,
+    \item Past time like infinity, $i^-$,
+    \item Future null (or lightlike) infinity $\fI^+$, and
+    \item Past null (or lightlike) infinity $\fI^-$.
+\end{itemize}
+
+The above points get there name from the following proposition. 
+
+\bp 
+    \ben 
+        \item All spacelike geodesics start and end at $i^0$, 
+        \item All null geodesics start on $\fI^-$ and end at $\fI^+$, and 
+        \item All timelike geodesics start at $i^-$ and end at $i^+$. 
+    \een 
+\ep 
+
+We then remember that we have suppressed $\theta$ and $\varphi$. So if we reinstate the $\varphi$, its like rotating this diagram around the $T$ axis, and we obtain a diamond shape. 
+
+\begin{center}
+    \btik[scale=1.2] 
+        \draw[fill = orange, opacity = 0.5] (0,2.5) -- (2.5,0) -- (-2.5,0) -- (0,2.5);
+        \draw[fill = green, opacity = 0.5] (0,-2.5) -- (2.5,0) -- (-2.5,0) -- (0,-2.5);
+        \draw[thick] (0,2.5) -- (2.5,0) -- (0,-2.5) -- (-2.5,0) -- (0,2.5);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,0.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,-0.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,1) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,-1) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,1.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,-1.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,2) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,-2) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,2.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5 ] (-2.5,0) .. controls (0,-2.5) .. (2.5,0);
+        \draw[thick, opacity = 0.5] (0,-2.5) -- (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (0.5,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (-0.5,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (1,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (-1,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (1.5,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (-1.5,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (2,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (-2,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (2.5,0) .. (0,2.5);
+        \draw[thick, opacity = 0.5] (0,-2.5) .. controls (-2.5,0) .. (0,2.5);
+        \draw[ultra thick, blue] (-2.5,0) -- (2.5,0);
+        %
+        \node at (1.6,1.5) {\textcolor{orange}{$\fI^+$}};
+        \node at (1.5,-1.5) {\textcolor{green}{$\fI^-$}};
+        \node at (2.7,0.1) {\textcolor{blue}{$i^0$}};
+        \draw[red, fill=red] (0,2.5) circle [radius=0.06cm];
+        \node at (0,2.7) {\textcolor{red}{$i^+$}};
+        \draw[purple, fill=purple] (0,-2.5) circle [radius=0.06cm];
+        \node at (0,-2.7) {\textcolor{purple}{$i^-$}};
+    \etik 
+\end{center}
+
+\section{Other Spacetimes}
+
+In the following diagrams we shall use light grey to shade the universe(s), yellow to shade antiverse(s), black to shade black hole(s), white to shade white hole(s), pink to shade the wormhole(s), and snake-like lines to indicate singularities, using a broken line for ring singularities to remind us that they can be avoided. We shall also stick to the colours above to label the $i$s and $\fI$s. We shall also use capital Latin numbers (i.e. I, II, etc) to number the universes.
+
+\subsection{Schwarzschild Black Hole}
+
+If you take the maximally extended Kruskal-Szekeres coordinates for the Schwarzschild black hole shown at the end of the last lecture and compactify along the diagonals, you obtain the following Penrose diagram. 
+
+\begin{center}
+    \btik
+        \draw[thick, fill = gray!40, opacity = 0.8] (-6,0) -- (-3,3) -- (0,0) -- (-3,-3) -- (-6,0);
+        \draw[thick, fill = gray!40, opacity = 0.8] (6,0) -- (3,3) -- (0,0) -- (3,-3) -- (6,0);
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-4.5,3) -- (4.5,3) -- (0,-1.5) -- (-4.5,3);
+            \draw[fill=black, opacity=0.8] (0,0) -- (4,4) -- (-4,4) -- (0,0);
+        \end{scope}
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-4.5,-3) -- (4.5,-3) -- (0,1.5) -- (-4.5,-3);
+            \draw[opacity=0.2] (0,0) -- (4,-4) -- (-4,-4) -- (0,0);
+        \end{scope}
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,3) -- (3,3);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-3) -- (3,-3);
+        %
+        \draw[red, fill=red] (3,3) circle [radius=0.1cm];
+        \node at (3,3.4) {\textcolor{red}{$i_I^+$}};
+        \draw[red, fill=red] (-3,3) circle [radius=0.1cm];
+        \node at (-3,3.4) {\textcolor{red}{$i_{II}^+$}};
+        \draw[purple, fill=purple] (3,-3) circle [radius=0.1cm];
+        \node at (3,-3.4) {\textcolor{purple}{$i_I^-$}};
+        \draw[purple, fill=purple] (-3,-3) circle [radius=0.1cm];
+        \node at (-3,-3.4) {\textcolor{purple}{$i_{II}^-$}};
+        \draw[blue, fill=blue] (6,0) circle [radius=0.1cm];
+        \node at (6.4,0) {\textcolor{blue}{$i_{I}^0$}};
+        \draw[blue, fill=blue] (-6,0) circle [radius=0.1cm];
+        \node at (-6.4,0) {\textcolor{blue}{$i_{II}^0$}};
+        \node at (4.5,2) {\textcolor{orange}{$\fI_I^+$}};
+        \node at (-4.5,2) {\textcolor{orange}{$\fI_{II}^+$}};
+        \node at (4.5,-2) {\textcolor{green}{$\fI_I^-$}};
+        \node at (-4.5,-2) {\textcolor{green}{$\fI_{II}^-$}};
+        \draw[pink, fill=pink] (0,0) circle [radius=0.1cm];
+        \node at (3,0) {\Huge{I}};
+        \node at (-3,0) {\Huge{II}};
+        \node at (0,1.75) {\Huge{\textcolor{white}{BH}}};
+        \node at (0,-1.75) {\Huge{WH}};
+    \etik
+\end{center}
+
+We have already basically discussed this entire diagram when considering Kruskal-Szekeres coordinates, and so we do not make further comments here. 
+
+\subsection{Kerr Black Hole}
+
+Recall that a Kerr black hole is a electrically neutral, rotating black hole that has a ring singularity and two event horizons. The presence of the inner horizon (the one at smallest $r$) turns out to result in a passage to a worm hole, which in turn leads to a white hole and then another universe. It also turns out to be true that you can pass through the disc bound by the ring singularity and emerge in what some people refer to as an \textit{antiverse}. The Penrose diagram for a Kerr black hole is the following beast. 
+
+We see that we have one universe after another, and unlike the Schwarzschild solution, these universes are causally connected. So an observer could travel into the black hole and out into a worm hole through the inner event horizon and then into another universe. Note that the boundaries of the antiverse correspond to $r=-\infty$.
+
+\begin{center}
+    \btik 
+        \draw[thick] (0,-12) -- (-6,-6) -- (0,0) -- (-6,6) -- (0,12);
+        \draw[thick] (-6,-12) -- (0,-6) -- (-6,0) -- (0,6) -- (-6,12);
+        \draw[thick] (0,-12) -- (6,-6) -- (0,0) -- (6,6) -- (0,12);
+        \draw[thick] (6,-12) -- (0,-6) -- (6,0) -- (0,6) -- (6,12);
+        %
+        \draw[fill = gray!40, opacity = 0.8] (0,-6) -- (3,-3) -- (6,-6) -- (3,-9) -- (0,-6);
+        \draw[fill = gray!40, opacity = 0.8] (0,-6) -- (-3,-3) -- (-6,-6) -- (-3,-9) -- (0,-6);
+        \draw[fill = gray!40, opacity = 0.8] (3,3) -- (6,6) -- (3,9) -- (0,6) -- (3,3);
+        \draw[fill = gray!40, opacity = 0.8] (-3,3) -- (-6,6) -- (-3,9) -- (0,6) -- (-3,3);
+        %
+        \draw[fill = black, opacity = 0.8] (0,-6) -- (3,-3) -- (0,0) -- (-3,-3) -- (0,-6);
+        \draw[fill = black, opacity = 0.8] (0,6) -- (3,9) -- (0,12) -- (-3,9) -- (0,6);
+        %
+        \begin{scope}
+            \clip (0,-12) -- (6,-12) -- (3,-9) -- (0,-12);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-12.75) -- (3,-8.25) -- (6.5,-8.25) -- (6.5,-12.75) -- (3,-12.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-13.5) -- (3,-7.5) -- (-0.5,-7.5) -- (-0.5,-13.5) -- (3,-13.5);
+        \end{scope}
+        \begin{scope}
+            \clip (0,-12) -- (-6,-12) -- (-3,-9) -- (0,-12);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-12.75) -- (-3,-8.25) -- (-6.5,-8.25) -- (-6.5,-12.75) -- (-3,-12.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-13.5) -- (-3,-7.5) -- (0.5,-7.5) -- (0.5,-13.5) -- (-3,-13.5);
+        \end{scope}
+        \begin{scope}
+            \clip (0,0) -- (3,3) -- (6,0) -- (3,-3) -- (0,0);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-3.75) -- (3,3.75) -- (6.5,3.75) -- (6.5,-3.75) -- (3,-3.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-4.5) -- (3,4.5) -- (0,4.5) -- (0,-4.5) -- (3,-4.5);
+        \end{scope}
+        \begin{scope}
+            \clip (0,0) -- (-3,3) -- (-6,0) -- (-3,-3) -- (0,0);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-3.75) -- (-3,3.75) -- (-6.5,3.75) -- (-6.5,-3.75) -- (-3,-3.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-4.5) -- (-3,4.5) -- (0.5,4.5) -- (0.5,-4.5) -- (-3,-4.5);
+        \end{scope}
+        \begin{scope}
+            \clip (0,12) -- (6,12) -- (3,9) -- (0,12);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,12.75) -- (3,8.25) -- (6.5,8.25) -- (6.5,12.75) -- (3,12.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,13.5) -- (3,7.5) -- (-0.5,7.5) -- (-0.5,13.5) -- (3,13.5);
+        \end{scope}
+        \begin{scope}
+            \clip (0,12) -- (-6,12) -- (-3,9) -- (0,12);
+            \draw[white, fill=yellow, opacity=0.4, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,12.75) -- (-3,8.25) -- (-6.5,8.25) -- (-6.5,12.75) -- (-3,12.75);
+            \draw[white, fill=pink, opacity=0.8, thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,13.5) -- (-3,7.5) -- (0.5,7.5) -- (0.5,13.5) -- (-3,13.5);
+        \end{scope}
+        %
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-9) -- (3,-10.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-11.25) -- (3,-12);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-9) -- (-3,-10.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-11.25) -- (-3,-12);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-3) -- (3,-1.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-0.75) -- (3,0.75);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,1.5) -- (3,3);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-3) -- (-3,-1.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-0.75) -- (-3,0.75);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,1.5) -- (-3,3);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,9) -- (3,10.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,11.25) -- (3,12);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,9) -- (-3,10.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,11.25) -- (-3,12);
+        %
+        \begin{scope}
+            \clip (-6,-12) -- (6,-12) -- (6,12) -- (-6,12) -- (-6,-12);
+            \draw[ultra thick, blue, decorate, decoration={snake, segment length=12cm, amplitude=2cm}] (0,-15) -- (0,17);
+            \draw[ultra thick, blue, ->] (2,-5.2) -- (2,-5.2);
+        \end{scope}
+        %
+        \node at (3,-6) {\Huge{I}};
+        \node at (-3,-6) {\Huge{II}};
+        \node at (3,6) {\Huge{I'}};
+        \node at (-3,6) {\Huge{II'}};
+        \node at (0,-3) {\Huge{\textcolor{white}{BH}}};
+        \node at (0,9) {\Huge{\textcolor{white}{BH'}}};
+        \node at (0,-9) {\Huge{WH}};
+        \node at (0,3) {\Huge{WH'}};
+        \node at (4,0) {\Huge{$\cI$}};
+        \node at (-4.25,0) {\Huge{$\cI\cI$}};
+        %
+        \draw[blue, fill=blue] (6,-6) circle [radius=0.1cm];
+        \node at (6.5,-6) {\Large{\textcolor{blue}{$i_I^0$}}};
+        \draw[blue, fill=blue] (-6,-6) circle [radius=0.1cm];
+        \node at (-6.5,-6) {\Large{\textcolor{blue}{$i_{II}^0$}}};
+        \draw[red, fill=red] (3,-3) circle [radius=0.1cm];
+        \node at (3.5,-3) {\Large{\textcolor{red}{$i_I^+$}}};
+        \draw[red, fill=red] (-3,-3) circle [radius=0.1cm];
+        \node at (-3.5,-3) {\Large{\textcolor{red}{$i_{II}^+$}}};
+        \draw[purple, fill=purple] (3,-9) circle [radius=0.1cm];
+        \node at (3.5,-9) {\Large{\textcolor{purple}{$i_I^-$}}};
+        \draw[purple, fill=purple] (-3,-9) circle [radius=0.1cm];
+        \node at (-3.5,-9) {\Large{\textcolor{purple}{$i_{II}^-$}}};
+        \draw[pink, fill=pink] (0,-6) circle [radius=0.1cm];
+        \draw[blue, fill=blue] (6,6) circle [radius=0.1cm];
+        \node at (6.5,6) {\Large{\textcolor{blue}{$i_{I'}^0$}}};
+        \draw[blue, fill=blue] (-6,6) circle [radius=0.1cm];
+        \node at (-6.5,6) {\Large{\textcolor{blue}{$i_{II'}^0$}}};
+        \draw[red, fill=red] (3,9) circle [radius=0.1cm];
+        \node at (3.5,9) {\Large{\textcolor{red}{$i_{I'}^+$}}};
+        \draw[red, fill=red] (-3,9) circle [radius=0.1cm];
+        \node at (-3.5,9) {\Large{\textcolor{red}{$i_{II'}^+$}}};
+        \draw[purple, fill=purple] (3,3) circle [radius=0.1cm];
+        \node at (3.5,3) {\large{\textcolor{purple}{$i_{I'}^-$}}};
+        \draw[purple, fill=purple] (-3,3) circle [radius=0.1cm];
+        \node at (-3.5,3) {\large{\textcolor{purple}{$i_{II'}^-$}}};
+        \draw[pink, fill=pink] (0,6) circle [radius=0.1cm];
+        %
+        \node at (4.9,-7.7) {\Large{\textcolor{green}{$\fI_I^-$}}};
+        \node at (-4.9,-7.7) {\Large{\textcolor{green}{$\fI_{II}^-$}}};
+        \node at (4.9,-4.3) {\Large{\textcolor{orange}{$\fI_I^+$}}};
+        \node at (-4.9,-4.3) {\Large{\textcolor{orange}{$\fI_{II}^+$}}};
+        \node at (4.9,4.3) {\Large{\textcolor{green}{$\fI_{I'}^-$}}};
+        \node at (-4.9,4.3) {\Large{\textcolor{green}{$\fI_{II'}^-$}}};
+        \node at (4.9,7.7) {\Large{\textcolor{orange}{$\fI_{I'}^+$}}};
+        \node at (-4.9,7.7) {\Large{\textcolor{orange}{$\fI_{II'}^+$}}};
+        %
+        \node[rotate=-45] at (4.5,-10.75) {$r=-\infty$};
+        \node[rotate=45] at (-4.5,-10.75) {$r=-\infty$};
+        \node[rotate=45] at (4.25,-7.5) {$r=\infty$};
+        \node[rotate=-45] at (4.5,-4.75) {$r=\infty$};
+        \node[rotate=-45] at (-4.25,-7.5) {$r=\infty$};
+        \node[rotate=45] at (-4.5,-4.75) {$r=\infty$};
+        \node[rotate=45] at (4.5,-1.25) {$r=-\infty$};
+        \node[rotate=-45] at (4.5,1.25) {$r=-\infty$};
+        \node[rotate=45] at (-4.5,1.25) {$r=-\infty$};
+        \node[rotate=-45] at (-4.5,-1.25) {$r=-\infty$};
+        \node[rotate=45] at (4.5,4.75) {$r=\infty$};
+        \node[rotate=-45] at (4.25,7.5) {$r=\infty$};
+        \node[rotate=-45] at (-4.5,4.75) {$r=\infty$};
+        \node[rotate=45] at (-4.25,7.5) {$r=\infty$};
+        \node[rotate=45] at (4.5,10.75) {$r=-\infty$};
+        \node[rotate=-45] at (-4.5,10.75) {$r=-\infty$};
+        %
+        \node[rotate=45] at (1.3,-10.3) {Inner Antihorizon};
+        \node[rotate=-45] at (-1.3,-10.3) {Inner Antihorizon};
+        \node[rotate=-45] at (1.4,-7.7) {Outer Antihorizon};
+        \node[rotate=45] at (-1.4,-7.7) {Outer Antihorizon};
+        %
+        \node[rotate=45] at (1.4,-4.3) {\textcolor{white}{Outer Horizon}};
+        \node[rotate=-45] at (-1.4,-4.3) {\textcolor{white}{Outer Horizon}};
+        \node[rotate=-45] at (1.3,-1.7) {\textcolor{white}{Inner Horizon}};
+        \node[rotate=45] at (-1.3,-1.7) {\textcolor{white}{Inner Horizon}};
+        %
+        \node[rotate=45] at (1.3,1.7) {Inner Antihorizon};
+        \node[rotate=-45] at (-1.3,1.7) {Inner Antihorizon};
+        \node[rotate=-45] at (1.4,4.3) {Outer Antihorizon};
+        \node[rotate=45] at (-1.4,4.3) {Outer Antihorizon};
+        %
+        \node[rotate=45] at (1.3,7.7) {\textcolor{white}{Outer Horizon}};
+        \node[rotate=-45] at (-1.3,7.7) {\textcolor{white}{Outer Horizon}};
+        \node[rotate=-45] at (1.4,10.3) {\textcolor{white}{Inner Horizon}};
+        \node[rotate=45] at (-1.4,10.3) {\textcolor{white}{Inner Horizon}};
+    \etik 
+\end{center}
+
+There is an interesting and important point to notice about the antiverse regions $\cI$ and $\cI\cI$; there is no event horizon between `shielding' the ring singularity. Such a singularity is known as \textbf{naked}. This violates the so-called \textit{weak cosmic censorship hypothesis} which loosely says that singularities shouldn't be observable to null infinity, hence why we have not labelled the $r=-\infty$ boundaries with $\fI^+$s.
+
+\subsection{Reissner-Nordstr\"{o}m Black Hole}
+
+A Reissner-Nordstr\"{o}m black hole is a non-rotating, electrically charged black hole. As the black hole is no longer rotating, it need not have a ring singularity and as such we can no longer avoid it and pass into the antiverses. The Penrose diagram looks basically identical to the Kerr Penrose diagram, but with the broken snake-like lines made continuous. It is also sometimes drawn with the antiverse separated from the wormhole region and an indication of the charge of that side of the black hole given. That is, the relevant parts of the diagram become the following 
+
+\begin{center}
+    \btik 
+        \begin{scope}
+            \clip (-6.5,3) -- (6.5,3) -- (6.5,-3) -- (-6.5,-3) -- (-6.5,3); % Just included to reduce white space between text and diagram.
+            \draw[thick] (-3.5,-3) -- (-6.5,0) -- (-3.5,3);
+            \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.5,-3) -- (-3.5,3);
+            \draw[thick] (-3,3) -- (0,0) -- (-3,-3);
+            \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-3) -- (-3,3);
+            \begin{scope}
+                \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.5,-4.5) -- (-3.5,4.5) -- (-6.5,4.5) -- (-6.5,-4.5) -- (-3.5,-4.5);
+                \draw[fill=yellow, opacity = 0.4] (-2.5,-4) -- (-6.5,0) -- (-2.5,4) -- (-2.5,4);
+            \end{scope}
+            \begin{scope}
+                \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,-4.5) -- (-3,4.5) -- (0.5,4.5) -- (0.5,-4.5) -- (-3,-4.5);
+                \draw[fill=pink, opacity=0.8] (0,0) -- (-4,4) -- (-4,-4) -- (0,0);
+            \end{scope}
+            \draw[ultra thick] (-3.25,0) circle [radius=0.2cm];
+            \node at (-3.25,0) {$+$};
+            %
+            \draw[thick] (3.5,-3) -- (6.5,0) -- (3.5,3);
+            \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3.5,-3) -- (3.5,3);
+            \draw[thick] (3,3) -- (0,0) -- (3,-3);
+            \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-3) -- (3,3);
+            \begin{scope}
+                \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3.5,-4.5) -- (3.5,4.5) -- (6.5,4.5) -- (6.5,-4.5) -- (3.5,-4.5);
+                \draw[fill=yellow, opacity = 0.4] (2.5,-4) -- (6.5,0) -- (2.5,4) -- (2.5,4);
+            \end{scope}
+            \begin{scope}
+                \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (3,-4.5) -- (3,4.5) -- (-0.5,4.5) -- (-0.5,-4.5) -- (3,-4.5);
+                \draw[fill=pink, opacity=0.8] (0,0) -- (4,4) -- (4,-4) -- (0,0);
+            \end{scope}
+            \draw[ultra thick] (3.25,0) circle [radius=0.2cm];
+            \node at (3.25,0) {$-$};
+        \end{scope}
+    \etik
+\end{center}
+
+What we have described above is actually case for a so-called \textit{sub-extremal} Reissner-Nordstr\"{o}m black hole, which means that the two horizons do not coincide. If you actually write down the metric and find where these horizons occur, you see that the two can actually coincide if the mass and charge of the black hole are equal. In this case we the topology of the diagram changes. We will not draw the diagram here\footnote{It can be found \href{https://jila.colorado.edu/~ajsh/insidebh/penrose.html}{here}.} but we simply make this comment for completeness. 
+
+\br 
+    Note because there is a topology change between the extremal and sub-extremal case, it is not believed that we could turn a sub-extremal Reissner-Nordstr\"{o}m black hole into an extremal one by simply adding charge to it. Indeed, adding charge would take energy and therefore would also increase the mass of the black hole, keeping the black hole sub-extremal. 
+\er 
+
+\subsection{Kerr-Newmann Black Hole}
+
+A Kerr-Newmann black hole is both rotating and has electrical charge. We therefore expect the Penrose diagram to be a combination of the previous two. This is indeed the case. Again because we have the ring singularity, it is possible to avoid it and enter into the antiverses. The Penrose diagram for the Kerr-Newmann black hole is quite often drawn identically to the one we have presented for the Kerr black hole, but it is important to remember that we should indicate the charge of the black hole somewhere, as we did with the Reissner-Nordstr\"{o}m black hole. We shall not draw the diagram here to save space. 
+
+\subsection{Gravitational Collapse}
+
+All of the Penrose diagrams for black holes assume that the black hole has always existed. That is they were not formed via some physical process such as the collapse of some massive star. We now want to draw such a Penrose diagram. In the following diagram cyan area indicates the collapsing matter, and the dashed line indicates that the line $r=0$ is not part of the universe.
+
+\begin{center}
+    \btik 
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-0.15,4.5) -- (3.15,4.5) -- (3.15,0) -- (-0.15,0) -- (-0.15,4.5);
+            \draw[thick, fill=gray!40, opacity=0.8] (0,0) -- (3,3) -- (1.5,4.5) -- (0,3) -- (0,0);
+            \draw[thick, cyan, fill=cyan] (0,0) .. controls (1,3) .. (0,6);
+            \draw[thick, fill=black, opacity=0.8] (0,3) -- (1.5,4.5) -- (1.5,5.05) -- (0,5.05) -- (0,3);
+        \end{scope}
+        \draw[thick, dashed] (0,0) -- (0,4.5);
+        \draw[thick] (0,0) -- (3,3) -- (1.5,4.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (0,4.5) -- (1.5,4.5);
+        \draw[thick] (1.5,4.5) -- (0,3);
+        %
+        \node at (1.8,1.4) {\textcolor{green}{$\fI^-$}};
+        \draw[thick, green] (0,0) -- (3,3);
+        \node at (2.5,4.1) {\textcolor{orange}{$\fI^+$}};
+        \draw[thick, orange] (3,3) -- (1.5,4.5);
+        \draw[purple, fill=purple] (0,0) circle [radius=0.06cm];
+        \node at (0,-0.2) {\textcolor{purple}{$i^-$}}; 
+        \draw[blue, fill=blue] (3,3) circle [radius=0.06cm];
+        \node at (3.3,3.1) {\textcolor{blue}{$i^0$}};
+        \draw[red, fill=red] (1.5,4.5) circle [radius=0.06cm];
+        \node at (1.8,4.8) {\textcolor{red}{$i^+$}};
+        %
+        \draw[thick] (7.5,4.5) -- (6,3) -- (9,0) -- (12,3) -- (10.5,4.5);
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (7.5,4.5) -- (10.5,4.5);
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (5.85,4.5) -- (12.15,4.5) -- (12.15,-0.15) -- (5.85,-0.15) -- (5.85,4.5);
+            \draw[thick, fill=green, opacity=0.5] (9,0) -- (12,3) -- (6,3) -- (9,0);
+            %\draw[thick, fill=orange, opacity=0.5] (6,3) -- (7.5,4.5) .. controls (7.75,3.85) .. (9,3) .. controls (10.25,3.85) .. (10.5,4.5) -- (12,3) -- (6,3); 
+            \draw[thick, fill=orange, opacity=0.5] (6,3) -- (7.5,4.5) -- (9,3) -- (10.5,4.5) -- (12,3) -- (6,3); 
+            \draw[thick, cyan, fill=cyan] (9,0) .. controls (10,3) .. (9,6) .. controls (8,3) .. (9,0);
+            \draw[thick, opacity=0.5] (9,0) -- (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (10,3) .. (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (11,3) .. (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (12,3) .. (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (8,3) .. (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (7,3) .. (9,6);
+            \draw[thick, opacity=0.5] (9,0) .. controls (6,3) .. (9,6);
+            %
+            \draw[ultra thick, blue] (6,3) -- (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,4) .. (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,5) .. (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,6) .. (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,2) .. (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,1) .. (12,3);
+            \draw[thick, opacity=0.5] (6,3) .. controls (9,0) .. (12,3);
+            %
+            %\draw[thick, fill=black, opacity=0.8] (7.5,4.5) .. controls (7.75,3.85) .. (9,3) .. controls (10.25,3.85) .. (10.5,4.5) -- (10.5,4.6) -- (7.5,4.6) -- (7.5,4.6);
+            \draw[thick, fill=black, opacity=0.8] (7.5,4.5) -- (9,3) -- (10.5,4.5) -- (10.5,4.6) -- (7.5,4.6) -- (7.5,4.6);
+        \end{scope}
+        %
+        \draw[purple, fill=purple] (9,0) circle [radius=0.06cm];
+        \node at (9,-0.2) {\textcolor{purple}{$i^-$}}; 
+        \draw[red, fill=red] (10.5,4.5) circle [radius=0.06cm];
+        \node at (10.8,4.8) {\textcolor{red}{$i^+$}};
+        \draw[red, fill=red] (7.5,4.5) circle [radius=0.06cm];
+        \node at (7.2,4.8) {\textcolor{red}{$i^+$}};
+        \node at (12.3,3.1) {\textcolor{blue}{$i^0$}};
+        \node at (10.8,1.4) {\textcolor{green}{$\fI^-$}};
+        \node at (11.5,4.1) {\textcolor{orange}{$\fI^+$}};
+    \etik 
+\end{center}
+
+The above diagram might suggest that the matter first spreads out and then comes back together, but we need to remember that the paths of timelike geodesics are affected by our conformal factors. The matter is collapsing as you move up the diagram, and, once the mass is within the Schwarzschild radius $r=2m$, it forms a black hole. Again this is diagram has two dimensions suppressed, and on the right we have tried to draw what it looks after rotated around the vertical line.
+
+Note that by requiring that the Schwarzschild black hole forms in this manner (as opposed to having always existed) has removed the very undesirable white hole region on the diagram. 
+
+\subsection{Isotropic \& Homogeneous Universe}
+
+Let's consider the case when the universe is filled only with radiation (i.e. $\kappa=0=\Lambda$). For a short period after the Big Bang, certain processes `held' the light back and so the universe was opaque, and then at some point the light was allowed to propagate, making the universe transparent. 
+
+On the suppressed diagram, the points where the universe becomes transparent will be a horizontal line (as its a spatial line). If we then reinsert the suppressed dimensions, this line becomes a ball surrounding us. This is known as \textit{cosmic microwave background}, or CMB for short. This is an important thing to note, as it is something that we should be able to observe experimentally, and further supports the Big Bang theory. Indeed some people even refer to the CMB as being `the after glow of the Big Bang'. 
+
+\begin{center}
+    \btik[scale=0.8]
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-0.15,0) -- (5.15,0) -- (5.15,5.15) -- (-0.15,5.15) -- (-0.15,0);
+            \clip (0,-0.5) -- (5.5,-0.5) -- (0,5) -- (0,-0.5);
+            \draw[fill=gray!40, opacity=0.8] (0,-0.5) -- (5.5,-0.5) -- (0,5) -- (0,-0.5);
+            \draw[thick, pattern=north west lines, pattern color=black] (0,-0.5) -- (5.5,-0.5) -- (4,1) -- (0,1) -- (0,-0.5);
+        \end{scope}
+        \draw[thick, purple, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (0,0) -- (5,0);
+        \node at (2.5,-0.3) {\textcolor{purple}{$i^-$}};
+        \draw[thick, dashed] (0,0) -- (0,5);
+        \draw[thick] (5,0) -- (4,1);
+        \draw[ultra thick, green] (0,1) -- (4,1);
+        \node at (4.4,1.3) {\textcolor{green}{$\fI^-$}};
+        \draw[thick, orange] (4,1) -- (0,5);
+        \node at (2.4,3.2) {\textcolor{orange}{$\fI^+$}};
+        \draw[red, fill=red] (0,5) circle [radius=0.06cm];
+        \node at (0.4,5.2) {\textcolor{red}{$i^+$}};
+        %
+        \begin{scope}
+            \clip (7.5,-1) -- (13.5,-1) -- (10.5,5) -- (7.5,-1);
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (8,0) arc (-180:0:2.5cm and 0.5cm)  -- (13,5.15) -- (7.85,5.15) -- (7.85,0) -- (8,0);
+            \draw[ultra thick, green] (8.5,1) arc (180:0:2cm and 0.4cm);
+            \draw[thick, purple, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (8,0) arc (180:0:2.5cm and 0.5cm);
+            \draw[fill=green, opacity=0.5] (8.5,1) arc (180:-180:2cm and 0.4cm);
+            \draw[fill=gray!40, opacity=0.8] (7,-1) -- (14,-1) -- (10.5,5) -- (7,-1);
+            \draw[fill=orange, opacity=0.5] (8.5,1) arc (-180:0:2cm and 0.4cm) -- (10.5,5) -- (8.5,1);
+            \draw[pattern=north west lines, pattern color=black] (8.5,1) arc (-180:0:2cm and 0.4cm) -- (13.5,-1) -- (7.5,-1) -- (8.5,1);
+            \draw[ultra thick, green] (8.5,1) arc (-180:0:2cm and 0.4cm);
+        \end{scope}
+        \draw[thick, purple, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (8,0) arc (-180:0:2.5cm and 0.5cm);
+        \draw[thick] (8,0) -- (10.5,5) -- (13,0);
+    \etik
+\end{center}
+
+We have used a lined fill to indicate the region where the universe is opaque. The green line is used to indicate that light rays are free to propagate from that point on-wards.\footnote{We might actually not be able to call this $\fI^-$ because maybe null geodesics are defined below this line. I don't actually know the answer to this question, if any readers do please feel free to send me an explanation and I'll update it with credit.} Note that the singularity at the bottom corresponds to the past timelike infinity. This is the statement that all matter (which travels along timelike curves) is created by the Big Bang. On the right we have again included reintroduced one of the suppressed dimensions, and we see that the CMB becomes a disc. There is actually a very important question to ask about the CMB, which we highlight now with use of the next diagram. 
+
+Experiments tell us that wherever we look at the CMB we get similar data, e.g. that the temperature is about 3K. This might not seem like a problem, after all we want homogeneity and isotropy, but it does pose a problem. Projecting the rotated diagram onto a 2D-plane to simplify the drawing, consider some point in the universe and look at it's past light cone to which points are casually connected, i.e. can influence our point. Take the two points on the opaque-transparent dividing line and consider their past cones, if they do not overlap they are completely independent. That is there is no point that can influence both points.
+
+\begin{center}
+    \btik[scale=0.8]
+        \begin{scope}
+            \clip[decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.15,0) -- (3.15,0) -- (3.15,6.15) -- (-3.15,6.15) -- (-3.15,0);
+            \draw[fill=gray!40, opacity=0.8] (-3.1,-0.2) -- (3.1,-0.2) -- (0,6) -- (-3.1,-0.2);
+            \draw[ultra thick, green] (-2.5,1) -- (2.5,1);
+            \draw[fill=black] (0,4) circle [radius=0.1cm];
+            \draw[thick, dashed] (0,4) -- (-1.5,1);
+            \draw[fill=black] (-1.5,1) circle [radius=0.1cm];
+            \draw[thick, dashed] (-1.5,1) -- (-2,0);
+            \draw[thick, dashed] (-1.5,1) -- (-1,0);
+            \draw[thick, dashed] (0,4) -- (1.5,1);
+            \draw[fill=black] (1.5,1) circle [radius=0.1cm];
+            \draw[thick, dashed] (1.5,1) -- (2,0);
+            \draw[thick, dashed] (1.5,1) -- (1,0);
+        \end{scope}
+        \draw[thick] (-3,0) -- (-2.5,1);
+        \draw[thick, orange] (-2.5,1) -- (0,6) -- (2.5,1);
+        \draw[thick] (3,0) -- (2.5,1);
+        \draw[thick, purple, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3,0) -- (3,0);
+    \etik
+\end{center}
+
+If the points are completely independent, why do we get the same measurements for both of them? This is not just for two special points on the CMB, but \textit{all} the points on the CMB. This problem is known as the \textit{cosmological horizon problem} (or the \textit{homogeneity problem}). The most commonly accepted fix to the problem is to include a so-called \textit{inflaton field}, which gives rise to \textit{cosmic inflation}.

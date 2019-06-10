@@ -1,0 +1,278 @@
+\chapter{Connections}
+
+So far everything that we have introduced has been something we have to introduce by hand, e.g. we provide a topology on our set. As we will see later in the course, Einstein's equations will actually give us a connection\footnote{It is actually a bit of a longer route, via so-called metrics, but we will see all of this.} for our manifold, and so it is the physics that provides this structure. Nevertheless, we shall continue on wards in a mathematical sense and define connections this way. 
+
+\br 
+    Really what we are interested in are so-called covariant derivatives, which are technically slightly different to connections. However, this difference will not manifest here and so we shall use both terms interchangeably. 
+\er 
+
+\bnn 
+    We shall now undo the notation about labelling vector fields by Greek letters and simply use $X,Y,Z$ for vector fields. This is done because we will only consider vector fields from this point on wards. If we do use a vector at some stage, it will be clear as we will use the notation for the action of a vector (that is regular brackets) whereas we will continue to use the angular bracket notation for vector fields. 
+\enn 
+
+So far we have seen that a vector field $X$ can be used to provide a directional derivative $X\la f\ra$ of a function $f\in C^{\infty}(\cM)$. To remind ourselves that we are dealing with directional derivatives, we shall introduce a new notation 
+\bse 
+    \nabla_X f := X\la f\ra.
+\ese 
+This seem like a massive notational overkill: we have three equivalent expressions,
+\bse
+    \nabla_X f = X\la f\ra = df:X.
+\ese 
+However, although the evaluations are equal, the three objects are actually different as maps. That is
+% For some reason overleaf was not having the \bse \ese code here! That's why I've used \begin{equation*}
+\begin{equation*}
+    \begin{split}
+        X : C^{\infty}(\cM) & \lmap C^{\infty}(\cM), \\
+        df : \Gamma T\cM & \lmap C^{\infty}(\cM).
+    \end{split}
+\end{equation*}
+What about $\nabla_X$, that as a map
+\bse 
+    \nabla_X : C^{\infty}(\cM) \lmap C^{\infty}(\cM),
+\ese 
+appears to be exactly the same as $X$. This is true, but it turns out that we can actually extend the definition of $\nabla_X$ to be a map from a $(r,s)$-tensor field to a $(r,s)$-tensor field, which $X$ cannot. 
+
+\section{Directional Derivatives of Tensor Fields}
+
+We formulate a wish list of the properties which the $\nabla_X$ acting on a tensor field should have. This wish list might not give a unique form for $\nabla_X$ and there may be many such objects that satisfy our wish list conditions. It will be important for us to work out how to parameterise these structures so that we can pick the best one for the circumstance we are considering. 
+
+\bd[Connection/Covariant Derivative] 
+    A (linear) \textbf{connection} $\nabla$ on a smooth manifold $(\cM,\cO,\cA)$ is a map that takes a pair consisting of a vector (field) $X$ and a $(r,s)$-tensor field $T$ and sends them to a $(p,q)$-tensor (field) $\nabla_XT$, satisfying:\footnote{We shall assume it is a vector field for the notation used in these conditions. For just a vector just replace the angular brackets with regular ones and replace $f$ in condition (iv) with $\lambda\in\R$.} for all $f\in C^{\infty}(\cM)$ and $(r,s)$-tensor fields $T,S$
+    \benr 
+        \item Action on scalars; $\nabla_X f := X\la f\ra$, 
+        \item $+$-linearity in the tensor fields; $\nabla_X(T+S) = \nabla_XT + \nabla_XS$, 
+        \item Leibniz; e.g. if $T$ being a (1,1) tensor field, and $\omega\in\Gamma T^*\cM, Y\in \Gamma T\cM$,
+        \bse 
+            \nabla_X\big(T(\omega,Y)\big) = (\nabla_XT)(\omega,Y) +T\big(\nabla_X\omega,Y\big) + T\big(\omega,\nabla_XY\big).
+        \ese 
+        This is extended naturally to higher order tensors, and 
+        \item $f$-linearity in the vector field; $\nabla_{f\cdot X+ Y} T = f\nabla_XT + \nabla_YT$.
+    \een
+\ed
+
+\br 
+    The bracketed (field) in the above definition is because it is possible to only feed $\nabla$ a vector (not a vector field) and get out just a tensor defined at the same point as the vector. It is important thought that we always feed in a tensor field. This is just the extension of the fact that $X(f) \in \R$ whereas $X\la f\ra \in C^{\infty}(\cM)$. 
+\er 
+
+What the above remark actually highlights is what the covariant derivative does. Recall that the derivative of something corresponds to `comparing how it changes as you go along'. If we want to take some form of derivative of a tensor field, then, we obviously require it to be defined at more then one point (so that we have two values to compare). This is why it must be a field. The lower entry, though, simply tells us the \textit{direction} that we wish to take this derivative, and so we can consider just a single vector. So the covariant derivative asks the question `how does $T$ vary as you move along $X$?' If we use just a vector, the result we get tells us how $T$ changes along $X$ \textit{at that point}, and so our result is just defined at that point. If we use a vector field, though, we get how $T$ varies along the vector field $X$ and so our result is a field. 
+
+We will see later a different derivative structure, the Lie derivative, that requires knowing \textit{both} $T$ and $X$ in a neighbourhood and so does not work for $X$ being a vector. 
+
+\bbox
+    Condition (iii) is also given in a different form. It is
+    \bse 
+        \nabla_X(S\otimes R) = (\nabla_XS)\otimes R + S\otimes (\nabla_XR).
+    \ese
+    This makes the name Leibniz\footnote{Recall Leibniz basically means an extension of the product rule.} seem more reasonable. Prove that the expression above can be derived from condition (iii). 
+    
+    \textit{Hint: Let $T=W\otimes y$ for $W\in\Gamma T\cM$ and $y\in \Gamma^*T\cM$ and then use the result}
+    \bse 
+        \nabla_X(\omega:W) = (\nabla_X\omega):W + \omega:(\nabla_XW),
+    \ese 
+    \textit{which you get from applying condition (iii) to a covector field.}
+\ebox
+
+\bbox 
+    Show that conditions (ii)-(iv) are satisfied for a $(0,0)$-tensor field, i.e. for a $f\in C^{\infty}(\cM)$.
+    
+    \textit{Hint: Use the fact that $f\otimes g = f\bullet g$, where $\bullet$ is the multiplication on the ring. Note, if you have done the other exercises you are basically done!}
+    
+    \textit{Hint 2: This question is done in the tutorial videos if you get stuck.}
+\ebox  
+
+\br 
+    We have shown/argued that $\nabla_X$ is the extension of the action of $X$, so its natural to ask the question `what is $\nabla$ itself?' The answer is simply that it is the extension of $d$. We see this straight away from $\nabla_Xf = X\la f\ra = df:X$.
+\er 
+
+\bd[Affine Manifold]
+    We say that a \textbf{manifold with connection}, or \textbf{affine manifold}, is the quadruple of structures $(\cM,\cO,\cA,\nabla)$.
+\ed 
+
+\section{New Structure on $(\cM,\cO,\cA)$ Required to Fix $\nabla$}
+
+The question we want to answer is whether this is unique or whether different $\nabla$s will give the same result. In other words, how much freedom do we have in choosing $\nabla$?
+
+Consider the action of a vector field $X$ on another vector field $Y$. In order to do the calculation, we also introduce a chart $(U,x)$.
+\bse 
+    \begin{split}
+        \nabla_XY & = \nabla_{X^i\frac{\p}{\p x^i}}\bigg(Y^j\frac{\p}{\p x^j}\bigg) \\
+        & = X^i \nabla_{\frac{\p}{\p x^i}} \bigg(Y^j\frac{\p}{\p x^j}\bigg) \\
+        & = X^i \Big(\nabla_{\frac{\p}{\p x^i}}Y^j\Big) \frac{\p}{\p x^j} + X^i Y^j \bigg(\nabla_{\frac{\p}{\p x^i}}\frac{\p}{\p x^j}\bigg) \\
+        & = X^i \frac{\p Y^j}{\p x^i} \frac{\p}{\p x^j} + X^iY^j \bigg(\nabla_{\frac{\p}{\p x^i}}\frac{\p}{\p x^j}\bigg) \\
+        & = X\la Y^j\ra \frac{\p}{\p x^j} + X^iY^j\bigg(\nabla_{\frac{\p}{\p x^i}}\frac{\p}{\p x^j}\bigg),
+    \end{split}
+\ese 
+where we have used the axioms for the connection along the way. Now, what do we do with the last term? Well its the covariant derivative of a vector field, and so we know that it must be a vector field. We can then expand this in the chart induced basis and give it coefficients, which we call $\Gamma^m$. These coefficients will actually also need a covariant $i$ and $j$ index in order for the summation convention to not be broken. So we have 
+\bse 
+    \bigg(\nabla_{\frac{\p}{\p x^i}}\frac{\p}{\p x^j}\bigg) = \Gamma^m_{(x)ji} \frac{\p}{\p x^m}.
+\ese
+These coefficients are called the \textbf{connection coefficient functions} of $\nabla$ \textit{w.r.t.} the chart $(U,x)$.\footnote{Note the subscript $(x)$, there to remind us that it is defined with respect to the chart.} Note we wrote the $j$ index before the $i$ index above, this is important to note as we don't, as yet, have any symmetry condition $\Gamma^m_{(x)ji}=\Gamma^m_{(x)ij}$. 
+
+We can write these via the following definition.
+\bd[Connection Coefficient Functions]
+    Let $(\cM,\cO,\cA,\nabla)$ be a affine manifold and let $(U,x)\in\cA$. The \textbf{connection coefficient functions}, henceforth just `the $\Gamma$s', are the $(\dim \cM)^3$ many functions 
+    \bse 
+        \begin{split}
+            \Gamma^i_{(x)jk} : U & \to \R \\
+            p & \mapsto \bigg[dx^i :\bigg( \nabla_{\frac{\p}{\p x^k}} \frac{\p}{\p x^j}\bigg)\bigg]_p.
+        \end{split}
+    \ese
+\ed 
+
+\br 
+    We can see\footnote{Granted rather hand wavingly as presented here.} how our two expressions for the $\Gamma$s are equivalent by imagining `inverting' the action of the $dx^i$ so that it becomes a $\frac{\p}{\p x^i}$ on the left-hand side. 
+\er 
+
+Now, plugging the $\Gamma$s into the expression for $\nabla_XY$ and relabelling the indices, we can express the right-hand side as $(...)^i \frac{\p}{\p x^i}$, and so extract the components of the derivative. We get 
+\bse 
+    (\nabla_XY)^i = X\la Y^i\ra + X^jY^k \Gamma^i_{(x)kj}.
+\ese 
+So the answer to our question of how much freedom is left is the $\Gamma$s; that is we can tell you exactly which $\nabla$ we are using by telling you the $\Gamma$s. Clearly this only holds on the chart domain $U\se\cM$ as that's where the $\Gamma$s are defined. Now you might say `hold up we only know that this will give us the covariant derivative of a vector field, what about the covariant derivative of different tensors? We will surely need more and more terms to find them!' Luckily the answer is that we don't and it suffices to just know that $\Gamma$s. In order to see this, consider the following. 
+
+If we wanted to work out the action on a covector basis element $dx^i$, we could do a similar thing to above and expand the result in the basis. That is
+\bse 
+    \nabla_{\frac{\p}{\p x^i}} dx^j = \Theta^j_{(x)ki} dx^k,
+\ese 
+where the $\Theta$s are defined by this expression. We want to show that we can actually express these $\Theta$s in terms of the $\Gamma$s. In order to do that, consider the following:
+\bse 
+    \begin{split}
+        \nabla_{\frac{\p}{\p x^i}} \bigg( dx^j : \frac{\p}{\p x^k}\bigg) & = \Big(\nabla_{\frac{\p}{\p x^i}} dx^j\Big):\frac{\p}{\p x^k} + dx^j :\bigg(\nabla_{\frac{\p}{\p x^i}}\frac{\p}{\p x^k}\bigg) \\
+       \nabla_{\frac{\p}{\p x^i}}\del^j_k & = \Theta^{j}_{(x)\ell i}dx^{\ell}:\frac{\p}{\p x^k} + dx^j : \bigg( \Gamma^{\ell}_{(x)ki} \frac{\p}{\p x^{\ell}}\bigg) \\
+       0 & = \Theta^j_{(x)\ell i} \del^{\ell}_k + \Gamma^{\ell}_{(x)ki} \del^j_{\ell} \\
+       \Theta^j_{(x)ki} & = - \Gamma^j_{(x)ki},
+    \end{split}
+\ese
+and so by giving the $\Gamma$s we can also tell you the action of the covariant derivative on a covector field.
+
+We have the following mnemonic: `when it acts on a vector field, you get a plus sign, when it acts on a covector you have a minus sign.' Summarising, we have 
+\bse 
+    \begin{split}
+        (\nabla_X Y)^i & = X\la Y^i\ra + \Gamma^i_{(x)jk} X^k Y^j, \\
+        (\nabla_X \omega)_i & = X\la \omega_i \ra - \Gamma^j_{(x)ik} X^k \omega_j.
+    \end{split}
+\ese
+Note the placement of all the indices, it is very important to know the method of which index corresponds to which term (i.e. the $X$ or $Y$ or $\omega$). An easy way to do this is to think summation convention and then to know that on the second term the index on whatever you're differentiating changes. Then you just remember that the second lower index on the $\Gamma$s always corresponds to the index of the $X$.
+
+So what about higher order tensors? The answer is obviously just to use the Leibniz rule. For example, for a $(1,2)$-tensor field $T$ we have 
+\bse 
+    {(\nabla_XT)^i}_{jk} = X\la {T^i}_{jk}\ra + \Gamma^i_{(x)m\ell} X^{\ell} {T^m}_{jk} - \Gamma^m_{(x)j\ell}X^{\ell} {T^i}_{mk} - \Gamma^m_{(x)k\ell} X^{\ell}{T^m}_{jm}.
+\ese 
+Each term is the contribution from one of the indices on the left-hand side. You consider that index formula and you leave the remaining two untouched. 
+
+\bbox 
+    Show that the above result is indeed obtained by the Leibniz formula. 
+    
+    \textit{Hint: Let $T= Y\otimes \omega \otimes \gamma$ for $Y\in\Gamma T\cM$ and $\omega,\gamma\in\Gamma T^*\cM$.}
+\ebox 
+
+\br 
+\label{rem:GammasChange}
+    We can use the $\Gamma$s to define what we mean by a Euclidean space. Let $\cM=\R^3$ be equipped with the standard topology $\cO_{st}$ and a smooth atlas $\cA$. We define the Euclidean space to be this smooth manifold equipped with a connection such that is is possible to find a chart $(U,x)\in\cA$ such that 
+    \bse 
+        \Gamma^i_{(x)jk} = 0,
+    \ese 
+    for all $i,j,k\in\{1,...,\dim\cM\}$. Note we say `it is possible to find \textit{a} chart' such that this happens. As we will see, just because the $\Gamma$s vanish in one chart does not mean they will vanish in another (that is, they are not tensors!). We will also extend this notion of a Euclidean space to define the spacetime extension known as Minkowski spacetime, which is a intrinsically flat spacetime. We get a hint here about what covariant derivatives do: they detect curvature.
+\er 
+
+\bnn 
+    \benr 
+        \item From now on, unless the context requires (e.g. considering change of charts), we shall drop the $(x)$ subscript on the $\Gamma$s in order to lighten notation.
+        \item Again unless the context requires, we shall also use the notation 
+        \bse 
+            \nabla_i := \nabla_{\frac{\p}{\p x^i}}.
+        \ese 
+    \een 
+\enn 
+
+\bd[Divergence of Vector Field]
+    Let $X$ be a vector field on a smooth affine manifold $(\cM,\cO,\cA,\nabla)$. The \textbf{divergence} of $X$ is the function 
+    \bse 
+        \text{div}X := (\nabla_i X)^i.
+    \ese 
+\ed 
+
+\bcl 
+    The above definition is chart independent.
+\ecl 
+
+\section{Change of $\Gamma$s Under Change of Chart}
+
+So far we have defined the $\Gamma$s on $U\se\cM$, we obviously want to extend this to be a global definition on all of $\cM$. We do this by considering overlapping charts and require compatibility. 
+
+Assume we have a affine manifold $(\cM,\cO,\cA,\nabla)$ and consider two charts $(U,x)$ and $(V,y)$ with $U\cap V \neq \emptyset$. We want to relate the $\Gamma$s in these charts. 
+\bse 
+    \begin{split}
+        \Gamma^i_{(y)jk} & := dy^i : \bigg( \nabla_{\frac{\p}{\p y^j}}\frac{\p}{\p y^k}\bigg) \\
+        & = \frac{\p y^i}{\p x^q} dx^q : \bigg( \nabla_{\frac{\p x^p}{\p y^j}\frac{\p}{\p x^p}} \frac{\p x^s}{\p y^k}\frac{\p}{\p x^s}\bigg) \\
+        & = \frac{\p y^i}{\p x^q} dx^q : \bigg( \frac{\p x^p}{\p y^j} \bigg[ \frac{\p}{\p x^p}\bigg\la\frac{\p x^s}{\p y^k}\bigg\ra \frac{\p}{\p x^s} + \frac{\p x^s}{\p y^k} \bigg(\nabla_{\frac{\p}{\p x^p}} \frac{\p}{\p x^s}\bigg)\bigg]\bigg) \\
+        & = \frac{\p y^i}{\p x^q} dx^q : \bigg( \frac{\p x^p}{\p y^j} \bigg[ \frac{\p}{\p x^p}\bigg\la\frac{\p x^s}{\p y^k}\bigg\ra \frac{\p}{\p x^s} + \frac{\p x^s}{\p y^k} \Gamma^m_{(x)sp} \frac{\p}{\p x^m}\bigg]\bigg) \\
+        & = \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j} \bigg( \frac{\p}{\p x^p}\bigg\la\frac{\p x^s}{\p y^k}\bigg\ra \del^q_s + \frac{\p x^s}{\p y^k} \Gamma^{m}_{(x)sp} \del^q_m\bigg) \\
+        & = \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j} \frac{\p}{\p x^p}\bigg\la\frac{\p x^q}{\p y^k}\bigg\ra  +  \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j}\frac{\p x^s}{\p y^k} \Gamma^{q}_{(x)sp} \\
+        & = \frac{\p y^i}{\p x^q} \frac{\p}{\p y^j}\bigg\la \frac{\p x^q}{\p y^k}\bigg\ra + \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j}\frac{\p x^s}{\p y^k} \Gamma^{q}_{(x)sp} \\
+        & = \frac{\p y^i}{\p x^q} \frac{\p^2 x^q}{\p y^j\p y^k} + \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j}\frac{\p x^s}{\p y^k} \Gamma^{q}_{(x)sp},
+    \end{split}
+\ese 
+where to get to the penultimate line we have used the change of chart rule, that is\footnote{This is an important step as we need both the derivatives to be w.r.t. the same chart label (y) in order for us to be able to use Schwartz's rule for switching the differentiation order. }
+\bse 
+    \frac{\p x^p}{\p y^j}\frac{\p}{\p x^p} = \frac{\p}{\p y^j},
+\ese 
+and where we have introduced the notation\footnote{Obviously this notation is just that for partial derivatives, but recall that our fractions $\frac{\p f}{\p x^i}$ don't mean partial derivative, it means the expression we defined before.} 
+\bse 
+    \frac{\p^2 x^q}{\p y^j\p y^k} := \frac{\p}{\p y^j} \bigg\la \frac{\p x^q}{\p y^k}\bigg\ra.
+\ese 
+Note that if the expression was simply 
+\bse 
+    \Gamma^i_{(y)jk} = \frac{\p y^i}{\p x^q} \frac{\p x^p}{\p y^j}\frac{\p x^s}{\p y^k} \Gamma^{q}_{(x)sp},
+\ese 
+we would say `ah this is a $(1,2)$-tensor component transformation!' This is not the only term though and so we see that the $\Gamma$s \textit{are not tensors}! This second term actually has another, very important, implication: because there is no $\Gamma_{(x)}$ term present in it, just because the $\Gamma_{(x)}$s vanish, it does not mean that they vanish for another chart \textit{for the same manifold}. That is, by simply a nonlinear transformation we can introduce $\Gamma$s into our system. This is what the comment in \Cref{rem:GammasChange} was on about, we can only talk about the existence of a chart such that the $\Gamma$s vanish as they will not vanish on all charts.
+
+\br 
+\label{rem:GammasTensorTransformation}
+    Note for linear transformations (also known as \textit{affine maps}) the $\Gamma$s behave like the components of a $(1,2)$-tensor as the second derivative will vanish. This is one of the reasons that people choose to restrict themselves to linear transformation in position in special relativity.
+\er 
+
+The condition above is our compatibility condition for the overlapping regions in order to define the $\Gamma$s globally. Since this is our chart compatibility condition, we can only generally make the $\Gamma$s vanish \textit{locally}, i.e. within one chart.\footnote{Some manifolds, like Minkowski spacetime, can be covered with a single chart and so we can obtain \textit{globally} vanishing $\Gamma$s.}
+
+\br 
+    Technically speaking it is the symmetric part (which we denote with regular parentheses around the symmetric indices) of the $\Gamma$s that are not the components of a tensor. The antisymmetric part $\Gamma^i_{(y)[jk]}$, which means 
+    \bse 
+        \Gamma^i_{(y)jk} = - \Gamma^i_{(y)kj},
+    \ese 
+    are the components of a $(1,2)$-tensor. We see this simply from the fact that 
+    \bse 
+        \frac{\p^2x^q}{\p y^j \p y^k} = \frac{\p^2x^q}{\p y^k \p y^j}.
+    \ese 
+    So if you have a non-vanishing antisymmetric part to your $\Gamma$s you can not use a chart transformation to remove it. It turns out that the antisymmetric part of the $\Gamma$s vanish when we have a so-called \textit{torsion free}\footnote{We shall discuss this briefly later.} system. So if we restricted ourselves to torsion free charts, we could then use a chart transformation to obtain \textit{locally} vanishing $\Gamma$s.
+\er 
+
+\section{Normal Coordinates}
+
+Let $(\cM,\cO,\cA,\nabla)$ be a arbitrary affine manifold and let $p\in\cM$. Then one can construct a chart $(U,x)\in\cA$ with $p\in U$ such that\footnote{Again, the parentheses denote the symmetric part: $\Gamma^i_{(x)(jk)} = \frac{1}{2}(\Gamma^i_{(x)jk} - \Gamma^i_{(x)kj})$.} 
+\bse 
+    \Gamma^i_{(x)(jk)}(p) = 0.
+\ese 
+This says that we can make the $\Gamma$s vanish \textit{at the point} $p\in\cM$, \textit{not} that we can necessarily make them vanish is some neighbourhood of $p$.\footnote{This means that we can not set derivative of the $\Gamma$s to zero generally.}
+
+\bq 
+    Let $(V,y)\in\cA$ be any chart with $p\in V$. Thus, in general, the $\Gamma^i_{(y)(jk)}\neq 0$. Then consider a new chart $(U,x)$ to which one transits by virtue of 
+    \bse 
+        (x\circ y^{-1})(\a^1,...,\a^d) := \a^i - \frac{1}{2}\a^j\a^k\Gamma^i_{(y)(jk)}(p).
+    \ese 
+    Then
+    \bse 
+        \begin{split}
+            \bigg(\frac{\p x^i}{\p y^j}\bigg)_p & := \p_j(x^i\circ y^{-1})\big|_{(\a^1,...,\a^p)} \\
+            & = \del^i_j - \a^m\Gamma^i_{(y)(jm)}(p) \\ 
+            \implies \bigg( \frac{\p^2 x^i}{\p y^k \p y^j}\bigg)_p & = - \Gamma^i_{(y)(jk)}(p).
+        \end{split}
+    \ese 
+    Now we can choose, w.l.o.g., the chart $(V,y)$ such that $y(p)= (0,...,0)$, then we have 
+    \bse 
+        \Gamma^i_{(x)jk}(p) = \Gamma^i_{(y)jk}(p) - \Gamma^i_{(y)(jk)}(p) = \Gamma^i_{(y)[jk]}(p),
+    \ese 
+    and so we only have a antisymmetric contribution, therefore the symmetric part vanishes.
+\eq 
+
+\bter
+    The chart $(U,x)$ is called a \textbf{normal coordinate chart} of $\nabla$ \textit{at $p\in\cM$}.
+\eter 

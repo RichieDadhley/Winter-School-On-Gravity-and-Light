@@ -1,0 +1,260 @@
+\chapter{Topology}
+
+\section{Topology}
+
+At its coarsest level, spacetime is just a \textit{set}. In other words, spacetime is just a collection of points, known as the \textit{elements} of a set.\footnote{I might include a short section on set theory here. This footnote is just to remind me to consider it.} However, this definition is not enough to talk about even the simplest notions we discuss in classical physics, namely \textit{continuity of maps}. It is important that we are able to talk about and require continuity of maps as the motion of a particle is given by a map, and it is clear we want this map to be continuous. That is, we don't want the position of a particle to all of a sudden `jump' from one point to another:
+
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) .. controls (1,1.5) and (1,0) .. (2,1);
+        \draw[thick] (2.5,0.5) .. controls (3,0) and (3.5,1) .. (4,1); 
+        \draw[fill=white] (2,1) circle [radius=0.1cm];
+        \draw[fill=black] (2.5,0.5) circle [radius=0.1cm];
+    \etik 
+\end{center}
+
+So we need to introduce some new structure onto our set that allows us to talk about continuity. There are lots of things we could introduce in order to do this, however we need to be careful; we do not want to start adding additional properties to our set that will later come back to bite us. We therefore want to use the \textit{weakest} structure we can. So what is it? Luckily the answer to this question is already known: it is a so-called \textit{topology}. 
+
+\bd[Powerset] 
+    The \textbf{powerset} $\cP(S)$ of a set $S$ is the set of all subsets of $S$. 
+\ed 
+
+\bd[Topology] 
+    Let $\cM$ be a set. A \textbf{topology} $\cO$ on $\cM$ is a subset $\cO \se \cP(\cM)$ satisfying:
+    \benr
+    \item $\emptyset \in \cO$ and $\cM \in \cO$.
+    \item Given $U,V\in\cO$ then $U\cap V\in\cO$.
+    \item Let $A$ be an arbitrary index set. Given $U_{\a}\in\cO$ then $\bigcup_{\a\in A} U_{\a} \in \cO$.
+    \een 
+\ed 
+
+\br 
+    Conditions (ii) and (iii) look deceptively similar, but there is an important difference. Condition (ii) says that a \textit{finite} intersection of elements is still in $\cO$, whereas (iii) says that an \textit{arbitrary} union of elements is in $\cO$. 
+\er 
+
+\bex 
+\label{ex:Topologies}
+    Let $\cM = \{1,2,3\}$. Then we could choose to define 
+    \begin{equation*} 
+        \begin{split}
+            \cO_1 & := \big\{ \emptyset, \{1,2,3\} \big\} \\
+            \cO_2 & := \big\{ \emptyset, \{1\}, \{2\}, \{1,2,3\}\big\} \\
+            \cO_3 & := \big\{\emptyset, \{1\},\{2\},\{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\} \big\}.
+        \end{split}
+    \end{equation*} 
+    The question is, which are topologies on $\cM$? A quick check shows that $\cO_1$ and $\cO_3$ are, but $\cO_2$ is \textit{not} as $\{1\}\cup\{2\} = \{1,2\}\notin\cO_2$.
+\eex 
+
+So we see, given the set $cM$ calculating whether something is a topology is rather easy (although perhaps a bit boring). What is we don't know the form of $\cM$, can we still define specific topologies? The answer is yes and the example shows us what. 
+
+\bd[Chaotic Topology]
+    Let $\cM$ be a set. The \textbf{chaotic} topology on $\cM$ is defined as 
+    \bse 
+        \cO_{\text{chaotic}} := \{\emptyset,\cM\}.
+    \ese 
+\ed 
+
+\bd[Discrete Topology] 
+    Let $\cM$ be a set. The \textbf{discrete} topology on $\cM$ is defined as 
+    \bse 
+        \cO_{\text{discrete}} := \cP(\cM).
+    \ese 
+\ed 
+
+\noindent So in \Cref{ex:Topologies}, $\cO_1$ is the chaotic topology and $\cO_3$ the discrete topology. However, both the chaotic and discrete topology are utterly useless, they are simply the extreme cases of topologies with the least amount and most amount of elements, respectively. However, on $\R^d = \{(p_1,...,p_d)| p_i\in\R\}$ there is a very important topology which we shall use throughout these notes. 
+
+\bd[Standard Topology on $\R^d$] 
+    Let $\cM = \R^d$. The \textbf{standard} topology on $\cM$ is defined as 
+    \bse 
+        \cO_s := \{ U \in \cP(\R^d) \, | \, \forall p\in U \, \exists r\in\R^+ : B_r(p) \se U \}, 
+    \ese 
+    where 
+    \bse 
+        B_r(p) := \bigg\{ (q_1,...,q_d) \in \R^d \, \bigg| \, \sum_{i=1}^d (q_i-p_i)^2 < r^2\bigg \}
+    \ese 
+    is called a \textit{soft-ball of radius $r$ about $p$}, also known as the neighbourhood of $p$ with radius $r$.
+\ed 
+
+\bbox
+    Show that the standard topology is in fact a topology, i.e. show it meets the conditions (i),(ii) and (iii). 
+\ebox
+
+\br 
+    To those familiar with vector space structures and normed spaces, you might be tempted to say `Ah the soft ball is just the Euclidean norm'. However, the definition above does not need a full vector space structure (which a norm does) in order for it to hold. All we require is that we know what $(q_i-p_i)^2$ means. 
+\er 
+
+\bd[Topological Space] 
+    Let $\cM$ be a set and $\cO$ be a topology on $\cM$. We call the double $(\cM,\cO)$ a \textbf{topological space}.
+\ed 
+
+\br 
+    In these notes if we talk about $\R^d$ being a topological space (for example when saying a map is continuous, see below), if no specific topology is given it will be assumed that we equip it with the standard topology.
+\er 
+
+\br 
+    In this lecture course we might not always write down the topology and simply call $\cM$ a topological manifold. Obviously if we say that, there is an invisible $\cO$ kicking about, we just want to save some typing. However, we shall try to always be explicit in order to avoid confusion. 
+\er 
+
+Intuitively we can think of the standard topology on $\R^d$ as shapes that don't include their boundaries and the soft ball as a circle\footnote{In $\R^2$ at least. In higher values of $d$ you just take that dimensional equivalent of a circle, e.g. a ball in 3D. } of radius $r$ that doesn't contain the boundary. With this intuition we easily see the extension of the standard topology to general topologies: they are the sets of \textit{open sets} within that set. In fact it actually works the other way around, we use a topology in order to define what we mean by an open set. 
+
+\bd[Open Set] 
+    Let $(\cM,\cO)$ be a topological space. We call $U\se\cM$ an \textbf{open set} if and only if $U\in \cO$.
+\ed 
+
+\bd[Closed Set]
+    Let $(\cM,\cO)$ be a topological space. We call a set $V\se\cM$ a \textbf{closed set} is and only if $\cM\setminus V \in \cO$, where $\cM\setminus V$ is known as the \textit{compliment} of $V$.
+\ed 
+
+\br 
+    It is tempting to think that a closed set is simply a set that is not open. However, this is not true. In fact a set can be 
+    \benr 
+        \item Open and not closed, e.g. $(0,1)$ in $(\R,\cO_s)$,
+        \item Not open and closed, e.g. $[0,1]$ in $(\R,\cO_s)$,
+        \item Open and closed, e.g. $\emptyset$ in any topological space, 
+        \item Not open and not closed, e.g. $[0,1)$ in $(\R,\cO_s)$. 
+    \een 
+\er 
+
+\bbox
+    Show that the examples given in the above remark are correct. 
+\ebox 
+
+\section{Continuous Maps}
+
+Let's first just recall the terminology/notation for a map. We say that $f$ is a map from a set $\cM$, known as the \textit{domain}, to another set $\cN$, known as the \textit{target}, and we write this as $f:\cM\to\cN$. We say that the element $m\in\cM$ is mapped to $n\in\cN$, which we write as $f:m\mapsto n$. A map will take \textit{every} element in its domain to \textit{some} element in its target. It is possible that a two different elements of the domain are mapped to the same element of the target and it is not required that every element in the target is hit. Based on this we have the following definitions. 
+
+\bd[Injective Map]
+    A map $f:\cM\to\cN$ is said to be \textbf{injective} if it is one-to-one. That is 
+    \bse 
+        f(m_1) = f(m_2) \iff m_1 = m_2 \qquad \forall m_1,m_2\in\cM.
+    \ese 
+\ed 
+
+\bd[Surjective Map]
+    A map $f:\cM\to\cN$ is said to be \textbf{surjective} if every element of the target is hit. That is 
+    \bse 
+        \forall n\in\cN \quad  \exists m\in\cM : f(m) = n. 
+    \ese 
+\ed 
+
+\bd[Bijective Map]
+    A map $f:\cM\to\cN$ is called \textbf{bijective} if it is both injective and surjective. 
+\ed 
+
+The answer to whether a map $f:\cM\to\cN$ is \textit{continuous} depends, \textit{by definition}, on the choice of which topologies are chosen on the sets $\cM$ and $\cN$. 
+
+\bd[Continuous Map]
+    Let $(\cM,\cO_{\cM})$ and $(\cN,\cO_{\cN})$ be topological spaces. A map $f:\cM\to\cN$ is called \textbf{continuous} with respect to $\cO_{\cM}$ and $\cO_{\cN}$ if and only if 
+    \bse 
+        \forall V\in\cO_{\cN}, \qquad \preim_{f}(V) \in\cO_{\cM},
+    \ese 
+    where 
+    \bse 
+        \preim_f(V) := \{ m\in\cM \, | \, f(m) \in V\}.
+    \ese 
+    That is "the preimages of open sets in $\cN$ are open in $\cM$".
+\ed 
+ 
+\br 
+    Note the preimage of a map $f$ is \textit{not} the same thing as its inverse. For example, we can not define an inverse for a non-injective map; if two elements in the domain map to the same element in the target, there is no clear way to decide which element you get under the inverse map. However the preimage in the case is the collection of both points. So continuity does not require the map to be injective. Equally note that surjectivity is not required as any element that isn't hit has preimage $\emptyset\in\cO_{\cM}$. 
+\er 
+
+\br 
+    Note is we choose the topology on $\cM$ to be the discrete topology then \textit{every} map $f:\cM\to\cN$ is continuous. This is easily seen because the preimage of any set in $\cO_{\cN}$ is either a subset of $\cM$ or the empty set, both of which are in the discrete topology on $\cM$. 
+\er 
+
+\bd[Homeomorphism]
+    Let $f:\cM\to\cN$ be a bijective map. Then the map is said to be a \textbf{homeomorphism} if both $f$ and its inverse $f^{-1}$ are continuous. They are the \textit{structure-preserving}\footnote{In other words, they are the topological \textit{isomorphisms}.} maps of topology.
+\ed 
+
+\bex 
+    Let $\cM=\cN = \{1,2\}$ and let $f\cM\to\cN$ be given by 
+    \bse 
+        f(1)=2 \qquad \text{and} \qquad f(2)=1.
+    \ese 
+    Now define 
+    \bse 
+        \cO_{\cM} := \big\{ \emptyset, \{1\}, \{2\}, \{1,2\}\big\}, \qquad \text{and} \qquad \cO_{\cN} := \big\{ \emptyset, \{1,2\}\big\}.
+    \ese
+    \ben[label=(\alph*)]
+        \item To check whether $f$ is continuous w.r.t. $\cO_{\cM}$ and $\cO_{\cN}$ we need to check the preimages of open sets in $\cN$ are open sets in $\cM$. 
+        \bse 
+            \begin{split}
+                \preim_f(\emptyset) & = \emptyset \in \cO_{\cM}, \\
+                \preim_f\big(\{1,2\}\big) & = \cM \in \cO_{\cM},
+            \end{split}
+        \ese 
+        and so $f$ is continuous. 
+        \item How about the inverse map $f^{-1}:\cN\to\cM$. Well it satisfies 
+        \bse 
+            f^{-1}(1) = 2 \qquad \text{and} \qquad f^{-1}(2) = 1,
+        \ese 
+        however we have 
+        \bse
+            \preim_{f^{-1}}(\{1\}) = \{2\}, \qquad \text{and} \qquad \preim_{f^{-1}} (\{2\}) = \{1\},
+        \ese 
+        neither of which are in $\cO_N$, and so this map is not continuous. 
+    \een 
+\eex 
+
+\section{Composition of Continuous Maps}
+
+\bd[Composition of Maps] 
+    Given two maps $f:\cM\to\cN$ and $g:\cN\to\cP$, we can define their \textbf{composition} as a new map 
+    \bse 
+        g\circ f : \cM \to \cP 
+    \ese 
+    where $(g\circ f)(m) := g\big(f(m)\big)$. 
+\ed 
+
+\bt
+\label{thrm:CompositionOfContinuousMaps}
+    Let $f:\cM\to\cN$ and $g:\cN\to\cP$ be two continuous maps w.r.t. the relevant topologies. Then the composition map $g\circ f : \cM\to\cP$ is also continuous. 
+\et 
+
+\bq 
+    Let $V\in\cO_{\cP}$. Now we have 
+    \bse
+        \begin{split}
+            \preim_{g\circ f}(V) & := \{ m\in \cM \, | \, (g\circ f)(m) \in V\} \\
+            & = \{ m \in \cM \, | \, f(m) \in \preim_g(V) \in \cO_{\cN}\} \\
+            & = \preim_{f}\big(\preim_g(v)\big) \in \cO_{\cM},
+        \end{split}
+    \ese
+    where the second line follows from the continuity of $g$ and the last line from the continuity of $f$.
+\eq 
+
+\bbox
+    Show that \Cref{thrm:CompositionOfContinuousMaps} extends to the composition of an arbitrary number of continuous maps. 
+\ebox 
+
+\section{Inheriting a Topology}
+
+So we know how to define a topology on a set $\cM$. We now want to ask the question: given some other set $S$ is it possible to use the topology on $\cM$ to define one on $S$? The answer is obviously yes\footnote{Otherwise the title of this section would seem silly.} and it is known as the \textit{inherited topology}. How you do this obviously depends on the situation. The way that is important for spacetime physics is the following. 
+
+\bd 
+    Let $(\cM,\cO_{\cM})$ be a topological space and let $S\ss \cM$. We define the \textbf{subset topology} to be 
+    \bse 
+        \cO|_S := \{ U \cap S \, | \, U\in\cO_{\cM}\}.
+    \ese 
+\ed 
+
+\bq 
+    We want to show that the subset topology is indeed a topology, i.e. need to check it meets the three conditions. 
+    \benr
+        \item We have $\emptyset = \emptyset\cap S$ and $\emptyset\in\cO_{\cM}$ which tells us that $\emptyset\in\cO|_S$. Equally we have $S = \cM\cap S$ and $\cM\in\cO_{\cM}$ and so $S \in \cO|_S$.
+        \item Let $A,B\in \cO|_S$, then we know there exists $\widetilde{A},\widetilde{B}\in\cO_{\cM}$ such that $A=\widetilde{A}\cap S$ and $B=\widetilde{B}\cap S$. From which we have $A\cap B = (\widetilde{A}\cap S)\cap(\widetilde{B}\cap S) = (\widetilde{A}\cap\widetilde{B})\cap S$. Finally using $\widetilde{A}\cap\widetilde{B}\in\cO_{\cM}$ we have $A\cap B\in \cO|_S$.
+        \item Let $U_{\a}\in\cO|_S$, which tells us that there exists $\widetilde{U}_{\a}\in\cO_{\cM}$ such that $U_{\a} = \widetilde{U}_{\a}\cap S$. As above this tells us that $\bigcup_{\a\in A} U_{\a} = \big(\bigcup_{\a\in A}\widetilde{U}_{\a} \big)\cap S$ where $A$ is a arbitrary index set. Finally using $\bigcup_{\a\in A}\widetilde{U}_{\a}\in\cO_{\cM}$ we get $\bigcup_{\a\in A} U_{\a}\in\cO|_S$.
+    \een 
+\eq 
+
+We might wonder why on earth we would choose to define such a map, the answer is to do with the continuity of maps. 
+
+\bcl 
+\label{claim:RestrictedMapContinuous}
+    Suppose we have some continuous map $f:\cM\to \cN$ between topological spaces $(\cM,\cO_{\cM})$ and $(\cN,\cO_{\cN})$. Then if we have some subset $S\ss \cM$ which we turn into a topological space with the subset topology $(S,\cO|_S)$, then we are guaranteed that the restricted map $f|_S : S\to \cN$ is also continuous w.r.t. $\cO|_S$ and $\cO_{\cN}$. 
+\ecl 
+
+\bbox 
+    Prove \Cref{claim:RestrictedMapContinuous}.
+\ebox 

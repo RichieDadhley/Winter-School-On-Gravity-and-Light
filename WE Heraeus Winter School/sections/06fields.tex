@@ -1,0 +1,342 @@
+\chapter{Fields}
+
+So far we have discussed a single tangent space and vectors lying in it. What we now want to study are vector \textit{fields}, which is essentially a vector for every point on the manifold. We need to give a proper technical way to introduce vector fields, as simply saying `imagine a vector at every point' isn't good enough (two people might imagine differently). The answer to doing this is known as the \textit{theory of bundles}.
+
+\section{Bundles, Fibres and Sections}
+
+\bd[Bundle]
+    A (smooth) \textbf{bundle} is a triple $(E,\pi,\cM)$ where $E$ and $\cM$ are smooth manifolds known as the \textit{total space} and the \textit{base space}, respectively. $\pi:E\to\cM$ is a smooth, surjective map, known as the \textit{projection map}.
+\ed 
+
+\bnn 
+    It is also common to denote a bundle in the following notation $E\xrightarrow{\pi}\cM$. It is important to know, though, that the bundle is the complete triple and not just the map, as one might think using this notation. 
+\enn 
+
+\bd[Fibre over $p$] 
+    Let $(E,\pi,\cM)$ be a bundle. We define the \textbf{fibre over $p\in\cM$} as $\preim_{\pi}(p)$.
+\ed 
+
+\bd[Section]
+    A \textbf{section}, $\sig$, of a bundle $(E,\pi,\cM)$ is a map $\sig:\cM\to E$ such that $(\pi\circ\sig)=\b1_{\cM}$, the identity on $\cM$.
+\ed 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik
+            \draw[thick] (0,0) ellipse (1.25 and 0.5);
+            \draw[thick] (-1.25,0) -- (-1.25,-4);
+            \draw[thick] (-1.25,-4) arc (180:360:1.25 and 0.5);
+            \draw[thick] (1.25,-4) -- (1.25,0);  
+            \draw[dashed] (0,-2.3) ellipse (1.25 and 0.5); 
+            \draw[blue, thick] (1,-4.3) .. controls (-0.5,-3.5) and (1,-2.5) .. (0.8,-1.8) .. controls (0.5, -1) ..  (0.5, -0.45);
+            \draw[green, thick] (-0.7,-4.4) .. controls (0.5,-3.5) and (-1.2,-1.5) ..(-0.8, -0.4);
+            \node at (-0.5, -3) {\large $p$};
+            \node at (0.7, -3) {\large $q$};
+            \node at (1.55,-2.3) {\large $\cM$};
+            \node at (1, -0.7) {\large $E$};
+            \fill [gray,opacity=0.2] (-1.25,0) -- (-1.25,-4) arc (180:360:1.25 and 0.5) -- (1.25,0) arc (0:180:1.25 and -0.5);
+            \fill[gray, opacity=0.1] (0,0) ellipse (1.25 and 0.5);
+        \etik
+    \caption{Example of a bundle and fibre. The total space, $E$, is the surface of the cylinder and the base space, $\cM$, is the ring. The bundle is the triplet consisting of $E$, $M$ and a smooth, surjective projection map $\pi: E\to M$. The preimage of the the point $p$ w.r.t. the projection map $\pi$ is the green line --- that is $\pi$ maps every point on the green line to $p$ --- known as the fibre over $p$. Similarly the blue line is the fibre over $q$. The section w.r.t. $p$, $\sigma_p : M \to E$, maps $p$ to a point within its fibre (a point on the green line). A map $\tau : M\to E$ which maps $p$ to a point in $q$'s fibre (the blue line) is \textit{not} a section, as $(\pi \circ \tau)(p) = q \neq \b1_M( p )$. The complete section is the set of points formed by taking one point from each fibre.}
+    \label{fig:Bundlefibre}
+    \end{center}
+\end{figure}
+
+As we shall see shortly, sections are the fields over our manifolds. The rough idea is that we make the fibres the tangent spaces to each point and then by taking a section, we pick one vector from each tangent space, giving us a vector field. 
+
+\bex 
+    In quantum mechanics, we are taught to think of the wavefunction as a function. This is technically not true. The wavefunction is a scalar field over the base space, and a scalar field is not a function (despite us maybe thinking it is). More technically, the wavefunction is a section over a $\C$-line bundle (that is a bundle whose fibres are the complex line). This is actually an important distinction when one comes to studying quantum mechanics in curved coordinates as the covariant derivative\footnote{Which we will discuss later.} acts in a non-trivial manner on sections. 
+\eex
+
+\pagebreak 
+
+\section{Tangent Bundle of Smooth Manifold}
+
+Let $(\cM,\cO,\cA)$ be a smooth manifold. We define the \textbf{tangent bundle} as the bundle whose base space is our smooth manifold and whose total space has the set\footnote{We shall make this into a smooth manifold below.} 
+\bse 
+    T\cM := \bigcup^{\bullet}_{p\in\cM} T_p\cM,
+\ese 
+where the dot means `disjoint union'. The projection map is given by
+\bse 
+    \pi : X \mapsto p,
+\ese
+where $p$ is the \textit{unique} point such that $X\in T_p\cM$.
+
+We need to show how to turn the above set $T\cM$ into a smooth manifold (as we need for a bundle), but first two quick comments: it is important that we take the disjoint union above as this allows us to identify each vector with its base point $p$. It is because we take the disjoint union that we can say the \textit{unique} point; and the projection is surjective as we took the union over all $p\in\cM$ and so we hit every element in $\cM$. 
+
+We now need to make $T\cM$ into a smooth manifold, in such a way that $\pi:T\cM \to \cM$ is a smooth map. So we need to define a topology on $T\cM$, the question is `how do we do this?' With a little thought the answer becomes clear: we already have a topology on our base space and if we are going to require $\pi$ to be smooth, why don't we just use the coarsest\footnote{Recall coarsest means it has the least number of elements such that $\pi$ is \textit{just} continuous.} topology on $T\cM$ such that $\pi$ is continuous (as continuity is needed for smoothness). This topology is known as the \textbf{initial topology w.r.t. $\pi$}. It is defined simply as\footnote{In the tutorial we show that $\cO_{T^*\cM}$ is a topology for the cotangent bundle. An analogous proof can be inserted here to show that $\cO_{T\cM}$ is also a topology.} 
+\bse 
+    \cO_{T\cM} := \{ \preim_{\pi}(U) \, | \, U\in\cO\}
+\ese
+So far we have a topological manifold $(T\cM,\cO_{T\cM})$ and a continuous map $\pi$ to a smooth manifold $(\cM,\cO,\cA)$. We now need to define a $C^{\infty}$-atlas for $(T\cM,\cO_{T\cM})$ in such a way that our map becomes smooth. As with the topology, we are going to construct this atlas from $\cA$. 
+
+The question is `how?' Well we know that $X\in T\cM$ is described by two pieces of information: it is a vector and it has a base point. We can easily obtain the coordinates of the base point by simply projecting $X$ down using $\pi$ and then using our atlas on $\cM$ to find its coordinates. What about the vector part? Well, we have a chart on $\cM$ and so we can induce a chart on the tangent space and decompose $X$ as 
+\bse 
+    X =: X^i_{(x)}\frac{\p}{\p x^i}.
+\ese
+It is the components $X^i_{(x)}$ that we want to use, but we want to get them by just using the chart $(U,x)$. The answer is very straight forward: just consider the gradient of the chart maps. That is 
+\bse 
+    X^i_{(x)} = (dx^i)_{\pi(X)}(X).
+\ese
+So we construct the atlas
+\bse 
+    \cA_{T\cM} := \{ (TU,\xi_x) \, | \, (U,x) \in\cA\},
+\ese 
+where
+\bse 
+    \xi_x : TU \to \R^{2\cdot\dim\cM},
+\ese 
+given by
+\bse 
+    \xi_x(X) = \big( \underbrace{(x^1\circ\pi)(X), ... , (x^d\circ \pi)(X)}_{(U,x)\text{-coordinate of }\pi(X)}, \underbrace{(dx^1)_{\pi(X)}(X), ... , (dx^d)_{\pi(X)}(X)}_{\text{Vector components w.r.t. } (U,x)}\big)
+\ese 
+We also need the inverse map:
+\bse 
+    \xi_x^{-1} : \R^{2\cdot\dim\cM} \to TU.
+\ese
+With a bit of thought it is clear that it must satisfy 
+\bse 
+    \xi_x^{-1}(\a^1,...,\a^d,\beta_1,...,\beta^d) := \beta^i \bigg(\frac{\p}{\p x^i}\bigg)_{x^{-1}(\a^1,...,\a^d)} = \beta^i \bigg(\frac{\p}{\p x^i}\bigg)_{\pi(X)}.
+\ese 
+Now we need to check that these maps are smooth (as we need a smooth atlas). Consider another chart $(V,y)$ with $V\cap U\neq\emptyset$, we have\footnote{Sorry this doesn't look very nice. It's lots of brackets and indices!} 
+\bse 
+    \begin{split}
+        \big(\xi_y\circ \xi_x^{-1}\big) (\a^1,...,\a^d,\beta^1,...,\beta^d) & := \xi_y \bigg( \beta^m \bigg(\frac{\p}{\p x^m}\bigg)_{\pi(X)}\bigg) \\
+        & = \Bigg(..., (y^i\circ \pi) \bigg(\beta^i \bigg(\frac{\p}{\p x^i}\bigg)_{\pi(X)}\bigg),..., ..., (dy^i)_{\pi(X)}\bigg[\bigg(\beta^m \bigg(\frac{\p}{\p x^m}\bigg)_{\pi(X)}\bigg)\bigg], ...\Bigg) \\
+        & = \Bigg(..., (y^i\circ x^{-1})(\a^1,...,\a^d), ..., ..., \beta^m \bigg(\frac{\p y^i}{\p x^m}\bigg)_{\pi(X)}, ...\Bigg) \\
+        & = \Big(..., (y^i\circ x^{-1})(\a^1,...,\a^d), ..., ..., \beta^m \p_m \big(y^i\circ x^{-1}\big)\big|_{(\a^1,...,\a^d)}, ... \Big),
+    \end{split}
+\ese 
+where to go to the third line we have used the fact that $\pi(X) = p = x^{-1}(\a^1,...,\a^d)$ and to get to the last line we have used the definition for the derivative fraction along with $(x\circ\pi)(X) = x(p) = (\a^1,...,\a^d)$. Now $(y^i\circ x^{-1})$ is smooth because $\cA$ is smooth and so the above result is smooth. We therefore have a smooth atlas $\cA_{T\cM}$.
+
+\bd[Tangent Bundle]
+    The triple $(T\cM,\pi,\cM)$ is a bundle, known as the \textbf{tangent bundle}. 
+\ed 
+
+This all seems rather abstract and complicated, but the following example shows it's actually rather natural and intuitive. 
+
+\bex 
+    Let $\cM=S^1$ (a circle) and let the fibres just run straight up and down. The further up/down the fibre one goes, the greater the value of the vector, with going downwards corresponding to placing a minus sign in front of the vector.
+
+    $U$ here is a small part of the circle and is mapped by $x$ to a open interval in the real line. $TU$ is the set of fibres that run through $U$. These are mapped via $\xi_x$ to $\R^2$ in the following way. Consider a point on one of the fibres, call it $X$. The horizontal axis value in the $\R^2$ chart is given by the value the base point $p=\pi(X)\in\cM$ takes in the $\R$ chart, as mapped by $x$. The vertical value in the $\R^2$ chart is just given by the size of the vector (as it is only one-dimensional so the component is the size) and is plotted accordingly. That is, the vertical axis is `length of vector', again with the negative axis corresponding to a vector that is lower down on the fibre then the base point.
+
+    \begin{center}
+        \btik 
+            \draw[thick] (0,0) ellipse (1.25 and 0.5);
+            \draw[thick] (-1.25,0) -- (-1.25,-4);
+            \draw[thick] (-1.25,-4) arc (180:360:1.25 and 0.5);
+            \draw[thick] (1.25,-4) -- (1.25,0);  
+            \draw[dashed] (0,-2.3) ellipse (1.25 and 0.5); 
+            \fill [gray,opacity=0.2] (-1.25,0) -- (-1.25,-4) arc    (180:360:1.25 and 0.5) -- (1.25,0) arc (0:180:1.25 and -0.5);
+            \fill[gray, opacity=0.1] (0,0) ellipse (1.25 and 0.5);
+            \node at (1.55,-2.3) {\large $\cM$};
+            \node at (1, -0.7) {\large $E$};
+            %
+            \draw[thick, blue] (-0.5,-4.45) -- (-0.5, -0.45);
+            \draw[thick, blue] (-0.6,-4.45) -- (-0.6, -0.45);
+            \draw[thick, blue] (-0.7,-4.4) -- (-0.7, -0.4);
+            \draw[thick, blue] (-0.8,-4.4) -- (-0.8, -0.4);
+            \draw[thick, blue] (-0.9,-4.35) -- (-0.9, -0.35);
+            \draw[thick, blue] (-1,-4.33) -- (-1, -0.3);
+            \draw[fill=black] (-0.6,-1) circle [radius=0.05cm];
+            \node at (-0.7,-0.1) {\textcolor{blue}{\large{$TU$}}};
+            %
+            \draw[ultra thick, red] (0,-2.3) [partial ellipse=215:248:1.25cm and 0.5cm];
+            \node at (-0.3, -2.5) {\textcolor{red}{\large{$U$}}};
+            %
+            \draw[->] (-6,-2.5) -- (-3.5,-2.5);
+            \draw[ultra thick, red] (-5.5,-2.5) -- (-4,-2.5);
+            \draw[thick, red, fill=white] (-5.5,-2.5) circle [radius=0.08cm];
+            \draw[thick, red, fill=white] (-4,-2.5) circle [radius=0.08cm];
+            \node at (-3.25,-2.5) {\large{$\R$}};
+            \draw[->, red] (-0.7, -2.7) .. controls (-1.9,-3) and (-3.2,-3) .. (-4.75,-2.7) node[label={below:\large $x$}, midway] {};
+            % 
+            \draw[->] (3.5,-1.5) -- (7,-1.5);
+            \draw[->] (3.6,-3) -- (3.6,0);
+            \draw[thick, blue] (4,-3) -- (4,0);
+            \draw[thick, blue] (4.5,-3) -- (4.5,0);
+            \draw[thick, blue] (5,-3) -- (5,0);
+            \draw[thick, blue] (5.5,-3) -- (5.5,0);
+            \draw[thick, blue] (6,-3) -- (6,0);
+            \draw[thick, blue] (6.5,-3) -- (6.5,0);
+            \draw[fill=black] (6,-0.5) circle [radius=0.05];
+            \draw[ultra thick, red] (4,-1.5) -- (6.5,-1.5);
+            \node at (7,-0.5) {\large{$\R^2$}};
+            \draw[->, blue] (-0.3, -1) .. controls (0.9,-1.5) and (2.1,-0.5) .. (3.3, -1) node[label={above:\large $\xi_x$}, midway, xshift =0.5cm] {};
+        \etik 
+    \end{center}
+\eex 
+
+\section{Vector Fields}
+
+We just put in a lot of work to check/prove that the set $T\cM$ can be made into a smooth manifold and so we have a bundle. It is reasonable to wonder why we did such a crazy calculation. The answer is that it allows the next definition. 
+
+\bd[Smooth Vector Field]
+    A \textbf{smooth vector field} is a \textit{smooth section} on the tangent bundle. That is 
+    \bse 
+        \chi : \cM\to T\cM, \qquad \pi\circ \chi = \b1_{\cM}.
+    \ese 
+\ed 
+
+\br 
+    Note we have used the Greek letter $\chi$ here to denote a smooth vector field. We do this to make the distinction between a vector $X\in T_p\cM$ and a smooth vector field $\chi$. We will continue to use Greek letters for fields (in general, so we will also use Greek letters for covector fields and tensor fields) in this lecture.\footnote{We will change our minds next lecture!} As we shall see shortly, we also introduce a new notation for the action of smooth vector fields. We shall point these out as we introduce them. 
+\er 
+
+The smooth part of the above definition is what all the work was for. Intuitively when we think of a vector field (a vector at each point) we see a smooth vector field, i.e. one where the vectors appear to naturally flow from one to another, rather then just pointing randomly at each point. Smooth vector fields will obviously play a vital rule in general relativity: the velocity of a particle is a smooth vector field over the manifold that is the worldline of the particle. If this vector field was not smooth, it would correspond to the particle's velocity all of a sudden changing, which we know is not physical.
+
+\section{The $C^{\infty}(\cM)$-Module}
+
+So far we have a definition for a smooth vector field, but we have no way of adding them together or scaling them in any way. This is something we clearly want to be able to do, and so we want to try and make it into a vector space over some field. The addition is straight forward, just add the vectors in the tangent spaces together and take the result to be the new vector at that point. What about scaling? We don't want to limit ourselves to only being able to scale the smooth vector field uniformly, i.e. by the same amount at all $p\in\cM$. So we need something that is defined all over $\cM$ but that can take different values at each point. This is just a scalar field. 
+
+So we want to try and turn the set of smooth sections over the tangent bundle into a $C^{\infty}(\cM)$-vector space. There is a problem, though. Recall the definition
+\bse 
+    C^{\infty}(\cM) := \{f:\cM\to\R \, | \, f \text{ is a smooth function}\}.
+\ese 
+It is possible that a non-vanishing\footnote{That is does not map every point $p\in\cM$ to $0\in\R$.} element of $C^{\infty}(\cM)$ can vanish at some points, i.e. there are points $p\in\cM$ that are mapped to $0\in\R$. We cannot turn $C^{\infty}(\cM)$ into a field, then, as we don't have an inverse under multiplication for every element (we can't invert the points that vanish!). The best we can do, then, is to turn it into a \textit{ring}. We clearly have a neutral element -- the elements that just maps all points $p\in\cM$ to $1\in\R$ -- and we can define the commutativity pointwise, using the fact that $(\R,+)$ is commutative. We therefore get a \textit{commutative, unital ring}. If we build on top of this, we get a \textit{module}. 
+
+\bd[The $C^{\infty}(\cM)$-Module, $\Gamma T\cM$]
+    The triple $(\Gamma T\cM,\oplus,\odot)$ is a $C^{\infty}(\cM)$-module where 
+    \bse 
+        \Gamma T\cM := \{ \chi :\cM \to T\cM \, | \, \text{smooth section}\},
+    \ese 
+    and 
+    \bse 
+        \begin{split}
+            (\chi\oplus \widetilde{\chi})\la f\ra & := \chi\la f\ra + \widetilde{\chi}\la f\ra, \\
+            (g\odot \chi)\la f\ra & = g \cdot \chi\la f \ra, 
+        \end{split}
+    \ese 
+    where $+/\cdot$ are the addition/multiplication on $C^{\infty}(\cM)$.
+\ed 
+
+This is the first point where we have introduced a new notation for the action of a field. Recall we have been denoting the action of a vector (at a point) on a $C^{\infty}(\cM)$ function via standard brackets, $X(f)$. In order to distinguish this from the action of a smooth vector field on $f$, we use angled brackets for the latter $\chi\la f\ra$.\footnote{This particular choice of notation is used as it is the one I learned while at University.} This might seem like a just a notational problem, however it actually encapsulates an important point: a smooth vector field is a map $\chi:\cM\to T\cM$, so how does it act on a scalar field? The answer is obviously through the vectors that make up $\chi$: 
+\bse 
+    \chi\la f\ra\big|_{p} := \big(\chi(p)\big)(f).
+\ese 
+That is, we first evaluate $\chi(p)$, which gives us \textit{the} $X\in T_p\cM$, and then we let this act on the scalar field, giving a real number. We do this for every point $p\in\cM$ and so get a map that associates to each point a real number, this is a scalar field. In other words we can think of smooth vector fields as maps 
+\bse 
+    \chi : C^{\infty}(\cM) \lmap C^{\infty}(\cM).
+\ese 
+It is because of this that we take the addition/multiplication on the right-hand side of the expressions in the definition to be those defined on $C^{\infty}(\cM)$.
+
+\bbox 
+    Show that the map $\chi:C^{\infty}(\cM)\lmap C^{\infty}(\cM)$ is $\R$-linear. That is, for $f,g\in C^{\infty}(\cM)$ and $\lambda\in\R$
+    \bse 
+        \begin{split}
+            \chi\la f+g\ra  & = \chi\la f \ra + \chi\la g\ra, \\
+            \chi\la \lambda \cdot  f \ra & = \lambda \cdot \chi\la f\ra.
+        \end{split}
+    \ese
+    Also show that it obeys 
+    \bse 
+        \chi \la f\bullet g\ra = f\bullet \chi\la g \ra + \chi\la f\ra \bullet g,
+    \ese 
+    where $\bullet : C^{\infty}(\cM)\times C^{\infty}(\cM) \to C^{\infty}(\cM)$ is the multiplication on the ring. This property is known as the \textbf{Leibniz rule}.\footnote{Note for partial differential equations it is the familiar product rule.}
+\ebox 
+
+Now there is an important fact in set theory\footnote{Strictly speaking we need to us ZFC set theory, because we need the axiom of choice. For more information see Dr. Schuller's Lectures on the Geometric Anatomy of Theoretical Physics.} that every vector space has a basis. However, this incredibly useful fact does not apply to modules. That is, in general, we \textit{cannot} simply take the subset 
+\bse 
+    \{\chi_1,...,\chi_d\} \se \Gamma T\cM
+\ese
+such that any other $\chi\in\Gamma T\cM$ can be expressed as a linear combination of this subset
+\bse 
+    \chi = f^i \odot \chi_i.
+\ese 
+Of course we can do this \textit{locally} by simply decomposing our vector fields locally, but we cannot do it \textit{globally}.
+
+\bex 
+    Consider a ball with a smooth vector field over it. If we imagine this smooth vector field as hairs sticking out of the ball, the idea of having a globally defined nowhere vanishing smooth vector field, would be to `comb' the hairs flat to the surface. That is, we want all of the vectors to lie in the tangent spaces and not `stick straight out'.
+    
+    However, in order to do this, we would have to remove some of the hairs: for example in the diagram drawn below, the hair at the top and bottom would have to `vanish' if we wanted the ball to be smooth. 
+    
+    The fact that the vector field is not defined globally means that it can not possibly be a basis element. Of course you could have another vector field that went `top-to-bottom' on the sphere that was defined at the North and South poles, but that would not allow you to define \textit{any} vector field at those points --- how would you write a vector that pointed East from the North pole?
+    \begin{center}
+        \btik
+            \draw[thick] (-4,0) circle (2.5cm);
+            \draw[thick, blue] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={60:(-4,0)}] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={120:(-4,0)}] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={180:(-4,0)}] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={-60:(-4,0)}] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={-120:(-4,0)}] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={22.5:(-4,0)}, yshift = -1.5cm] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={-67.5:(-4,0)}, yshift = -1.5cm] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={20:(-4,0)}, yshift = -3cm, xshift=-1cm] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={-17.5:(-4,0)}, yshift = -2.5cm] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            \draw[thick, blue, rotate around={-150.5:(-4,0)}, yshift = -1.5cm] (-4,2.5) .. controls (-4.5,2.88) and (-3.5,3.17) .. (-4, 3.5) node[circle, fill=black, inner sep=1pt] at (-4,2.5) {};
+            %
+            \draw[->, ultra thick] (-1,0) -- (1,0);
+            %
+            \draw[thick] (4,0) circle (2.5cm);
+            \draw[thick, blue] (1.5,0) .. controls (3.1, -0.5) and (4.8,-0.5) .. (6.5,0);
+            \draw[thick, blue] (1.75,1.15) .. controls (3.23,0.65) and (4.77,0.65) .. (6.25,1.15);
+            \draw[thick, blue] (2.5,2) .. controls (3.5, 1.8) and (4.5,1.8) .. (5.5,2);
+            \draw[thick, blue] (1.75,-1.15) .. controls (3.23,-1.65) and (4.77,-1.65) .. (6.25,-1.15);
+            \draw[thick, blue] (2.5,-2) .. controls (3.5, -2.3) and (4.5,-2.3) .. (5.5,-2);
+            \draw[thick, blue] (4,2.5) .. controls (3.5,2.88) and (4.5,3.17) .. (4, 3.5) node[circle, fill=black, inner sep=1pt] at (4,2.5) {};
+            \draw[thick, blue, rotate around={180:(4,0)}] (4,2.5) .. controls (3.5,2.88) and (4.5,3.17) .. (4, 3.5) node[circle, fill=black, inner sep=1pt] at (4,2.5) {};
+        \etik
+    \end{center}
+\eex
+
+This failure to define a global, nowhere vanishing, smooth vector field is related to the fact that we can't chart the space using only a single chart. That is, the minimal atlas for a sphere contains two charts. For example, if we used polar spherical coordinates on the surface to chart the sphere, the North and South poles will not be charted -- whats the longitude value at these points?
+
+We can repeat everything we did in order to define the tangent bundle but instead starting from the cotangent space $(T^*\cM,+,\cdot)$. In doing this we get the cotangent bundle and smooth covector fields. Finally we get the $C^{\infty}(\cM)$-module $(\Gamma T^*\cM,\oplus,\odot)$ where 
+\bse 
+    \Gamma T^*\cM := \{ \alpha : \cM \to T^*\cM \, | \, \text{smooth section}\}.
+\ese 
+
+\bex 
+    Recall we had the gradient at a point $(df)_p : T_p\cM\lmap\R$. We now want to extend this to be over the whole manifold. We therefore define 
+    \bse 
+        df : \Gamma T\cM \lmap C^{\infty}(\cM)
+    \ese 
+    by\footnote{We have used the notation given to me by my lecturer, namely we denote the action of $df$ on $X$ by a colon and the action of a vector field on a scalar field via angled brackets.} 
+    \bse 
+        df : \chi := \chi \la f \ra.
+    \ese 
+    The linearity here is actually $C^{\infty}$-linear.\footnote{This is often called $f$-linear, for obvious reasons.} This is different to smooth vector fields, which are only $\R$-linear.
+\eex 
+
+\bbox 
+    Show that the map $df: \Gamma T\cM \lmap C^{\infty}(\cM)$ is indeed $C^{\infty}$-linear. That is for all $\chi,\Upsilon\in\Gamma T\cM$ and $g\in C^{\infty}(\cM)$,
+    \bse 
+        \begin{split}
+            df:(\chi \oplus \Upsilon) & = (df:\chi) + (df:\Upsilon) \\
+            df : (g\odot \chi) & = g\cdot (df:\chi).
+        \end{split}
+    \ese 
+\ebox
+
+\section{Tensor Fields}
+
+We have the smooth vector fields and the smooth covector fields. We can, therefore, now construct smooth \textit{tensor} fields. 
+
+\bd[Smooth Tensor Field]
+    A \textbf{smooth $(r,s)$-tensor field} is a $C^{\infty}(\cM)$ multilinear map 
+    \bse 
+        T : \underbrace{\Gamma T^*\cM \times ... \times \Gamma T^*\cM}_{r\text{-terms}} \times \underbrace{\Gamma T\cM \times ... \times \Gamma T\cM}_{s{\text{-terms}}} \lmap C^{\infty}(\cM),
+    \ese 
+    or in the other notation 
+    \bse 
+        T := \underbrace{\Gamma T\cM \otimes ... \otimes \Gamma T\cM}_{r\text{-terms}} \times \underbrace{\Gamma T^*\cM \otimes ... \otimes \Gamma T^*\cM}_{s{\text{-terms}}}.
+    \ese 
+\ed 
+
+\br 
+    Note in the second notation, the $\otimes$ now means a map to $C^{\infty}(\cM)$ not just $\R$, as it did when we first introduced it. This is the downfall of this notation: people use the same tensor product symbol for all kinds of different things that look similar.\footnote{For examples, see chapter 14 of my notes from Dr. Schuller's Quantum Theory course.} 
+\er 
+
+The two definitions above don't seem to quite match, though. We have seen that $\alpha\in\Gamma T^*\cM$ can map a $X\in\Gamma T\cM$ to a $C^{\infty}(\cM)$ function, but the opposite isn't true --- vector fields map scalar fields to scalar fields --- so how do does the tensor product definition work? The answer is simply that we interpret it as the following example highlights.
+
+\bex
+    Let $T$ be a smooth $(1,1)$-tensor field given by $T = X\otimes \a$. Its action as a map is given by 
+    \bse 
+        T(\beta,Y) = (X\otimes \a)(\beta,Y) := (\beta : X)\otimes (\a:Y) = (\beta:X)\bullet(\a:Y),
+    \ese 
+    for $\beta\in \Gamma T^*\cM$, $Y\in\Gamma T\cM$ and where we have used the fact that the tensor product of two scalar fields is just their multiplication, $\bullet$.
+\eex 
+
+\br 
+    From this point on wards we shall simply say vector/covector/tensor field when we mean a \textit{smooth} field. This is just to lighten the amount of words.
+\er

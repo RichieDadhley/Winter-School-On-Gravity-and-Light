@@ -1,0 +1,408 @@
+\chapter{Parallel Transport \& Curvature}
+
+Consider the following experiment: stand on a surface and stick your arm out directly in-front of you. Make a mental note at where your arm is pointing. Now walk around the room, but do it in a fashion such that you are \textit{not} allowed to rotate your body or move the position of your arm relative to your chest. So if you want to move to your left you continue to face forward with your arm pointing forward and simply step left. Walk around the room in this fashion for however long you like and then finally return to your initial position. Now compare where your arm is pointing to where it was pointing previously. Provided you did follow the instructions, if you are on a \textit{flat} surface your arm will be pointing in exactly the same direction as it was at the start. If you were on a curved surface, it is possible that your arm is now pointing in a different direction.
+
+To see why the latter is true, let the surface be the surface of the earth. Imagine you start at the North Pole. You then walk\footnote{You can walk on water for this experiment and there are no buildings or mountains etc in your way.} directly forwards until you reach the equator. Now \textit{side step} to your right for a quarter turn around the equator. Finally walk backwards until you reach the North Pole again. Your arm will now be pointing at a 90 degree angle (to the right) of how it was initially. 
+
+\begin{center}
+    \btik
+        \draw[thick, fill = gray!40, opacity = 0.4] (-10,-1.5) -- (-10,1.5) -- (-5,1.5) -- (-5,-1.5) -- (-10,-1.5);
+        \draw[thick] (-10,-1.5) -- (-10,1.5) -- (-5,1.5) -- (-5,-1.5) -- (-10,-1.5);
+        \draw[blue, thick] (-9,1) .. controls (-10,-1) and (-8,-1) .. (-6.5,-0.5) .. controls (-5.5,0.5) and (-8.5,1.5) .. (-9,1);
+        %
+        \draw[ultra thick, red, ->] (-9,1) -- (-9,0.5);
+        \draw[ultra thick, red, ->] (-9.27,0) -- (-9.27,-0.5);
+        \draw[ultra thick, red, ->] (-8.5,-0.7) -- (-8.5,-1.2);
+        \draw[ultra thick, red, ->] (-7.5,-0.7) -- (-7.5,-1.2);
+        \draw[ultra thick, red, ->] (-6.5,-0.5) -- (-6.5,-1);
+        \draw[ultra thick, red, ->] (-7,0.75) -- (-7,0.25);
+        \draw[ultra thick, red, ->] (-8,1.1) -- (-8,0.6);
+        %%
+        \shade[ball color = gray!40, opacity = 0.4] (0,0) circle (2cm);
+        \draw[thick] (0,0) circle (2cm);
+        \draw (-2,0) arc (180:360:2 and 0.6);
+        \draw[dashed] (2,0) arc (0:180:2 and 0.6);
+        %
+        \draw[blue, thick, rotate around={90:(0,0)}] (2,0) arc (0:110:2 and 1);
+        \draw[blue, thick,  rotate around={90:(0,0)}] (2,0) arc (0:103:2 and -1.5);
+        %
+        \node[circle, fill=black, inner sep=0.8pt] at (0,2) {};
+        \node[circle, fill=black, inner sep=0.8pt] at (0,-2) {};
+        %
+        \draw[->, ultra thick, red] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift =-0.68cm, yshift = -0.5cm, rotate around={65:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift =-1cm, yshift = -1.6cm, rotate around={85:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift =-0.95cm, yshift = -2.5cm, rotate around={90:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift =-0.4cm, yshift = -2.6cm, rotate around={90:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 0.3cm, yshift = -2.6cm, rotate around={90:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 0.9cm, yshift = -2.54cm, rotate around={90:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 1.47cm, yshift = -2.4cm, rotate around={90:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 1.47cm, yshift = -1.5cm, rotate around={100:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 1.15cm, yshift = -0.7cm, rotate around={125:(0,2)}] (0,2) -- (-1,2);
+        \draw[->, ultra thick, red, xshift = 0.5cm, yshift = -0.1cm, rotate around={150:(0,2)}] (0,2) -- (-1,2);
+    \etik
+\end{center}
+
+Mathematically, what we are talking about is the directional derivative of a vector field. On the plane the vector field does not change no matter what path you take, and so the instructions of how to walk about are simply
+\bse 
+    \nabla_{v_{\gamma}}X = 0
+\ese 
+where $\gamma$ is the path you take and $X$ is the vector field made by your arms. 
+
+The instructions on the sphere are the same, but the result is different. This gives us our first hint that the covariant derivative somehow encodes the (intrinsic) curvature of the surface. From here we can convince ourselves that the connection is what gives our manifold `shape'. That is both the sphere and the potato have $(S^2,\cO,\cA)$ as topological manifolds but they have different curvature and so have different connections, $\nabla_{\text{sphere}}$ and $\nabla_{\text{potato}}$. The aim of this lecture is to make this more precise. 
+
+\section{Parallelity of Vector Fields}
+
+In this lecture we shall assume that a connection has already been chosen for our manifold and so we are dealing with a smooth affine manifold $(\cM,\cO,\cA,\nabla)$.
+
+\bd[Parallely Transported] 
+    A vector field $X$ on $\cM$ is said to be \textbf{parallely transported} along a smooth curve $\gamma:\R\to\cM$ if 
+    \bse 
+        \nabla_{v_{\gamma}}X = 0.
+    \ese 
+\ed 
+
+\br 
+    Note at this point it is important that we don't need the lower slot in the covariant derivative to be a vector field over all of $\cM$, as $v_{\gamma}$ is only a vector field over the image of the curve.
+\er 
+
+We also have a slightly weaker condition.
+
+\bd[Parallel] 
+    A vector field $X$ in $\cM$ is said to be \textbf{parallel} along a curve $\gamma:\R\to\cM$ if
+    \bse 
+        \nabla_{v_{\gamma}}X = \mu \cdot X,
+    \ese 
+    for $\mu:\R\to\R$ a smooth function. Written pointwise, that is
+    \bse 
+        \big(\nabla_{v_{\gamma,\gamma(\lambda)}}X\big)_{\gamma(\lambda)} = \mu(\lambda) \cdot X_{\gamma(\lambda)}.
+    \ese 
+\ed 
+
+Note any parallely transported vector field is parallel -- simply choose $\mu(\lambda)=0$ for all $\lambda$.
+
+\bex 
+    Let our smooth affine manifold be the Euclidean plane $(\R^2,\cO,\cA,\nabla_E)$. The left drawing below is a parallely transported vector field, the middle drawing is a parallel vector field and the right drawing is not even parallel.
+    \begin{center}
+        \btik
+            \draw[thick, blue] (-4,0) .. controls (-5,1.2) and (0,1.5) .. (-1,3);
+            \draw[thick, blue] (0,0) .. controls (-1,1.2) and (4,1.5) .. (3,3);
+            \draw[thick, blue] (5,0) .. controls (4,1.2) and (9,1.5) .. (8,3);
+            %
+            \draw[->, thick, rotate around={45: (-4,0)}] (-4,0) -- (-4,1);
+            \draw[->, thick, rotate around={45: (-3.5,0.95)}] (-3.5,0.95) -- (-3.5,1.95);
+            \draw[->, thick, rotate around={45:(-2.5,1.38)}] (-2.5,1.38) -- (-2.5,2.38);
+            \draw[->, thick, rotate around={45:(-1.5,1.85)}] (-1.5,1.85) -- (-1.5,2.85);
+            \draw[->, thick, rotate around={45:(-0.9,2.4)}] (-0.9,2.4) -- (-0.9,3.4);
+            %
+            \draw[->, thick, rotate around={45: (0,0)}] (0,0) -- (0,1.5);
+            \draw[->, thick, rotate around={45: (0.5,0.95)}] (0.5,0.95) -- (0.5,1.55);
+            \draw[->, thick, rotate around={45:(1.5,1.38)}] (1.5,1.38) -- (1.5,0.38);
+            \draw[->, thick, rotate around={45:(2.5,1.85)}] (2.5,1.85) -- (2.5,2.5);
+            \draw[->, thick, rotate around={45:(3.1,2.4)}] (3.1,2.4) -- (3.1,4.4);
+            % 
+            \draw[->, thick, rotate around={50: (5,0)}] (5,0) -- (5,1);
+            \draw[->, thick, rotate around={-25: (5.5,0.95)}] (5.5,0.95) -- (5.5,1.5);
+            \draw[->, thick] (6.5,1.38) -- (6.5,0.2);
+            \draw[->, thick, rotate around={60:(7.5,1.85)}] (7.5,1.85) -- (7.5,3);
+            \draw[->, thick, rotate around={-45:(8.1,2.4)}] (8.1,2.4) -- (8.1,3.4);
+        \etik
+    \end{center}
+    In the middle drawing it is important that the vector field vanishes in-between the points when it points `up' vs. `down', as $\mu:\R\to\R$ is smooth.
+\eex 
+
+\br 
+    It is tempting to look at the example above and think of the length of the vector field being constant for a parallely transported vector field whereas the length is allowed to change for a parallel vector field. Although this is intuitively very good, we as of yet have no notion of how to measure a length and so it doesn't make sense for us to talk about the length staying the same/changing. It is just the connection that gives us the above drawings.
+\er 
+
+\section{Autoparallelly Transported Curves}
+
+As the name suggests, an \textit{auto}parallely transported curve is one that is parallely transported along itself. What we mean by this is to take the starting point of the curve and look at its tangent vector and then tell the curve to follow that direction. You then repeat this for every point along the curve. To use our person-with-their-arm-out analogy, it would be the idea of `follow where your arm is pointing'. 
+
+This gives us a great intuitive insight: we are travelling along the \textit{straightest} curve between two points. Note we say straightest and not shortest, as we still don't have a notion of length yet. Note also that the straightest line might not actually look straight when `viewed from above'. That is, if we embed the manifold into a higher dimensional one and then look just at the curve, it might look curved. For example, on the sphere a straight line traces out a portion of a circle around the sphere. This does not look straight in the (Euclidean) embedding, however \textit{on the surface} it is the straightest line.
+
+Let's write this more formally.
+
+\bd[Autoparallely Transported]
+    A smooth curve $\gamma:\R\to\cM$ is called \textbf{autoparallely transported} if 
+    \bse 
+        \nabla_{v_{\gamma}}v_{\gamma} = 0.
+    \ese 
+\ed 
+
+\bd 
+    A smooth curve $\gamma:\R\to\cM$ is called an \textbf{autoparallel} if
+    \bse 
+        \nabla_{v_{\gamma}}v_{\gamma} = \mu\cdot v_{\gamma}.
+    \ese
+\ed
+
+\bex 
+    Again consider the Euclidean plane $(\R^2,\cO,\cA,\nabla_E)$. If we represent equal parameter changes by dashes in our drawings we have the following drawings, where the left is a autoparallely transported curve and the right is just a autoparallel.
+    \begin{center}
+        \btik 
+            \draw[thick] (-2,-2) -- (-1.5,-1.5);
+            \draw[thick] (-1.4,-1.4) -- (-0.9,-0.9);
+            \draw[thick] (-0.8,-0.8) -- (-0.3,-0.3);
+            \draw[thick] (-0.2,-0.2) -- (0.3,0.3);
+            \draw[thick] (0.4,0.4) -- (0.9,0.9);
+            \draw[thick] (1,1) -- (1.5,1.5);
+            %
+            \draw[thick] (2,-2) -- (2.5,-1.5);
+            \draw[thick] (2.6,-1.4) -- (3,-1);
+            \draw[thick] (3.1,-0.9) -- (3.3,-0.7);
+            \draw[thick] (3.4,-0.6) -- (3.5,-0.5);
+            \draw[thick] (3.6,-0.4) -- (3.8,-0.2);
+            \draw[thick] (3.9,-0.1) -- (4.3,0.3);
+            \draw[thick] (4.4,0.4) -- (4.9,0.9);
+            \draw[thick] (5,1) -- (5.5,1.5);
+        \etik 
+    \end{center}
+\eex 
+
+\br 
+    The autoparallely transported curve in the above example is what we might think of as a "uniform straight curve", and the autoparallel just just a straight curve. This gives us our next nice insight. Recall that Newton's first law talks about a moving body that experiences no forces moves along a uniform straight path. We see, then, that what Newton's first law says is that these bodies are autoparallely transported. So we could do such an experiment and use the result to work backwards and determine what the connection is. That is, Newton's first axiom is a measurement prescription for your geometry.
+\er 
+
+\bter 
+    People also refer to autoparallely transported vector fields as simply \textit{autoparallels}. As we have seen this actually means a curve where we only require the right-hand side be proportional point-by-point to $v_{\gamma}$. Despite this, in these lectures we shall also adopt this terminology and (unless the case specifically requires it) simply refer to autoparallels, when we really mean autoparallely transported. 
+\eter 
+
+\section{Autoparallel Equation}
+
+Consider an autoparallel $\gamma:\R\to\cM$ and consider the portion of the curve that lies in $U\se \cM$ where $(U,x)\in\cA$. We would like to express the condition $\nabla_{v_{\gamma}}v_{\gamma}=0$ in terms of chart representatives of the objects. The left-hand side is a vector field (along $\gamma$) and so  we can express $v_{\gamma}$ in the chart as
+\bse 
+    v_{\gamma,\gamma(\lambda)} = \Dot{\gamma}^m_{(x)}(\lambda) \cdot \bigg(\frac{\p}{\p x^m}\bigg)_{\gamma(\lambda)}.
+\ese 
+So we have (suppressing $(x)$ for notational convenience)
+\bse 
+    \begin{split}
+        \nabla_{v_{\gamma}}v_{\gamma} & =  \nabla_{\Dot{\gamma}^m \cdot \big(\frac{\p}{\p x^m}\big)} \bigg[\Dot{\gamma}^n_{(x)} \cdot \bigg(\frac{\p}{\p x^n}\bigg)\bigg] \\
+        & = \Dot{\gamma}^m \frac{\p \Dot{\gamma}^n}{\p x^m} \frac{\p}{\p x^n} + \Dot{\gamma}^m\Dot{\gamma}^n {\Gamma^q}_{nm}\frac{\p}{\p x^q}.
+    \end{split}
+\ese 
+Now, all the indices are summed over and so we are free to relabel $n\to q$ in the first term, and using $\Ddot{\gamma}^n := \Dot{\gamma}^m\frac{\p \Dot{\gamma}^n}{\p x^m}$ gives us 
+\bse 
+    \nabla_{v_{\gamma}}v_{\gamma} = \big(\Ddot{\gamma}^q + \Dot{\gamma}^m\Dot{\gamma}^n{\Gamma^q}_{nm}\big)\frac{\p}{\p x^q}.
+\ese 
+Now we know the basis elements are linearly independent and so the autoparallely transported condition must be be true for each component and so we have (reinserting all the $(x)$s and the $(\lambda)$s)
+\bse 
+    \Ddot{\gamma}^i_{(x)}(\lambda) + \Gamma^i_{(x)jk}\big|_{\gamma(\lambda)}\Dot{\gamma}^k_{(x)}(\lambda)\Dot{\gamma}^j_{(x)}(\lambda) = 0,
+\ese 
+which is the chart expression that the curve $\gamma$ be autoparallely transported. This is a really important equation for physics, as we shall begin to see next lecture.
+
+\br
+\label{rem:Acc}
+    We know that the complete autoparallel equation transforms like a vector (as it comes from $\nabla_{v_{\gamma}}v_{\gamma}$, which is a vector). However we have already seen that the $\Gamma$s are not tensors and so do not transform nicely. We see, then, the $\Ddot{\gamma}$ must also not be a tensor itself, but must transform in such a way as to cancel the bad parts from the $\Gamma$s. This is an important fact to note, as one is often tempted to call $\Ddot{\gamma}$ the \textit{acceleration} along $\gamma$, but it is not (as acceleration is a vector). In fact the acceleration is the complete autoparallel equation. This is actually a very nice result as it tells us that the condition for a straight line is that the acceleration along the line vanishes! It is only in a flat space, in a chart where we take the $\Gamma$s to all vanish that we recover $a=\Ddot{\gamma}$. For emphasis, we also write this in the following definition. We shall also return to acceleration at the end of this lecture.
+\er 
+
+\bd[Acceleration]
+    Let $\gamma:\R\to\cM$ be a smooth curve on an affine manifold $(\cM,\cO,\cA,\nabla)$, and let $v_{\gamma}$ be the velocity field along $\gamma$. Then the \textbf{acceleration} field along $\gamma$ is given by 
+    \bse 
+        a_{\gamma} := \nabla_{v_{\gamma}} v_{\gamma}.
+    \ese 
+\ed 
+
+\bex 
+    Consider the Euclidean plane $(\R^2,\cO,\cA,\nabla_E)$ and the chart $(U,x) = (\R^2,\b1_{\R^2})$ so that $\Gamma^i_{(x)jk}=0$ for all $i,j,k=1,2$. Then our autoparallel equation simply reads 
+    \bse 
+        \Ddot{\gamma}^i_{(x)}(\lambda) = 0 \quad \implies \quad \gamma^i_{(x)}(\lambda) = a^i\lambda + b^i,
+    \ese 
+    where $a^i,b^i\in\R$. This is just what we normally think of as the equation for a straight line. Note, however, this is only valid in this chart. If we transformed to polar coordinates the $\Gamma$s wouldn't vanish and so the expression for $\gamma$ would be different.
+\eex 
+
+\bex 
+    Now consider the so-called round sphere\footnote{That is just perfect sphere, but here `round' tells us to use the connection that gives this and not, say, the one for a potato.} $(S^2,\cO,\cA,\nabla_{\text{round}})$ and the chart $(U,x)$ with $x(p) = (\theta,\varphi)$, where $\theta \in (0,\pi)$ and $\varphi\in(0,2\pi)$, which are the usual spherical coordinates.\footnote{I.e. $\theta$ is the angle from the $z$=axis and $\varphi$ the angle from the $x$-axis. Note the $x,y,z$-axes are actually a coordinate system in themselves.} 
+    
+    We define $\nabla_{\text{round}}$ to be such that 
+    \bse 
+        \Gamma^1_{(x)22}\big|_{x^{-1}(\theta,\varphi)} = - \sin\theta \cos\theta, \qquad \Gamma^2_{(x)12}\big|_{x^{-1}(\theta,\varphi)} = \Gamma^2_{(x)21}\big|_{x^{-1}(\theta,\varphi)} = \cot\theta,
+    \ese
+    and all other $\Gamma$s vanishing. If we now introduce the (sloppy) notation 
+    \bse 
+        x^1(p) = \theta(p), \qquad \text{and} \qquad x^2(p) = \varphi(p),
+    \ese 
+    then the autoparallel equation tells us 
+    \bse 
+        \begin{split}
+            \Ddot{\theta} + \Gamma^1_{(x)22} \Dot{\varphi}\Dot{\varphi} = \Ddot{\theta} -\sin(\theta)\cos(\theta) \Dot{\varphi}\Dot{\varphi} & = 0 \\
+            \Ddot{\varphi} + 2\Gamma^2_{(x)12}\Dot{\varphi}\Dot{\theta} = \Ddot{\varphi} +2\cot(\theta)\Dot{\varphi}\Dot{\theta} & = 0.
+        \end{split}
+    \ese 
+    Now look at solutions to these equations. One solution is 
+    \bse
+        \theta(\lambda) = \frac{\pi}{2} \qquad \text{and}\qquad \varphi(\lambda) = \omega \cdot \lambda + \varphi_0,
+    \ese 
+    for $\omega,\varphi_0\in\R$, which is checked by direct substitution. These equations correspond to just going around the equator of the sphere. at a constant speed. 
+    
+    You can show that any curve that goes right round the sphere (e.g. North pole to South pole and back) will satisfy these equations. So we see that the straightest curves (that is the curves that satisfy the autoparallel equation) on the round sphere are just curves that go all the way around. This is why this choice of $\Gamma$s corresponds to the round sphere; we think of a round sphere as one whose straight lines behave like this.
+\eex 
+
+\br 
+    Technically the last example is slightly wrong. This is because the chart domain $U$ does not cover all of the round sphere but must necessarily miss off two antipodal points (e.g. North and South pole) and a straight line connecting them (e.g. a line of longitude). However, the results of the exercise are still clear. 
+\er 
+
+\bbox 
+    Show that the statement in the above remark is true: that $U$ must miss out two antipodal points and a straight line connecting them.
+\ebox  
+
+\section{Torsion}
+
+Question: Can one use $\nabla$ to define tensors on $(\cM,\cO,\cA,\nabla)$? 
+
+Answer: Yes. 
+
+\bd[Torsion]
+    The \textbf{torsion} of a connection $\nabla$ is the $(1,2)$-tensor field
+    \bse 
+        T(\omega,X,Y) :=  \omega : \big(\nabla_XY - \nabla_YX - [X,Y]\big),
+    \ese 
+    where $[\cdot,\cdot]: \Gamma T\cM \times \Gamma T\cM \to \Gamma T\cM$ is the commutator\footnote{In fact turn this is a Lie bracket by restricting to $\R$-linearity instead of $C^{\infty}$-linearity, and define the Lie algebra of vector fields. We will do this in Lecture 11.} on $\Gamma T\cM$ given by 
+    \bse 
+        [X,Y]\la f \ra := X\big\la Y\la f\ra \big\ra - Y\big\la X\la f\ra \big\ra.
+    \ese 
+\ed 
+
+\bbox 
+    Prove that $T$ is $C^{\infty}$ linear in each entry, which we require if $T$ is to be a tensor.
+\ebox 
+
+\bd[Torsion Free Connection]
+    A affine manifold $(\cM,\cO,\cA,\nabla)$ is called \textbf{torsion free} if the torsion tensor $T$ vanishes everywhere. One can also say that the connection is torsion free. This is often just written as 
+    \bse 
+        \nabla_XY - \nabla_YX = [X,Y]
+    \ese 
+    for all $X,Y\in\Gamma T\cM$.
+\ed 
+
+\bbox 
+    Show that a torsion free manifold is one such that the $\Gamma$s are purely symmetric. That is show ${\Gamma^i}_{[ab]} := \frac{1}{2} ({\Gamma^i}_{ab} - {\Gamma^i}_{ba}) =0$. 
+    
+    \textit{Hint: Calculate ${T^i}_{ab} = T\big(dx^i,\frac{\p}{\p x^a},\frac{\p}{\p x^b}\big)$.}
+\ebox 
+
+\br 
+    The above exercise is exactly the result we discussed when we first introduced the $\Gamma$s are talked about only being able to remove the symmetric part by chart transformation.
+\er 
+
+People have tried to attach physical significance to torsion (e.g. Scrh\"{o}dinger's "Spacetime Structure") but in the standard theory of general relativity we do not and so from this point on-wards in the lectures\footnote{Not in the tutorials, though.} we shall only use torsion free connections.
+
+\section{Curvature}
+
+There is another, more important, tensor that we can define using our connection.
+
+\bd[Riemann Curvature] 
+    The \textbf{Riemann curvature} of a connection $\nabla$ is the $(1,3)$-tensor field
+    \bse
+        \Riem(\omega,Z,X,Y) := \omega : \big( \nabla_X\nabla_Y Z - \nabla_Y\nabla_X Z - \nabla_{[X,Y]}Z \big).
+    \ese 
+\ed 
+
+Note the order of the entries, its $(Z,X,Y)$ not $(X,Y,Z)$, this is just a convention that makes the right-hand side look neater. 
+
+\bd[Ricci Curvature]
+    Let Riem be the Riemann curvature tensor of a connection $\nabla$. We define the \textbf{Ricci curvature} tensor as the $(0,2)$-tensor field 
+    \bse 
+        \Ric(X,Y) := \Riem(e^a,Y,X,Z_a),
+    \ese 
+    where $e^a:Z_b = \del^a_b$.
+\ed
+
+In terms of components\footnote{See the tutorial for the components of Riem.} the Ricci curvature tensor is given by 
+\bse 
+    \Ric_{ab} := {\Riem^{c}}_{acb}.
+\ese 
+
+\bnn 
+    We have define the Riemann curvature tensor with the symbol Riem and the Ricci curvature with the symbol Ric. In the literature one often sees just $R$ used for either. This is done because one is often looking at the components and so you can easily work out which you are dealing with based on that. However, as we shall see, there is a third object called the Ricci scalar (which we can't define until we have defined metrics) which we denote $R$. Seeing as it is a scalar, it has no indices and so just appears as $R$. It is in order to avoid any potential confusion that we have decided to use Riem and Ric for these notes.
+\enn 
+
+\bbox 
+    Show that Riem is $C^{\infty}$ linear in all its entries.
+\ebox 
+
+\bbox
+    Show that Riem is antisymmetric in its final two entries. That is 
+    \bse 
+        \Riem(\omega,Z,X,Y) = - \Riem(\omega,Z,Y,X).
+    \ese 
+    Use this second result to show that Riem has $d^3(d-1)/2$ independent components. 
+    
+    \textit{Hint: The second two parts are done in the tutorial video.}
+\ebox
+
+\bnn 
+    When there is no confusion about which basis\footnote{That is when we're only dealing with one basis. If there is more then one (e.g. a change of basis calculation) it is vital to keep track of which indices are for which basis.} is being used we shall used the short hand notation 
+    \bse 
+        \nabla_a := \nabla_{\frac{\p}{\p x^a}}. 
+    \ese 
+    In light of this, we shall also use the short hand 
+    \bse 
+        \p_a := \frac{\p}{\p x^a}.
+    \ese 
+    The latter is subtle as we need to remember that the right-hand side is defined in terms of partial derivatives which are written $\p_i$.
+\enn
+
+An algebraic relevance of Riem is the following. We have the result 
+\bse 
+    \nabla_X\nabla_YZ - \nabla_Y\nabla_X Z = \Riem(\cdot, Z,X,Y) + \nabla_{[X,Y]}Z.
+\ese 
+If we consider a chart $(U,x)$ and let $X=\p_a$ and $Y=\p_b$, this becomes 
+\bse 
+    (\nabla_a\nabla_bZ)^m - (\nabla_b\nabla_aZ)^m = {\Riem^m}_{nab}Z^n,
+\ese 
+where we have used $[\p_a,\p_b]=0$. 
+
+\bcl 
+    The Lie bracket $[X,Y]$ answers the question of "how well the vector fields $X$ and $Y$ can be coordinate vector fields". That is it tells us that if we lay $X$ and $Y$ on top of each other, do they form a grid? Pictorially, it asks "does the black shape close?" If $[X,Y]=0$ then the answer is yes.
+    \begin{center}
+        \btik 
+            \draw[thick, red, rotate around={-20:(3,0)}] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+            \draw[thick, red, rotate around={-20:(3,0)}, yshift = 1cm] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+            \draw[thick, red, rotate around={-20:(3,0)}, yshift = 2cm] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+            \draw[thick, red, rotate around={-20:(3,0)}, yshift = 3cm] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+            \node at (7.25,2) {\textcolor{red}{\Large{$X$}}};
+            %
+            \draw[thick, blue, rotate around={-20:(3,0)}] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+            \draw[thick, blue, rotate around={-20:(3,0)}, xshift = 1.5cm] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+            \draw[thick, blue, rotate around={-20:(3,0)}, xshift = 3cm] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+            \draw[thick, blue, rotate around={-20:(3,0)}, xshift = 4.5cm] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+            \node at (6,3) {\textcolor{blue}{\Large{$Y$}}};
+            %%
+            \begin{scope}
+                \clip[rotate around={-20:(3,0)}] (0,2) .. controls (2,2.5) and (4,2.5) .. (6,2) -- (6,1) .. controls (4,1.5) and (2,1.5) .. (0,1) -- (0,2);
+                \draw[ultra thick, rotate around={-20:(3,0)}, xshift = 1.5cm, decoration={markings, mark=at position 0.53 with {\arrow{>}}}, postaction={decorate}] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+                \draw[ultra thick, rotate around={-20:(3,0)}, xshift = 3cm, decoration={markings, mark=at position 0.53 with {\arrow{<}}}, postaction={decorate}] (0.5,-0.5) .. controls (-0.5,0.83) and (1.5,2.17) .. (0.5,4);
+            \end{scope}
+            \begin{scope}
+                \clip[rotate around={-20:(3,0)}] (2,-0.5) .. controls (1,0.83) and (3,2.17) .. (2,4) -- (3.5,4) .. controls (4.5,2.17) and (2.5,0.83) .. (3.5,-0.5) -- (2,-0.5);
+                \draw[ultra thick, rotate around={-20:(3,0)}, yshift = 1cm, decoration={markings, mark=at position 0.45 with {\arrow{<}}}, postaction={decorate}] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+                \draw[ultra thick, rotate around={-20:(3,0)}, yshift = 2cm, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0,0) .. controls (2,0.5) and (4,0.5) .. (6,0);
+            \end{scope}
+            \node at (0,2.5) {\large{$[X,Y]=0$}};
+        \etik 
+    \end{center}
+\ecl 
+
+From this claim we can get a nice geometrical idea for the Riemann curvature. The left-hand side ($\nabla_a\nabla_b Z-\nabla_b\nabla_aZ$) takes the vector $Z$ from the bottom corner of the black shape and around in the direction of the arrows drawn (note the minus sign means we go down the $X$ and left on the $Y$). If Riem vanishes, the result is that the transported $Z$ and the initial $Z$ coincide, and therefore we haven't travelled through curvature (recall that parallel transport on a curved surface is path dependent). Whereas if Riem does not vanish then the transported $Z$ is not the same as the initial $Z$ and so we must have gone through curvature. Therefore the Riemann curvature tensor encodes information about the curvature of the manifold (hence the name!).
+
+\br 
+    Note we have used a chart in order to obtain the above result and so we might be worried that Riem vanishes in one chart but not in another (e.g. Cartesian to polar). The answer is obviously that this can't happen because it is a tensor and so if it vanishes in one chart it must vanish in all charts.
+\er 
+
+\bl 
+    The Riemann tensor satisfies the differential \textbf{Bianchi identity}, 
+    \bse 
+        (\nabla_A\Riem)(\omega,Z,B,C) + (\nabla_B\Riem)(\omega,Z,C,A) + (\nabla_C\Riem)(\omega,Z,A,B) = 0,
+    \ese 
+    where $\nabla$ is torsion-free. In component form this reads 
+    \bse 
+        \nabla_c{R^w}_{zab} + \nabla_a{R^w}_{zbc} + \nabla_b{R^w}_{zca} = 0 
+    \ese
+\el 
+
+\bbox 
+    Prove that the Bianchi identity holds. 
+    
+    \textit{Hint (from tutorial): Start by rewriting the first term only by repeated use of the Leibniz rule and one-time employment of the definition of the Riemann tensor. From this result, generate the second and third terms by mere cyclic substitution of the appropriate vectors. The rest is systematic and disciplined elimination of terms.}
+\ebox 

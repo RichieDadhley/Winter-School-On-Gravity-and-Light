@@ -1,0 +1,136 @@
+% Begin/end Shortcuts
+\def\bcon{\begin{convention}} 
+\def\econ{\end{convention}}
+\def\bc{\begin{corollary}}
+\def\ec{\end{corollary}}
+\def\bcl{\begin{claim}}
+\def\ecl{\end{claim}}
+\def\bd{\begin{definition}}
+\def\ed{\end{definition}}
+\def\ben{\begin{enumerate}}
+\def\benr{\begin{enumerate}[label=(\roman*)]}
+\def\een{\end{enumerate}}
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\bse{\begin{equation*}}
+\def\ese{\end{equation*}}
+\def\bex{\begin{example}}
+\def\eex{\end{example}}
+\def\bexe{\begin{exercise}}
+\def\eexe{\end{exercise}}
+\def\bit{\begin{itemize}}
+\def\eit{\end{itemize}}
+\def\bl{\begin{lemma}}
+\def\el{\end{lemma}}
+\def\bnn{\begin{notation}}
+\def\enn{\end{notation}}
+\def\bn{\begin{note}}
+\def\en{\end{note}}
+\def\bp{\begin{proposition}}
+\def\ep{\end{proposition}}
+\def\bpo{\begin{postulate}}
+\def\epo{\end{postulate}}
+\def\bq{\begin{proof}}
+\def\eq{\end{proof}}
+\def\br{\begin{remark}}
+\def\er{\end{remark}}
+\def\bs{\begin{solution}}
+\def\es{\end{solution}}
+\def\btab{\begin{table}}
+\def\etab{\end{table}}
+\def\btb{\begin{tabular}}
+\def\etb{\end{tabular}}
+\def\bter{\begin{terminology}}
+\def\eter{\end{terminology}}
+\def\bt{\begin{theorem}}
+\def\et{\end{theorem}}
+\def\btik{\begin{tikzpicture}}
+\def\etik{\end{tikzpicture}}
+
+% Letter Shortcuts
+% Greek letters
+\def\a{\alpha}
+\def\b{\beta}
+\def\del{\delta}
+\def\g{\gamma}
+\def\l{\lambda}
+\def\n{\nabla}
+\def\sig{\sigma}
+
+% Mathbb
+\def\b1{\mathbb{1}} % identity
+\def\C{\mathbb{C}} % complex numbers
+\def\F{\mathbb{F}}
+\def\N{\mathbb{N}} % Natural
+\def\Q{\mathbb{Q}} % Rational
+\def\R{\mathbb{R}} % Reals
+\def\Z{\mathbb{Z}} % Integers
+
+
+% Mathcal
+\def\cA{\mathcal{A}}
+\def\cB{\mathcal{B}}
+\def\cD{\mathcal{D}}
+\def\cF{\mathcal{F}}
+\def\cH{\mathcal{H}}
+\def\cI{\mathcal{I}}
+\def\cJ{\mathcal{J}}
+\def\cK{\mathcal{K}}
+\def\cL{\mathcal{L}}
+\def\cM{\mathcal{M}}
+\def\cN{\mathcal{N}}
+\def\cO{\mathcal{O}}
+\def\cP{\mathcal{P}}
+\def\cT{\mathcal{T}}
+
+% Mathfrak 
+\DeclareMathOperator{\GL}{GL}
+\def\gl{\mathfrak{gl}}
+\DeclareMathOperator{\Ort}{O}
+\def\ort{\mathfrak{o}}
+\DeclareMathOperator{\SL}{SL}
+\def\sl{\mathfrak{sl}}
+\DeclareMathOperator{\SO}{SO}
+\def\so{\mathfrak{so}}
+\DeclareMathOperator{\SU}{SU}
+\def\su{\mathfrak{su}}
+\def\fF{\mathfrak{F}}
+\def\fI{\mathfrak{I}}
+
+% Math Roman Font
+\def\cosec{\mathrm{cosec}}
+
+% Misc. 
+\def\qand{\qquad\text{and}\qquad}
+\def\diag{\text{diag}}
+\def\Hom{\text{Hom}}
+\def\id{\text{id}}
+\def\la{\langle}
+\def\lmap{\xrightarrow{\sim}}
+\def\p{\partial}
+\def\preim{\text{preim}}
+\def\ra{\rangle}
+\def\Span{\text{span}}
+\def\Ric{\text{Ric}}
+\def\Riem{\text{Riem}}
+\def\ss{\subset}
+\def\se{\subseteq}
+\def\sm{\setminus}
+\def\ve{\varepsilon}
+\def\vn{\varnothing}
+\def\cl{\colon}
+
+% Boxes 
+\DeclareRobustCommand{\mybox}[2][colframe=blue!10!black,before skip=10pt]{%
+\begin{tcolorbox}[
+        breakable,
+        width=\dimexpr\textwidth\relax, 
+        boxsep=5pt,
+        arc=5pt,outer arc=5pt,
+        ]
+        #2
+\end{tcolorbox}
+}
+
+\def\bbox{\begin{tcolorbox}[colback=white!5,colframe=blue!75!black,title=Exercise]}
+\def\ebox{\end{tcolorbox}}

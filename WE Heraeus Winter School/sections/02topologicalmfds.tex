@@ -1,0 +1,178 @@
+\chapter{Topological Manifolds}
+
+Its a fact of life\footnote{Or mathematics to be less dramatic.} that there are so many different topological spaces that mathematicians can't even classify\footnote{In the sense that one can classify all Lie groups.} them. In other words, there is no such set of topological notions known such that we can work out whether two spaces are homeomorphic by simply `ticking' whether two spaces have these notions or not. 
+
+For classical\footnote{As in not quantum mechanical. Obviously we are talking about relativistic physics.} spacetime physics, we may focus on topological spaces $(\cM,\cO_{\cM})$ that can be \textit{charted}, analogously to how the surface of the Earth is charted in an atlas. 
+
+\section{Topological Manifolds}
+
+\bd 
+    Let $U_p$ denote an open neighbourhood containing the point $p$ in some topological space. A topological space $(\cM,\cO)$ is called a \textbf{$d$-dimensional topological manifold} if 
+    \bse 
+        \forall p\in \cM \, \, \exists U_p \in \cO \, : \, \exists x : U_p \to x(U_p) \se \R^d 
+    \ese 
+    such that 
+    \benr 
+        \item $x$ is \textit{invertible}: $x^{-1}:x(U_p) \to U_p$,
+        \item $x$ is \textit{continuous},\footnote{We use the standard topology on $\R^d$.}
+        \item $x^{-1}$ is \textit{continuous}.
+    \een 
+\ed 
+
+\br 
+    Note, from the required continuity of $x$ and its inverse, we see that the image $x(U_p)$ must be open w.r.t. the standard topology on $\R^d$. 
+\er 
+
+\bex 
+    Let $\cM$ be the surface of a torus. This is a subset of $\R^3$, and so we can inherit the subset topology from the standard topology on $\R^3$. This is an example of a $2$-dimensional topological manifold. We see this by taking any open neighbourhood on the torus, which is just a boudariless closed shape on the surface, and we map all the points within it to a open set in $\R^2$ (see diagram below). With some thought/workings one can convince themselves that this map will be injective (and so invertible), the inverse map is surjective (so that the whole torus surface is mapped) and continuous in both directions. 
+    \begin{center}
+        \btik
+            \draw[thick] (0,0) ellipse (3 and 1.5);
+            \begin{scope}
+                \clip (0,-1.8) ellipse (3 and 2.5);
+                \draw[thick] (0,2.2) ellipse (3 and 2.5);
+            \end{scope}
+            \begin{scope}
+                \clip (0,2.2) ellipse (3 and 2.5);
+                \draw[thick] (0,-2.2) ellipse (3 and 2.5);
+            \end{scope}
+            %
+            \draw[->] (1.5,-0.5) -- (7,0);
+            \draw[->] (4.8,-1) -- (9,-1);
+            \draw[->] (5,-1.2) -- (5,2);
+            \draw[dashed, thick] plot [smooth cycle, tension=0.6] coordinates {(1,-0.5) (1.5,-0.2) (2,-0.25) (1.7,-0.8) (0.9,-1) };
+            \draw[dashed, thick] plot [smooth cycle, tension=0.6] coordinates { (6,0) (7,1) (7.5,0.5) (8,0.5) (8,-0.5) (5.5,-0.7) };
+            \node at (1.3,-0.6) {\large{$U$}};
+            \node at (4,0) {\large{$x$}};
+            \node at (7.5,0) {\large{$x(U)$}};
+            \node at (1,1) {\large{$\cM$}};
+            \node at (5.5,1.5) {\large{$\R^2$}};
+        \etik
+    \end{center}
+    This is exactly the same idea as what one does when charting the surface of the Earth to make road maps and atlases. 
+\eex 
+
+\br 
+    It might be tempting to say that a topological manifold is homeomorphic\footnote{That is there exists a bijective map that is continuous and so is its inverse.} to $\R^d$ given the explanation in the previous example. However, this is not true because our map is only surjective to a \textit{subset} of $\R^d$, not the whole set. So the correct statement is that a topological manifold is homeomorphic to some particular subset of $\R^d$. 
+\er 
+
+It is important to note that the values in the chart (i.e. the coordinates in $\R^2$ above) bare no physical significance whatsoever. They simply act as a way for us to compare the positions of things in the real world. It is the surface of the torus itself that has the physical significance. To clarify, if the base of the Eiffel tower was at point $p\in\cM$ and we mapped it to the coordinates $(x_1(p),x_2(p)) = (1,2)$, say, the values $1$ and $2$ do not mean anything \textit{physical}, they simply tell us that \textit{in this chart} the position of the Eiffel tower's base is $(1,2)$. Of course if we picked a different chart (for example consider just rotating our chart by 90 degrees) these coordinate values would change to something new, however the Eiffel tower itself is completely unaffected by this. 
+
+\bex 
+    Let $\cM$ be a wire loop. We again can imagine this in $\R^3$ and inherit the subset topology from the standard topology. Following the same idea as the previous example, we see that this is a $1$-dimensional topological manifold. 
+\eex   
+
+\bex 
+    Now consider the following diagram 
+    \begin{center}
+        \btik 
+            \draw[thick] (0,0) .. controls (0.5,0.5) and (1,-0.2) .. (2,0.2);
+            \draw[thick] (2,0.2) .. controls (2.5,1) and (2.7,0.7) .. (3,0.9);
+            \draw[thick] (2,0.2) .. controls (2.2, 0) and (2.5,-0.5) .. (3,-0.3);
+            \node at (0.5,0.5) {\large{$\cM$}};
+        \etik 
+    \end{center}
+    Again this is clearly a subset of $\R^3$ (or even $\R^2$ if you view it as flat on the page) and so we can inherit a topology onto it. However this topological space fails to be a topological manifold because of the splitting point. This point essentially stops us being able to define a invertible, both ways continuous map. 
+\eex 
+
+\bter
+    \begin{itemize}
+        \item The pair $(U,x)$ is called a \textbf{chart} of $(\cM,\cO)$. 
+        \item The set $\cA = \{(U_{(\a)},x_{(\a)}) \, | \, \a\in A\}$, for some arbitrary index set $A$, is called an \textbf{atlas} of $(\cM,\cO)$ if $\bigcup_{\a\in A} U_{(\a)} = \cM$.
+        \item $x:U\to x(U)\se\R^d$ is called a \textbf{chart map} defined by $x(p) = \big(x^1(p),...,x^d(p)\big)$, where $x^i(p)$ is the $i^{\text{th}}$ coordinate of $p$ w.r.t. the chosen chart $(U,x)$.
+        \item $x^i:U \to \R$ are called the \textbf{coordinate maps}.
+    \end{itemize}
+\eter 
+
+\bd[Maximal Atlas]
+    An atlas that contains every possible chart for a topological manifold is called a \textbf{maximal atlas}.
+\ed 
+
+\section{Chart Transition Maps}
+
+As the name suggests, a chart transition map is a chart dependent thing and therefore have no physical meaning at all. However, they are incredibly useful (especially for physicists) and so we shall study them. 
+
+Imagine two charts $(U,x)$ and $(V,y)$ for the same topological space $(\cM,\cO)$ with overlapping regions, i.e. $U\cap V \neq \emptyset$. A point in this overlap region can be mapped by both $x$ and $y$ to their respective patches of $\R^d$. We can go between these two chart representatives of the point using the \textbf{chart transition maps}. For example if we want to go from the chart $(U,x)$ to $(V,y)$ we use the chart transition map $(y\circ x^{-1}): x(U\cap V) \to y(U\cap V)$ (see \Cref{fig:ChartTransition}). 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik[scale=1.2]
+            \draw[thick] (0.5,3.5) -- (0.5,7.5) -- (9.5,7.5) -- (9.5,3.5) -- (0.5,3.5);
+            \node at (1,4) {\Huge{$\cM$}};
+            %
+            \draw[thick,red,dashed] (4,5.5) ellipse (2.5cm and 1.5cm);
+            \node at (2, 7)   {\Huge{\color{red}{$U$}}};
+            \draw[thick,blue,dashed] (6,5.5) ellipse (3cm and 1cm);
+            \node at (8, 6.8)   {\Huge{\color{blue}{$V$}}};
+            %
+            \begin{scope}
+                \clip (4,5.5) ellipse (2.5cm and 1.5cm);
+                \clip (6,5.5) ellipse (3cm and 1cm);
+                \draw[opacity=0.5,pattern=north west lines, pattern color=black] (3.5,3.5) circle (5);
+            \end{scope}
+            \node at (6.2, 7)   {\Huge{$U\cap V$}};
+            %
+            \node[circle, fill, inner sep=2pt, label={above:\Huge{$p$}}] at (5,5.5) {};
+            %
+            \draw[->,thick] (5,5.5) .. controls (4.5,4.5) and (2,3) .. (1.5,2) node[label={left:\Large $x$ }, midway]{};
+            \node[circle, fill, inner sep=2pt, label={below:\Large{$x(p)$}}] at (1.48,1.93) {};
+            %
+            \draw[->,thick] (5,5.5) .. controls (5.5,4) and (8,3) .. (8.5,2) node[label={above right:\Large $y$ }, midway]{};
+            \node[circle, fill, inner sep=2pt, label={right:\Large{$y(p)$}}] at (8.53,1.93) {};
+            %
+            \draw[->,ultra thick] (-0.2,0)--(4,0);
+            \draw[->,ultra thick] (0,-0.2)--(0,3);
+            %
+            \draw[thick, red, dashed] (2.2,1.4) ellipse  (1.8 and 1.2);
+            \begin{scope}
+                \clip (2.2,1.4) ellipse (1.8 and 1.2);
+                \clip (1.5,1.9) circle (1cm);
+                \draw[opacity=0.5,pattern=north west lines, pattern color=black] (3.5,3.5) circle (5);
+            \end{scope}
+            \node at (0.8, 2.6)   {\color{red}{\large{$x(U)$}}};
+            \node at (2.5, 0.8)   {\large{$x(U\cap V)$}};
+            %
+            \draw[->,ultra thick] (5.8,0)--(10,0);
+            \draw[->,ultra thick] (6,-0.2)--(6,3);
+            \draw[thick, blue, dashed] (8,1.6) ellipse  (1.8 and 1.5);
+            \begin{scope}
+                \clip (8,1.6) ellipse  (1.8 and 1.5);
+                \clip (8.5,1.9) ellipse (0.5cm and 0.8cm);
+                \draw[opacity=0.5,pattern=north west lines, pattern color=black] (8.5,1.9) circle (5);
+            \end{scope}
+            \node at (9.5, 3)   {\color{blue}{\large{$y(V)$}}};
+            \node at (8.5, 0.8)   {\large{$y(U\cap V)$}};
+            %
+            \draw[->,thick] (1.48,1.93) .. controls (3,2.5) and (5,1.2) .. (8.4,1.93);
+            \node at (4.8,2.2) {\large $\big(y\circ x^{-1}\big)\big(x(p)\big)$};
+        \etik
+        \caption{Chart representations $(U,x)$ and $(V,y)$ with a non-empty overlap. The overlap region (shaded) $U\cap V$ is mapped by both $x$ and $y$ to their respective representations. A chart transition map $y \circ x^{-1}$ can be used to map the overlap region from one representation into the other. The chart transition map is continuous as it is the composition of two continuous maps.}
+        \label{fig:ChartTransition}
+    \end{center}
+\end{figure}
+
+We can draw this idea just in terms of maps by the following:
+\begin{center}
+    \btik 
+        \node at (0,0) {\Large{$U\cap V$}};
+        \node at (-4,-2) {\Large{$x(U\cap V)$}};
+        \node at (4,-2) {\Large{$y(U\cap V)$}};
+        \draw[->,thick] (-0.5,-0.5) -- (-4,-1.5) node[label={\Large $x$}, midway]{};
+        \draw[->,thick] (0.5,-0.5) -- (4,-1.5) node[label={\Large $y$}, midway]{};
+        \draw[->,thick] (-2.5,-2) -- (2.5,-2) node[label={below: \Large $y\circ x^{-1}$}, midway]{};
+    \etik 
+\end{center}
+
+Informally, the chart transition maps contain the information about how to `glue together' the pages of an atlas. That is, given 10 pages of an atlas each of which overlaps with the two others, the chart transition maps tell us what order to put them together to get the geographical order\footnote{By which we obviously mean that page 3 follows on from page 2 in the same way that page 2 follows on from page 1.} correct. 
+
+\section{Manifold Philosophy}
+
+Often it is desirable (or indeed the only way) to define properties (e.g. continuity) of real world objects (e.g. the curve $\gamma:\R\to \cM$) by judging suitable conditions, not on the real world object itself but on a chart representative/image of that real world object. The main advantage of doing this is we can then use undergraduate analysis to study these properties. For example if $\gamma:\R\to \cM$ is the real world trajectory of a particle, we can work out whether the path is continuous by asking whether the composite map $(x\circ\gamma):\R\to\R^d$ is continuous, using the undergraduate notion of continuity of such a map. 
+
+We shall see, however, that we must be careful when doing this. Just because a real world object has a certain undergraduate behaviour in \textit{some} chart, it does not mean the real world object has it too. What we will actually require is that we can form an atlas such that in \textit{every} chart the representative of the object has our desired property. We will see next lecture, that this can be thought of as the idea that we want the chart transition maps to also have our desired undergraduate property, and that the property is maintained under the composition of maps. What we're saying here is that the property of the real world object can't depend on how we imagine it drawn on a piece of paper. It is a \textit{chart independent} property. 
+
+\bbox
+    Show that the `lifted' notion of undergraduate continuity corresponds to the definition of a continuous map given earlier. That is, if $\gamma:\R\to\cM$ is a path on our manifold, show that if we know all the chart representative maps $(x\circ \gamma):\R\to \R^d$ are undergraduate continuous, we can conclude that the preimage of open sets in $\cM$ under $\gamma$ are open sets in $\R$. 
+    
+    \textit{Hint: Use \Cref{thrm:CompositionOfContinuousMaps} along with the definition of a topological manifold.}
+\ebox  

@@ -1,0 +1,538 @@
+\chapter{Black Holes}
+
+We want to study the Schwarzschild solution to Einstein's equations. It is a vacuum solution with the metric in the Schwarzschild chart, whose coordinates are $(t,r,\theta,\varphi)$, given by
+\bse 
+    g = \bigg(1-\frac{2m}{r}\bigg) dt\otimes dt - \frac{1}{1-\frac{2m}{r}}dr\otimes dr - r^2\big(d\theta\otimes d\theta + \sin^2\theta d\varphi\otimes d\varphi\big),
+\ese 
+where $m= G_NM$ with $M$ being the mass of the object (in this case the black hole). 
+
+\br 
+    Note that Dr. Schuller has gone back to using the $(+,-,-,-)$ signature here. I will follow this convention in these notes.
+\er 
+
+\bnn 
+    The final two terms in the above expression are often grouped into one and we define 
+    \bse 
+        d\Omega\otimes d\Omega = r^2\big(d\theta\otimes d\theta + \sin^2\theta d\varphi\otimes d\varphi\big).
+    \ese 
+    This notation is very popular in textbooks etc. as it lightens notation, and as we will see, it is mainly the $dt\otimes dt$ and $dr\otimes dr$ terms we are concerned with. 
+\enn
+ 
+The above expression is obviously only for the Schwarzschild coordinates, but the metric itself can of course be expressed in any chart. We may think that the ranges of the Schwarzschild coordinated coordinates are $t\in(-\infty,\infty)$, $r\in(0,\infty)$, $\theta\in(0,\pi)$ and $\varphi\in(0,2\pi)$. However, after paying closer attention to the metric above we note an immediate problem: what happens at $r=2m$? The $dt\otimes dt$ term goes to zero, which is bad enough, but on top of that the $dr\otimes dr$ time diverges! We must, therefore, remove this point from our domain, i.e. $r\in(0,2m)\dot{\cup}(2m,\infty)$, where the dot denotes the fact that the union is disjoint. We then have to ask the question about what actually happens at $r=2m?$
+
+The next question we should ask is "is there anything in the real world beyond the points $t\to\pm\infty$?" This question sounds silly, as what is beyond $\pm\infty$, but we need to remind ourselves that $t:\cM\to\R^4$ is a chart map and we need not cover all of $\cM$ with it. That is, we can parameterise $t$ such that a finite volume of $\cM$ is mapped to an infinite volume in $\R^4$. We can ask a similar question about $r\to\infty$.
+
+The insight to these questions comes from taking a step back and not looking at the above expression itself but looking at objective objects instead, namely geodesics. 
+
+\section{Radial Null Geodesics}
+
+Consider null\footnote{Recall this just means $g(v_{\gamma},v_{\gamma})=0$, which correspond to the worldlines of massless particles.} geodesics in Schwarzschild spacetime. The action is 
+\bse 
+    S[\gamma] = \int d\lambda \bigg[ \bigg(1-\frac{2m}{r}\bigg) \dot{t}^2 - \bigg(1-\frac{2m}{r}\bigg)^{-1} \dot{r}^2 - r^2\big(\dot{\theta}^2 + \sin^2\theta \dot{\varphi}^2\big) \bigg].
+\ese 
+
+Let's first find the $t$ equation of motion, i.e. vary w.r.t. $\del t$. We have 
+\bse 
+    \frac{d}{d\lambda} \bigg[\bigg( 1-\frac{2m}{r}\bigg)\dot{t}\bigg] = 0 \qquad \iff \qquad \bigg( 1-\frac{2m}{r}\bigg)\dot{t} = k,
+\ese 
+for some constant $k$.
+
+\bd[Radial Geodesics]
+    We define a \textbf{radial geodesic} to be one that `follows $r$'. In other words, we set $\theta = \theta_0$ and $\varphi = \varphi_0$, for some constants $\theta_0$ and $\varphi_0$.
+\ed 
+
+\bbox
+    Use the temporal equation of motion, the null condition and the radial condition to show that we can use $r$ as an affine parameter. 
+    
+    \textit{Hint: Show that $r=\pm k \lambda$ and then argue why we can consider $r$ to be a affine parameter. (If you need help Dr. Schuller explains this argument in the video).}
+\ebox 
+
+We express the result of the above exercise as $\widetilde{t}(r) = t(\pm k\lambda)$. Let's consider each case: 
+\benr 
+    \item First consider $\widetilde{t}_+(r) = t(k\lambda)$. The chain rule gives us
+    \bse 
+        \frac{d\widetilde{t}_+}{dr} = \frac{d\widetilde{t}}{d\lambda}\frac{d\lambda}{dr} = \frac{\dot{t}}{\dot{r}} = \frac{k}{\Big(1-\frac{2m}{r}\Big)k} = \frac{r}{r-2m}. 
+    \ese
+    Integrating this\footnote{This integral is not actually the easiest to do, but differentiating the result shows you that its true.} 
+    \bse 
+        \widetilde{t}_+(r) = r+ 2m\ln\big|r-2m\big| + \text{constant}.
+    \ese 
+    These are the \textbf{outgoing} null geodesics.
+    \item Now consider $\widetilde{t}_-(r) = t(-k\lambda)$. A similar method to the above gives us
+    \bse 
+        \widetilde{t}_-(r) = -r -2m\ln\big|r-2m\big| + \text{constant}.
+    \ese 
+    These are the \textbf{ingoing} null geodesics.
+\een 
+
+To see what's happening let's plot the outgoing and ingoing geodesics.\footnote{This diagram was a pain to draw, so to any readers: I hope you like it!}
+
+% Anyone reading this, I just want to say that I am quite impressed in how I decided to code the Tikz below.
+
+\begin{center}
+    \btik[xscale=2]
+        \draw[thick,->] (-3,0) -- (4,0);
+        \node at (4,-0.2) {$r$};
+        \draw[thick, dashed, ->] (-3,-3) -- (-3,3);
+        \node at (-3.2,2.8) {$\widetilde{t}$};
+        \draw[thick, dashed] (0,-3) -- (0,3);
+        \node at (0,-0.2) {$2m$};
+        \begin{scope}
+            \clip (-3,-3) -- (4,-3) -- (4,3) -- (-3,3) -- (-3,-3);
+            \draw[thick, blue, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, blue, xscale=0.5, yscale=1.5, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, blue, xscale=0.2, yscale=2, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            % 
+            \draw[thick, blue, xscale=-1, yscale=0.3, yshift=-5cm, decoration={markings, mark=at position 0.1 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, blue, xscale=-0.95, yscale=0.5, xshift=-0.05cm, yshift=-0.2cm, decoration={markings, mark=at position 0.13 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, blue, xscale=-0.65, yscale=0.8, xshift=-0.25cm, yshift=0.4cm, decoration={markings, mark=at position 0.3 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            %
+            \draw[thick, red, yscale=-1, decoration={markings, mark=at position 0.6 with {\arrow{<}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, red, xscale=0.5, yscale=-1.5, decoration={markings, mark=at position 0.6 with {\arrow{<}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, red, xscale=0.2, yscale=-2, decoration={markings, mark=at position 0.55 with {\arrow{<}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            %
+            \draw[thick, red, xscale=-1, yscale=-0.3, yshift=-5cm, decoration={markings, mark=at position 0.2 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, red, xscale=-0.95, yscale=-0.5, xshift=-0.05cm, yshift=-0.2cm, decoration={markings, mark=at position 0.18 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, red, xscale=-0.65, yscale=-0.8, xshift=-0.25cm, yshift=0.4cm, decoration={markings, mark=at position 0.3 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+        \end{scope}
+        \node at (3.5,2) {\textcolor{blue}{outgoing}};
+        \node at (3.5,-2) {\textcolor{red}{ingoing}};
+        %
+        \draw[thick, rotate around={25:(1.05,0)}] (1.05,0) -- (1.05,0.5);
+        \draw[thick, rotate around={-25:(1.05,0)}] (1.05,0) -- (1.05,0.5);
+        \draw[thick] (1.25,0.45) arc (360:0:0.2cm and 0.08cm);
+        % 
+        \draw[thick, rotate around={15:(0.68,0.85)}] (0.68,0.85) -- (0.68,1.35);
+        \draw[thick, rotate around={-15:(0.68,0.85)}] (0.68,0.85) -- (0.68,1.35);
+        \draw[thick] (0.55,1.35) arc (180:-180:0.13cm and 0.05cm);
+        % 
+        \draw[thick, rotate around={5:(0.365,2.25)}] (0.365,2.25) -- (0.365,2.75);
+        \draw[thick, rotate around={-5:(0.365,2.25)}] (0.365,2.25) -- (0.365,2.75);
+        \draw[thick] (0.32,2.75) arc (180:-180:0.045cm and 0.025cm);
+        % 
+        \draw[thick, rotate around={68:(-0.68,0)}] (-0.68,0) -- (-1.18,0);
+        \draw[thick, rotate around={-68:(-0.68,0)}] (-0.68,0) -- (-1.18,0); 
+        \draw[thick] (-0.92,0) arc (180:-180:0.05cm and 0.45cm);
+        % 
+        \draw[thick, rotate around={60:(-0.94,-0.63)}] (-0.94,-0.63) -- (-1.55,-0.63);
+        \draw[thick, rotate around={-52:(-0.94,-0.63)}] (-0.94,-0.63) -- (-1.44,-0.63);
+        \draw[thick] (-1.3,-0.69) arc (180:-180:0.05cm and 0.45cm);
+        % 
+        \draw[thick, rotate around={43:(-1.5,-1.49)}] (-1.5,-1.49)-- (-2,-1.49);
+        \draw[thick, rotate around={-25:(-1.5,-1.49)}] (-1.5,-1.49)-- (-1.92,-1.49);
+        \draw[thick] (-1.85,-1.58) arc (-180:180:-0.03cm and 0.27cm);
+    \etik 
+\end{center}
+
+This diagram can actually be very misleading. Firstly the light cones appear to be closing, which is very strange and then all of a sudden emerge tilted on their side in the region $r<2m$. This problems stems from the fact that we are drawing deciding what the light cones look like based on the charted geodesics, and is actually not a problem at all.\footnote{I have written my own ideas for what I believe is really happening here and uploaded it to my blog site. Those notes contain many errors I need to go back and fix, but the interested reader will still hopefully find it an enjoyable read.} 
+
+The next problem is it appears that a geodesic that starts in the region $r>2m$ cannot get to the region $r<2m$. This seems completely crazy, because haven't we heard before that a Schwarzschild black hole is a dense object who has an event horizon at $r=2m$. So shouldn't a geodesic go through this line? The answer is obviously "yes" and the problem is again an artefact of the coordinate choice, specifically the range of $t$. To see why, imagine mapping London\footnote{Dr. Schuller uses Linz, but I am British so I'll use London.} into a chart of infinite volume. Consider someone who lives in London but works outside London: in the morning they set off from home to work, and then after work they decide to come back in to London for a meal with a friend. If we plotted their path in our chart it would look like the following:
+\begin{center}
+    \btik 
+        \draw[thick, dashed] (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+        \begin{scope}  
+            \clip (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+            \draw[thick, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, postaction={decorate}] (2,1) -- (1.5,4);
+            \draw[thick, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (1.5,4) -- (1,0.5);
+            \draw[thick, blue, dashed] (1.5,0) -- (1.5,3);
+        \end{scope}
+        \draw[fill=black] (2,1) circle [radius=0.05cm];
+        \draw[fill=black] (1,0.5) circle [radius=0.05cm];
+    \etik 
+\end{center}
+It is clearly not true that this person didn't cross the blue line, it is simply just not included in the chart. In other words, we expect that the path is really like the following:
+\begin{center}
+    \btik 
+        \draw[thick, dashed] (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+        \draw[thick, decoration={markings, mark=at position 0.4 with {\arrow{>}}}, postaction={decorate}] (2,1) -- (1.5,4);
+        \draw[thick, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (1.5,4) -- (1,0.5);
+        \draw[thick, blue, dashed] (1.5,0) -- (1.5,3);
+        \draw[fill=black] (2,1) circle [radius=0.05cm];
+        \draw[fill=black] (1.5,4) circle [radius=0.05cm];
+        \draw[fill=black] (1,0.5) circle [radius=0.05cm];
+    \etik 
+\end{center}
+
+Could the same thing be true for our Schwarzschild picture? The answer is "yes", and we shall explain how in the next section.
+
+\section{Eddington-Finkelstein}
+
+The idea is to change the coordinates such that, in our new coordinates the \textit{ingoing} null geodesics appear as straight lines of slope $-1$. This is achieved by the coordinate
+\bse 
+    \bar{t}_{\pm}(t,r,\theta,\varphi) := \widetilde{t}_{\pm} + 2m \ln|r-2m|.
+\ese 
+Rearranging this for $\widetilde{t}_-$ and plugging it into the expression for $\widetilde{t}_-(r)$ you get 
+\bse 
+    \bar{t}_- = -r + \text{constant},
+\ese
+which is exactly what we wanted. We also get 
+\bse 
+    \bar{t}_+ = r + 4m\ln|r-2m| + \text{constant},
+\ese 
+which will have the same kind of shape as before (but slightly scaled). The graph therefore becomes: 
+
+\begin{center}
+    \btik[xscale=2]
+        \draw[thick,->] (-3,0) -- (4,0);
+        \node at (4,-0.2) {$r$};
+        \draw[thick, dashed, ->] (-3,-3) -- (-3,3);
+        \node at (-3.2,2.8) {$\bar{t}$};
+        \draw[thick, dashed] (0,-3) -- (0,3);
+        \node at (0,-0.2) {$2m$};
+        \begin{scope}
+            \clip (-3,-3) -- (4,-3) -- (4,3) -- (-3,3) -- (-3,-3);
+            \draw[thick, blue, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, blue, xscale=0.5, yscale=1.5, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            \draw[thick, blue, xscale=0.2, yscale=2, decoration={markings, mark=at position 0.6 with {\arrow{>}}}, postaction={decorate}] (0.3,-3) .. controls (0.5,1) and (3,2.5) .. (5,3);
+            % 
+            \draw[thick, blue, xscale=-1, yscale=0.3, yshift=-5cm, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, blue, xscale=-0.95, yscale=0.5, xshift=-0.05cm, yshift=-0.2cm, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            \draw[thick, blue, xscale=-0.65, yscale=0.8, xshift=-0.25cm, yshift=0.4cm, decoration={markings, mark=at position 0.7 with {\arrow{>}}}, postaction={decorate}] (0.3,-6) .. controls (0.5,1) and (3,2.3) .. (5,2.5);
+            %
+            \draw[thick, red, yshift=3cm, decoration={markings, mark=at position 0.7 with {\arrow{<}}}, postaction={decorate}] (-6,6) -- (6,-6);
+            \draw[thick, red, yshift=1cm, decoration={markings, mark=at position 0.65 with {\arrow{<}}}, decoration={markings, mark=at position 0.45 with {\arrow{<}}}, postaction={decorate}] (-6,6) -- (6,-6);
+            \draw[thick, red, yshift=-1cm, decoration={markings, mark=at position 0.6 with {\arrow{<}}}, decoration={markings, mark=at position 0.4 with {\arrow{<}}}, postaction={decorate}] (-6,6) -- (6,-6);
+            \draw[thick, red, yshift=-3cm, decoration={markings, mark=at position 0.35 with {\arrow{<}}}, postaction={decorate}] (-6,6) -- (6,-6);
+            \draw[thick, red, yshift=-5cm, decoration={markings, mark=at position 0.3 with {\arrow{<}}}, postaction={decorate}] (-6,6) -- (6,-6);
+        \end{scope}
+        %
+        \draw[red, fill=white, xscale=0.5, yshift=3cm] (0,0) circle [radius=0.08cm];
+        \draw[red, fill=white, xscale=0.5, yshift=1cm] (0,0) circle [radius=0.08cm];
+        \draw[red, fill=white, xscale=0.5, yshift=-1cm] (0,0) circle [radius=0.08cm];
+        \draw[red, fill=white, xscale=0.5, yshift=-3cm] (0,0) circle [radius=0.08cm];
+        % 
+        \draw[thick, rotate around={45:(1.83,1.17)}] (1.83,1.17) -- (1.83,1.67);
+        \draw[thick, rotate around={-45:(1.83,1.17)}] (1.83,1.17) -- (1.83,1.67);
+        \draw[thick] (1.476,1.55) arc (180:-180:0.355cm and 0.1cm);
+        %
+        \draw[thick, rotate around={45:(1.03,-0.03)}] (1.03,-0.03) -- (1.03,0.47);
+        \draw[thick, rotate around={-28:(1.03,-0.03)}] (1.03,-0.03) -- (1.03,0.47);
+        \draw[thick, rotate around={(10:(0.676,0.33)}] (0.676,0.33) arc (180:-180:0.3cm and 0.08cm);
+        %
+        \draw[thick, rotate around={45:(-0.54,-0.46)}] (-0.54,-0.46) -- (-0.54,0.04);
+        \draw[thick, rotate around={17:(-0.54,-0.46)}] (-0.54,-0.46) -- (-0.54,0.04);
+        \draw[thick, rotate around={25:(-0.894,-0.1)}] (-0.894,-0.1) arc (180:-180:0.12cm and 0.04cm);
+        %
+        \node at (3.5,2) {\textcolor{blue}{outgoing}};
+        \node at (3.5,-2) {\textcolor{red}{ingoing}};
+    \etik 
+\end{center}
+
+Note the points along $r=2m$ are still not a part of our chart $(U,x)$ and so must be excluded. However at this point it becomes clear that there is nothing wrong with this points and we can simply define a new chart domain $V:= U\cup\{r=2m\}$. This then gives the same diagram as above but without the white circles. 
+
+We wont draw it again just for the sake of removing the circles, however it is worth noting that on this new chart we could plot the line cones at $r=2m$. All the the cones along this line would have their right side vertical. This is the condition that the $r=2m$ is the horizon and it corresponds to the point of no return. That is, recalling that the world line of a massive observer must have its tangent vectors within the light cone, at $r=2m$ an observer can no longer move away from the black hole and is destined to meet the singularity. 
+
+\br 
+    We can think of the Eddington-Finkelstein coordinate transformation as one that `pulled' points downwards. Using our London commuter as an example, we see this as the following diagram: (the blue arrows represent what that transformation does)
+    \begin{center}
+        \btik 
+            \draw[thick, dashed] (0,0) -- (3,0) -- (3,3) -- (0,3) -- (0,0);
+            \draw[thick, blue, ->] (1.5,4) -- (1.5,0.75);
+            \draw[thick, blue, ->] (1.25,2.25) -- (1.25,0.625);
+            \draw[thick, blue, ->] (1.75,2.5) -- (1.75,0.875);
+            \draw[thick, decoration={markings, mark=at position 0.2 with {\arrow{>}}}, postaction={decorate}] (2,1) -- (1.5,4);
+            \draw[thick, decoration={markings, mark=at position 0.8 with {\arrow{>}}}, postaction={decorate}] (1.5,4) -- (1,0.5);
+            \draw[fill=black] (2,1) circle [radius=0.05cm];
+            \draw[fill=red] (1.5,4) circle [radius=0.05cm];
+            \draw[fill=black] (1,0.5) circle [radius=0.05cm];
+            \node at (1.5,-0.3) {Schwarzschild};
+            %
+            \draw[thick, dashed] (5,0) -- (8,0) -- (8,3) -- (5,3) -- (5,0);
+            \draw[thick, decoration={markings, mark=at position 0.75 with {\arrow{>}}}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}, postaction={decorate}] (7,1) -- (6,0.5);
+            \draw[fill=black] (7,1) circle [radius=0.05cm];
+            \draw[fill=red] (6.5,0.75) circle [radius=0.05cm];
+            \draw[fill=black] (6,0.5) circle [radius=0.05cm];
+            \node at (6.5,-0.3) {Eddington-Finkelstein};
+        \etik 
+    \end{center}
+\er 
+
+\br 
+    \textcolor{red}{Note to self: Maybe include a comment about maximal extension here. Just roughly what it means etc.}
+\er 
+
+Now let's calculate the Schwarzschild metric $g$ w.r.t. Eddington-Finkelstein coordinates. Our coordinate transformation is given by 
+\bse
+    \begin{split}
+        \bar{t}(r,t,\theta,\varphi) & = t + 2m\ln|r-2m| \\
+        \bar{r}(r,t,\theta,\varphi) & = r \\
+        \bar{\theta}(r,t,\theta,\varphi) & = \theta \\ \bar{\varphi}(r,t,\theta,\varphi) & = \varphi.
+    \end{split}
+\ese
+If we denote the Schwarzschild coordinates by $(x^0,x^1,x^2,x^3)$ and the Eddington-Finkelstein coordinates by $(y^0,y^1,y^2,y^3)$ then our problem is to find 
+\bse 
+    g_{(y)ab} = \frac{\p x^m}{\p y^a} \frac{\p x^n}{\p y^b} g_{(x)mn}.
+\ese 
+It looks like we need to invert the transformations above to obtain $x^i(y)$, however we have shown in the tutorial 5 that 
+\bse 
+    \del^m_n = \bigg(\frac{\p x^m}{\p y^a}\bigg) \bigg(\frac{\p y^a}{\p x^n}\bigg) \qquad \implies \qquad  \bigg(\frac{\p y^a}{\p x^m}\bigg)^{-1} = \bigg(\frac{\p x^m}{\p y^a}\bigg),
+\ese 
+and so we can use our transformation equations above and then invert the matrix of results.\footnote{Note this is not the same as just doing the reciprocal of the fraction, as if the matrix is not diagonal the inverse elements are not just the reciprocals.} We have 
+\bse 
+    \bigg(\frac{\p y^a}{\p x^m}\bigg) = \begin{pmatrix}
+    1 & \frac{2m}{r-2m} & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+    \end{pmatrix} \qquad \implies \qquad \bigg(\frac{\p x^m}{\p y^a}\bigg) = \begin{pmatrix}
+    1 & \frac{-2m}{r-2m} & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+    \end{pmatrix}
+\ese 
+Using the result, and dropping the bars on $r,\theta$ and $\varphi$, we get 
+\bse 
+    g = \bigg(1-\frac{2m}{r}\bigg)d\bar{t}\otimes d\bar{t} - \frac{2m}{r}\big( d\bar{t}\otimes dr + dr \otimes d\bar{t}\big) - \bigg(1+\frac{2m}{r}\bigg)dr\otimes dr - d\Omega\otimes d\Omega.
+\ese
+
+\bbox
+    Prove the above result. 
+    
+    \textit{Hint: You can either do it using the transformation above (which is done in the video) or you can use the definition of the exterior derivative $d$. The two methods are, of course, equivalent.}
+\ebox 
+
+\section{Kruskal-Szekeres}
+
+As we have seen in both the Schwarzschild and Eddington-Finkelstein coordinates, the light cones either squash up or rotate and, although these can give some nice insights, we can actually make further coordinate transformations such that the outgoing geodesics also become straight lines of slope $+1$. In doing so, our light cones will all sit vertically and will always make a 90 degree angle. Of course this comes at the expense of the coordinates themselves look a bit funny, but that is the trade off. Such coordinates are known as Kruskal-Szekeres coordinates. The coordinate transformatio is given by: for $r>2m$
+\bse 
+    \begin{split}
+        \bar{\bar{t}}(t,r,\theta,\varphi) & := \bigg(\frac{r}{2m} -1\bigg)^{1/2} e^{r/4m}\sinh\bigg(\frac{t}{4m}\bigg) \\
+        \bar{\bar{r}}(t,r,\theta,\varphi) & := \bigg(\frac{r}{2m} -1\bigg)^{1/2} e^{r/4m}\cosh\bigg(\frac{t}{4m}\bigg)
+    \end{split}
+\ese 
+and for $r<2m$
+\bse 
+    \begin{split}
+        \bar{\bar{t}}(t,r,\theta,\varphi) & := \bigg(1-\frac{r}{2m}\bigg)^{1/2} e^{r/4m}\cosh\bigg(\frac{t}{4m}\bigg) \\
+        \bar{\bar{r}}(t,r,\theta,\varphi) & := \bigg( 1- \frac{r}{2m} \bigg)^{1/2} e^{r/4m}\sinh\bigg(\frac{t}{4m}\bigg)
+    \end{split}
+\ese 
+and $\theta$ and $\varphi$ are unchanged. 
+
+\bbox 
+    Show that the Kruskal-Szekeres coordinates tell us 
+    \bse 
+        \bar{\bar{t}}^2-\bar{\bar{r}}^2 = \begin{cases}
+            -k^2 & r>2m \\
+            \ell^2 & r<2m
+        \end{cases}
+    \ese 
+    for $k,\ell\in\R$.
+\ebox 
+
+From the exercise above we see that the plot consists of sets of hyperbolas. What is truly surprising about these solutions is that admit new regions to our spacetime, as the following diagram shows. 
+
+\begin{center}
+    \btik
+        \draw[thick, dashed] (-3,-3) -- (3,3);
+        \draw[thick, dashed] (-3,3) -- (3,-3);
+        \begin{scope}
+            \clip (-3,3) -- (3,3) -- (3,-3) -- (-3,-3);
+            %
+            \draw[fill=blue, opacity = 0.2] (0,0) -- (3,3) -- (3,-3) -- (0,0);
+            \draw[thick, blue, opacity = 0.5, xshift=0.3cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            \draw[thick, blue, opacity = 0.5, xshift=1cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            \draw[thick, blue, opacity = 0.5, xshift=1.7cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            %
+            \begin{scope}
+                \clip[yshift=0.7cm, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.1,3) .. controls (0,0) .. (3.1,3) -- (4,3) -- (3,-1) -- (-3,-1) -- (-4,3) -- (-3.1,3);
+                \draw[fill=red, opacity=0.2] (-3,3) -- (3,3) -- (0,0) -- (-3,3);
+            \end{scope}
+            \draw[thick, red, yshift=0.7cm, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.1,3) .. controls (0,0) .. (3.1,3);
+            %
+            \draw[fill=green, opacity = 0.2, xscale=-1] (0,0) -- (3,3) -- (3,-3) -- (0,0);
+            \draw[thick, green, opacity = 0.5, xscale=-1, xshift=0.3cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            \draw[thick, green, opacity = 0.5, xscale=-1, xshift=1cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            \draw[thick, green, opacity = 0.5, xscale=-1, xshift=1.7cm] (3,3.1) .. controls (0,0) .. (3,-3.1);
+            %
+            \begin{scope}
+                \clip[yscale=-1, yshift=0.7cm, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.1,3) .. controls (0,0) .. (3.1,3) -- (4,3) -- (3,-1) -- (-3,-1) -- (-4,3) -- (-3.1,3);
+                \draw[yscale=-1, fill=orange, opacity=0.2] (-3,3) -- (3,3) -- (0,0) -- (-3,3);
+            \end{scope}
+            \draw[yscale=-1, thick, orange, yshift=0.7cm, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (-3.1,3) .. controls (0,0) .. (3.1,3);
+        \end{scope}
+        \draw[thick, rotate around={45:(2.3,0.8)}] (2.3,0.8) -- (2.3,1.5);
+        \draw[thick, rotate around={-45:(2.3,0.8)}] (2.3,0.8) -- (2.3,1.5);
+        \draw[thick] (1.8,1.3) arc (180:-180:0.5cm and 0.1cm);
+        \draw[thick, ->] (0,0) -- (3.5,0);
+        \node at (3.5,-0.3) {$\bar{\bar{r}}$};
+        \draw[thick, ->] (0,0) -- (0,3);
+        \node at (-0.3,2.7) {$\bar{\bar{t}}$};
+        \node at (1.75,0) {\Huge{\textcolor{blue}{\textbf{I}}}};
+        \node at (0,1) {\Huge{\textcolor{red}{\textbf{II}}}};
+        \node at (-1.75,0) {\Huge{\textcolor{green}{\textbf{III}}}};
+        \node at (0,-1) {\Huge{\textcolor{orange}{\textbf{IV}}}};
+    \etik
+\end{center}
+
+We get four regions: region I is our universe, and lines of constant $r$ are the hyperbolas drawn; region II is the black hole with the snake-line being the singularity, and it is only the shaded region that is part of the spacetime; region III is completely new and represents another, causally disconnected, universe where again lines of constant $r$ are the hyperbolas drawn; region IV is what we call a \textit{white hole}, as all casual geodesics (i.e. massive and massless particles) must leave it and enter either region I or region III. Inside the black/white hole the relevant hyperbolas represent lines of constant $t$.
+
+Light cones stand `upright' everywhere on the diagram, which allows us to note that the dashed lines represent the event horizons of the black hole and white hole; any geodesic that passes the dashed line between regions I and II is doomed to meet the singularity. 
+
+After getting over the immediate shock of another universe and a white hole, a vital question raises itself: "what on earth happens at the origin (i.e. where the dashed lines cross)?" The answer to this question is quite complicated but is basically that there is a change in topology. If we consider spatial slices moving up the diagram, we get something like the following picture: suppressing the $\theta$ and $\varphi$ directions, we get 
+
+\begin{center}
+    \btik[xscale=0.8]
+        \draw[thick] (-1.7,1) -- (1.7,1) -- (1.7,-1) -- (-1.7,-1) -- (-1.7,1);
+        \draw[thick, blue] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0.25) .. controls (0.5,0.75) .. (1.5,0.75);
+        \draw[thick, green, yscale=-1] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0.25) .. controls (0.5,0.75) .. (1.5,0.75);
+        % 
+        \draw[thick, xshift=4cm] (-1.7,1) -- (1.7,1) -- (1.7,-1) -- (-1.7,-1) -- (-1.7,1);
+        \draw[thick, blue, xshift=4cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0) .. controls (0.5,0.75) .. (1.5,0.75);
+        \draw[thick, green, yscale=-1, xshift=4cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0) .. controls (0.5,0.75) .. (1.5,0.75);
+        %
+        \draw[thick, xshift=8cm] (-1.7,1) -- (1.7,1) -- (1.7,-1) -- (-1.7,-1) -- (-1.7,1);
+        \begin{scope}
+            \clip (6.5,0) -- (9.5,0) -- (9.5,1) -- (6.5,1) -- (6.5,0);
+            \draw[thick, blue, xshift=8cm] (-1.5,0.75) .. controls (0,0.75) and (0,-0.75) .. (-1.5,-0.75);
+            \draw[thick, blue, yscale=-1, xshift=8cm] (1.5,0.75) .. controls (0,0.75) and (0,-0.75) .. (1.5,-0.75);
+        \end{scope}
+        \begin{scope}
+            \clip (6.5,0) -- (9.5,0) -- (9.5,-1) -- (6.5,-1) -- (6.5,0);
+            \draw[thick, green, xshift=8cm] (-1.5,0.75) .. controls (0,0.75) and (0,-0.75) .. (-1.5,-0.75);
+            \draw[thick, green, yscale=-1, xshift=8cm] (1.5,0.75) .. controls (0,0.75) and (0,-0.75) .. (1.5,-0.75);
+        \end{scope}
+        % 
+        \draw[thick, xshift=12cm] (-1.7,1) -- (1.7,1) -- (1.7,-1) -- (-1.7,-1) -- (-1.7,1);
+        \draw[thick, blue, xshift=12cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0) .. controls (0.5,0.75) .. (1.5,0.75);
+        \draw[thick, green, yscale=-1, xshift=12cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0) .. controls (0.5,0.75) .. (1.5,0.75);
+        %
+        \draw[thick, xshift=16cm] (-1.7,1) -- (1.7,1) -- (1.7,-1) -- (-1.7,-1) -- (-1.7,1);
+        \draw[thick, blue, xshift=16cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0.25) .. controls (0.5,0.75) .. (1.5,0.75);
+        \draw[thick, green, yscale=-1, xshift=16cm] (-1.5,0.75) .. controls (-0.5,0.75) .. (0,0.25) .. controls (0.5,0.75) .. (1.5,0.75);
+        %
+        \draw[ultra thick, ->] (-1.7,-1.5) -- (17.7,-1.5);
+        \node at (17.7,-2) {\Large{$\bar{\bar{t}}$}};
+        \draw[thick] (8,-1.6) -- (8,-1.4);
+        \node at (8,-1.8) {\Large{$0$}};
+    \etik 
+\end{center}
+
+The structure formed at $\bar{\bar{t}}=0$ is a so-called \textit{wormhole} and it corresponds to a `portal' between regions I and III. The points where the blue lines become green is known as the \textit{throat}\footnote{The name comes from the idea that if we reinsert $\theta$ that we would get a tube like structure here and it would look like a throat connecting two spaces. See the diagram of the Einstein-Rosen bridge.} of the wormhole. The wormhole corresponds to a spatial slice and so it is not actually something an observer could travel through, but it is an incredibly interesting idea, and it led Einstein and Rosen to try and propose such a `bridge' between spacetime points on a causally connected manifold. The result of this is a so-called \textit{Einstein-Rosen bridge}.
+
+\begin{center}
+    \btik 
+        \draw[thick] (7,1.5) -- (0,1.5) arc (90:270:1.5cm and 1.5cm) -- (7,-1.5) -- (6.5,0) -- (0.75,0) arc (270:90:1.25cm and 1.25cm) -- (6.5,2.5) -- (7,1.5);
+        \begin{scope}
+            \clip (7,1.5) -- (0,1.5) arc (90:270:1.5cm and 1.5cm) -- (7,-1.5) -- (6.5,0) -- (0.75,0) arc (270:90:1.25cm and 1.25cm);
+            \draw[thick, fill=gray!40, opacity=0.8] (0,-1.5) -- (7,-1.5) -- (7,1.5) -- (0,1.5) arc (90:270:1.5cm and 1.5cm);
+        \end{scope}
+        \draw[thick] (5,-0.75) ellipse (1.3cm and 0.455cm);
+        \begin{scope}
+            \clip (3.7,1.545) -- (3.7,-1.5) -- (6.3,-1.5) -- (6.3,1.545) -- (3.7,1.545);
+            \draw[ultra thick, red, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (2.5,2) -- (3.9,2) .. controls (5.4,1.31) and (5.4,-0.06) .. (3.9,-0.75) -- (2.5,-0.75);
+        \end{scope}
+        \begin{scope}
+            \clip (3.7,1.5) -- (3.7,-1.5) -- (6.3,-1.5) -- (6.3,1.5) -- (3.7,1.5);
+            \draw[thick, fill=gray!40, opacity=0.8] (6.3,2) arc (0:-180:1.3cm and 0.455cm) .. controls (5.2,1.31) and (5.2,-0.06) .. (3.7,-0.75) arc (-180:0:1.3cm and 0.455cm) .. controls (4.8,-0.06) and (4.8,1.31) .. (6.3,2);
+        \end{scope}
+        \draw[thick] (3.7,2) .. controls (5.2,1.31) and (5.2,-0.06) .. (3.7,-0.75);
+        \draw[thick] (6.3,2) .. controls (4.8,1.31) and (4.8,-0.06) .. (6.3,-0.75);
+        \draw[thick, fill=gray!40, opacity=0.8] (-1.15,0.97) arc (140:90:1.5cm and 1.5cm) -- (7,1.5) -- (6.5,2.5) -- (0.75,2.5) arc (90:140:1.25cm and 1.25cm) -- (-1.15,0.97);
+        \draw[thick] (5,2) ellipse (1.3cm and 0.455cm);
+        \begin{scope}
+            \clip (5,2) ellipse (1.2cm and 0.455cm); 
+            \draw[thick, fill=gray!65, opacity=0.8] (5,1.85) ellipse (1cm and 0.35cm);
+            \draw[thick, fill=gray!95, opacity=0.8] (5,1.65) ellipse (0.7cm and 0.245cm);
+        \end{scope}
+        \draw[ultra thick, blue, decoration={markings, mark=at position 0.5 with {\arrow{>}}}, postaction={decorate}] (2.5,2) -- (0.5,2) arc (90:270:1.375cm and 1.375cm) -- (2.5,-0.75);
+        \draw[thick] (7,1.5) -- (0,1.5) arc (90:270:1.5cm and 1.5cm);
+        \begin{scope}
+            \clip (5,2) ellipse (1.3cm and 0.455cm);
+            \draw[ultra thick, red] (2.5,2) -- (3.9,2) .. controls (5.4,1.31) and (5.4,-0.06) .. (3.9,-0.75) -- (2.5,-0.75);
+        \end{scope}
+        \begin{scope}
+            \clip (2.5,2.05) -- (3.7,2.05) -- (3.7,-0.8) -- (2.5,-0.8) -- (2.5,2.05);
+            \draw[ultra thick, red] (2.5,2) -- (3.9,2) .. controls (5.4,1.31) and (5.4,-0.06) .. (3.9,-0.75) -- (2.5,-0.75);
+        \end{scope}
+        \draw[fill=black] (2.5,2) circle [radius=0.08cm];
+        \draw[fill=black] (2.5,-0.75) circle [radius=0.08cm];
+    \etik 
+\end{center}
+
+\section{Other Types of Black Hole}
+
+\bt[No Hair]
+    All black hole solutions to Einstein's equations and Maxwell's equations can be completely characterised by their \textbf{mass}, \textbf{angular momentum} and \textbf{electric charge}. 
+\et 
+
+From the above theorem it is clear that we can have four different types of black hole, summarised in the table below
+\begin{center}
+	\begin{tabular}{@{} p{4cm}p{2cm}p{4cm}p{3cm}@{}}
+		\toprule
+		Name & Mass & Angular Momentum & Electric Charge\\
+		\midrule 
+		Schwarzschild & \cmark & \xmark & \xmark \\
+		Kerr & \cmark & \cmark & \xmark \\ 
+		Reissner–Nordstr\"{o}m & \cmark & \xmark & \cmark \\
+		Kerr-Newman & \cmark & \cmark & \cmark \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+In this lecture we have only discussed the Schwarzschild black hole, but have not mentioned any of the other three at all. We shall not discuss the other black holes in great detail in these notes, but in order to highlight some quite surprising results we shall make some brief comments on the Kerr black hole. 
+ 
+We have seen above that the Schwarzschild black hole give rise to a point on the spacetime that must be removed, i.e. the singularity. Physically speaking, we imagine a massive spherically symmetric star collapsing down into a \textit{single point} at the centre. This singularity point must, therefore, contain the information about the black hole.\footnote{Disclaimer: I'm not sure how correct of a statement this is to make. I am not overly fond of attributing information to an absence of a point on the spacetime, but this argument makes explaining the next bit much easier, so we'll assume its ok.}
+
+A Kerr black hole, however, is an electrically neutral, rotating black hole. Putting this together with the fact that general relativity is a classical theory, it is clear that we can not have a single point for our singularity. That is, the singularity must contain information about the angular momentum of the black hole, but classically a single point cannot have angular momentum. The next best option is to consider an infinitely thin ring of non-vanishing radius. This is indeed what you get for a Kerr black hole, the result being known as either a \textbf{ring singularity} or the composite word: a \textbf{ringularity}.
+
+\bcl 
+    An observer can avoid a ring singularity and pass through the disc bound by it an emerge in what some people call an \textit{antiverse}.
+\ecl
+
+We do not prove the above claim.
+
+\subsection{Event Horizons \& Infinite Redshift Surfaces}
+
+As well as exhibiting a ring singularity, Kerr black holes also possess another new idea. In order to understand it a bit better, let's take another look at what happens to the Schwarzschild metric (in Schwarzschild coordinates) at $r=2m$. Specifically, let's consider the $g_{tt}$ and $g_{rr}$ components:
+\bse 
+    g_{tt} = g(\p_t,\p_t) = \bigg(1-\frac{2m}{r}\bigg), \qand g_{rr} = g(\p_r,\p_r) = \bigg(1-\frac{2m}{r}\bigg)^{-1}.
+\ese 
+We see straight away that for $r>2m$, $g_{tt}>0$ and $g_{rr}<0$, whereas for $r<2m$, $g_{tt}<0$ and $g_{rr}>0$. So the point $r=2m$ seems to correspond to a sign change in these components. We can word this as the statement: "as we move from $r>2m$ to $r<2m$ the timelike vector field $\p_t$ becomes spacelike, whereas the spacelike vector field $\p_r$ becomes timelike." 
+
+Now these two conditions in themselves need not be related, that is the fact that $\p_t$ becomes spacelike is not fundamentally related to $\p_r$ becoming timelike. It is true, however, the \textit{something} must become timelike, otherwise the signature of our metric would change --- i.e. we would end up with $(+,+,+,+)$, in our convention --- but $\p_r$ is not the only choice, we also have $\p_{\theta}$ and $\p_{\varphi}$. Before moving on to discuss when one of these latter two might become timelike, let's first try and work out what our two conditions mean physically. 
+
+First let's consider $\p_r$ becoming timelike. Recall that the interior of the future light cone gave the possible future of a massive observer. We use the word `future' as clock carried by this observer will increase in time as you follow timelike geodesics. This was given as a definition and so will always hold, regardless of which coordinate vector field is timelike and which are spacelike. However, this latter distinction does have an effect our interactions with external observers. Roughly speaking, the projection of our velocity is non-vanishing only for timelike vector fields, and so our future cannot be orthogonal to these directions. The more `central' to the cone the timelike vector field, the more our future is determined by it.
+
+This might sound a bit funny, but it is easily understood by considering time dilation in special relativity. The spacetime of special relativity is flat Minkowski space and all of the cones stand upright and make 90 degrees. Let's now consider the chart with chart maps $(t,x,y,z)$. A stationary observer $(\gamma,e)$ in this frame will follow a geodesic whose tangent vectors are integral curves of the vector field $\p_t$. We can choose to parameterise this curve such that $g(e^0,\p_t)=1$, that is the clock carried by this observer agrees with the coordinate time $t$. 
+
+Now consider another observer $(\del,f)$ moving relative to the first. They will follow a geodesic that is \textit{not} an integral curve of the $\p_t$ vector field. This observers frame will obey $0<g(f^0,\p_t)<1$, where the value in the range depends on the velocity of $\del$. This is what we mean above about having a non-vanishing projection onto our timelike vector field. 
+
+Now to the stationary observer, both of them age, as they both have a non-vanishing projection onto $e^0$ direction,\footnote{We should be careful here because $e^0$ is only defined along $\gamma$, but it should be relatively clear what we mean.} however the second observer seems to age slower, as $g(f^0,\p_t)<g(e^0,\p_t)$. 
+
+With the aside on special relativity in mind, we can see that the condition that $\p_r$ become a timelike vector tells us that, from the perspective of an observer stationary w.r.t. the Schwarzschild coordinates, the observer \textit{must} move along with some projection along the $\p_r$ axis. But what is stationary w.r.t. the Schwarzschild coordinates? Well the black hole of course! So we see that an observer at $r<2m$ must move along the radial direction. The question is "which way?" Again this might sound silly, but it makes a lot more sense when we remember that in the special relativity case, we always move up the $t$ axis and not backwards into the past. 
+
+We shall not discuss this too deeply here\footnote{I discuss this in more detail in the notes I made about light cones and event horizons, which are available on my blog site.} (as we are already being rather hand-wavey), but the general idea is that when $\p_r$ becomes timelike it actually points into the past light cone, and so our future is determined by moving \textit{towards} the black hole. So we have discovered that $\p_r$ becoming timelike corresponds to an event horizon! 
+
+What about $\p_t$ becoming spacelike, what is that all about? In order to save space, we shall not discuss exactly where this comes from, but it turns out this corresponds to a so-called \textbf{infinite redshift surface}. The name comes from the idea that, \textit{to an observer at $r\to\infty$}, light emitted at the points where $\p_t$ becomes timelike is redshifted so much that it actually `disappears'. This is a very strange statement to make as firstly its only true for an observer infinitely far (indeed an observer at finite distance will be able to detect the light, all be it highly redshifted) away and secondly the idea of completely redshifting something away is strange. This is the reason we are not presenting the mathematical origin of this phenomenon here. 
+
+There is, however, a much nicer (in my opinion) physical interpretation to what happens at an infinite redshift surface. As we have explained, for $\p_t$ to become spacelike, one of the spacelike vector fields must become timelike. We argued that this in turn causes relative motion between the observer and the black hole along (or against) the direction of this vector field. This is a much nicer idea, and so it is what we shall use. 
+
+\br 
+    Note it follows from our arguments above that in order to reach an event horizon an observer must pass through an infinite redshift surface. That is, if $\p_r$ is to become timelike, $\p_t$ has to become spacelike before it or at the same time. 
+\er 
+
+\br 
+    It is important not to confuse the coordinate $t$ with the time measured on an observers clock. Inside an infinite redshift surface $\p_t$ is spacelike, and so we can move `down' it. If we took this to be time then this would be the statement that we can travel backwards in time. If this was true time reversal, travelling along this direction would take us backwards and out of the infinite redshift surface. This is not what happens at all, and is seen easily by the fact that we measure time via the clock we carry. What the above does say, though, is that, to an observer stationary w.r.t. the black hole, we can travel backwards in time as we can move along a geodesic that has positive projection along $-\p_t$. 
+\er 
+
+\subsection{Ergoregion}
+
+The metric for the Kerr black hole is not particularly insightful to see itself, and so we do not present it here but instead just summarise the results. 
+
+It turns out that, unlike for the Schwarzschild black hole, the event horizon and infinite redshift surface for the Kerr black hole do not coincide. That is $r_{IRS}>r_{EH}$, where $r_{IRS}$ ($r_{EH}$, respectively) is the $r$ value of the infinite redshift surface (event horizon, respectively). 
+
+\bd[Ergoregion]
+    The region $r_{EH} < r < r_{IRS}$ is called the \textbf{ergoregion} (or \textbf{ergosphere}).
+\ed 
+
+The obvious question to ask is "what is the timelike vector field in the ergoregion?" The answer to that question is the direction of rotation, $\p_{\varphi}$. It turns out the $\p_{\varphi}$ lies in the future cone and so an observer in the ergoregion \textit{must} rotate \textit{with} the black hole. 
+
+\br 
+    There is an interesting idea to extract energy from the ergoregion of a Kerr black hole known as the \textbf{Penrose process}. We shall not discuss it here, but readers are encouraged to search it as it is quite interesting.
+\er 
+
+\subsection{Multiple Event Horizons}
+
+It also turns out to be true that the non-Schwarzschild black holes all have two event horizons and infinite redshift surfaces. The presence of the inner event horizon means that one can traverse a black hole without meeting the singularity and can emerge into another universe! We do not discuss this in more detail here but highlight it in the Penrose diagrams next lecture. 

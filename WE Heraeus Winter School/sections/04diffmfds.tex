@@ -1,0 +1,165 @@
+\chapter{Differentiable Manifolds}
+
+So far we have looked at topological manifolds, which allowed us to talk about the continuity of a curve $\gamma:\R\to\cM$. If we are to (and we will) associate the motion of a particle in spacetime as a curve on a manifold, we want more then just continuity; we want to be able to associate a \textit{velocity} to each point of the curve. Roughly speaking, we think of the velocity of a curve as a tangent vector to the curve which we obtain by differentiating the curve. 
+
+The question is, then, is the structure we already have on our $d$-dimensional topological manifold $(\cM,\cO)$ sufficient in order to talk about differentiability  or do we need some more structure? The short answer is `no, you need more structure.' In this lecture we will show this, while also working out \textit{what} extra structure we need in order to talk about differentiability of curves.
+
+In fact, we wish to define a notion of differentiable for more then just curves, we wish to define it also for: functions, $f:\cM\to\R$, and maps, $\varphi:\cM\to\cN$.
+
+\section{Strategy}
+
+Let's first consider curves, $\gamma:\R\to\cM$. Recall in lecture 2 we said that we can assign properties to manifolds by considering the chart representatives, which were maps $x\circ\gamma: \R\to U\se R^d$. We already have a notion of differentiability of such curves from undergraduate courses, and so we seek to use this in order to define what we mean for the curve $\gamma:\R\to\cM$ to be differentiable. 
+
+Let's consider the part of our curve that lies in the chart domain $\gamma: \R \to U$.\footnote{We should really rename it something like $\gamma_U$, but we don't want to clutter notation too much, so shall just call it $\gamma$.} Once we have worked out differentiability here, we can extend it to a global notion for the whole curve. Recall that if we are going to do this `lifting' of notion to the manifold level, we have to make sure the lifted notion is chart independent, i.e. it doesn't matter which chart we use, we always get the same result. When we encountered this before we were fine, because we knew that the composition of continuous maps is continuous and so our chart transition maps were continuous. However, the continuity of the chart transition map does \textit{not} guarantee their undergraduate differentiability as there could be a sudden turning point in the curve. 
+
+\begin{figure}[h]
+    \begin{center}
+        \btik
+            \node at (0,3) {\large $\mathbb{R}$};
+            \node at (4,3) {\large $(U\cap V)$};
+            \node at (4,5) {\large $y(U\cap V)$};
+            \node at (4,1) {\large $x(U\cap V)$};
+            %
+            \draw[->, thick] (0.2,3) -- (3.2,3) node[label={above:\large $\gamma$}, midway, xshift=2ex] {};
+            \draw[->, thick] (0.2,3.1) -- (3.1,4.8) node[label={above:\large $y\circ\gamma$}, midway, xshift =-1ex] {};
+            \draw[->, thick] (0.2,2.9) -- (3.1,1.2) node[label={below:\large $x\circ\gamma$}, midway, yshift=-1ex] {};
+            %
+            \draw[->,thick] (4,3.3) -- (4,4.7) node[label={right:\large $y$},midway] {};
+            \draw[->,thick] (4,2.7) -- (4,1.3) node[label={right:\large $x$},midway] {};
+            %
+            \draw[->, thick] (5,1) .. controls (6,2) and (6,4) .. (5,5) node[label={right:\large $y\circ x^{-1}$},midway] {};
+        \etik
+        \caption{Two charts $(U,x)$ and $(V,y)$ used to represent a physical curve $\gamma$. It is assumed that one knows the map $x \circ \gamma$ is so called `undergraduate differentiable'. However, one can not yet conclude whether $\gamma$ itself is differentiable as the continuity of the chart transition map $y \circ x^{-1}$ does not guarantee differentiability (there could be a sudden turning point in the curve representation). }
+    \end{center}
+\end{figure}
+
+At first sight, our strategy doesn't work out. However, there is a remedy to this that we hinted at in lecture 2, it is the content of the next section. 
+
+\section{Compatible Charts}
+
+The problem mentioned above stems from the fact that we took $(U,x)$ and $(V,y)$ to be \textit{any} charts for our topological manifold $(\cM,\cO)$. To emphasise this, we can say that we took them from the maximal atlas $\cA_{max}$. If instead we had insisted that our charts come from a smaller atlas that we knew contained no overlapping charts with only continuous (and not differentiable) charts, we could solve our problem. In other words, we `tear out' any pages of our atlas that correspond to chart transition functions that are not differentiable. Now we are not guaranteed that after doing this we are left with an atlas, as we may no longer cover the whole space, but if we do, then we stand a much better chance at defining what we mean by the differentiability of a curve. So we consider a \textit{restricted atlas}. 
+
+Note this is a \textit{huge} choice to make. By doing this, anything we want to talk about later on that relies on differentiability of the curve can \textit{only} be discussed in a chart if that chart comes from our restricted atlas. 
+
+\bd[Compatible Charts] 
+    Two charts $(U,x)$ and $(V,y)$ of a topological manifold $(\cM,\cO)$ are called \textbf{$\square$-compatible}\footnote{I tried to get a flower like Dr. Schuller uses, but overleaf was not having it. Apologies for me meagre $\square$.} if either
+    \ben[label=(\alph*)] 
+        \item $U\cap V =\emptyset$, or 
+        \item $U\cap V \neq \emptyset$ and the chart transition maps $(x\circ y^{-1}):y(U\cap V) \to x(U\cap V)$ and $(y\circ x^{-1}):x(U\cap V) \to y(U\cap V)$ are `undergrad' $\square$.\footnote{That is they have the property $\square$ as maps from $\R^d\to \R^d$ that we know from undergraduate courses.}
+    \een 
+\ed 
+
+\bd[Compatible/Restricted Atlas] 
+    An atlas $\cA_{\square}$ is a \textbf{$\square$-compatible atlas} if all of its charts are $\square$-compatible.
+\ed 
+
+\bd[]
+    A $\square$-manifold is the triple $(\cM,\cO,\cA_{\square})$.
+\ed 
+
+Now it might be possible that two separate criteria for `tearing our pages' in order to obtain a $\square$-compatible atlas exist. That is there might be more then one atlas that is $\square$-compatible. In this case, we have to make a choice about which one to use, but must always remember that we have made this choice, as one of these atlases might allow a different property, say $\blacksquare$, to be defined, whereas the other might not. Physically, this is obviously a very important thing to keep in mind, as $\square$ and $\blacksquare$ are physical properties of the curve and therefore don't depend at all on what charts or atlases we choose to use, so we must make sure we pick the ones that match up to the physics. 
+
+Before moving on, let's consider the types of things $\square$ can be. 
+
+\begin{center}
+	\begin{tabular}{@{} p{2cm}p{10cm}@{}}
+		\toprule
+		$\square$ & Undergraduate $\square$ \\
+		\midrule 
+		$C^0$ & $C^0(\R^d\to\R^d)$, continuous w.r.t. the standard topology on $\R^d$. \\
+		$C^1$ & $C^1(\R^d\to\R^d)$, once differentiable with continuous result w.r.t. the standard topology on $\R^d$. \\
+		$C^k$ & $C^k(\R^d\to\R^d)$, $k$-times continuously differentiable. \\
+		$D^k$ & $D^k(\R^d\to\R^d)$, $k$-times  differentiable, don't need to be continuous. \\
+		$C^{\infty}$ & $C^{\infty}(\R^d\to\R^d)$, infinitely differentiable with continuous result, known as \textbf{smooth}. \\
+		$C^{\omega}$ & $C^{\omega}(\R^d\to\R^d)$, analytic functions (can be Taylor expanded). \\
+		$\C^{\infty}$ & $\C^{\infty}(\R^{2n}\to\R^{2n})$, $dim \cM = 2n$ for integer $n$, they satisfy the Cauchy-Riemann equations pairwise. This gives us a \textit{complex} manifold. \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\bt[Whitney Theorem] 
+    Any $C^k$-atlas $\cA_{C^k}$ for $k\geq 1$ for a topological manifold, contains as a subatlas a $C^{\infty}$ atlas. 
+\et 
+
+We shall not prove this theorem, but simply give an motivation for it via the following example. 
+
+\bex 
+    Say we were only interested in curves that were $C^2$, so the third derivative was discontinuous. In order to talk about such curves we would need a $C^2$-atlas. However, any function that is $C^3$ is also $C^2$ and so we would still be able to talk about these curves on a $C^3$-atlas as $C^3\circ C^2 = C^2$, roughly speaking. That is, if we insist that our transition functions are $C^3(\R^d\to\R^d)$ then we can still obtain a well defined notion for the curve being $C^2$. Repeating this again, it follows that we could use a $C^{\infty}$-atlas in order to describe our curves. 
+    
+    Note that the theorem does not say that we can turn a $C^2$ curve into a $C^{\infty}$ curve, only that we can talk about it on both a $C^2$-atlas and a $C^{\infty}$-atlas. 
+\eex 
+
+This is a very useful theorem for physics, because we now don't need to worry about `how many derivatives should I be worried about ensuring?' Just make sure it's at least $C^1$ and then take the subatlas. Thus, we may, without loss of generality, always consider $C^{\infty}$-manifolds, or \textbf{smooth} manifolds (unless we wish to define Taylor expandability or complex differentiability, etc).
+
+\section{Diffeomorphisms}
+
+Recall that whenever we introduce a new structure to our objects that it is always worth studying the structure preserving maps. These maps are generally known as \textbf{isomorphisms}. For two sets, the isomorphism is a bijection. For topological spaces we saw that the isomorphism is a continuous, bijection whose inverse is also continuous, we called these \textit{homeomorphisms}. Two objects that are related by an isomorphism are said to be \textbf{isomorphic}.
+
+\bd[Smooth Maps]
+    Let $(\cM,\cO_{\cM},\cA_{\cM})$ and $(\cN,\cO_{\cN},\cA_{\cN})$ be two smooth manifolds of dimension $m$ and $n$, respectively. A map $\varphi: \cM \to \cN$ is said to be $C^{\infty}$ (or \textbf{smooth}) if the map $y\circ\varphi\circ x^{-1}$ is undergrad $C^{\infty}$ for charts $(U,x)\in \cA_{\cM}$ and $(V,y)\in \cA_{\cN}$.
+    \begin{center}
+        \btik 
+            \node at (-0.5,0) {\Large{$U$}};
+            \node at (3.5,0) {\Large{$V$}};
+            \draw[thick, ->] (0,0) -- (3,0) node[label={above:\large $\varphi$}, midway] {};
+            \draw[thick, ->] (-0.5,-0.5) -- (-0.5,-2) node[label={left:\large $x$}, midway] {};
+            \draw[thick, ->] (3.5,-0.5) -- (3.5,-2) node[label={right:\large $y$}, midway] {};
+            \node at (-0.5,-2.5) {\Large{$R^m$}};
+            \node at (3.5,-2.5) {\Large{$R^n$}};
+            \draw[thick, ->] (0,-2.5) -- (3,-2.5) node[label={below:\large $y\circ \varphi\circ x^{-1}$}, midway] {};
+        \etik 
+    \end{center}
+\ed 
+
+\br 
+    Note that we just gave the definition above for two charts $(U,x)$ and $(V,y)$. We already know that if it holds for one chart it will hold for all because our manifolds are smooth and therefore switching charts is $C^{\infty}$. That is we have the following diagram:
+    \begin{center}
+        \btik 
+            \node at (-0.5,0) {\Large{$U$}};
+            \node at (3.5,0) {\Large{$V$}};
+            \draw[thick, ->] (0,0) -- (3,0) node[label={above:\large $\varphi$}, midway] {};
+            \draw[thick, ->] (-0.5,-0.5) -- (-0.5,-2) node[label={left:\large $x$}, midway] {};
+            \draw[thick, ->] (3.5,-0.5) -- (3.5,-2) node[label={right:\large $y$}, midway] {};
+            \node at (-0.5,-2.5) {\Large{$R^m$}};
+            \node at (3.5,-2.5) {\Large{$R^n$}};
+            \draw[thick, ->] (0,-2.5) -- (3,-2.5) node[label={below:\large $y\circ \varphi\circ x^{-1}$}, midway] {};
+            %
+            \draw[thick, ->] (-0.5,0.5) -- (-0.5,2) node[label={left:\large $\widetilde{x}$}, midway] {};
+            \draw[thick, ->] (3.5,0.5) -- (3.5,2) node[label={right:\large $\widetilde{y}$}, midway] {};
+            \node at (-0.5,2.5) {\Large{$R^m$}};
+            \node at (3.5,2.5) {\Large{$R^n$}};
+            \draw[thick, ->] (0,2.5) -- (3,2.5) node[label={above:\large $\widetilde{y}\circ \varphi\circ \widetilde{x}^{-1}$}, midway] {};
+            % 
+            \draw[thick, <->] (-1,-2.5) .. controls (-2.5,-0.83) and (-2.5,0.83) .. (-1,2.5) node[label={left:\large $C^{\infty}$}, midway] {};
+            \draw[thick, <->] (4,-2.5) .. controls (5.5,-0.83) and (5.5,0.83) .. (4,2.5) node[label={right:\large $C^{\infty}$}, midway] {};
+        \etik 
+    \end{center}
+\er 
+
+\bd[Diffeomorphism]
+    Let $(\cM,\cO_{\cM},\cA_{\cM})$ and $(\cN,\cO_{\cN},\cA_{\cN})$ be two smooth manifolds. They are isomorphic if there exists a bijection $\varphi:\cM\to \cN$ such that $\varphi$ and $\varphi^{-1}$ are $C^{\infty}$ maps. Such a map is known as a \textbf{diffeomorphism} and the manifolds are said to be \textbf{diffeomorphic}.
+\ed 
+
+We can think of diffeomorphisms as relating two surfaces that can be `moulded' into each other without cutting/tearing/folding the surface. For example, the surface of a sphere as a differential manifold is diffeomorphic to the surface of a potato,\footnote{Provided there's not sharp edges and/or holes in the potato.} but it is not diffeomorphic to a doughnut. In other words, at the smooth manifold level, things don't have a shape yet, but are made out of sort of fluidy-substance.\footnote{This is not a technical term, please do not quote me on it.}
+
+\bt 
+    The number of $C^{\infty}$-manifolds one can make from a given $C^0$-manifold (if any), up to diffeomorphism\footnote{That is, any two $C^{\infty}$-manifolds that are diffeomorphic count as the same one.} is given by the following table:
+    \begin{center}
+	    \begin{tabular}{@{} p{2.5cm}p{5cm}@{}}
+		    \toprule
+		    $\dim\cM$ & No. $C^{\infty}$-manifolds \\
+		    \midrule 
+		    1 & 1 \\
+		    2 & 1 \\
+		    3 & 1 \\
+		    4 &  uncountably infinitely many\\
+		    5 & finitely many \\
+		    6 & finitely many \\
+		    7 & finitely many \\
+		    \vdots & \vdots \\
+		    \bottomrule
+	    \end{tabular}
+    \end{center}
+\et 
+
+\noindent The first three results in the table are the so-called \textit{Moise-Radon} theorems, and the 5,6,7,... results are shown using an area of topology known as \textit{surgery theory}. Unfortunately as physicists, we are most interested in $\dim\cM=4$ for spacetime. Ahh, Sod's law!

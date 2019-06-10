@@ -1,0 +1,293 @@
+\chapter{Metric Manifolds}
+
+We establish a structure on a smooth manifold $(\cM,\cO,\cA)$ that allows us to assign vectors in each tangent space a length and\footnote{If we were only looking to define a length, we would just define a norm on our manifold. For more information on norms see Dr. Schuller's Lectures on Quantum Theory.} an angle between vectors in the same tangent space. Such a structure in each tangent space is a \textit{inner product}, and the complete structure over all tangent spaces is what we call a \textit{metric} (i.e. it is a inner produce field). 
+
+From this structure, one can then define a notion of length of a curve. Then we can look at shortest (and longest) curves, which are known as \textit{geodesics}. We will develop this completely independently of the notion of straight curves, i.e. of the  covariant derivative, but then shall insist, for obvious reasons, at the end that the two coincide. In doing this we will define what we mean by so-called \textit{metric compatible} connections.
+
+\section{Metrics}
+
+\bd[Metric]
+    A \textbf{metric} $g$ on a smooth manifold $(\cM,\cO,\cA)$ is a $(0,2)$-tensor field satisfying:
+    \benr 
+        \item It's symmetric; $g(X,Y) = g(Y,X)$, for all $X,Y\in\Gamma T\cM$, and
+        \item Non-degeneracy; the map $\flat : \Gamma T\cM\to \Gamma T^*\cM$, given by 
+        \bse 
+            \flat(X) :Y := g(X,Y),
+        \ese 
+        is a $C^{\infty}$-isomorphism, i.e. it is invertible and smooth in both directions. 
+    \een 
+\ed 
+
+\bd[Inverse Metric] 
+    The \textbf{inverse metric}, $g^{-1}:\Gamma T^*\cM\times \Gamma T^*\cM\lmap C^{\infty}(\cM)$, w.r.t. a metric $g$ is the symmetric, $(2,0)$-tensor field defined by 
+    \bse 
+        g^{-1}(\omega,\sig) := \omega : \flat^{-1}(\sig).
+    \ese 
+\ed 
+
+\br 
+    One needs to be careful when referring to $g^{-1}$ as an inverse. It is not an inverse in the sense of a map, but in the matrix sense. That is the map inverse of $g:\Gamma T\cM\times \Gamma T\cM\lmap C^{\infty}(\cM)$ would be a map from $\C^{\infty}(\cM)$ to $\Gamma T\cM\times\Gamma T\cM$, which $g^{-1}$ is not. If we denote\footnote{And we will from this point on-wards.} the components of $g^{-1}$ simply as $g^{ab}$ (so no $-1$ in it), then what we mean by inverse is that the following holds:
+    \bse 
+        g^{ac}g_{cb} = \del^a_b.
+    \ese 
+\er 
+
+\br 
+    It is very common for people to talk about `raising/lowering' indices using the metric/inverse metric. What they mean is the idea that $\flat(X)$ is a covector and so has a covariant index. However, we're lazy and so we don't want to have to keep writing the $\flat$ bit and so we just write 
+    \bse 
+        X_a := g_{am}X^m,
+    \ese 
+    and similarly for a covector made into a vector via $\flat^{-1}$. The clear problem is that, unless specified, we don't know whether $T_a$ are the components of a covector defined completely independently of the metric or whether they are the `lowered' components of a vector, and so is dependent on the metric. In these notes we shall never suppress the metric and so shall not talk about `raised/lowered' indices. 
+\er 
+
+\bex 
+    Consider the smooth manifold $(S^2,\cO,\cA)$ with the chart $(U,x)$ corresponding to spherical coordinates $(\theta,\varphi)$.\footnote{Again this chart does not cover the whole manifold, but requires that we remove two antipodal points and a line of longitude. Note also that we have not equipped our manifold with a connection and so it doesn't actually have a shape yet!} Define the metric as\footnote{The notation here just means that we collect the 4 components of $g$ into a matrix where $i$ tells us the row and $j$ tells us the column. For more information on this see, for example, section 1.5 of \textit{Manifolds, Tensors, and Forms: An Introduction for Mathematicians and Physicists} by Paul Renteln.} 
+    \bse 
+        g_{ij}\big( x^{-1}(\theta,\varphi)\big) := \begin{pmatrix}
+            R^2 & 0 \\
+            0 & R^2\sin^2\theta 
+        \end{pmatrix}_{ij}.
+    \ese 
+    This gives us the \textit{round sphere of radius $R$}. Note, just as with the connection, defining a metric allows us to give the manifold shape. Note also, though, that, unlike the round sphere obtained using the connection, we can talk about the \textit{size} of the round sphere obtained from the metric. 
+\eex 
+
+\section{Signature}
+
+Recall the eigenvalue equation 
+\bse 
+    Av = \lambda\cdot v,
+\ese 
+where $v$ is an eigenvector. If we want to express this in terms of components, it is clear that $A$ must be a $(1,1)$-tensor, otherwise we break Einstein summation convention. That is 
+\bse
+    {A^a}_{m}v^m = \lambda \cdot v^a
+\ese 
+is the only valid index placement. If we represent $A$ as a matrix, it is a well known result of linear algebra that we can bring it to the form 
+\bse 
+    A = \diag(\lambda_1,\lambda_2,...,\lambda_d),
+\ese
+where $d$ is the dimension of the vector space.
+
+We want to have a similar thing for tensors of different ranks. For $(0,2)$-tensors, in particular the metric, we have the \textit{signature} of $g$ which has only $+1,-1,$ and $0$ on the diagonal. One should be careful, though, as these are not simply eigenvalues for $g$; the first reason being we just argued that eigenvalues only make sense for $(1,1)$-tensors, and besides that it turns out that we can \textit{always} transform to a chart such that the signature is \textit{only} $+1,-1$ and $0$s, which you can not do for eingenvalues in general. 
+
+Actually what we want to define as the signature is the double $(p,q)$ where $p$ is the number of $+1$s and $q$ is the number of $-1$s. This is the definition we shall use in these notes, but it is important to be aware that others refer to different, but related, things as the signature.\footnote{For example some people call the single number $(-1)^q$ the signature. This just tells you whether there is an even or odd number of $-1$s. This convention is only used when you are considering the case when there are no $0$s, which is true if the tensor is non-degenerate, e.g. the metric.}
+
+\bcl 
+    The signature is independent of the choice of chart. That is the values of $p$ and $q$ do not depend on what basis you use in order to write down the matrix components.
+\ecl 
+
+\bnn 
+    We shall use the standard notation of $+$s and $-$s as a $d$-tuple to indicate the signature. For example if $d=3$, $p=2$ and $q=1$ we write $(+,+,-)$. The position in the tuple corresponds to the corresponding metric components. So for our example $g_{11}=1$, $g_{22}=1$ and $g_{33}=-1$ in this basis. 
+\enn 
+
+\br 
+\label{rem:SignatureRelativeSign}
+    What we are really interested in the the \textit{relative} sign between the components of the metric, and so we could easily have switched $p\leftrightarrow q$ in the definition and proceeded from there, i.e. our example in the above notation would become $(-,-,+)$. It does not matter which we pick, as long as we are consistent. Our choice of signature is given by the following two definitions. 
+\er 
+
+\bd[Riemannian Metric]
+    A metric is called \textbf{Riemannian} if its signature is $(+,+,...,+)$.
+\ed
+
+A metric with any other signature (apart from $(-,-,...,-)$ of course) is called \textit{pseudo-Riemannian}. Of particular importance in general relativity is the following case.
+
+\bd[Lorentzian Metric]
+    A metric is called \textbf{Lorentzian} is its signature is $(+,-,...,-)$.
+\ed 
+
+\br 
+    The convention given for the Riemannian metric is almost always the one used, however for Lorentzian metrics its about a 50/50 split between people who use $(+,-,...,-)$ and people who use $(-,+,...,+)$. We will use the one given in the definition.\footnote{Personally I prefer the second one, as I prefer to think of spatial lengths as positive (this statement will make sense shortly), however I shall stick with Dr. Schuller's for consistency with the videos. This is just a footnote as a warning that I might (but hopefully won't) use the wrong convention in a calculation later.}
+\er 
+
+\bbox 
+    Show that the metric non-degeneracy condition for a Riemannian metric is equivalent to the non-degeneracy of an inner product. That is 
+    \bse 
+        g(X,Y) = 0, \quad \forall Y\in\Gamma T\cM \quad \iff \quad X=0.
+    \ese 
+    \textit{Hint: Think about what it means for a matrix to be invertible and then decompose $X$ and $Y$ in a basis.}
+\ebox
+
+\section{Length Of A Curve}
+
+Let $\gamma:\R\to\cM$ be a smooth curve, then we know its velocity $v_{\gamma,\gamma(\lambda)}$ at each $\gamma(\lambda)\in\cM$. On a topological manifold this is as far as we can go, but on a metric manifold we have the following. 
+
+\bd[Speed of a Curve] 
+    On a Riemannian metric manifold $(\cM,\cO,\cA,g)$, the \textbf{speed} of a curve at $\gamma(\lambda)$ is the number 
+    \bse 
+        s(\lambda) := \sqrt{g(v_{\gamma},v_{\gamma})}\Big|_{\gamma(\lambda)}
+    \ese 
+\ed  
+
+\br 
+    Although we might expect the velocity components $v^a$ to have units $LT^{-1}$, this is not true; they have units $T^{-1}$. The apparent `loss' of the distance comes from the fact that the components are chart dependent objects and the distance in a chart is physically meaningless and so we cannot attach physical units to it. The \textit{speed}, however, does have units $LT^{-1}$, which tells us that the metric components must have units $L^2$.
+\er 
+
+\bd
+    Let $\gamma: (0,1) \to \cM$\footnote{We are free to choose the domain of $\gamma$ to be $(0,1)$ by simply rescalling/shifting $\lambda$ accordingly.} be a smooth curve. Then the \textbf{length} of $\gamma$ is the number\footnote{We have used square brackets around $\gamma$ below because it is a function. This tells us that $L$ is a so-called \textit{functional}. Anyone unfamiliar with this terminology is referred to a course on Lagrangian mechanics.}
+    \bse 
+        L[\gamma] := \int_0^1 d\lambda \, s(\lambda).
+    \ese 
+\ed 
+
+What we have just seen is that the velocity is actually the fundamental object and from it we derive the speed and from that we get the length of a curve. This is entirely opposite to what we learn lower down in school!
+
+\bex 
+    Reconsider the round sphere of radius $R$. Consider its equator, 
+    \bse 
+        \begin{split}
+            \theta(\lambda) & := (x^1\circ \gamma)(\lambda) = \frac{\pi}{2} \\
+            \varphi(\lambda) & := (x^2\circ \gamma)(\lambda) = 2\pi\lambda^3.
+        \end{split}
+    \ese 
+    The length of this curve is 
+    \bse 
+        L[\gamma] = \int_0^1 d\lambda \, \sqrt{ g_{ij}\Big(x^{-1}\big(\theta(\lambda),\varphi(\lambda)\big)\Big) (x^1\circ \gamma)'(\lambda)(x^2\circ \gamma)'(\lambda)}.
+    \ese 
+    Using 
+    \bse 
+        g_{ij} = \diag(R^2,R^2\sin^2\theta), \qquad \theta'(\lambda) = 0, \qand \varphi'(\lambda) = 6\pi\lambda^2,
+    \ese
+    we have 
+    \bse 
+        \begin{split}
+            L[\gamma] & = \int_0^1d\lambda \,  \sqrt{R^2\sin^2\big(\theta(\lambda)\big)36\pi^2\lambda^4} \\
+            & = 6\pi R \int_0^1 \sin(\pi/2) \lambda^2 \\
+            & = 6\pi R \cdot \frac{1}{3} \\
+            & = 2\pi R.
+        \end{split}
+    \ese
+\eex 
+
+Note that although we used a seemingly funny parameterisation (i.e. $\lambda^3$ not just $\lambda$) in the above example, the answer still came out as we would like. This is obviously because no where in the definitions above did we talk about how we parameterise the curve. Physically it makes sense that the length of the curve is independent of it: the length of your walk does not depend on how quickly you do it, or if you even do it at a constant speed (provided you don't turn around and walk backwards on yourself at any point). This can be written nicely as the following theorem. 
+
+\bt 
+    Let $\gamma:(0,1) \to \cM$ be a smooth curve and let $\sig:(0,1)\to(0,1)$ be smooth, bijective and increasing, then $L[\gamma] = L[\gamma\circ\sig]$.
+\et 
+
+\section{Geodesics}
+
+\bd[Geodesic]
+    A curve $\gamma:(0,1)\to\cM$ is called a \textbf{geodesic} on a Riemannian manifold $(\cM,\cO,\cA,g)$ if it is a \textit{stationary}\footnote{In the sense of Lagrangians in classical mechanics.} curve w.r.t. the length functional $L$.
+\ed
+
+\bt 
+    The curve $\gamma:(0,1)\to\cM$ is a geodesic if and only if it satisfies the Euler Lagrange equations for the Lagrangian \bse 
+        \begin{split}
+            \cL : T\cM &\to \R \\
+            X &\mapsto \sqrt{g(X,X)}.
+        \end{split}
+    \ese 
+    In a chart, this is 
+    \bse 
+        \cL(\gamma^i,\Dot{\gamma}^i) = \sqrt{g_{ij}\big(\gamma(\lambda)\big)\Dot{\gamma}^i(\lambda)\Dot{\gamma}^j(\lambda)}.
+    \ese 
+\et 
+
+Finding the Euler Lagrange equations proceeds as follows:
+\bse 
+    \begin{split}
+        \frac{\p\cL}{\p\Dot{\gamma}^m} & = \frac{1}{\sqrt{...}} g_{mj}\big(\gamma(\lambda)\big) \Dot{\gamma}^j(\lambda) \\
+        \therefore \frac{d}{d\lambda}\bigg(\frac{\p\cL}{\p\Dot{\gamma}^m}\bigg) & = \frac{d}{d\lambda}\bigg(\frac{1}{\sqrt{...}}\bigg) g_{mj}\big(\gamma(\lambda)\big) \Dot{\gamma}^j(\lambda) + \frac{1}{\sqrt{...}} \Big( g_{mj}\big(\gamma(\lambda)\big) \Ddot{\gamma}^j(\lambda) + \Dot{\gamma}^s(\lambda)\big[\p_s g_{mj}\big(\gamma(\lambda)\big)\big] \Dot{\gamma}^j(\lambda) \Big).
+    \end{split}
+\ese 
+Now we're stuck with the ugly task of trying to work out $\frac{d}{d\lambda}\Big(\frac{1}{\sqrt{...}}\Big)$. However, we have already demonstrated that the length of the curve is independent on how we choose to our parameter. We are free, therefore, to choose it to be something convenient, and we simply take it to be such that $g(\Dot{\gamma},\Dot{\gamma})=1$, that is the speed it one along the whole curve. We then just have 
+\bse 
+    \frac{d}{d\lambda}\bigg(\frac{\p \cL}{\p \Dot{\gamma}^m}\bigg) = g_{mj}\big(\gamma(\lambda)\big) \Ddot{\gamma}^j(\lambda) + \Dot{\gamma}^s(\lambda)\Big(\p_s g_{mj}\big(\gamma(\lambda)\big)\Big) \Dot{\gamma}^j(\lambda).
+\ese 
+We also need to find 
+\bse 
+    \frac{\p \cL}{\p \gamma^m} = \frac{1}{2} \Big(\p_m g_{ij}\big(\gamma(\lambda)\big)\Big) \Dot{\gamma}^i(\lambda) \Dot{\gamma}^j(\lambda),
+\ese 
+where we have already imposed our parameter choice condition. So our Euler Lagrange equations are (dropping the $(\lambda)$s for notational brevity)
+\bse 
+    g_{mj}\Ddot{\gamma}^j + (\p_ig_{mj})\dot{\gamma}^i\Dot{\gamma}^j - \frac{1}{2}(\p_mg_{ij})\Dot{\gamma}^i\Dot{\gamma}^j = 0.
+\ese 
+Multiplying both sides by the inverse metric $g^{mq}$ and using the condition $g^{mq}g_{mj}=\del^q_j$, we have 
+\bse 
+    \Ddot{\gamma}^q + g^{qm}\bigg( \p_ig_{mj} - \frac{1}{2}\p_mg_{ij}\bigg) \dot{\gamma}^{(i}\dot{\gamma}^{j)} = 0,
+\ese
+where the brackets on the last two indices indicate the symmetry $\dot{\gamma}^i\dot{\gamma}^j = \dot{\gamma}^j\dot{\gamma}^i$. Using this symmetry we can double the first term by switching $i\leftrightarrow j$, giving us 
+\bse 
+    \Ddot{\gamma}^q + \frac{1}{2}g^{qm}\big(\p_ig_{mj}+\p_jg_{mi} - \p_mg_{ij}\big)\dot{\gamma}^{(i}\dot{\gamma}^{j)} = 0.
+\ese
+This is the \textbf{geodesic equation} for the components of $\gamma$ in a chart. We can write this in the form of an autoparallel\footnote{I.e. in the form $\Ddot{\gamma}^q + {\Gamma^q}_{ij}\dot{\gamma}^i\dot{\gamma}^j$.} equation by introducing the following definition.
+\bd[Christoffel Symbols]
+    Given a metric $g$ and a chart $(U,x)$, we define the \textbf{Christoffel symbols} (or \textbf{Levi-Civita connection coefficients}) as 
+    \bse 
+        ^{LC}{\Gamma^q}_{ij}\big(\gamma(\lambda)\big) := \frac{1}{2}g^{qm}\big(\p_ig_{mj}+\p_jg_{mi} - \p_mg_{ij}\big),
+    \ese
+    where the components of the metric (and its inverse, obviously) are taken in the chart given. 
+\ed 
+
+\bnn 
+    We can lighten the notation slightly by defining 
+    \bse 
+        g_{ij,m} := \p_mg_{ij},
+    \ese 
+    and similarly for any other tensor rank. That is, we simply denote a partial derivative in a chart by a comma and the index follows it is the derivative entry. This notation is very useful, as it can be used along side the semi-colon notation for the covariant derivative 
+    \bse 
+        T_{jk;i} := (\nabla_i T)_{jk} 
+    \ese 
+    We shall adopt this notation in these notes, however the reader is warned that Dr. Schuller does not use this notation, and so to make sure they can transition between the two when comparing these notes to the lectures. 
+\enn 
+
+This process, specifically the point at which we say that the $^{LC}\Gamma$s come from a connection, $^{LC}\nabla$, identifies the shortest\footnote{Again strictly speaking they're are just maximal curves, so it's also true for longest curves and curves corresponding to points of inflection.} curves (geodesics) with straight curves (autoparallels). This is clearly a physically very reasonable, and correct, thing to do. It is important to note, though, that up until this point, geodesics and autoparallels are completely separate entities. 
+
+Note by making this identification, we obtain the connection \textit{from} the metric. That is, we do not need to provide both a metric and a connection, but by simply providing a metric we can obtain a unique connection such that the shortest curves and the  straight curves coincide. This sounds like a chart dependent thing, and therefore not a good thing to do. However the following theorem puts our minds to rest on this point, letting us know everything is OK.
+
+\bt 
+    Let $(\cM,\cO,\cA,g,\nabla)$ be a topological manifold equipped with both a metric and a connection. If
+    \benr 
+        \item $\nabla$ is \textit{torsion free}, and 
+        \item $\nabla g = 0$, known as \textit{metric compatibility},
+    \een 
+    then we can conclude $\nabla = ^{LC}\nabla$.
+\et 
+
+\bq 
+    See tutorials.
+\eq 
+
+\bbox 
+    Show that the metric compatibility condition allows us to `move the metric in and out of the covariant derivative'. That is, 
+    \bse 
+        g\cdot \nabla T = \nabla g\cdot T.
+    \ese
+\ebox 
+
+Finally for this lecture, let's introduce some definitions. As we see, all of them are directly related to the metric.
+
+\bd[Riemann Christoffel Curvature]
+    Let $(\cM,\cO,\cA,g)$ be a metric manifold. The components of the  \textbf{Riemann Christoffel curvature} are defined by  
+    \bse 
+        \Riem_{abcd} := g_{am}{\Riem^m}_{bcd},
+    \ese
+    where ${\Riem^m}_{bcd}$ are the Riemann tensor components obtained from the Levi-Civita connection $^{LC}\nabla$. 
+\ed 
+
+\bd[Ricci Scalar]
+    Let $(\cM,\cO,\cA,g)$ be a metric manifold and let $\Riem$ be the Riemann tensor obtained from the Levi-Civita connection. We then define the \textbf{Ricci scalar} as 
+    \bse 
+        R = g^{ab}\Ric_{ab},
+    \ese 
+    where $\Ric_{ab}:={\Riem^c}_{acb}$ are the components of the Ricci curvature tensor.
+\ed 
+
+\bd[Einstein Curvature]
+    Let $(\cM,\cO,\cA,g)$ be a metric manifold and let $\Riem$ be the Riemann tensor obtained from the Levi-Civita connection. We define the components of the \textbf{Einstein curvature} as
+    \bse 
+        G_{ab} := \Ric_{ab} - \frac{1}{2}g_{ab}R,
+    \ese 
+    where $\Ric$ and $R$ are the Ricci curvature and Ricci scalar, respectively.
+\ed 
+
+It is important to note that these quantities are not only related to the metric through its direct appearance in the expressions, but also through the fact that, in order to define the Riemann curvature tensor we need a connection and for all of them we used the Levi-Civita connection, a metric dependent object. For this latter reason, the Ricci curvature tensor (defined previously) is also a metric dependent object.
+
+As all of the names above suggest, we have just established a link between the curvature of the spacetime and the metric structure.\footnote{In fact we made this identification the moment we insisted geodesics and autoparallels coincided, as we then established a link between the metric and the covariant derivative, which we've seen encodes curvature.} This is the first major step into understanding the main principles of general relativity: that matter generates curvature on the spacetime.
+
+\br 
+    The above definitions can, of course, all be expressed in a chart free manner as they are tensors, however the notation can be a bit confusing and it's much easier to see in component form, hence why we have defined it this way. 
+\er 
+
+\bbox 
+    Show that $\Riem_{abcd}$ have the correct transformation behaviour the components of a $(0,4)$-tensor field. From this is follows analogously that the remaining definitions are indeed tensors.
+\ebox 

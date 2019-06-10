@@ -1,0 +1,345 @@
+\chapter{Tangent Spaces}
+
+The aim of the lecture is going to be answer the following question: what is the velocity of a curve $\gamma$ at a point $p\in\cM$?
+
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) circle [radius=1.5cm];
+        \draw[thick, decoration={markings, mark=at position 0.75 with {\arrow{>}}}, postaction={decorate}] (-1,-0.5) .. controls (0,1) and (0,-1) .. (1,0.5);
+        \draw[fill=black] (-0.3,0.09) circle [radius=0.08cm];
+        \node at (-0.3,-0.25) {\large{$p$}};
+        \node at (1,0.2) {\large{$\gamma$}};
+        \node at (1.3,-1.2) {\large{$\cM$}};
+    \etik 
+\end{center}
+
+In doing this, we first want to completely forget everything we already know about what we mean by `velocity'. We are going to rediscover what it means during this lecture. 
+
+\section{Velocities}
+
+\bd[Scalar Fields]
+    The vector space with set 
+    \bse 
+        C^{\infty}(\cM) := \{ f:\cM\to\R \, | \, f \text{ is a smooth function}\}
+    \ese 
+    equipped with point-wise addition $(f\oplus g)(p) = f(p)+g(p)$ and s-multiplication $(\lambda\odot f)(p) = \lambda \cdot f(p)$, is known as the space of \textbf{scalar fields} (or smooth functions) on $\cM$. 
+\ed 
+
+\bex 
+    An example of a smooth function on $\cM$ is a temperature distribution. To each point in the room (which is $\cM$) we associate a real number, the temperature of that point.
+\eex
+
+\br 
+    We should actually be a little careful with the terminology above. A smooth function is defined for any two manifolds of arbitrary dimension, provided the map is smooth obviously. A scalar field is strictly a map to a one-dimensional manifold, in this case the real numbers $\R$. The notation $C^{\infty}(\cM)$ means that we are considering the map to the reals. We would indicate a general smooth function more explicitly as $C^{\infty}(\cM,\cN)$ or something. 
+\er 
+
+\bd 
+    Consider a smooth manifold $(\cM,\cO,\cA)$ and a curve $\gamma:\R\to\cM$ that is at least $C^1$. Suppose $\gamma(\lambda_0) = p\in\cM$. The \textbf{velocity} of $\gamma$ at $p$ is the \textit{linear map}
+    \bse 
+        v_{\gamma,p} : C^{\infty}(\cM) \lmap \R,
+    \ese 
+    defined by 
+    \bse 
+        v_{\gamma,p}(f ):= (f\circ \gamma)'(\lambda_0).
+    \ese 
+\ed 
+
+The intuition here is that as you run along in the world (i.e. move along $\gamma$) you ask how something (the scalar field) changes in your direction of motion. So you take the directional derivative of the scalar field. We will make this a lot more concrete shortly. 
+
+\section{Tangent Vector Space}
+
+\bd[Tangent Vector Space] 
+    For each point $p\in\cM$ we define the vector space, known as the \textbf{tangent (vector) space} to $\cM$ at $p$, whose set is
+    \bse 
+        T_p\cM := \{ v_{\gamma,p} \,| \, \gamma \text{ smooth curve through } p\},
+    \ese 
+    and whose addition and s-multiplication is given by 
+    \bse 
+        \begin{split}
+            (v_{\gamma,p}\oplus v_{\del,p}) (f )& := v_{\gamma,p}(f)+ v_{\del,p}(f), \\
+            (\a\odot v_{\gamma,p})(f)& := \a \cdot v_{\gamma,p}(f).
+        \end{split}
+    \ese 
+\ed 
+
+We need to show that the right-hand sides of the last two expression do indeed lie in $T_p\cM$. That is, we need to show that
+\benr 
+    \item There exists a $\tau:\R\to\cM$ such that $\a\odot v_{\gamma,p}= v_{\tau,p}$, and 
+    \item There exists a $\sig:\R\to\cM$ such that $v_{\gamma,p}\oplus v_{\del,p} = v_{\sig,p}$. 
+\een
+
+\bq 
+    It is clear that both the right-hand side expressions will be elements of $\Hom(C^{\infty}(\cM),\R)$, but we need to check that they are velocities to some curves through $p$. Let's consider them in tern
+    \benr 
+        \item Let $\lambda_0\in\R$ such that $\gamma(\lambda_0)=p$. Construct the curve $\tau:\R\to\cM$ by 
+        \bse 
+            \tau(\lambda) := \gamma(\a\lambda +  \lambda_0) = (\gamma\circ \mu_{\a})(\lambda),
+        \ese 
+        where $\mu_{\a}:\R\to\R$ defined by $\mu_{\a}(\lambda) := \a\lambda + \lambda_0$. We claim this curve satisfies our condition. 
+        
+        First note that $\tau(0) = \gamma(\lambda_0) =p$ and so it passes through the point, which we need. Then 
+        \bse 
+            \begin{split}
+                v_{\tau,p}(f)& := (f\circ \tau)'(0) \\
+                & = (f\circ \gamma\circ \mu_{\a})'(0) \\
+                & = \a \cdot (f\circ\gamma)'(\lambda_0) \\
+                & =: \a \cdot v_{\gamma,p}(f),
+            \end{split}
+        \ese 
+        where we have used the multidimensional chain rule to go from the second to third line along with $\mu_{\a}(0)=\lambda_0$ and $\mu_{\a}'(0)=\a$. Since this holds for any $f\in C^{\infty}(\cM)$, we get the result. 
+        \item This is slightly more involved. In order to show it, we shall introduce a chart $(U,x)$. However, as we have explained already, it is important that this choice of chart plays no vital role in the result; that is the result must be chart independent, so we will have to check this at the end. Again let $\lambda_0\in\R$ such that $\gamma(\lambda_0)=p$. Similarly, let $\lambda_1\in\R$ such that $\del(\lambda_1)=p$.
+        
+        Construct the curve $\sig_x:\R\to\cM$, where the subscript reminds us that we are working in a chart, by 
+        \bse 
+            \sig_x(\lambda) := x^{-1} \big( (x\circ \gamma)(\lambda_0+\lambda) + (x\circ\del)(\lambda_1+\lambda) - (x\circ\gamma)(\lambda_0)\big).
+        \ese 
+        Again we claim this curve satisfies our condition. First, we need to check it goes through the point $p$, and a quick calculation shows that $\sig_x(0) = p$, so we can proceed. We have 
+        \bse 
+            \begin{split}
+                v_{\sig_x,p}(f) & := (f\circ \sig_x)'(0) \\
+                & = \big( f \circ x^{-1}\circ x \circ \sig_x\big)'(0)
+            \end{split}
+        \ese 
+        Now we have $(f\circ x^{-1}):\R^d\to \R$ and $(x\circ\sig_x):\R\to\R^d$ and so we use the multidimensional chain rule for the derivative. We have\footnote{We use an index $i$ to denote which element in $\R^d$ we are considering. $\p_i$ obviously means the derivative w.r.t. the $i^{\text{th}}$ element.}
+        \bse 
+            \begin{split}
+                 v_{\sig_x,p}(f) & := (x^i\circ \sig_x)'(0) \cdot \p_i \big( f\circ x^{-1}\big)\big|_{(x\circ\sig_x)(0)} \\
+                 & = \big( (x^i\circ\gamma)'(\lambda_0) + (x^i\circ\del)'(\lambda_1) \big)\cdot \p_i \big(f\circ x^{-1}\big)\big|_{x(p)} \\
+                 & = (f\circ \gamma)'(\lambda_0) + (f\circ\del)(\lambda_1) \\
+                 & =: v_{\gamma,p}(f)+ v_{\del,p}(f),
+            \end{split}
+        \ese
+        where we used the `evaluated at' notation $|$ in order to reduce potential confusion, and where to get to the penultimate line we did the multidimensional chain rule in reverse (i.e. we did the steps up to that point backwards but not with $\gamma$ and $\del$). The final line make no reference to the chart $(U,x)$ and so we know we can use \textit{any} chart in our atlas to do this and so the result is chart independent. Finally, again since this holds for a general $f\in C^{\infty}(\cM)$ we get the result. 
+    \een 
+\eq 
+
+\br 
+    Dr. Schuller gives some nice picture descriptions of the above proofs in his lecture (starting about 39:00), these are worth looking at. I have not drawn them here as they will be a reasonable amount of work (especially the (ii) property) in Tikz, and I'm feeling too lazy for that, but they really are worth seeing, so go look at them if you haven't already!
+\er 
+
+It is important to note that in all of the above we are always considering the same point $p\in\cM$. It does not make sense to add two velocities that are the tangents at different points, i.e. $v_{\gamma,p} \oplus v_{\del,q}$ only makes sense when $p=q$. One way to remember this is to think about the velocities being little arrows in planes tangent to the manifold. For example if $\cM=S^2$, the 2-sphere,\footnote{For those unfamiliar, a 2-sphere is what we think of as the surface of a 3d ball. The surface is 2-dimensional and so we call it the 2-sphere.} then we have something like \Cref{fig:Tangent}. Thought about this way, it becomes clear why we can't add velocities that are tangent to different points: they live on completely separate $\R^2$ planes, so it doesn't make sense to add them. You might think `well can't we just put the velocity at $q$ onto the tangent plane at $p$?' The proper answer to this question comes later, but the short answer is `only if we take into consideration the so-called intrinsic curvature of the manifold'. 
+
+\begin{figure}
+    \begin{center}
+        \btik[scale=1.5,point/.style = {draw, circle, fill=black, inner sep=0.7pt}]
+            \def\rad{2cm}
+            \coordinate (O) at (0,0); 
+            \coordinate (N) at (0.7,1.5); 
+            \coordinate (Q) at (1,-1.5);
+            %
+            \filldraw[ball color=white] (O) circle [radius=\rad];
+            \draw[dashed] (\rad,0) arc [start angle=0,end angle=180,x radius=\rad,y radius=5mm];
+            \draw (\rad,0) arc [start angle=0,end angle=-180,x radius=\rad,y radius=5mm];
+            \begin{scope}[xslant=-1,yshift=40,xshift=56]
+                \filldraw[fill=blue!10,opacity=0.8] (-1,0.6) -- (1.2,1) -- (1.2,-0.6) -- (-1,-1.2) -- cycle;
+            \end{scope}
+            \begin{scope}[xslant=0.5,yslant=0.5,yshift=-65,xshift=47]
+                \filldraw[fill=red!10,opacity=0.8] (-1,1) -- (1,0.6) -- (1,-1) -- (-0.8,-0.8) -- cycle;
+            \end{scope}
+            \node[ultra thick, point] at (Q) {};
+            \node[ultra thick, point] at (N) {};
+            \node at (0.9,1.7) {\Huge{$p$}};
+            \node at (1,-1.8) {\Huge{$q$}};
+            \node at (-1.8,1.6) {\Huge{$S^2$}};
+            \draw[very thick, ->] (0.7,1.5) -- (2,0.9);
+            \draw[very thick, ->] (0.7,1.5) -- (1,0.9);
+            %\draw[very thick, color=red, ->] (2.,0.9) -- (1,0.9);
+            \draw[very thick, color = blue,  ->] (1,-1.5) -- (2,-1);
+            \end{tikzpicture} 
+        \caption{Tangent planes at two points $p,q \in \mathcal{M} = S^2$. The arrows are the tangent velocities to curves (not drawn) on the manifold. The two velocities at $p$ (black arrows) can be added because they live in the same tangent space, but it does not make sense to add one of them to the velocity at $q$ blue arrow.}
+        \label{fig:Tangent}
+    \end{center}
+\end{figure}
+
+\br 
+    As the above discussion highlights, we often think of the velocities as being little arrows that lie tangent to our curves and `point out' of the manifold. In order to do this, we obviously need to first \textit{embed} our manifold into a higher dimensional space (so we look at the 2-sphere in $\R^3$). However, as soon as we start considering manifolds of dimension $d\geq 3$ then we have a problem: we need to picture a at least 4-dimensional space to embed in, and I can't see 4D spaces.\footnote{If you can, props!} Besides that obstacle, when we start talking about the universe, if we embed it into something we then are talking about things that lie outside the universe, which is a rabbit whole we do not want to go down.\footnote{I'll take the blue pill, Morpheus.} 
+    
+    Luckily, our formulation of what a velocity is made no reference whatsoever to some higher dimensional embedding space. It was defined \textit{intrinsically} to the manifold itself. This seems promising, but we need to make sure that the two ideas coincide with each other. The answer is that they do and so we can choose how we want to think about our tangent vectors on a case by case basis: taking the embedding idea when we can for some nice intuition, and using the intrinsic definition when we are dealing with things too hard to imagine. 
+\er 
+
+\section{Components of a Vector w.r.t. a Chart}
+
+Let $(U,x)$ be a chart of a smooth manifold $(\cM,\cO,\cA)$ and let $\gamma:\R\to \cM$ be a curve that passes through point $p\in U$ as $\gamma(0)=p$. Now we have the calculation 
+\bse 
+    \begin{split}
+        v_{\gamma,p}(f)& := (f\circ \gamma)'(0) \\
+        & = (f\circ x^{-1}\circ x \circ \gamma)'(0) \\
+        & = (x^i\circ \gamma)'(0) \cdot \p_i \big( f\circ x^{-1}\big)\big|_{x(p)}
+    \end{split}
+\ese
+The first thing to note, as we touched on before, is that the index on $\p_i$ tells us which \textit{entry} to derive by. That is it make no reference whatsoever to $x$, but simply says `what ever the $i^{\text{th}}$ entry is, derive by that.\footnote{This is analogous to the fact that given $f:\R\to\R$ we define $f':\R\to\R$ completely independently of what variable we're using. So $f' =\frac{d f}{dx}$ is not a general expression, but is a notation choice once we have decided that $x$ is our variable.} Now this is a lot of writing and so we introduce some new notation in order to simplify it: we define 
+\bse 
+    \bigg(\frac{\textcolor{purple}{\p} f}{\textcolor{purple}{\p} \textcolor{red}{x}^{\textcolor{blue}{i}}}\bigg)_{\textcolor{green}{p}} := \textcolor{purple}{\p}_{\textcolor{blue}{i}} \big( f \circ \textcolor{red}{x^{-1}}\big) \big|_{\textcolor{red}{x}(\textcolor{green}{p})}, \qquad \text{and} \qquad \textcolor{green}{\dot{\textcolor{black}{\gamma}}}_{\textcolor{red}{x}}^{\textcolor{blue}{i}}(0) := (\textcolor{red}{x}^{\textcolor{blue}{i}}\circ \gamma){\textcolor{green}{'}}(0),
+\ese
+where the colours are just used to show that the terms appear on both sides. The first thing we have to point out is that this is \textit{just notation}. The first term looks an awful lot like a partial derivative, however strictly it is something completely different; it is just notation for the right-hand side. Obviously this notation is not done by accident and it will turn out that it will posses all of the properties we'd want from a partial derivative, but that still doesn't make it one. 
+
+Given the above, we can write down the velocity to a curve at point $p$ in the following form 
+\bse 
+    v_{\gamma,p}(f) = \dot{\gamma}^i_x(0) \cdot \bigg(\frac{\p}{\p x^i}\bigg)_p (f),
+\ese 
+or, as a \textit{map}, we can write 
+\bse 
+    v_{\gamma,p} = \dot{\gamma}^i_x(0) \cdot \bigg(\frac{\p}{\p x^i}\bigg)_p.
+\ese 
+
+\bd[Components of a Vector w.r.t. a Chart]
+    We call $\dot{\gamma}^i_x(0)$ the \textbf{$i^{\text{th}}$ component} of the velocity vector at point $p\in\cM$ w.r.t. the chart $(U,x)$. 
+\ed 
+
+\bd[Basis Elements of $T_pU$] 
+    We call $\big(\frac{\p}{\p x^i}\big)_p$ the \textbf{$i^{\text{th}}$ basis element} of $T_pU$ w.r.t. which the components need to be understood.
+\ed 
+
+Note that in the above, we only have a basis element for $T_pU$, not $T_p\cM$ as the chart is only defined for the subset $U$.
+
+\bc 
+    The action of a basis element on the $j^{\text{th}}$ coordinate function $x^j$ satisfies\footnote{Note we have used the angle bracket here. This makes sense as $x^j :U\se \cM \to \R$ is $C^{\infty}$ (as its a smooth manifold) and $\big(\frac{\p}{\p x^i}\big)_p\in T_p\cM$ is a vector. This highlights the benefit of using this notation.} 
+    \bse 
+        \bigg(\frac{\p}{\p x^i}\bigg)_p (x^j )= \del^j_i = \begin{cases} 
+            1 & \text{if } i=j, \\
+            0 & \text{otherwise}.
+        \end{cases}
+    \ese 
+\ec 
+
+\bq 
+    Use the fact that $x^j\circ x^{-1}$ only gives us the $j^{\text{th}}$ entry of $x(p)$. Obviously, then, if we try to differentiate w.r.t. any of entries we get 0 (as the entry is already 0), but if we differentiate w.r.t. this entry we get 1. This is just $\del^j_i$. 
+\eq 
+
+
+\section{Chart Induced Basis}
+
+\bt
+    Let $(\cM,\cO,\cA)$ be a $d$-dimensional smooth manifold. The set 
+    \bse 
+        \bigg\{ \bigg(\frac{\p}{\p x^1}\bigg)_p, ... , \bigg(\frac{\p}{\p x^d}\bigg)_p\bigg\}
+    \ese 
+    constitutes a basis for the tangent space $T_PU$, and it's known as the \textbf{chart induced basis}.
+\et
+
+\bq 
+    We have already known that they generate $T_pU$ as any vector in $T_pU$ can be written in terms of them. All that remains to be shown is that they are linearly independent, that is we require that
+    \bse 
+        \sum_{i=1}^d \lambda^i \bigg(\frac{\p}{\p x^i}\bigg)_p = 0 \quad  \implies \quad \lambda^i = 0 \quad \forall i.
+    \ese 
+    Consider the action on the $j^{\text{th}}$ coordinate function, $x^j$. We have 
+    \bse 
+        \sum_{i=1}^d \lambda^i \bigg(\frac{\p}{\p x^i}\bigg)_p (x^j )= \sum_{i=1}^d \lambda^i \del^j_i = \lambda^j
+    \ese 
+    and so we get the result. 
+\eq 
+
+\bc 
+    The dimension of the tangent space is equal to the dimension of the manifold
+    \bse 
+        \dim T_p\cM = \dim \cM.
+    \ese 
+\ec 
+
+\bq 
+    This just follows from the fact that there are $d$-basis elements for $T_pU$ for all the chart domains and the fact that the $d$ came from the dimension of $\cM$. 
+\eq 
+
+\section{Change of Vector Components Under Change of Chart}
+
+One often comes across statements like `a vector transforms as [insert equation] under a change of chart'. However, we know that this statement is not complete as vectors (and also tensors) are abstract objects that are completely independent of the charts. The velocity of the bird is the velocity of the bird. So the only thing we could insert into the statement is `they don't transform', but this in itself is not a super useful for calculations. A better, and much more useful, statement is `the \textit{components}\footnote{The components of a vector are simply given in relation to the basis, see \Cref{rem:ComponentsWRTBasis}.} of a vector transforms as [insert equation] under a change of chart'. 
+
+
+Let $(U,x)$ and $(V,y)$ be overlapping charts for a smooth manifold $(\cM,\cO,\cA)$ and $p\in U\cap V$. If $X\in T_p\cM$ then we can decompose it in either chart, 
+\bse 
+    X = X^i_{(x)} \bigg(\frac{\p}{\p x^i}\bigg)_p \qquad \text{and} \qquad X = X^i_{(y)} \bigg(\frac{\p}{\p y^i}\bigg)_p 
+\ese 
+To study how these relate, consider the following
+\bse 
+    \begin{split}
+        \bigg(\frac{\p}{\p x^i}\bigg)_p (f )& := \p_i \big(f\circ x^{-1}\big)\big|_{x(p)} \\
+        & = \big(f\circ y^{-1}\circ y \circ  x^{-1}\big)\big|_{x(p)} \\
+        & = \p_i \big( y^j \circ x^{-1}\big)\big|_{x(p)} \cdot \p_j \big( f\circ y^{-1}\big)\big|_{y(p)} \\
+        & = \bigg(\frac{\p y^j}{\p x^i}\bigg)_p \cdot \bigg(\frac{\p f}{\p y^j}\bigg)_p \\
+        \implies \bigg(\frac{\p}{\p x^i}\bigg)_p  & = \bigg(\frac{\p y^j}{\p x^i}\bigg)_p \bigg(\frac{\p }{\p y^j}\bigg)_p
+    \end{split}
+\ese 
+Inserting this into the fact that $X$ can be expressed in either basis, we have 
+\bse 
+    \begin{split}
+        X^j_{(y)} \bigg(\frac{\p}{\p y^j}\bigg)_p & =  X^i_{(x)} \bigg(\frac{\p}{\p x^i}\bigg)_p \\
+        & = X^i_{(x)} \bigg(\frac{\p y^j}{\p x^i}\bigg)_p  \bigg(\frac{\p }{\p y^j}\bigg)_p \\
+        \implies X^j_{(y)} & = X^i_{(x)} \bigg(\frac{\p y^j}{\p x^i}\bigg)_p,
+    \end{split}
+\ese 
+where to get to the last line we have used the fact that $\big(\frac{\p}{\p y^j}\big)_p$ is a basis and so the coefficients must be equal.
+
+It is important that we evaluate the derivative at the point $p\in\cM$ as we did not say that our transformation needed to be linear. Indeed the transformation can be wildly nonlinear (provided the expression still makes sense), but once we evaluate this result at a point we are just left with a number, which is exactly what we want. 
+
+\br 
+\label{rem:SpecialRelLorentz}
+    In special relativity, one often hears people talking about Minkowski \textit{vector space}, i.e. the vector space whose set is made up of the positions $x^{\mu}$. This goes against what we said at the start of lecture 3: "We wish to emphasise here that we will \textit{not} equip space(time) with a vector space structure." A counter would be `but the coordinate transformations work!', however the transformations considered in special relativity are not general transformations: we restrict ourselves to linear transformations, which we further restrict to be Lorentz transformations. This seems like a reasonable thing to do, but we should be able to study special relativity in polar coordinates if we want to.\footnote{As, once again, the choice of chart/coordinates has no impact whatsoever on the real world physics.} We can make such a transformation (Cartesian to polar) and the \textit{velocities} at a point will change via linear maps as described above, but the position space will not transform linearly! In other words, it is an over structuralisation to equip Minkowski space with a vector space structure, as in doing so we must restrict ourselves to Lorentz transformations. This just highlights again that the positions are \textit{not} vectors, it is the \textit{velocities} that are the vectors. 
+\er 
+
+\section{Cotangent Spaces}
+
+We have constructed the tangent space as a vector space, but our work from the lecture 3 tells us that we can take the dual to this space.
+
+\bd[Cotangent Space]
+    Let $T_p\cM$ be the tangent space to some point $p\in\cM$. The dual of this space is known as the \textbf{cotangent space}
+    \bse 
+        T^*_p\cM \equiv (T_p\cM)^* := \{ \varphi : T_p\cM \lmap \R \}.
+    \ese 
+\ed 
+
+\bd[Gradient of $f$ at $p$] 
+    Let $f\in C^{\infty}(\cM)$. Then we can define the linear map 
+    \bse 
+        (df)_p : T_p\cM \lmap \R, \qquad (df)_p X := X(f). 
+    \ese 
+    Clearly this makes $(df)_p$ an element of the cotangent space. It is known as the \textbf{gradient} of $f$ at point $p\in\cM$.
+\ed
+
+\br 
+    Note that we do not need to use a chart in order to define the gradient, as one might think we would from undergraduate classes. 
+\er 
+
+The gradient is a $(0,1)$-tensor over the vector space $T_p\cM$ and so we can find its components w.r.t. the chart induced basis using the method discussed previously: 
+\bse 
+    \big((df)_p\big)_j := (df)_p \Bigg(\bigg( \frac{\p}{\p x^j} \bigg)_p\Bigg) = \bigg(\frac{\p f}{\p x^j}\bigg)_p = \p_j \big( f\circ x^{-1}\big)\big|_{x(p)}.
+\ese 
+
+\bc 
+    The chart induced basis for $T^*_p\cM$ is the set 
+    \bse 
+        \{ (dx^1)_p,...,(dx^d)_p\},
+    \ese 
+    where $x^i:U\to\R$ are the coordinate maps for the chart $(U,x)$.
+\ec 
+
+\bq 
+    By direct calculation we have 
+    \bse 
+        (dx^i)_p \Bigg(\bigg(\frac{\p}{\p x^j}\bigg)\Bigg) := \bigg(\frac{\p x^i}{\p x^j}\bigg)_p = \del^i_j,
+    \ese 
+    which is the dual basis of dual space condition. 
+\eq 
+
+\section{Change of Components of a Covector Under a Change of Chart}
+
+Just as with the vector above, the covector itself remains invariant under a change of charts (its a tensor!), but the \textit{components} change under a change of chart. Proceeding analogously to the vector component calculation we get: if $\omega\in T^*_p\cM$ and $(U,x)$ and $(V,y)$ are the two charts, then
+\bse 
+    \omega_{(y)j} = \bigg(\frac{\p x^i}{\p y^j}\bigg)_p \omega_{(x)i}.
+\ese
+Note that here the fraction is flipped in comparison to the vector components (i.e. the $x$ and $y$ have changed places). This reflects the fact that $\omega$ is a covector and so its components transform inversely to the components of a vector. This highlights an important point that we have hinted at a few times: we must not think of the gradient as a vector. It is a covector and its transformation properties prove it. If you need extra convincing, if it was a vector, we would expect it to transform under the chain rule, but that would give us 
+\bse 
+    \big((df)_p\big)_{(x)i} = \bigg(\frac{\p f}{\p x^i}\bigg)_p = \bigg(\frac{\p y^j}{\p x^i}\bigg)_p \bigg(\frac{\p f}{\p y^j}\bigg) = \bigg(\frac{\p y^j}{\p x^i}\bigg)_p\big((df)_p\big)_{(y)j},
+\ese 
+which is in contradiction to our result!
+
+\bbox 
+    Show that the above transformation property is true. 
+    
+    \textit{Hint: Write $\omega = \omega_{(x)i}(dx^i)_p$}
+\ebox 
+
+There is a general rule to check that your transformation properties are right: look at the left-hand side and look at the placement of indices (plural for the case of higher order tensors) and which basis labelling they correspond to ($x$ or $y$). Every lower index becomes a denominator index in your fraction and comes with the relevant basis label. You then write the component in the new coordinate (i.e. $\omega_{(x)i}$) and then, as there was no $x$ or $i$ on the left-hand side, use the Einstein summation convention to remove it from the right-hand side by placing it in the numerator. When you consider higher order tensors, you just make sure you pair up the correct indices with each other: for example 
+\bse 
+    T^{ij}_{(x)} = \bigg(\frac{\p x^i}{\p y^k}\bigg)_p \bigg(\frac{\p x^j}{\p y^{\ell}}\bigg)_p T^{k\ell}_{(y)},
+\ese 
+where the first indices ($i$ and $k$) are paired and the second indices ($j$ and $\ell$) are paired. We will see this rule more generally when we consider the change of components of tensors shortly. 

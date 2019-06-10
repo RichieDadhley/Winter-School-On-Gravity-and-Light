@@ -1,0 +1,273 @@
+\documentclass[11pt,oneside]{book}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[toc,page]{appendix}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\usepackage{xcolor,tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs,amsfonts,xfrac,pifont,bbold,physics}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage[breakable, theorems, skins]{tcolorbox}
+\usepackage[colorlinks = true,
+            linkcolor = red,
+            urlcolor  = blue,
+            citecolor = red,
+            anchorcolor = red]{hyperref}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\usepackage{soul}
+\usepackage{frcursive}
+\usepackage{enumitem}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\tikzset{
+    partial ellipse/.style args={#1:#2:#3}{
+        insert path={+ (#1:#3) arc (#1:#2:#3)}
+    }
+}
+
+
+
+% -------------------------------------------------------------------
+% Theorem Styles
+% -------------------------------------------------------------------
+
+\theoremstyle{definition} % Define theorem styles here based on the definition style (used for definitions and examples)
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{plain} % Define theorem styles here based on the plain style (used for theorems, lemmas, propositions)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{axiom}{Axiom}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{postulate}{Postulate}
+
+\theoremstyle{remark} % Define theorem styles here based on the remark style (used for remarks and notes)
+\newtheorem*{solution}{Solution}
+
+
+\newtheoremstyle{underline}% name
+{}        % Space above, empty = `usual value'
+{}              % Space below
+{}              % Body font
+{}    % Indent amount (empty = no indent, \parindent = para indent)
+{}              % Thm head font
+{.}             % Punctuation after thm head
+{1.5mm}         % Space after thm head: \newline = linebreak
+{{\underline{\textit{\thmname{#1}\thmnumber{ #2}}~\thmnote{(#3)}\unskip}}}  % Thm head spec
+
+\theoremstyle{underline}
+
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem*{terminology}{Terminology}
+\newtheorem*{notation}{Notation}
+\newtheorem*{convention}{Convention}
+
+
+
+% -------------------------------------------------------------------
+% Chapter Headings
+% -------------------------------------------------------------------
+
+\setcounter{chapter}{-1}
+
+\makeatletter
+\renewcommand{\@chapapp}{Lecture}
+\makeatother
+\definecolor{lightergray}{rgb}{0.9,0.9,0.9}
+
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\raggedright}{}{0em}{\colorsection}[\titlerule]
+\titleformat{name=\section,numberless}{\large\scshape\bfseries\raggedright}{}{0em}{\colorsectionnonumber}[\titlerule]
+
+\titleformat{\subsection}{\bfseries\raggedright}{}{0em}{\colorsubsection}
+\titleformat{name=\subsection,numberless}{\bfseries\raggedright}{}{0em}{\colorsubsectionnonumber}
+
+\newcommand{\colorsection}[1]{%
+    \colorbox{lightergray}{\parbox{\dimexpr\textwidth-2\fboxsep}{\thesection\ \ #1}}}
+\newcommand{\colorsectionnonumber}[1]{%
+    \colorbox{lightergray}{\parbox{\dimexpr\textwidth-2\fboxsep}{#1}}}
+    
+\newcommand{\colorsubsection}[1]{%
+    \colorbox{lightergray}{\parbox{\dimexpr\textwidth-2\fboxsep}{\thesubsection\ #1}}}
+\newcommand{\colorsubsectionnonumber}[1]{%
+    \colorbox{lightergray}{\parbox{\dimexpr\textwidth-2\fboxsep}{#1}}}
+    
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\input{Shortcuts.tex}
+
+\begin{document}
+
+\captionsetup[figure]{margin=1cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+\captionsetup[table]{margin=1cm,font=small,labelfont={bf},name={Table},labelsep=colon,textfont={it}}
+\setlipsumdefault{1}
+
+\frontmatter
+
+\begin{titlepage}
+	\centering
+	    \scshape % Use small caps for all text on the title page
+        \vspace*{\baselineskip} % White space at the top of the page
+        
+	    \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	    \rule{\textwidth}{0.4pt} % Thin horizontal rule
+	    
+	    \vspace{0.75\baselineskip} % Whitespace above the title
+	    
+	    {\LARGE The WE-Heraeus International Winter School on Gravity and Light} % Title
+	    
+	    \vspace{0.75\baselineskip} % Whitespace below the title
+	    
+	    \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	    \rule{\textwidth}{1.6pt} % Thick horizontal rule
+	    
+        \vspace{2\baselineskip} % Whitespace after the title block
+
+	    Course delivered in 2015 by 
+	
+	    \vspace{0.5\baselineskip} % Whitespace before the editors
+	
+	    {\scshape\Large Dr. Frederic P. Schuller} % Lecturer Name
+	
+	    \vspace{0.5\baselineskip} % Whitespace below the editor list
+	
+	    \textit{Friedrich-Alexander-Universität Erlangen-Nürnberg, \\ Institut für Theoretische Physik III} % Lecturer Institution
+	    
+	    \vspace{2\baselineskip} % Whitespace after the title block
+	    
+	   
+	    \includegraphics[width=8cm]{images/WinterSchool.png}
+	    \includegraphics[width=8cm]{images/WinterSchoolEmblem.jpg}\\[1cm] % Logo 
+
+	    Notes taken by 
+	
+	    \vspace{0.5\baselineskip} % Whitespace before my name
+	
+	    {\scshape\Large Richie Dadhley} % Lecturer Name
+	   
+	    \vspace{0.5\baselineskip} % Whitespace below my name
+	    \textit{richie@dadhley.com} % Email
+	
+	    \vfill % Whitespace between editor names and publisher logo
+\end{titlepage}
+
+
+
+% -------------------------------------------------------------------
+% Acknowledgements
+% -------------------------------------------------------------------
+
+\newpage
+\section*{Acknowledgements}
+
+This set of notes is intended to accompany the lecture course on String Theory taught by Dr. Frederic P. Schuller. The videos for the course are available on YouTube via the following link:
+
+\begin{center}
+    \href{https://www.youtube.com/watch?v=7G4SqIboeig&t=3811s}{https://www.youtube.com/watch?v=7G4SqIboeig\&t=3811s}
+\end{center}
+
+I have tried to correct any typos and/or mistakes I think I have noticed over the course. I have also tried to include additional information that I think supports the taught material well, which sometimes has resulted in modifying the order the material was taught. Obviously, any mistakes made because of either of these points are entirely mine and should not reflect on the taught material in any way. \\
+
+% For any other notable sources used:
+% One of the main sources I have used to obtain the additional information is Dr. David Tong’s String Theory notes, available via the following link  
+
+%\begin{center}
+%    \textcolor{red}{Link}
+%\end{center}
+
+I would like to extend a message of thanks to Dr. Schuller for making this courses available and for his great explanations of the topic. \\
+
+If you have any comments and/or questions please feel free to contact me via the email provided on the title page. \\
+
+These notes are currently a work in progress, so for updated notes, as well as a list of other notes/works I have available, visit my blog site
+
+\begin{center}
+    \href{https://richie291.wixsite.com/theoreticalphysics}{https://richie291.wixsite.com/theoreticalphysics}
+\end{center}
+
+These notes are not endorsed by Dr. Schuller or The WE-Heraeus Institute.
+\vspace{1cm}
+
+\begin{flushright}
+    \Huge{{\cursive\setul{0.1ex}{}\ul{~~Richie Dadhley~~}}}
+\end{flushright}
+
+
+% -------------------------------------------------------------------
+% Contents
+% -------------------------------------------------------------------
+
+\tableofcontents
+
+% -------------------------------------------------------------------
+% Main sections (as required)
+% -------------------------------------------------------------------
+
+\mainmatter
+
+\input{sections/00introduction.tex}
+\input{sections/01Topology.tex}
+\input{sections/02topologicalmfds.tex}
+\input{sections/03multilinear.tex}
+\input{sections/04diffmfds.tex}
+\input{sections/05tangentspaces.tex}
+\input{sections/06fields.tex}
+\input{sections/07connections.tex}
+\input{sections/08parallel.tex}
+\input{sections/09newton.tex}
+\input{sections/10metricmfds.tex}
+\input{sections/11symmetry.tex}
+\input{sections/12integration.tex}
+\input{sections/13spacetime.tex}
+\input{sections/14matter.tex}
+\input{sections/15einsteingravity.tex}
+\input{sections/16optgeo1.tex}
+\input{sections/17optgeo2.tex}
+\input{sections/18canonical1.tex}
+\input{sections/19canonical2.tex}
+\input{sections/20cosmoearly.tex}
+\input{sections/21cosmolate.tex}
+\input{sections/22blackholes.tex}
+\input{sections/23penrose.tex}
+\input{sections/24perturbation1.tex}
+\input{sections/25perturbation2.tex}
+
+\input{sections/Tutorials.tex}
+
+% -------------------------------------------------------------------
+% Bibliography/Further Readings
+% -------------------------------------------------------------------
+
+\input{Biblio.tex}
+
+
+%\bibliographystyle{agsm} 
+%\bibliography{mybibliography} 
+%\printbibliography[heading=bibintoc]
+
+
+% -------------------------------------------------------------------
+% Appendices
+% -------------------------------------------------------------------
+
+%\begin{appendices}
+%\input{sections/appendixA.tex}
+%\end{appendices}
+
+\end{document}

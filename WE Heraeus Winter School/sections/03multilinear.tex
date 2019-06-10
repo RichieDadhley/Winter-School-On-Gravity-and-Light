@@ -1,0 +1,428 @@
+\chapter{Multilinear Algebra}
+
+Multilinear algebra, as the name suggests, is just an extension of linear algebra. When studying linear algebra, one invariably studies vector space structures. We wish to emphasise here that we will \textit{not} equip space(time) with a vector space structure. This might seem like a strange thing to say, but in which case ask yourself `where is $5\times$Paris?' or `where is Paris $+$ Vienna?' However, the so-called \textit{tangent spaces} $T_p\cM$ to smooth manifolds\footnote{What these terms strictly mean shall be explained in the course.} \textit{will} carry a natural vector space structure. 
+
+It is beneficially to first study vector spaces abstractly for two reasons 
+\benr 
+    \item For the construction of $T_p\cM$, one need an intermediate vector space $C^{\infty}(\cM)$, and  
+    \item Tensor techniques are most easily understood in an abstract setting. 
+\een 
+
+\section{Vector Spaces}
+
+In order to define a vector space, we first need to make sure we know what a \textit{field} is.\footnote{There is a lot more information on this in Dr. Schuller's Lectures on Geometric Anatomy of Theoretical Physics.} 
+
+\bd[Abelian Group] 
+    Let $K$ be a set and let $\bullet:K\to K$. The double $(K,\bullet)$ is a \textbf{Abelian} (or commutative) group if the following axioms are satisfied
+    \benr 
+        \item Commutative; $a\bullet b = b\bullet a$,
+        \item Associative;  $(a\bullet b)\bullet c = a\bullet (b\bullet c)$,
+        \item Neutral element; $\exists 0\in K$ such that $a\bullet 0 = 0\bullet a = a$, 
+        \item Inverse; $\exists a^{-1} \in K$ such that $a\bullet a^{-1} = a^{-1}\bullet a = 0$.
+    \een 
+\ed 
+
+\bex 
+    The real numbers equipped with addition form an Abelian group. However, the real numbers do \textit{not} form an Abelian group when equipped with multiplication. This is because the neutral element is clearly $1\in\R$, but $0\in\R$ and there is no $a\in\R$ such that $a\times 0 =1$.\footnote{Infinity is not counted as a well defined element of the reals.} 
+\eex 
+
+\bd[Field] 
+    A \textbf{field} is a triple $(\F,+,\cdot)$ where
+    \begin{itemize}
+        \item $\F$ is a set, and
+        \item $+,\cdot:\F\times \F \to \F$ are maps.
+    \end{itemize}
+    They must satisfy the following axioms 
+    \benr
+        \item $(\F,+)$ is an Abelian group.
+        \item $(\F^*,\cdot)$ is an Abelian group, where $\F^*=\F\setminus\{0\}$. 
+        \item Distributive; $\forall a,b,c\in \F$ $a\cdot(b+c) = a\cdot b + a\cdot c$.
+    \een
+\ed 
+
+\br 
+    If we don't require condition (ii) above, but in its place just require the associativity condition,  $a\cdot(b\cdot c) = (a\cdot b)\cdot c$, then we get a weaker notion called a \textit{ring}. If we also require the existence of a neutral element $1\in\F$ then we get a \textit{unital ring}. Similarly, if we require the commutative condition we get a \textit{commutative ring}. We will use rings later in the course (starting in lecture 6). 
+\er
+
+\bd[$\F$-Vector Space]
+    A \textbf{$\F$-vector space} is the triple $(V,+,\cdot)$ where 
+    \begin{itemize} 
+        \item $V$ is a set, 
+        \item $+$ is the addition map, $+:V\times V \to V$, and 
+        \item $\cdot$ is the s-multiplication map, $\cdot : \F\times V \to V$,
+    \end{itemize} 
+    satisfying, for all $v,w,u\in V$ and $a,b\in\F$
+    \benr 
+        \item Commutative w.r.t. $+$; $v+w=w+v$,
+        \item Associative w.r.t. $+$; $(v+w)+ u = v +(w+u)$,
+        \item There is a neutral element w.r.t. $+$; $\exists e\in V$ such that $v+e=v$,
+        \item There is an inverse element w.r.t. $+$; $\exists \widetilde{v}\in V$ such that $\widetilde{v}+v = v + \widetilde{v} = e$.
+        \item Associative w.r.t. $\cdot$; $a\cdot(b\cdot v) = (a\cdot b)\cdot v$, 
+        \item Distributive 1; $(a+b)\cdot v = a\cdot v + a\cdot w$,
+        \item Distributive 2; $a\cdot(v+w) = a\cdot v + a\cdot w$, 
+        \item Unitary w.r.t. $\cdot$; $1\cdot v = v$.
+    \een 
+\ed 
+
+In these notes we will only really consider $\R$-vector spaces, and so most of the definitions that follow will use $\R$ as the field. Obviously we could extend these definitions to general $\F$-vector spaces. 
+
+\br 
+    We should actually be careful in the above definition when we write $+$ and $\cdot$. There are two kinds floating about. One is the $+/\cdot$ we are defining for our vector space, and the other is the $+/\cdot$ on $\F$. For example in (vi) we have $(a \textcolor{red}{+} b) \cdot v = a\cdot v + b \cdot v$. The black $+$s here are the ones defined for our vector space, whereas the red on is the addition on $\F$. The same idea goes for condition (v). If we were being really particular, we would give these different names, however we shall just assume that we can work it out given the context (i.e. both $a$ and $b$ are real numbers so $a+b$ is clearly the addition on $\F$.)
+\er
+
+\br 
+    Just as we can build a $\F$-vector space over a field $(\F,+,\cdot)$, we can built a so-called \textit{$R$-module} over a ring $(R,+,\cdot)$. It is done in exactly the same fashion. 
+\er 
+
+\bter 
+    An element of a vector space is often referred to \textit{informally} as a vector.  
+\eter 
+
+We emphasise the word informally in the above terminology, for a reason that the next example demonstrates.
+
+\bex
+\label{ex:PolynomialExample}
+    First define the \textit{set} 
+    \bse 
+        P := \bigg\{p:(-1,1) \to \R \, \bigg| \, p(x) = \sum_{n=1}^N p_nx^n, \, p_n\in\R\bigg\}. 
+    \ese 
+    We could then ask whether $\square:(-1,1) \to \R$ defined by $\square(x) = x^2$ is a vector? The answer is `no, of course it's not!' Why? Well because we don't even have a vector space so can't have vectors. That is we haven't defined an addition and s-multiplication for $P$. 
+    
+    Now let's imagine that we define an addition and s-multiplication \textit{pointwise}, meaning 
+    \bse 
+        + : (p,q) \mapsto p +_P q
+    \ese 
+    is defined via 
+    \bse 
+        (p+_Pq)(x) := p(x) +_{\R} q(x),
+    \ese
+    and similarly for $\cdot_P:\R\times V\to \R$, where the subscripts indicate which $+$ we're talking about. If we \textit{now} ask whether $\square$ is a vector, the answer is `well, yes!'
+\eex 
+
+The point of the above example is to demonstrate that you can't just look at something itself and decide whether it is a vector or not, you need to know whether there is an underlying vector space or not. This might seem like a rather pedantic point to prove, however it is an important point to note as people often ask `what \textit{is} a tensor?' A tensor is an extension of a vector\footnote{Or perhaps more correctly, a vector is a specific type of tensor.} and so they are defined as elements of a tensor space, which in itself is a rather abstract object. This often leads people to being very confused, however once you understand the above point, this confusion should die away. 
+
+\bbox 
+    Prove that $(P,+_P, \cdot_P)$ as defined in the above example is in fact a vector space, i.e. show it meets the 8 axioms. 
+\ebox 
+
+\section{Linear Maps}
+
+It is a standard procedure in mathematics that once you introduce a new structure to a object that you consider the structure preserving maps. That is the maps that map two objects with the same types of structures that have the property that the structure on one can be derived from the structure on the other. Such maps are generally known as \textit{isomorphisms} of the relevant structure(s). We have already done this when considering topological spaces: we considered the homeomorphisms between two topological spaces. As you might have pieced together, the structure preserving maps for the vector space structure are known as \textit{linear maps}.
+
+\bd[Linear Maps]
+    Let $(V, +_V,\cdot_V)$ and $(W,+_W,\cdot_W)$ be vector spaces. Then a map $\varphi : V \to W$ is called \textbf{linear} if: for all $v,\widetilde{v}\in V$ and $\lambda\in\R$, 
+    \benr 
+        \item $\varphi(v+_V\widetilde{v}) = \varphi(v) +_W \varphi(\widetilde{v})$, and 
+        \item $\varphi(\lambda\cdot_{V}v) = \lambda\cdot_W \varphi(v)$.
+    \een
+\ed 
+
+\bex 
+    Again let's consider the space $P$ as defined in \Cref{ex:PolynomialExample}. Let's consider the map $\del : P \to P$ defined by $\del(p) := p'$, i.e. the differential operator. This is a linear map as
+    \bse 
+        \begin{split}
+            \del(p+q) & = (p+q)' = p'+q' = \del(p)+\del(q), \qquad \text{and} \\
+            \del(\lambda\cdot p) & = (\lambda\cdot p)' = \lambda \cdot p' = \lambda \cdot \del(p).
+        \end{split}
+    \ese 
+\eex
+
+\bnn 
+    We write a linear map $\varphi : V \to W$ by putting a tilde on the arrow, i.e. $\varphi : V \lmap W$.
+\enn 
+
+\bt[Composition of Linear Maps]
+\label{thrm:CompositionOfLinearMaps}
+    Suppose we have the following linear maps $\varphi : V\lmap W$ and $\psi : W \lmap U$. Then the map $(\psi\circ\varphi): V \lmap U$ is also linear. 
+\et 
+
+\bbox 
+    Prove \Cref{thrm:CompositionOfLinearMaps} and show that it holds for arbitrary compositions. 
+\ebox 
+
+\bex 
+    Let $\del: P \lmap P$ be the same map as before. Now consider the composite map $\del\circ\del$, the second derivative operator. Then \Cref{thrm:CompositionOfLinearMaps} along with the previous example tells us that this is also a linear map $(\del\circ\del): P \lmap P$
+\eex
+
+\section{Vector Space of Homomorphisms}
+
+\bd[The Vector Space of Homomorphisms] 
+    Let $(V,+,\cdot)$ and $(W,+,\cdot)$\footnote{From now on we shall drop the subscripts on the $+/\cdot$ and assuming we know which is which based on the context of the equation.} be vector spaces. Then we can define the \textit{set}
+    \bse 
+        \Hom(V,W) := \{ \varphi : V \lmap W \}. 
+    \ese 
+    We can turn this into a vector space by defining 
+    \bse 
+        \begin{split}
+            \oplus : \Hom(V,W) \times \Hom(V,W) & \to \Hom(V,W) \\
+            (\varphi,\psi) & \mapsto \varphi \oplus \psi,
+        \end{split}
+    \ese 
+    where $(\varphi\oplus \psi)(V) = \varphi(V) + \psi(V)$, and similarly for the s-multiplication $\odot : \R \times \Hom(V,W) \to \Hom(V,W)$. The triple $(\Hom(V,W),\oplus,\odot)$ is the \textbf{vector space of homomorphisms}. 
+\ed 
+
+\bex 
+    Again we use our polynomial set $P$. We can turn $\Hom(P,P)$ into a vector space by defining $\oplus/\odot$ as above. So we obtain things like 
+    \bse 
+        5\odot \del \oplus (\del\circ\del) \in \Hom(P,P),
+    \ese 
+    and so a sum of derivative operators of different orders is again a linear map on the set of polynomials. 
+\eex
+
+\section{Dual Vector Space}
+
+\bd[Dual Vector Space] 
+    Let $(V,+,\cdot)$ be a vector space. We define the \textbf{dual vector space} (to $V$) $(V^*,\oplus,\odot)$, where 
+    \bse
+        V^* := \Hom(V,\R) := \{ \varphi : V \lmap \R \},
+    \ese 
+    and where $\oplus/\odot$ are necessarily defined. 
+\ed 
+
+\bter 
+    As with the vector, an element $\varphi\in V^*$ is informally called a \textit{covector}. 
+\eter 
+We actually need to be even more careful when talking about covectors; as we have defined it a covector is an element of a vector space, but our previous terminology tells us that that's a vector. So in order to call something a covector, we not only need to know that the set it belongs to has an underlying vector space, we also need to know that it is a dual to some other vector space, whose elements we have already called vectors. 
+
+\bex 
+    Consider a map $I : P \lmap \R$, which tells us that $I\in P^*$. We define it by 
+    \bse 
+        I(p) := \int_0^1 dx \, p(x).
+    \ese 
+    This tells us that the integration operator $I := \int_0^1dx$ is a covector. 
+\eex 
+
+\bbox 
+    Prove that $I:P\lmap \R$ is indeed linear. 
+\ebox 
+
+\bt 
+\label{thrm:DoubleDualV}
+    Let $(V,+,\cdot)$ be a vector space. If it is finite dimensional\footnote{We shall soon clarify what we mean by the `dimension' of a vector space.} then the double dual is the vector space itself. That is\footnote{Really we should use an isomorphic symbol here, but we shall ignore this in these notes.}
+    \bse 
+        (V^*)^* = V,
+    \ese 
+    when $\dim V<\infty$. 
+\et 
+
+\br 
+    When we learn physics lower down in school we actually meet lots of covectors that we, at that time, called vectors. This was obviously done so as not to have to introduce the idea of a covector. However, we just want to point out here that covectors are not some new thing we have never seen before. 
+\er 
+
+\section{Tensors}
+
+If we are consider finite dimensional vector spaces, then there is a very natural definition for tensors as multilinear maps. 
+
+\bd[Tensor] 
+    Let $(V,+,\cdot)$ be a vector space. A $(r,s)$-tensor, $T$, over $V$ is a multilinear map 
+    \bse 
+        T : \underbrace{V^* \times ... \times V^*}_{r\text{-terms}} \times \underbrace{V \times ... \times V}_{s\text{-terms}} \lmap \R. 
+    \ese 
+\ed 
+
+\br 
+    Others flip the definition of an $(r,s)$-tensor, in the sense that $r$ tells you how many $V$ terms appear in the above map and $s$ tells you how many $V^*$ terms appear there. It is important to make sure you know which convention you are dealing with before moving forward. 
+\er 
+
+\bex 
+    Let $T$ be a $(1,1)$-tensor. This means it takes in as its argument one covector and one vector. The multilinearity of $T$ tells us that: for all $\varphi,\psi\in V^*$, $v,w\in V$ and $\lambda\in\R$ 
+    \bse 
+        \begin{split}
+            T(\varphi+\psi,v) & = T(\varphi,v) + T(\psi,v), \\
+            T(\lambda\cdot\varphi,v) & = \lambda T(\varphi,v), \\ 
+            T(\varphi, v+w) & = T(\varphi,v) + T(\varphi,w) \\
+            T(\varphi,\lambda\cdot v) & = \lambda T(\varphi,v).
+        \end{split}
+    \ese 
+\eex 
+
+\bex 
+    We can give an example of a tensor using our polynomial space. The map $g:P\times P \lmap \R$ defined by 
+    \bse 
+        g(p,q) = \int_{-1}^1dx p(x)q(x)
+    \ese
+    is a $(0,2)$-tensor over $P$. This is just the inner product on the real numbers. So the inner product is a $(0,2)$-tensor. This example will lead nicely into later when we discuss so-called metrics.
+\eex 
+
+\bter 
+    As defined above, the number $r$ is often known as the \textit{covariant order} of $T$ and $s$ the \textit{contravariant order}. Their sum $r+s$ is known as the \textit{rank} of $T$. 
+\eter 
+
+The definition for the tensor we have given is actually only one way that you might see a tensor defined. We shall now give a couple others to make reading other texts easier. Both of these require our vector spaces to be finite dimensional. 
+
+\bd[Tensor (via Tensor Product)] 
+    Let $(V,+,\cdot)$ be a vector space. A $(r,s)$-tensor is defined by 
+    \bse 
+        T = \underbrace{V\otimes ... \otimes V}_{r\text{-terms}}\otimes\underbrace{V^*\otimes ... \otimes V^*}_{s\text{-terms}} \equiv V^{\otimes r} \otimes (V^*)^{\otimes s},
+    \ese 
+    where $\otimes$ is the so-called \textit{tensor product}.
+\ed 
+
+One can give a strict definition of the tensor product, but for our purposes, we can just view it to be such that this definition and the first tensor definition coincide. Note how here the $r$ and $s$ are switched, so we have $r$ $V$ terms and $s$ $V^*$ terms. Now, because we're assuming our vector space is finite dimensional, \Cref{thrm:DoubleDualV} tells us that $V=(V^*)^*$, and so we can can think of $V$ as the set of all linear maps from $V^*$ to $\R$. We therefore just take the tensor product to mean `we have $r$ linear maps $V:V^*\lmap \R$ and $s$ linear maps $V^*:V\lmap\R$.'
+
+This definition is useful because it shows us easily how to make higher order tensors: simply tensor product it with another tensor. For example if $T$ is a $(r,s)$-tensor and $S$ is a $(p,q)$-tensor then $T\otimes S$ is a $(r+p,s+q)$-tensor. 
+
+There is a third common way people like to think/define tensors. It is easiest explained through an example. 
+
+\bex 
+    Let $(V,+,\cdot)$ be a \textit{finite dimensional} vector space and let $T$ be a $(1,1)$-tensor. Then $T$ maps one covector and one vector to a real number. However, if we only feed it the one vector we are left with a linear map from $V^*$ to $\R$. This is, by definition, an element of $(V^*)^*$, but because our vector space is finite dimensional, \Cref{thrm:DoubleDualV} tells us that $(V^*)^*=V$. We can thus define the map $\phi_{T} : V \lmap V$ by $\phi(v) = T(\bullet, v)$, where $\bullet$ indicated an empty slot. It is for this reason people often refer to a $(1,1)$-tensor as a linear map that takes a vector to a vector. Similar words are used for higher order tensors. 
+\eex
+
+\br 
+\label{rem:PersonalrsNotation}
+    Personally,\footnote{As in me, Richie.} I am not a fan of talking about $(r,s)$-tensors at all. The reason for this is the notation is highly misleading as it fails to take into account the ordering of the vector spaces in the Cartesian product. To clarify what I mean, the two spaces with corresponding sets
+    \bse 
+        \begin{split}
+            V \times V^* & := \{ (v,\widetilde{v}) \, | \, v\in V \text{ and } \widetilde{v}\in V^*\}, \\
+            V^* \times V & := \{ (\widetilde{v},v) \, | \, \widetilde{v}\in V^* \text{ and } v\in V \}
+        \end{split}
+    \ese 
+    are not the same. The addition on the two spaces separately say `add two elements entry wise. So the first entries are added together and the second entries are added together.' Clearly, then, we can not add an element from the former to an element of the later as the ordering of the entries is switched. The only way we could do this addition would be to redefine our notion of addition to account for this. 
+    
+    However, people would call a linear map from either of these spaces a $(1,1)$-tensor, but a tensor can be made into a tensor space (as we will do shortly) and so we should be able to add elements in this set together, given some rule. However, we have just established that there is no consistent rule in order to do this. 
+    
+    In the language of our second definition of a $(r,s)$-tensor, this problem is related to the fact that one can't simply compare $V\otimes W$ and $W\otimes V$ for two general spaces. That is, they are completely different spaces and need not be related by any sort of symmetry property. 
+    
+    This is a problem that is very rarely highlighted in textbooks,\footnote{At least the ones I've read.} as the two spaces are clearly isomorphic (all you are doing is switching the order of the entries around) but that I think it is an important point to note.\footnote{An attitude past on to me by my lecturer at university who pointed this all out.} I therefore think it is best to just give the explicit form of a tensor in terms of its tensor product array, as then there can be no confusion. However, this is not what Dr. Schuller does in his course and so I shall not do this in the rest of the notes. 
+\er 
+
+\section{Vectors and Covectors as Tensors}
+
+\bc 
+    A covector $\varphi\in V^*$, i.e. $\varphi:V \lmap \R$, is a $(0,1)$-tensor. 
+\ec 
+
+\bc 
+    For a finite dimensional vector space, a vector $v\in V $ is a $(1,0)$-tensor.
+\ec 
+
+\section{Bases}
+
+So far we have talked about vectors without mentioning any numbers for them at all. That is at no point have we said the vector $(1,2)\in\R^2$ or something. In order to even make such a statement, we need to introduce a basis, which tells us what the entries mean, for our vector space. For example, $(1,2)\in\R^2$ could mean `go along the $x$-axis $1$ unit and along with $y$-axis $2$ units', in which case $x$ and $y$ are our choice of basis. Now obviously this is not the only choice of basis for $\R^2$, it is simply one of an uncountably many. Often making this choice allows us to progress greatly with the problem at hand, however one must always be conscious of the fact that they made a choice and that \textit{anything} derived using that choice could be completely dependent on that choice, by which we mean that the result could be different had a different choice been made. If one wants to assign the result of our calculation as a property of the vector itself (e.g. its \textit{length}) one needs to show that the result is completely basis independent. It is therefore best to try and avoid bases all together and only use them when absolutely necessary. 
+
+As we have already said, using a basis can often greatly simplify a calculation and so, with the above comment in mind, we shall now proceed to studying bases. 
+
+\bd[Basis for Vector Space]
+    Let $(V,+,\cdot)$ be a vector space. A subset $B\se V$ is called a (Hamel-)\footnote{As apposed to a Schauder-basis. For more info. see Dr. Schuller's Quantum Theory course.} \textbf{basis} if 
+    \bse 
+        \forall v\in V, \, \exists ! \text{ finite } F = \{f_1,...,f_n\} \ss B \, : \, \exists ! v_1,...,v_n\in\R \, : \, v = v^1f_1 + ... + v^n f_n.
+    \ese 
+\ed 
+
+This is not the only way to define a (Hamel-)basis and indeed is not the most useful for calculations. Instead we have the following definition.
+
+\bd[Basis for Vector Space (linear independence)] 
+    Let $(V,+,\cdot)$ be a vector space. A subset $B =\{e_1,...,e_d\} \se V$ is called a \textbf{basis} if 
+    \benr 
+        \item The basis \textit{spans/generates} $V$; that is any $v\in V$ can be written as a linear combination of the basis elements, and 
+        \item The basis elements are linearly independent; that is
+        \bse 
+            \sum_{i=1}^d \lambda^i e_i =0 \quad \implies \quad  \lambda^i=0 \quad \forall i\in \{1,...,d\}.
+        \ese 
+    \een 
+\ed 
+
+\bd[Dimension of Vector Space]
+    If there exists a basis $B\se V$ for a vector space $(V,+,\cdot)$ with finitely many elements, say $d$ many, then we call $d$ the \textbf{dimension of the vector space}, denoted $\dim V =d$.
+\ed 
+
+\bcl 
+    We claim that the dimension of a vector space is well defined. That is every basis for $V$ will have $d$ elements. 
+\ecl 
+
+Note that the definition above holds for both infinite and finite dimensional vector spaces, as we did not require $d<\infty$. However from now on in these notes, we shall always assume we are dealing with a finite dimensional vector space, unless otherwise specified.
+
+\br 
+\label{rem:ComponentsWRTBasis}
+    Let $(V,+,\cdot)$ be a vector space. Then having chosen a basis $\{e_1,...,e_n\}$, we may uniquely associate 
+    \bse 
+        v \mapsto (v^1,...,v^n),
+    \ese 
+    called the \textbf{components} of $v$ \textit{with respect to} the chosen basis, such that $v=v^1e_1 + ... v^ne_n$.
+\er 
+
+Of course given the vector space $(V,+,\cdot)$ and its dual space $(V^*,+,\cdot)$, you can define a basis on each space completely independently of each other. However, there is a very nice, and incredibly helpful, way we can related these bases. 
+
+\bd[Dual Basis]
+    Let $(V,+,\cdot)$ be a vector space and let $\{e_1,...,e_n\}$ be a basis on it. We define \textit{the} \textbf{dual basis} of the dual space $(V^*,+,\cdot)$ as $\{\epsilon^1,...,\epsilon^n\}$ satisfying
+    \bse 
+        \epsilon^i(e_j) = \del^i_j = \begin{cases} 
+        1 & \text{ if } i=j, \\
+        0 & \text{ otherwise.}
+        \end{cases}
+    \ese 
+\ed 
+
+\bbox 
+    Prove that the constraint above uniquely defines the elements $\{\epsilon^i,...,\epsilon^n\}$ and show that they do indeed form a basis for $(V^*,+,\cdot)$. 
+    
+    \textit{Hint: Use the linearity of the elements $\varphi\in V^*$.}
+\ebox 
+
+\bex 
+    Let's set $N=3$ in our polynomial space (i.e. the highest order is cubed). Then the set $\{e_0,e_1,e_2,e_3\}$\footnote{Note we start the index at $0$ because it relates nicely to the order of the term. Obviously it's just an index and we can call it whatever we like so this is fine.} is a basis for this space if we identify 
+    \bse 
+        e_0(x) = 1, \qquad e_1(x) = x, \qquad e_2(x) = x^2, \qquad x_3(x) = x^3.
+    \ese 
+    It is easy to see that this is a basis because any polynomial of order 3 can be written a linear combination of these terms. The dual basis for the dual space is given by 
+    \bse 
+        \epsilon^a = \frac{1}{a!}\p^a\big|_{x=0}, 
+    \ese
+    for $a=0,1,2,3$. Direct calculation shows that this satisfies our necessary condition. 
+\eex 
+
+\section{Components of Tensors}
+
+\bd[Components of Tensors]
+    Let $T$ be a $(r,s)$-tensor over a finite dimensional vector space $(V,+,\cdot)$ and let $\{e_1,...,e_{\dim V}\}$ be a basis for it with corresponding dual basis $\{\epsilon^1,...,\epsilon^{\dim V}\}$. Then define the $(r+s)^{\dim V}$ many numbers 
+    \bse 
+        {T^{i_1...i_r}}_{j_1...j_s} := T(\epsilon^{i_1},...,\epsilon^{i_r},e_{j_1},...,e_{j_s}) \in \R 
+    \ese 
+    for $i_1,...,i_r,j_1,...,j_s \in \{1,...,\dim V\}$. These are known as the \textbf{components of $T$} \textit{with respect to} the chosen basis.
+\ed 
+
+\br 
+    It is not actually necessary that you take the dual basis above in order to define the components of a tensor. Any basis for the dual space will do, but that is almost never done. 
+\er 
+
+Knowing the components (and corresponding basis) of a tensor, we can reconstruct the entire tensor. 
+
+\bex 
+    Let $T$ be a $(1,1)$-tensor. Then ${T^i}_j:= T(\epsilon^i,e_j)$, then, using the multilinearity of the tensor, we have 
+    \bse 
+        T(\varphi,v) = T\bigg( \sum_{i=1}^{\dim V} \varphi_i \epsilon^i, \sum_{j=1}^{\dim V} v^je_j \bigg) = \sum_{i,j=1}^{\dim V} \varphi_i v^j T(\epsilon^i,e_i) = \sum_{i,j=1}^{\dim V} \varphi_i v^j {T^i}_j.
+    \ese
+\eex 
+
+\bter 
+    We call a raised index a \textit{contravariant} index and a lower index a \textit{covariant} index and we stick with the convention that a vector has components with contravariant indices and basis elements with covariant indices and covectors the other way around. This makes contact with what the naming of the contravariant/covariant order of a tensor given previously. 
+\eter
+
+In order to not always have the summation symbols everywhere Einstein came up with a clever notation, known as \textbf{Einstein summation convention}, whereby any repeated indices where one is up and one is down is implicitly summed over. For example 
+\bse 
+    v^ie_i = \sum_i v^i e_i.
+\ese 
+This notation instantly tells us that any time the same index label appears more then twice, we are dealing with something ill-defined. Equally it is not good to have the same index appearing both up or both down. That is we don't want things like 
+\bse 
+    {T^{i}}_j {S^i}_i \qquad \text{or} \qquad v^iw^i.
+\ese 
+With the Einstein summation convention, one can only add two terms that have the same indices in the same places, so 
+\bse 
+    {T^{ij}}_k + {S^{ij}}_k = {R^{ij}}_k
+\ese
+is good, but 
+\bse 
+    {T^{ij}}_k + {S^i}_{jk} = {R_{ij}}^k 
+\ese 
+is not well defined. In note of \Cref{rem:PersonalrsNotation}, it is also not well defined to write things like 
+\bse 
+    {T^{ij}}_k + S^{i\,\, j}_{\, k},
+\ese 
+\textit{unless} some sort of property is given, e.g. $S^{i\,\, j}_{\, k} = 3{S^{ij}}_k$.
+
+\br 
+    Note that we can only really use the Einstein summation convention because we are considering multilinear maps. That is we could have \bse 
+        \varphi(v^1e_i) = \varphi\bigg(\sum_i v^ie_i\bigg) \qquad \text{or} \qquad \varphi(v^1e_i) = \sum_i \varphi(v^ie_i),
+    \ese 
+    and it is only because the multilinearity equates the two that we're OK. 
+\er 
